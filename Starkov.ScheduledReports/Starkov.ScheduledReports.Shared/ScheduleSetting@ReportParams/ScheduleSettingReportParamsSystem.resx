@@ -64,4 +64,7 @@
   <data name="Property_Value" xml:space="preserve">
     <value>Value</value>
   </data>
+  <data name="Property_Type" xml:space="preserve">
+    <value>Тип</value>
+  </data>
 </root>

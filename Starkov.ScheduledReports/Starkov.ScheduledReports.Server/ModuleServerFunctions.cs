@@ -11,35 +11,53 @@ namespace Starkov.ScheduledReports.Server
 {
   public class ModuleFunctions
   {
+    
     /// <summary>
-    /// 
+    /// Получить имена модулей системы, в которых есть отчеты.
     /// </summary>
-    public void TestFunction()
+    /// <returns>Словарь (guid, имя)</returns>
+    [Public]
+    public System.Collections.Generic.Dictionary<Guid, string> GetReportsModuleNames()
     {
-      var moduleGuids = GetAllModulesGuids();
+      var moduleNames = new Dictionary<Guid, string>();
       
-      var moduleNamespaces = new List<string>();
-      var reportList = new List<string>();
-      foreach (var guid in moduleGuids)
+      foreach (var module in Sungero.Metadata.Services.MetadataService.Instance.ModuleList.Modules)
       {
-        var reports = GetModuleReports(guid);
-        foreach (var report in reports)
-        {
-          var reportName = GetReportLocalizedName(report);
-          if (!string.IsNullOrEmpty(reportName))
-            reportList.Add(reportName);
-        }
+        if (GetModuleReports(module.NameGuid) != null)
+          moduleNames.Add(module.NameGuid, module.GetDisplayName());
       }
+
+      return moduleNames;
     }
     
-    public List<Guid> GetAllModulesGuids()
+    /// <summary>
+    /// Получить список отчетов модуля в виде структуры.
+    /// </summary>
+    /// <param name="moduleGuid">Идентификатор модуля.</param>
+    /// <returns>Список отчетов модуля.</returns>
+    [Public]
+    public System.Collections.Generic.List<ScheduledReports.Structures.Module.IReportInfo> GetModuleReportsStructure(Guid moduleGuid)
     {
-      return Sungero.Metadata.Services.MetadataService.Instance.ModuleList.Modules
-        .Select(m => m.NameGuid) // TODO уточнить какой гуид нужен
-        .ToList();
+      var reports = new List<ScheduledReports.Structures.Module.IReportInfo>();
+      
+      foreach (var report in GetModuleReports(moduleGuid))
+      {
+        var newStructure = ScheduledReports.Structures.Module.ReportInfo.Create();
+        newStructure.NameGuid = report.Info.ReportTypeId;
+        newStructure.Name = report.Info.Name;
+        newStructure.LocalizedName = GetReportLocalizedName(report.Info.ReportTypeId);
+        reports.Add(newStructure);
+      }
+      
+      return reports;
     }
     
-    public System.Collections.Generic.IEnumerable<Sungero.Reporting.IReport> GetModuleReports(Guid moduleGuid)
+    /// <summary>
+    /// Получить список отчетов модуля.
+    /// </summary>
+    /// <param name="moduleGuid">Идентификатор модуля.</param>
+    /// <returns>Список отчетов модуля.</returns>
+    private System.Collections.Generic.IEnumerable<Sungero.Reporting.IReport> GetModuleReports(Guid moduleGuid)
     {
       IEnumerable<IReport> reports = null;
       var reportClass = GetReportClassForModule(moduleGuid);
@@ -53,20 +71,22 @@ namespace Starkov.ScheduledReports.Server
       return reports;
     }
     
-    public System.Type GetReportClassForModule(Guid moduleGuid)
+    private System.Type GetReportClassForModule(Guid moduleGuid)
     {
       var moduleNamespace = Sungero.Metadata.Services.MetadataSearcher.FindModuleMetadata(moduleGuid).DefaultInterfaceNamespace;
       var className = string.Format("{0}.{1}, Sungero.Domain.Interfaces, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", moduleNamespace, "Reports");
       return Type.GetType(className);
     }
     
-    public string GetReportLocalizedName(Sungero.Reporting.IReport report)
+    /// <summary>
+    /// Получить локализованное название отчета.
+    /// </summary>
+    /// <param name="reportGuid">Идентификатор отчета.</param>
+    /// <returns>Строка с именем.</returns>
+    private string GetReportLocalizedName(Guid reportGuid)
     {
       var reportLocalizedName = string.Empty;
-      if (report == null)
-        return reportLocalizedName;
-      
-      var reportMetaData = Sungero.Metadata.Services.MetadataSearcher.FindModuleItemMetadata(report.Info.ReportTypeId);
+      var reportMetaData = Sungero.Metadata.Services.MetadataSearcher.FindModuleItemMetadata(reportGuid);
       if (reportMetaData != null)
         reportLocalizedName = ((Sungero.Metadata.ReportMetadata)reportMetaData).LocalizedName;
       
@@ -81,20 +101,31 @@ namespace Starkov.ScheduledReports.Server
       var itemMetaData = Sungero.Metadata.Services.MetadataSearcher.FindModuleItemMetadata(reportGuid);
       if (itemMetaData != null)
         reportMetaData = ((Sungero.Metadata.ReportMetadata)itemMetaData);
-          
+      
       return reportMetaData;
     }
     
-    [Public]
-    public Sungero.Reporting.Shared.ReportBase GetReport(Guid reportGuid)
-    {
-      Sungero.Reporting.Shared.ReportBase reportBase = null;
-      var reportMetaData = Sungero.Metadata.Services.MetadataSearcher.FindModuleItemMetadata(reportGuid);
-      if (reportMetaData != null)
-        reportBase = ((Sungero.Metadata.ReportMetadata)reportMetaData)
-      
-      return null;
-    }
-
+    //    [Public]
+    //    public ScheduledReports.Structures.Module.IReportInfo GetReportInfo(Guid reportGuid)
+    //    {
+    //      var reportInfo = ScheduledReports.Structures.Module.ReportInfo.Create();
+//
+    //      var reportMetaData = GetReportMetaData(reportGuid);
+    //      if (reportMetaData == null)
+    //        return reportInfo;
+//
+    //      reportInfo.NameGuid = reportMetaData.NameGuid;
+    //      reportInfo.Name = reportMetaData.Name;
+    //      reportInfo.LocalizedName = GetReportLocalizedName(reportMetaData.NameGuid);
+//
+    //      foreach (var parameter in reportMetaData.Parameters)
+    //      {
+//
+    //        reportInfo.Parameters.Add(parameter.NameResourceKey);
+    //      }
+//
+    //      return reportInfo;
+    //    }
+    
   }
 }

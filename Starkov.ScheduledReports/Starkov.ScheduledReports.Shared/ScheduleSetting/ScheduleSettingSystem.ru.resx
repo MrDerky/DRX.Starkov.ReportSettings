@@ -82,4 +82,13 @@
   <data name="Property_ReportGuid" xml:space="preserve">
     <value>Идентификатор отчета</value>
   </data>
+  <data name="Action_SetReport" xml:space="preserve">
+    <value>Выбрать отчет</value>
+  </data>
+  <data name="Action_SetReportHint" xml:space="preserve">
+    <value>Выбрать отчет</value>
+  </data>
+  <data name="Action_SetReportDescription" xml:space="preserve">
+    <value>Выбрать отчет</value>
+  </data>
 </root>

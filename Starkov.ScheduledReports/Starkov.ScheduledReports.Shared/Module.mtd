@@ -63,15 +63,16 @@
   "InterfaceNamespace": "Starkov.ScheduledReports",
   "PublicFunctions": [
     {
-      "Name": "GetReport",
+      "Name": "GetModuleReportsStructure",
       "Parameters": [
         {
-          "Name": "reportGuid",
+          "Name": "moduleGuid",
           "ParameterType": "global::System.Guid",
           "ParameterTypeFullName": "System.Guid"
         }
       ],
-      "ReturnType": "Sungero.Reporting.Shared.ReportBase"
+      "ReturnType": "global::System.Collections.Generic.List<global::Starkov.ScheduledReports.Structures.Module.IReportInfo>",
+      "ReturnTypeFullName": "System.Collections.Generic.List"
     },
     {
       "Name": "GetReportMetaData",
@@ -83,9 +84,36 @@
         }
       ],
       "ReturnType": "Sungero.Metadata.ReportMetadata"
+    },
+    {
+      "Name": "GetReportsModuleNames",
+      "ReturnType": "System.Collections.Generic.Dictionary<global::System.Guid, global::System.String>"
     }
   ],
-  "PublicStructures": [],
+  "PublicStructures": [
+    {
+      "Name": "ReportInfo",
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "NameGuid",
+          "IsNullable": true,
+          "TypeFullName": "global::System.Guid"
+        },
+        {
+          "Name": "LocalizedName",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "Name",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        }
+      ],
+      "StructureNamespace": "Starkov.ScheduledReports.Structures.Module"
+    }
+  ],
   "ResourceInterfaceAssemblyName": "Sungero.Domain.Interfaces",
   "ResourceInterfaceNamespace": "Starkov.ScheduledReports",
   "ResourcesKeys": [],

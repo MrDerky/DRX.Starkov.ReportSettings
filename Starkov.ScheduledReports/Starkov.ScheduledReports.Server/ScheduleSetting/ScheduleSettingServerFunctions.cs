@@ -11,16 +11,19 @@ namespace Starkov.ScheduledReports.Server
   {
 
     /// <summary>
-    /// 
-    /// </summary>       
+    /// Заполнить параметры отчета.
+    /// </summary>
     [Public]
     public void FillReportParams()
     {
-      var reportGuid = _obj.ReportGuid;
+      var reportGuid = Guid.Parse(_obj.ReportGuid);
       var report = Starkov.ScheduledReports.PublicFunctions.Module.GetReportMetaData(reportGuid);
+      
       foreach (var parameter in report.Parameters)
       {
-        _obj.ReportParams.AddNew().Parameter = parameter.NameResourceKey;
+        var reportParam = _obj.ReportParams.AddNew();
+        reportParam.Parameter = parameter.NameResourceKey;
+        reportParam.Type = parameter.InternalDataTypeName;
       }
     }
 

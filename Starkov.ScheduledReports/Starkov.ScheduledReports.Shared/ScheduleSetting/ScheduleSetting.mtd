@@ -2,6 +2,16 @@
   "$type": "Sungero.Metadata.EntityMetadata, Sungero.Metadata",
   "NameGuid": "f7180f6a-b987-4a28-a072-d26377fb3912",
   "Name": "ScheduleSetting",
+  "Actions": [
+    {
+      "NameGuid": "425413e2-cc77-4f00-a093-16226e773d34",
+      "Name": "SetReport",
+      "ActionArea": "Card",
+      "GenerateHandler": true,
+      "LargeIconName": null,
+      "SmallIconName": null
+    }
+  ],
   "BaseGuid": "04581d26-0780-4cfd-b3cd-c2cafc5798b0",
   "CanBeNavigationPropertyType": true,
   "Code": "ScheduleSettin",
@@ -38,6 +48,57 @@
           "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
           "ParentGuid": "8fe81a02-d3f8-41f7-a041-fc8121f4def9",
           "PropertyGuid": "f8230e36-4e55-47fa-b817-a7b09ca8516a",
+          "RowNumber": 0,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "4ace95de-f32b-41ee-89e9-de04666b98bb",
+          "Name": "ReportName",
+          "ColumnNumber": 0,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+          "ParentGuid": "8fe81a02-d3f8-41f7-a041-fc8121f4def9",
+          "PropertyGuid": "db1d6419-fa2b-4082-8a72-60f33fc66992",
+          "RowNumber": 1,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "315a5905-5397-4175-a19f-5c2eda38be62",
+          "Name": "ReportGuid",
+          "ColumnNumber": 0,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+          "ParentGuid": "8fe81a02-d3f8-41f7-a041-fc8121f4def9",
+          "PropertyGuid": "56dc6f19-e028-4087-ad1c-eda957523fe8",
+          "RowNumber": 2,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlGroupMetadata, Sungero.Metadata",
+          "NameGuid": "47fac360-24ce-4fad-8359-245c4dbce89d",
+          "Name": "ControlGroup",
+          "ColumnNumber": 0,
+          "ColumnSpan": 1,
+          "GroupType": "WithTitleNoBorder",
+          "ParentGuid": "8fe81a02-d3f8-41f7-a041-fc8121f4def9",
+          "RowNumber": 3,
+          "RowSpan": 1
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "dca2dbdd-7544-4ebb-9e0a-40a5ee733378",
+          "Name": "ReportParams",
+          "ColumnNumber": 0,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.GridControlToChildCollectionBinder",
+          "HeaderLocation": "None",
+          "ParentGuid": "47fac360-24ce-4fad-8359-245c4dbce89d",
+          "PropertyGuid": "4a1aa97b-cccd-4125-bfdf-44d3703a4b7b",
           "RowNumber": 0,
           "RowSpan": 1,
           "Settings": []
@@ -116,8 +177,27 @@
     "NameGuid": "76fbcfd9-7bb7-4916-b25b-2f689dec3dd7",
     "Name": "RibbonCard",
     "Categories": [],
-    "Elements": [],
-    "Groups": [],
+    "Elements": [
+      {
+        "$type": "Sungero.Metadata.RibbonActionButtonMetadata, Sungero.Metadata",
+        "NameGuid": "58c42898-b568-4469-a916-02f3bf39a14a",
+        "Name": "SetReport",
+        "ActionGuid": "425413e2-cc77-4f00-a093-16226e773d34",
+        "ButtonSize": "Large",
+        "Index": -1,
+        "ParentGuid": "46343883-20d6-469b-a0b0-b958c15b2fae"
+      }
+    ],
+    "Groups": [
+      {
+        "NameGuid": "46343883-20d6-469b-a0b0-b958c15b2fae",
+        "Name": "Group",
+        "IconName": null,
+        "Index": 21,
+        "ParentGuid": "21a31627-5f58-4416-8c4a-90f538ee2e57",
+        "SmallIconName": null
+      }
+    ],
     "IsAncestorMetadata": true,
     "Pages": [],
     "RibbonKind": "Card"
