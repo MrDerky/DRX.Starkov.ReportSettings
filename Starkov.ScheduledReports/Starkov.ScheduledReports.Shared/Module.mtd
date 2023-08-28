@@ -1,0 +1,109 @@
+{
+  "$type": "Sungero.Metadata.ModuleMetadata, Sungero.Metadata",
+  "NameGuid": "b8698cd4-29e8-4a31-a661-b99e7ec581d1",
+  "Name": "ScheduledReports",
+  "AsyncHandlers": [],
+  "ClientAssemblyName": "Starkov.ScheduledReports.Client",
+  "ClientBaseAssemblyName": "Starkov.ScheduledReports.ClientBase",
+  "ClientBaseNamespace": "Starkov.ScheduledReports.ClientBase",
+  "ClientNamespace": "Starkov.ScheduledReports.Client",
+  "Code": "Schedul",
+  "CompanyCode": "Starkov",
+  "Cover": {
+    "NameGuid": "49d19071-904a-44c9-84fe-9536b1cd773d",
+    "Actions": [
+      {
+        "$type": "Sungero.Metadata.CoverFunctionActionMetadata, Sungero.Metadata",
+        "NameGuid": "043d5ecf-61a9-4bc3-9bf4-fd072dd5c380",
+        "Name": "Action",
+        "FunctionName": "Function2",
+        "GroupId": "f0de7443-fc90-4356-a432-2bb40eb11f8b"
+      }
+    ],
+    "Background": null,
+    "Footer": {
+      "NameGuid": "98d1ec7d-30ea-4f84-bbc8-c1ea5a816113",
+      "BackgroundPosition": "Stretch"
+    },
+    "Groups": [
+      {
+        "NameGuid": "f0de7443-fc90-4356-a432-2bb40eb11f8b",
+        "Name": "Group",
+        "BackgroundPosition": "Stretch",
+        "TabId": "cb489d3d-c67e-4346-b462-a7292e057c1d"
+      }
+    ],
+    "Header": {
+      "NameGuid": "bcea6b75-4fcd-436a-aa18-32693f286424",
+      "BackgroundPosition": "Stretch"
+    },
+    "Tabs": [
+      {
+        "NameGuid": "cb489d3d-c67e-4346-b462-a7292e057c1d",
+        "Name": "Tab"
+      }
+    ]
+  },
+  "Dependencies": [
+    {
+      "Id": "d6e461d4-80b7-4c8d-9939-a149f12c79c6",
+      "IsSolutionModule": true,
+      "MaxVersion": "",
+      "MinVersion": ""
+    }
+  ],
+  "ExplorerTreeOrder": [
+    {
+      "ItemId": "f7180f6a-b987-4a28-a072-d26377fb3912"
+    }
+  ],
+  "IconResourcesKeys": [],
+  "Importance": "Medium",
+  "InterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "InterfaceNamespace": "Starkov.ScheduledReports",
+  "PublicFunctions": [
+    {
+      "Name": "GetReport",
+      "Parameters": [
+        {
+          "Name": "reportGuid",
+          "ParameterType": "global::System.Guid",
+          "ParameterTypeFullName": "System.Guid"
+        }
+      ],
+      "ReturnType": "Sungero.Reporting.Shared.ReportBase"
+    },
+    {
+      "Name": "GetReportMetaData",
+      "Parameters": [
+        {
+          "Name": "reportGuid",
+          "ParameterType": "global::System.Guid",
+          "ParameterTypeFullName": "System.Guid"
+        }
+      ],
+      "ReturnType": "Sungero.Metadata.ReportMetadata"
+    }
+  ],
+  "PublicStructures": [],
+  "ResourceInterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "ResourceInterfaceNamespace": "Starkov.ScheduledReports",
+  "ResourcesKeys": [],
+  "ServerAssemblyName": "Starkov.ScheduledReports.Server",
+  "ServerNamespace": "Starkov.ScheduledReports.Server",
+  "SharedAssemblyName": "Starkov.ScheduledReports.Shared",
+  "SharedNamespace": "Starkov.ScheduledReports.Shared",
+  "SpecialFolders": [],
+  "Version": "0.0.1.0",
+  "Widgets": [],
+  "Versions": [
+    {
+      "Type": "ModuleMetadata",
+      "Number": 8
+    },
+    {
+      "Type": "DomainApi",
+      "Number": 3
+    }
+  ]
+}

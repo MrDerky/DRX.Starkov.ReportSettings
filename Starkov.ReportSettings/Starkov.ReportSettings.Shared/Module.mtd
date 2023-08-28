@@ -1,0 +1,65 @@
+{
+  "$type": "Sungero.Metadata.SolutionMetadata, Sungero.Metadata",
+  "NameGuid": "d6e461d4-80b7-4c8d-9939-a149f12c79c6",
+  "Name": "ReportSettings",
+  "AsyncHandlers": [],
+  "ClientAssemblyName": "Starkov.ReportSettings.Client",
+  "ClientBaseAssemblyName": "Starkov.ReportSettings.ClientBase",
+  "ClientBaseNamespace": "Starkov.ReportSettings.ClientBase",
+  "ClientNamespace": "Starkov.ReportSettings.Client",
+  "Code": "ReportS",
+  "CompanyCode": "Starkov",
+  "Cover": {
+    "NameGuid": "1cdde0a3-15c1-4eaf-bd6c-236c2a76b695",
+    "Actions": [],
+    "Background": null,
+    "Footer": {
+      "NameGuid": "70bd43c4-40f4-4672-b848-fa2a31e66263",
+      "BackgroundPosition": "Stretch"
+    },
+    "Groups": [],
+    "Header": {
+      "NameGuid": "c95ea9c4-cad6-41c4-b2b7-4379b19d7364",
+      "BackgroundPosition": "Stretch"
+    },
+    "Tabs": []
+  },
+  "Dependencies": [
+    {
+      "Id": "df83a2ea-8d43-4ec4-a34a-2e61863014df",
+      "MaxVersion": "",
+      "MinVersion": "4.5.49.0"
+    }
+  ],
+  "DesktopViews": [],
+  "IconResourcesKeys": [],
+  "Importance": "Medium",
+  "InterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "InterfaceNamespace": "Starkov.ReportSettings",
+  "OrderedSpecialFolders": [],
+  "PublicStructures": [],
+  "ResourceInterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "ResourceInterfaceNamespace": "Starkov.ReportSettings",
+  "ResourcesKeys": [],
+  "ServerAssemblyName": "Starkov.ReportSettings.Server",
+  "ServerNamespace": "Starkov.ReportSettings.Server",
+  "SharedAssemblyName": "Starkov.ReportSettings.Shared",
+  "SharedNamespace": "Starkov.ReportSettings.Shared",
+  "SpecialFolders": [],
+  "Version": "0.0.1.0",
+  "Widgets": [],
+  "Versions": [
+    {
+      "Type": "SolutionMetadata",
+      "Number": 8
+    },
+    {
+      "Type": "ModuleMetadata",
+      "Number": 8
+    },
+    {
+      "Type": "DomainApi",
+      "Number": 3
+    }
+  ]
+}
