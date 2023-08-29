@@ -40,11 +40,20 @@
     {
       "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
       "NameGuid": "137eccdf-2dd7-4d9e-b22a-71848db70353",
-      "Name": "Type",
+      "Name": "InternalDataTypeName",
       "CanBeSearch": false,
-      "Code": "Type",
+      "Code": "InternalDataTy",
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
       "PreviousPropertyGuid": "18bd77fd-a2bb-4299-9232-658b084897e7"
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "d718a661-4813-4445-ae38-42af059b1ca0",
+      "Name": "EntityType",
+      "CanBeSearch": false,
+      "Code": "EntityType",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "137eccdf-2dd7-4d9e-b22a-71848db70353"
     }
   ],
   "PublicStructures": [],

@@ -103,4 +103,19 @@
   <data name="ControlGroup_47fac36024ce4fad8359245c4dbce89d" xml:space="preserve">
     <value>Параметры отчета</value>
   </data>
+  <data name="Action_SetParameter" xml:space="preserve">
+    <value>Задать параметр</value>
+  </data>
+  <data name="Action_SetParameterDescription" xml:space="preserve">
+    <value>Задать параметр</value>
+  </data>
+  <data name="Action_SetParameterHint" xml:space="preserve">
+    <value>Задать параметр</value>
+  </data>
+  <data name="Action_SetParameterConfirmationMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Action_SetParameterConfirmationDescription" xml:space="preserve">
+    <value />
+  </data>
 </root>

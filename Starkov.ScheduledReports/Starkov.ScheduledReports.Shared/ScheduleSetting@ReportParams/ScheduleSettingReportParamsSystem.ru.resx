@@ -64,4 +64,7 @@
   <data name="Property_Value" xml:space="preserve">
     <value>Значение</value>
   </data>
+  <data name="Property_EntityType" xml:space="preserve">
+    <value>Тип сущности</value>
+  </data>
 </root>

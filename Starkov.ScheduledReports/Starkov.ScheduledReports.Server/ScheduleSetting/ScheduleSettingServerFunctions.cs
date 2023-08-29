@@ -23,7 +23,8 @@ namespace Starkov.ScheduledReports.Server
       {
         var reportParam = _obj.ReportParams.AddNew();
         reportParam.Parameter = parameter.NameResourceKey;
-        reportParam.Type = parameter.InternalDataTypeName;
+        reportParam.InternalDataTypeName = parameter.InternalDataTypeName;
+        reportParam.EntityType = parameter.EntityType.ToString();
       }
     }
 

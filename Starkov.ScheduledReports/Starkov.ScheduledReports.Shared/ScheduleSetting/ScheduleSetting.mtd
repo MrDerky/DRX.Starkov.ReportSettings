@@ -10,6 +10,15 @@
       "GenerateHandler": true,
       "LargeIconName": null,
       "SmallIconName": null
+    },
+    {
+      "NameGuid": "4518fd16-7772-4bce-b1a6-088d5243f292",
+      "Name": "SetParameter",
+      "ActionArea": "ChildCollection",
+      "CollectionPropertyGuid": "4a1aa97b-cccd-4125-bfdf-44d3703a4b7b",
+      "GenerateHandler": true,
+      "LargeIconName": null,
+      "SmallIconName": null
     }
   ],
   "BaseGuid": "04581d26-0780-4cfd-b3cd-c2cafc5798b0",
