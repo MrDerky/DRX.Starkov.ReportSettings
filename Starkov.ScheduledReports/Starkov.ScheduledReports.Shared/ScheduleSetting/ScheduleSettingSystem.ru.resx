@@ -103,4 +103,7 @@
   <data name="Property_ModuleGuid" xml:space="preserve">
     <value>ИД Модуля</value>
   </data>
+  <data name="Instruction" xml:space="preserve">
+    <value>Выполните действие "Запустить отчет" для того, чтобы параметры автоматически подтянулись из диалога.</value>
+  </data>
 </root>

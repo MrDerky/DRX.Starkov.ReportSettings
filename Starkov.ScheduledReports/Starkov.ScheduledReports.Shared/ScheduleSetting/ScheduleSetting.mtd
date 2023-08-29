@@ -131,6 +131,9 @@
       ]
     }
   ],
+  "HandledEvents": [
+    "ShowingClient"
+  ],
   "IconResourcesKeys": [],
   "IntegrationServiceName": "ScheduledReportsScheduleSetting",
   "OperationsClass": "",
@@ -222,7 +225,9 @@
     }
   ],
   "PublicStructures": [],
-  "ResourcesKeys": [],
+  "ResourcesKeys": [
+    "SheduleSettingInstruction"
+  ],
   "RibbonCardMetadata": {
     "NameGuid": "76fbcfd9-7bb7-4916-b25b-2f689dec3dd7",
     "Name": "RibbonCard",
