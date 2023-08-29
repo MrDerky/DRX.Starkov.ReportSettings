@@ -103,19 +103,19 @@
   <data name="ControlGroup_47fac36024ce4fad8359245c4dbce89d" xml:space="preserve">
     <value>Параметры отчета</value>
   </data>
-  <data name="Action_SetParameter" xml:space="preserve">
-    <value>Задать параметр</value>
+  <data name="Action_EditParameter" xml:space="preserve">
+    <value>Edit Parameter</value>
   </data>
-  <data name="Action_SetParameterDescription" xml:space="preserve">
-    <value>Задать параметр</value>
+  <data name="Action_EditParameterDescription" xml:space="preserve">
+    <value>Edit Parameter</value>
   </data>
-  <data name="Action_SetParameterHint" xml:space="preserve">
-    <value>Задать параметр</value>
+  <data name="Action_EditParameterHint" xml:space="preserve">
+    <value>Edit Parameter</value>
   </data>
-  <data name="Action_SetParameterConfirmationMessage" xml:space="preserve">
+  <data name="Action_EditParameterConfirmationMessage" xml:space="preserve">
     <value />
   </data>
-  <data name="Action_SetParameterConfirmationDescription" xml:space="preserve">
+  <data name="Action_EditParameterConfirmationDescription" xml:space="preserve">
     <value />
   </data>
   <data name="Action_StartReport" xml:space="preserve">
@@ -153,5 +153,8 @@
   </data>
   <data name="Instruction" xml:space="preserve">
     <value>Perform the "Run Report" action so that the parameters are automatically pulled up from the dialog.</value>
+  </data>
+  <data name="Property_Observers" xml:space="preserve">
+    <value>Observers</value>
   </data>
 </root>

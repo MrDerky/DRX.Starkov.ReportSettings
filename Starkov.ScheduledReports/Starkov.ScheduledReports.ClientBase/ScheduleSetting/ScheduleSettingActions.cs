@@ -11,12 +11,12 @@ namespace Starkov.ScheduledReports.Client
   partial class ScheduleSettingReportParamsActions
   {
 
-    public virtual bool CanSetParameter(Sungero.Domain.Client.CanExecuteChildCollectionActionArgs e)
+    public virtual bool CanEditParameter(Sungero.Domain.Client.CanExecuteChildCollectionActionArgs e)
     {
       return true;
     }
 
-    public virtual void SetParameter(Sungero.Domain.Client.ExecuteChildCollectionActionArgs e)
+    public virtual void EditParameter(Sungero.Domain.Client.ExecuteChildCollectionActionArgs e)
     {
       // TODO Перенести код
       if (!string.IsNullOrEmpty(_obj.EntityType))
@@ -120,7 +120,8 @@ namespace Starkov.ScheduledReports.Client
       //      var rep  = Sungero.Docflow.Reports.GetApprovalRuleCardReport();
       //      rep.Open();
       
-      PublicFunctions.ScheduleSetting.FillReportParams(_obj, report);
+//      PublicFunctions.ScheduleSetting.FillReportParams(_obj, report);
+      PublicFunctions.ScheduleSetting.FillReportParamsClear(_obj, report);
     }
 
     public virtual bool CanStartReport(Sungero.Domain.Client.CanExecuteActionArgs e)

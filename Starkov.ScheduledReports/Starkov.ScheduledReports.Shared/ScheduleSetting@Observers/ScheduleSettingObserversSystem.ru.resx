@@ -58,64 +58,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Property_Name" xml:space="preserve">
-    <value>Имя</value>
-  </data>
-  <data name="DisplayName" xml:space="preserve">
-    <value>Настройка расписания</value>
-  </data>
-  <data name="AccusativeDisplayName" xml:space="preserve">
-    <value>Настройку расписания</value>
-  </data>
-  <data name="CollectionDisplayName" xml:space="preserve">
-    <value>Настройки расписания</value>
-  </data>
-  <data name="Property_ModuleName" xml:space="preserve">
-    <value>Модуль</value>
-  </data>
-  <data name="Property_ReportName" xml:space="preserve">
-    <value>Отчет</value>
-  </data>
-  <data name="Property_ReportParams" xml:space="preserve">
-    <value>Параметры отчета</value>
-  </data>
-  <data name="Property_ReportGuid" xml:space="preserve">
-    <value>Идентификатор отчета</value>
-  </data>
-  <data name="Action_SetReport" xml:space="preserve">
-    <value>Выбрать отчет</value>
-  </data>
-  <data name="Action_SetReportHint" xml:space="preserve">
-    <value>Выбрать отчет</value>
-  </data>
-  <data name="Action_SetReportDescription" xml:space="preserve">
-    <value>Выбрать отчет</value>
-  </data>
-  <data name="Action_StartReport" xml:space="preserve">
-    <value>Запустить отчет</value>
-  </data>
-  <data name="Action_StartReportHint" xml:space="preserve">
-    <value>Запустить отчет</value>
-  </data>
-  <data name="Action_StartReportDescription" xml:space="preserve">
-    <value>Запустить отчет</value>
-  </data>
-  <data name="Property_ModuleGuid" xml:space="preserve">
-    <value>ИД Модуля</value>
-  </data>
-  <data name="Instruction" xml:space="preserve">
-    <value>Выполните действие "Запустить отчет" для того, чтобы параметры автоматически подтянулись из диалога.</value>
-  </data>
-  <data name="Property_Observers" xml:space="preserve">
-    <value>Получатели</value>
-  </data>
-  <data name="Action_EditParameter" xml:space="preserve">
-    <value>Редактировать параметр</value>
-  </data>
-  <data name="Action_EditParameterHint" xml:space="preserve">
-    <value>Редактировать параметр</value>
-  </data>
-  <data name="Action_EditParameterDescription" xml:space="preserve">
-    <value>Редактировать параметр</value>
+  <data name="Property_Recipient" xml:space="preserve">
+    <value>Получатель</value>
   </data>
 </root>

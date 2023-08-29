@@ -13,7 +13,7 @@
     },
     {
       "NameGuid": "4518fd16-7772-4bce-b1a6-088d5243f292",
-      "Name": "SetParameter",
+      "Name": "EditParameter",
       "ActionArea": "ChildCollection",
       "CollectionPropertyGuid": "4a1aa97b-cccd-4125-bfdf-44d3703a4b7b",
       "GenerateHandler": true,
@@ -111,7 +111,7 @@
           "ColumnSpan": 1,
           "GroupType": "WithTitleNoBorder",
           "ParentGuid": "8fe81a02-d3f8-41f7-a041-fc8121f4def9",
-          "RowNumber": 3,
+          "RowNumber": 4,
           "RowSpan": 1
         },
         {
@@ -127,6 +127,24 @@
           "RowNumber": 0,
           "RowSpan": 1,
           "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "23bd4634-d8f9-49a5-8e74-783ad27af05d",
+          "Name": "Observers",
+          "ColumnNumber": 0,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.MultiLikeEditorToCollectionBinder",
+          "ParentGuid": "8fe81a02-d3f8-41f7-a041-fc8121f4def9",
+          "PropertyGuid": "4e2d2e98-ccf6-4ee3-87cf-36d383647203",
+          "RowNumber": 3,
+          "RowSpan": 1,
+          "Settings": [
+            {
+              "Name": "NavigationPropertyGuid",
+              "Value": "8f353f3f-7296-43b5-9ed1-48a86ab6468e"
+            }
+          ]
         }
       ]
     }
@@ -145,6 +163,7 @@
       "Code": "Name",
       "IsDisplayValue": true,
       "IsQuickSearchAllowed": true,
+      "IsRequired": true,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
       "PreviousPropertyGuid": "1dcedc29-5140-4770-ac92-eabc212326a1"
     },
@@ -161,6 +180,9 @@
       "NameGuid": "db1d6419-fa2b-4082-8a72-60f33fc66992",
       "Name": "ReportName",
       "Code": "ReportName",
+      "HandledEvents": [
+        "ChangedShared"
+      ],
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
       "PreviousPropertyGuid": "f3cb84a2-628c-4a47-982b-e019f8d6f475"
     },
@@ -192,6 +214,15 @@
       "Code": "ModuleGuid",
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
       "PreviousPropertyGuid": "0c802c09-2c1b-475e-b470-c074127823fe"
+    },
+    {
+      "$type": "Sungero.Metadata.CollectionPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "4e2d2e98-ccf6-4ee3-87cf-36d383647203",
+      "Name": "Observers",
+      "Code": "ScheduleSetti2",
+      "EntityGuid": "ae5c2e4d-d5f8-4e0c-91c0-8b9253975151",
+      "IsShowedInList": false,
+      "PreviousPropertyGuid": "4a1aa97b-cccd-4125-bfdf-44d3703a4b7b"
     }
   ],
   "PublicFunctions": [
@@ -209,6 +240,22 @@
     },
     {
       "Name": "FillReportParams",
+      "Parameters": [
+        {
+          "Name": "scheduleSetting",
+          "ParameterType": "global::Starkov.ScheduledReports.IScheduleSetting",
+          "ParameterTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "report",
+          "ParameterType": "Sungero.Reporting.Shared.ReportBase"
+        }
+      ],
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "FillReportParamsClear",
       "Parameters": [
         {
           "Name": "scheduleSetting",

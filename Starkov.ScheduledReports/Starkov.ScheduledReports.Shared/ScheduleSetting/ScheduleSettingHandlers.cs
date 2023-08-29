@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -10,6 +10,11 @@ namespace Starkov.ScheduledReports
 
   partial class ScheduleSettingSharedHandlers
   {
+
+    public virtual void ReportNameChanged(Sungero.Domain.Shared.StringPropertyChangedEventArgs e)
+    {
+      Functions.ScheduleSetting.FillName(_obj);
+    }
 
     public virtual void ReportGuidChanged(Sungero.Domain.Shared.StringPropertyChangedEventArgs e)
     {

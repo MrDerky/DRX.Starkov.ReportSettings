@@ -38,6 +38,38 @@ namespace Starkov.ScheduledReports.Server
     /// Заполнить параметры отчета.
     /// </summary>
     [Public]
+    public void FillReportParamsClear(Sungero.Reporting.Shared.ReportBase report)
+    {
+      _obj.ReportParams.Clear();
+      var reportMetaData = Starkov.ScheduledReports.PublicFunctions.Module.GetReportMetaData(report.Info.ReportTypeId);
+      
+      foreach (var parameter in report.Parameters)
+      {
+        var reportParam = _obj.ReportParams.AddNew();
+        //        var reportParam = _obj.ReportParams.FirstOrDefault(p => p.Parameter == parameter.Key);
+        //        if (reportParam != null)
+        //        {
+
+        reportParam.Parameter = parameter.Key;
+
+        var entityParameter = parameter.Value as Sungero.Reporting.Shared.EntityParameter;
+        if (entityParameter != null)
+        {
+          reportParam.ValueId = entityParameter.Entity.Id; //EntityIdentifier.Id;
+          reportParam.ValueDisplay = entityParameter.Entity.DisplayValue;
+          reportParam.EntityType = entityParameter.EntityType.ToString();
+          reportParam.InternalDataTypeName = entityParameter.GetType().ToString();
+        }
+        else
+          reportParam.ValueDisplay = parameter.Value.ToString();
+        //        }
+      }
+    }
+    
+    /// <summary>
+    /// Заполнить параметры отчета.
+    /// </summary>
+    [Public]
     public void FillReportParams(Sungero.Reporting.Shared.ReportBase report)
     {
       foreach (var parameter in report.Parameters)
@@ -56,7 +88,6 @@ namespace Starkov.ScheduledReports.Server
         }
       }
     }
-    
     
     //    public Sungero.Domain.Shared.IEntity GetEntity(object
     public object GetObjectFromParameter(string type, string parameter)

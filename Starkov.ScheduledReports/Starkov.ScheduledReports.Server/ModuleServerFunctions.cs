@@ -20,29 +20,14 @@ namespace Starkov.ScheduledReports.Server
       if (report == null)
         return;
       
-      //      foreach (var parameter in report.Parameters)
-      //      {
-      //        var settingParam = setting.ReportParams.FirstOrDefault(p => p.Parameter == parameter.Key);
-      //        if (settingParam == null || (string.IsNullOrEmpty(settingParam.ValueDisplay) && !settingParam.ValueId.HasValue))
-      //          continue;
-//
-      //        var entityParameter = parameter.Value as Sungero.Reporting.Shared.EntityParameter;
-      //        if (entityParameter != null)
-      //        {
-      //          //entityParameter.EntityIdentifier.Id = parameter.ValueId;
-      //          var testObject = Sungero.Company.Employees.Get(settingParam.ValueId.Value);
-      //          report.SetParameterValue(parameter.Key, testObject);
-      //        }
-      //        else
-      //          report.SetParameterValue(parameter.Key, settingParam.ValueDisplay);
-      //      }
-      
+      var performer = Sungero.Company.Employees.Null;
       foreach (var parameter in setting.ReportParams.Where(p => !string.IsNullOrEmpty(p.ValueDisplay)))
       {
         if (parameter.ValueId.HasValue)
         {
           var testObject = Sungero.Company.Employees.Get(parameter.ValueId.Value);
           report.SetParameterValue(parameter.Parameter, testObject);
+          performer = testObject;
         }
         else
         {
@@ -51,23 +36,17 @@ namespace Starkov.ScheduledReports.Server
         }
       }
       
-      using (var reportStream = new System.IO.MemoryStream())
-      {
-        report.InternalExecute(reportStream);
-        //        reportStream.WriteTo("C:\test.xlsx");
-        //        document.CreateVersionFrom(reportStream, "pdf");
-        //        document.LastVersion.Author = Users.Current;
-        //        document.AccessRights.Grant(Roles.AllUsers, DefaultAccessRightsTypes.Read);
-        //        document.AssociatedApplication = Sungero.Content.AssociatedApplications.GetAll(app => app.Extension == "pdf").FirstOrDefault();
-        //        document.DocumentKind = DocKindFunctions.GetNativeDocumentKind(DocKind.VacationScheduleAcquaintanceListKind);
-        //        document.Department = department;
-        //        document.Employee = Employees.GetAll(l => l.Department.Equals(department)).FirstOrDefault();
-        //        document.BusinessUnit = department.BusinessUnit;
-        //        document.Year = new DateTime(year, 1, 1);
-        //        document.State.Properties.AssociatedApplication.IsRequired = false;
-        //        document.Save();
-      }
+      var document = Sungero.Docflow.SimpleDocuments.Create();
+      document.Name = setting.Name;
+      report.ExportTo(document);
+      document.Save();
       
+      if (setting.Observers.Any())
+      {
+        var task = Sungero.Workflow.SimpleTasks.CreateWithNotices(setting.Name, setting.Observers.Select(o => o.Recipient).ToArray());
+        task.Attachments.Add(document);
+        task.Start();
+      }
     }
 
     [Public, Remote]
