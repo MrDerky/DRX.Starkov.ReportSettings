@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -7,6 +7,7 @@ using Starkov.ScheduledReports.ScheduleSetting;
 
 namespace Starkov.ScheduledReports
 {
+
   partial class ScheduleSettingSharedHandlers
   {
 

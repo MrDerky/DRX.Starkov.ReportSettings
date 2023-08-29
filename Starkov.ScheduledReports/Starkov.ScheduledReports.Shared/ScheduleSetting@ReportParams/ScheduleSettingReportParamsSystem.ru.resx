@@ -61,10 +61,16 @@
   <data name="Property_Parameter" xml:space="preserve">
     <value>Параметр</value>
   </data>
-  <data name="Property_Value" xml:space="preserve">
+  <data name="Property_ValueDisplay" xml:space="preserve">
     <value>Значение</value>
   </data>
   <data name="Property_EntityType" xml:space="preserve">
     <value>Тип сущности</value>
+  </data>
+  <data name="Property_ValueId" xml:space="preserve">
+    <value>ИД</value>
+  </data>
+  <data name="Property_IsRelativeDate" xml:space="preserve">
+    <value>Относительная дата</value>
   </data>
 </root>

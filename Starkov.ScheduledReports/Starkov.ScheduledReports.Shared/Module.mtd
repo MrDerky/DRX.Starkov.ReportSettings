@@ -63,6 +63,36 @@
   "InterfaceNamespace": "Starkov.ScheduledReports",
   "PublicFunctions": [
     {
+      "Name": "GetEntitiesByGuid",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "entityGuid",
+          "ParameterType": "global::System.Guid",
+          "ParameterTypeFullName": "System.Guid"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.Collections.Generic.List<global::Sungero.Domain.Shared.IEntity>",
+      "ReturnTypeFullName": "System.Collections.Generic.List"
+    },
+    {
+      "Name": "GetModuleReportByGuid",
+      "Parameters": [
+        {
+          "Name": "moduleGuid",
+          "ParameterType": "global::System.Guid",
+          "ParameterTypeFullName": "System.Guid"
+        },
+        {
+          "Name": "reportGuid",
+          "ParameterType": "global::System.Guid",
+          "ParameterTypeFullName": "System.Guid"
+        }
+      ],
+      "ReturnType": "Sungero.Reporting.Shared.ReportBase"
+    },
+    {
       "Name": "GetModuleReportsStructure",
       "Parameters": [
         {
@@ -88,6 +118,18 @@
     {
       "Name": "GetReportsModuleNames",
       "ReturnType": "System.Collections.Generic.Dictionary<global::System.Guid, global::System.String>"
+    },
+    {
+      "Name": "StartSheduleReport",
+      "Parameters": [
+        {
+          "Name": "setting",
+          "ParameterType": "global::Starkov.ScheduledReports.IScheduleSetting",
+          "ParameterTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
+        }
+      ],
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
     }
   ],
   "PublicStructures": [

@@ -19,6 +19,22 @@
       "GenerateHandler": true,
       "LargeIconName": null,
       "SmallIconName": null
+    },
+    {
+      "NameGuid": "ba83e3af-b2fa-4466-8a76-7763264cb28b",
+      "Name": "StartReport",
+      "ActionArea": "Card",
+      "GenerateHandler": true,
+      "LargeIconName": null,
+      "SmallIconName": null
+    },
+    {
+      "NameGuid": "cbc203b8-4428-4b75-b092-b0b6568f51b1",
+      "Name": "StartReportWithParameters",
+      "ActionArea": "Card",
+      "GenerateHandler": true,
+      "LargeIconName": null,
+      "SmallIconName": null
     }
   ],
   "BaseGuid": "04581d26-0780-4cfd-b3cd-c2cafc5798b0",
@@ -132,8 +148,8 @@
     {
       "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
       "NameGuid": "0c802c09-2c1b-475e-b470-c074127823fe",
-      "Name": "Module",
-      "Code": "Module",
+      "Name": "ModuleName",
+      "Code": "ModuleName",
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
       "PreviousPropertyGuid": "f8230e36-4e55-47fa-b817-a7b09ca8516a"
     },
@@ -143,7 +159,7 @@
       "Name": "ReportName",
       "Code": "ReportName",
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
-      "PreviousPropertyGuid": "0c802c09-2c1b-475e-b470-c074127823fe"
+      "PreviousPropertyGuid": "f3cb84a2-628c-4a47-982b-e019f8d6f475"
     },
     {
       "$type": "Sungero.Metadata.CollectionPropertyMetadata, Sungero.Metadata",
@@ -151,6 +167,7 @@
       "Name": "ReportParams",
       "Code": "ScheduleSetti1",
       "EntityGuid": "80e0c1b8-8b9e-4ae5-a09a-cbf478b1b392",
+      "IsEnabled": false,
       "IsShowedInList": false,
       "PreviousPropertyGuid": "56dc6f19-e028-4087-ad1c-eda957523fe8"
     },
@@ -164,6 +181,14 @@
       ],
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
       "PreviousPropertyGuid": "db1d6419-fa2b-4082-8a72-60f33fc66992"
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "f3cb84a2-628c-4a47-982b-e019f8d6f475",
+      "Name": "ModuleGuid",
+      "Code": "ModuleGuid",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "0c802c09-2c1b-475e-b470-c074127823fe"
     }
   ],
   "PublicFunctions": [
@@ -174,6 +199,22 @@
           "Name": "scheduleSetting",
           "ParameterType": "global::Starkov.ScheduledReports.IScheduleSetting",
           "ParameterTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
+        }
+      ],
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "FillReportParams",
+      "Parameters": [
+        {
+          "Name": "scheduleSetting",
+          "ParameterType": "global::Starkov.ScheduledReports.IScheduleSetting",
+          "ParameterTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "report",
+          "ParameterType": "Sungero.Reporting.Shared.ReportBase"
         }
       ],
       "ReturnType": "void",
@@ -194,6 +235,24 @@
         "ActionGuid": "425413e2-cc77-4f00-a093-16226e773d34",
         "ButtonSize": "Large",
         "Index": -1,
+        "ParentGuid": "46343883-20d6-469b-a0b0-b958c15b2fae"
+      },
+      {
+        "$type": "Sungero.Metadata.RibbonActionButtonMetadata, Sungero.Metadata",
+        "NameGuid": "7c4df4fe-01d5-4046-ab4b-cd4a26a17985",
+        "Name": "StartReport",
+        "ActionGuid": "ba83e3af-b2fa-4466-8a76-7763264cb28b",
+        "ButtonSize": "Large",
+        "Index": 0,
+        "ParentGuid": "46343883-20d6-469b-a0b0-b958c15b2fae"
+      },
+      {
+        "$type": "Sungero.Metadata.RibbonActionButtonMetadata, Sungero.Metadata",
+        "NameGuid": "f1f4cc57-5a68-438b-9317-6a0c526e4580",
+        "Name": "StartReportWithParameters",
+        "ActionGuid": "cbc203b8-4428-4b75-b092-b0b6568f51b1",
+        "ButtonSize": "Large",
+        "Index": 1,
         "ParentGuid": "46343883-20d6-469b-a0b0-b958c15b2fae"
       }
     ],

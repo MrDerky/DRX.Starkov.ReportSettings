@@ -70,7 +70,7 @@
   <data name="CollectionDisplayName" xml:space="preserve">
     <value>Настройки расписания</value>
   </data>
-  <data name="Property_Module" xml:space="preserve">
+  <data name="Property_ModuleName" xml:space="preserve">
     <value>Модуль</value>
   </data>
   <data name="Property_ReportName" xml:space="preserve">
@@ -90,5 +90,17 @@
   </data>
   <data name="Action_SetReportDescription" xml:space="preserve">
     <value>Выбрать отчет</value>
+  </data>
+  <data name="Action_StartReport" xml:space="preserve">
+    <value>Запустить отчет</value>
+  </data>
+  <data name="Action_StartReportHint" xml:space="preserve">
+    <value>Запустить отчет</value>
+  </data>
+  <data name="Action_StartReportDescription" xml:space="preserve">
+    <value>Запустить отчет</value>
+  </data>
+  <data name="Property_ModuleGuid" xml:space="preserve">
+    <value>ИД Модуля</value>
   </data>
 </root>

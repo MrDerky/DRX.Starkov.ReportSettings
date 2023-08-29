@@ -6,11 +6,85 @@ using Sungero.CoreEntities;
 using Sungero.Domain.Shared;
 using Sungero.Metadata;
 using Sungero.Reporting;
+using Sungero.Domain.SessionExtensions;
 
 namespace Starkov.ScheduledReports.Server
 {
   public class ModuleFunctions
   {
+    
+    [Public]
+    public void StartSheduleReport(Starkov.ScheduledReports.IScheduleSetting setting)
+    {
+      var report = GetModuleReportByGuid(Guid.Parse(setting.ModuleGuid), Guid.Parse(setting.ReportGuid));
+      if (report == null)
+        return;
+      
+      //      foreach (var parameter in report.Parameters)
+      //      {
+      //        var settingParam = setting.ReportParams.FirstOrDefault(p => p.Parameter == parameter.Key);
+      //        if (settingParam == null || (string.IsNullOrEmpty(settingParam.ValueDisplay) && !settingParam.ValueId.HasValue))
+      //          continue;
+//
+      //        var entityParameter = parameter.Value as Sungero.Reporting.Shared.EntityParameter;
+      //        if (entityParameter != null)
+      //        {
+      //          //entityParameter.EntityIdentifier.Id = parameter.ValueId;
+      //          var testObject = Sungero.Company.Employees.Get(settingParam.ValueId.Value);
+      //          report.SetParameterValue(parameter.Key, testObject);
+      //        }
+      //        else
+      //          report.SetParameterValue(parameter.Key, settingParam.ValueDisplay);
+      //      }
+      
+      foreach (var parameter in setting.ReportParams.Where(p => !string.IsNullOrEmpty(p.ValueDisplay)))
+      {
+        if (parameter.ValueId.HasValue)
+        {
+          var testObject = Sungero.Company.Employees.Get(parameter.ValueId.Value);
+          report.SetParameterValue(parameter.Parameter, testObject);
+        }
+        else
+        {
+          var testDate = DateTime.Parse(parameter.ValueDisplay);
+          report.SetParameterValue(parameter.Parameter, testDate);
+        }
+      }
+      
+      using (var reportStream = new System.IO.MemoryStream())
+      {
+        report.InternalExecute(reportStream);
+        //        reportStream.WriteTo("C:\test.xlsx");
+        //        document.CreateVersionFrom(reportStream, "pdf");
+        //        document.LastVersion.Author = Users.Current;
+        //        document.AccessRights.Grant(Roles.AllUsers, DefaultAccessRightsTypes.Read);
+        //        document.AssociatedApplication = Sungero.Content.AssociatedApplications.GetAll(app => app.Extension == "pdf").FirstOrDefault();
+        //        document.DocumentKind = DocKindFunctions.GetNativeDocumentKind(DocKind.VacationScheduleAcquaintanceListKind);
+        //        document.Department = department;
+        //        document.Employee = Employees.GetAll(l => l.Department.Equals(department)).FirstOrDefault();
+        //        document.BusinessUnit = department.BusinessUnit;
+        //        document.Year = new DateTime(year, 1, 1);
+        //        document.State.Properties.AssociatedApplication.IsRequired = false;
+        //        document.Save();
+      }
+      
+    }
+
+    [Public, Remote]
+    public List<Sungero.Domain.Shared.IEntity> GetEntitiesByGuid(Guid entityGuid)
+    {
+      var entities = new List<IEntity>();
+      var entityType = Sungero.Domain.Shared.TypeExtension.GetTypeByGuid(entityGuid);
+      if (entityType == null)
+        return entities;
+      
+      using (var session = new Sungero.Domain.Session())
+      {
+        entities = session.GetAll(entityType).ToList();
+      }
+      
+      return entities;
+    }
     
     /// <summary>
     /// Получить имена модулей системы, в которых есть отчеты.
@@ -52,6 +126,33 @@ namespace Starkov.ScheduledReports.Server
       return reports;
     }
     
+    [Public]
+    public Sungero.Reporting.Shared.ReportBase GetModuleReportByGuid(Guid moduleGuid, Guid reportGuid)
+    {
+      Sungero.Reporting.Shared.ReportBase report = null;
+      //      if (reportGuid == null)
+      //        return report;
+//
+      //      using (var session = new Sungero.Domain.Session())
+      //      {
+      //        report = session.GetAll(Sungero.Reporting.Shared.ReportBase)
+      //          .Where(r => (IReport)r != null && ((IReport)r).Info.ReportTypeId == reportGuid)
+      //          .FirstOrDefault();
+      //      }
+
+      var reportClass = GetReportClassForModule(moduleGuid);
+      if (reportClass == null)
+        return report;
+      
+      var metodName = string.Format("Get{0}", GetReportMetaData(reportGuid)?.Name);
+      
+      var getMethod = reportClass.GetMethods().Where(m => m.Name == metodName).FirstOrDefault();
+      if (getMethod != null)
+        report = (Sungero.Reporting.Shared.ReportBase)getMethod.Invoke(null, null);
+      
+      return report;
+    }
+    
     /// <summary>
     /// Получить список отчетов модуля.
     /// </summary>
@@ -73,7 +174,7 @@ namespace Starkov.ScheduledReports.Server
     
     private System.Type GetReportClassForModule(Guid moduleGuid)
     {
-      var moduleNamespace = Sungero.Metadata.Services.MetadataSearcher.FindModuleMetadata(moduleGuid).DefaultInterfaceNamespace;
+      var moduleNamespace = Sungero.Metadata.Services.MetadataSearcher.FindModuleMetadata(moduleGuid)?.DefaultInterfaceNamespace;
       var className = string.Format("{0}.{1}, Sungero.Domain.Interfaces, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", moduleNamespace, "Reports");
       return Type.GetType(className);
     }
