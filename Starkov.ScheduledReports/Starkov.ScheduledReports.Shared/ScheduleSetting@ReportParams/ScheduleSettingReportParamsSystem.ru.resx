@@ -61,10 +61,10 @@
   <data name="Property_Parameter" xml:space="preserve">
     <value>Параметр</value>
   </data>
-  <data name="Property_ValueDisplay" xml:space="preserve">
+  <data name="Property_ValueText" xml:space="preserve">
     <value>Значение</value>
   </data>
-  <data name="Property_EntityType" xml:space="preserve">
+  <data name="Property_EntityGuid" xml:space="preserve">
     <value>Тип сущности</value>
   </data>
   <data name="Property_ValueId" xml:space="preserve">

@@ -157,4 +157,22 @@
   <data name="Property_Observers" xml:space="preserve">
     <value>Observers</value>
   </data>
+  <data name="Property_Document" xml:space="preserve">
+    <value>Document</value>
+  </data>
+  <data name="Action_EditDateParameter" xml:space="preserve">
+    <value>EditDateParameter</value>
+  </data>
+  <data name="Action_EditDateParameterDescription" xml:space="preserve">
+    <value>EditDateParameter</value>
+  </data>
+  <data name="Action_EditDateParameterHint" xml:space="preserve">
+    <value>EditDateParameter</value>
+  </data>
+  <data name="Action_EditDateParameterConfirmationMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Action_EditDateParameterConfirmationDescription" xml:space="preserve">
+    <value />
+  </data>
 </root>

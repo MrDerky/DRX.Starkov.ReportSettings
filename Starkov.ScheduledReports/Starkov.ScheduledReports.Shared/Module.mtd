@@ -55,6 +55,10 @@
   "ExplorerTreeOrder": [
     {
       "ItemId": "f7180f6a-b987-4a28-a072-d26377fb3912"
+    },
+    {
+      "ItemId": "26553e87-531b-4953-980d-ab3e60bcebee",
+      "PreviousItemId": "f7180f6a-b987-4a28-a072-d26377fb3912"
     }
   ],
   "IconResourcesKeys": [],
@@ -70,11 +74,49 @@
           "Name": "entityGuid",
           "ParameterType": "global::System.Guid",
           "ParameterTypeFullName": "System.Guid"
+        },
+        {
+          "Name": "id",
+          "ParameterType": "global::System.Nullable<global::System.Int32>",
+          "ParameterTypeFullName": "System.Nullable"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::Sungero.Domain.Shared.IEntity",
+      "ReturnTypeFullName": "Sungero.Domain.Shared.IEntity, Sungero.Domain.Shared"
+    },
+    {
+      "Name": "GetEntitiesByGuid",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "entityGuid",
+          "ParameterType": "global::System.Guid",
+          "ParameterTypeFullName": "System.Guid"
+        },
+        {
+          "Name": "entitiesIds",
+          "ParameterType": "global::System.Collections.Generic.List<global::System.Int32>",
+          "ParameterTypeFullName": "System.Collections.Generic.List"
         }
       ],
       "Placement": "Shared",
       "ReturnType": "global::System.Collections.Generic.List<global::Sungero.Domain.Shared.IEntity>",
       "ReturnTypeFullName": "System.Collections.Generic.List"
+    },
+    {
+      "Name": "GetEntitiesByGuid",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "entityGuid",
+          "ParameterType": "global::System.Guid",
+          "ParameterTypeFullName": "System.Guid"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.Linq.IQueryable<global::Sungero.Domain.Shared.IEntity>",
+      "ReturnTypeFullName": "System.Linq.IQueryable"
     },
     {
       "Name": "GetModuleReportByGuid",

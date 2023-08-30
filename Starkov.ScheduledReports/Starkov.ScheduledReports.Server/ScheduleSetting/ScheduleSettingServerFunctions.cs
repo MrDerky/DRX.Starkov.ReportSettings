@@ -30,7 +30,7 @@ namespace Starkov.ScheduledReports.Server
         reportParam.Parameter = parameter.NameResourceKey;
         reportParam.InternalDataTypeName = parameter.InternalDataTypeName;
         if (parameter.EntityMetadata != null)
-          reportParam.EntityType = parameter.EntityType.ToString();
+          reportParam.EntityGuid = parameter.EntityType.ToString();
       }
     }
     
@@ -46,9 +46,6 @@ namespace Starkov.ScheduledReports.Server
       foreach (var parameter in report.Parameters)
       {
         var reportParam = _obj.ReportParams.AddNew();
-        //        var reportParam = _obj.ReportParams.FirstOrDefault(p => p.Parameter == parameter.Key);
-        //        if (reportParam != null)
-        //        {
 
         reportParam.Parameter = parameter.Key;
 
@@ -56,13 +53,12 @@ namespace Starkov.ScheduledReports.Server
         if (entityParameter != null)
         {
           reportParam.ValueId = entityParameter.Entity.Id; //EntityIdentifier.Id;
-          reportParam.ValueDisplay = entityParameter.Entity.DisplayValue;
-          reportParam.EntityType = entityParameter.EntityType.ToString();
+          reportParam.ValueText = entityParameter.Entity.DisplayValue;
+          reportParam.EntityGuid = entityParameter.EntityType.ToString();
           reportParam.InternalDataTypeName = entityParameter.GetType().ToString();
         }
         else
-          reportParam.ValueDisplay = parameter.Value.ToString();
-        //        }
+          reportParam.ValueText = parameter.Value.ToString();
       }
     }
     
@@ -81,19 +77,60 @@ namespace Starkov.ScheduledReports.Server
           if (entityParameter != null)
           {
             reportParam.ValueId = entityParameter.Entity.Id; //EntityIdentifier.Id;
-            reportParam.ValueDisplay = entityParameter.Entity.DisplayValue;
+            reportParam.ValueText = entityParameter.Entity.DisplayValue;
           }
           else
-            reportParam.ValueDisplay = parameter.Value.ToString();
+            reportParam.ValueText = parameter.Value.ToString();
         }
       }
     }
     
-    //    public Sungero.Domain.Shared.IEntity GetEntity(object
-    public object GetObjectFromParameter(string type, string parameter)
+    /// <summary>
+    /// Получить объект из параметров отчета в настройках.
+    /// </summary>
+    /// <param name="reportParam">Строка коллекции параметров отчета.</param>
+    /// <returns>Объект.</returns>
+    public static object GetObjectFromReportParam(Starkov.ScheduledReports.IScheduleSettingReportParams reportParam)
     {
-      //TODO сделать реализацию получения объекта по типу
+      try
+      {
+        Guid typeGuid;
+        if (Guid.TryParse(reportParam.EntityGuid, out typeGuid))
+          return PublicFunctions.Module.Remote.GetEntitiesByGuid(typeGuid, reportParam.ValueId);
+        
+        if (reportParam.InternalDataTypeName == "System.DateTime")
+          return GetDateFromReportParam(reportParam);
+        
+        var type = System.Type.GetType(reportParam.InternalDataTypeName);
+        if (type != null)
+          return System.Convert.ChangeType(reportParam.ValueText, type);
+      }
+      catch (Exception ex)
+      {
+        Logger.ErrorFormat("GetObjectFromReportParam. Не удалось получить объект: Parameter={0}, InternalDataTypeName={1}, EntityGuid={2}, ValueText={3}",
+                           ex, reportParam.Parameter, reportParam.InternalDataTypeName, reportParam.EntityGuid, reportParam.ValueText);
+        throw ex;
+      }
+
       return null;
     }
+    
+    /// <summary>
+    /// Полуить дату из параметра настроек.
+    /// </summary>
+  /// <param name="reportParam">Строка коллекции параметров отчета.</param>
+    /// <returns>Дата.</returns>
+    public static DateTime? GetDateFromReportParam(Starkov.ScheduledReports.IScheduleSettingReportParams reportParam)
+    {
+      DateTime? date = null;
+      
+      if (reportParam.IsRelativeDate != true)
+        System.DateTime.TryParse(reportParam.ValueText, date);
+      else
+        date = null; //TODO дописать логику относительных дат
+      
+      return date;
+    }
+    
   }
 }

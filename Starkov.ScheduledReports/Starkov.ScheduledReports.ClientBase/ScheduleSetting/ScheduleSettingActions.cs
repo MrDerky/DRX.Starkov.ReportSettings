@@ -8,6 +8,7 @@ using Sungero.Domain.Shared;
 
 namespace Starkov.ScheduledReports.Client
 {
+
   partial class ScheduleSettingReportParamsActions
   {
 
@@ -19,16 +20,16 @@ namespace Starkov.ScheduledReports.Client
     public virtual void EditParameter(Sungero.Domain.Client.ExecuteChildCollectionActionArgs e)
     {
       // TODO Перенести код
-      if (!string.IsNullOrEmpty(_obj.EntityType))
+      if (!string.IsNullOrEmpty(_obj.EntityGuid))
       {
         // Типы сущностей системы
-        var entities = PublicFunctions.Module.Remote.GetEntitiesByGuid(Guid.Parse(_obj.EntityType));
+        var entities = PublicFunctions.Module.Remote.GetEntitiesByGuid(Guid.Parse(_obj.EntityGuid));
         if (entities.Any())
         {
           var selected = entities.ShowSelect();
           if (selected != null)
           {
-            _obj.ValueDisplay = selected.DisplayValue;
+            _obj.ValueText = selected.DisplayValue;
             _obj.ValueId = selected.Id;
           }
         }
@@ -47,13 +48,13 @@ namespace Starkov.ScheduledReports.Client
           case "System.Boolean":
             var input = dialog.AddBoolean(title);
             if (dialog.Show() == DialogButtons.Ok)
-              _obj.ValueDisplay = input.Value.ToString();
+              _obj.ValueText = input.Value.ToString();
             break;
           case "System.DateTime": // TODO нужен рефакторинг
             // Относительные даты пример: https://www.elma-bpm.ru/KB/help/Platform/content/User_Filter_relatively_dates_index.html
             var isRelative = dialog.AddBoolean("Относительная дата");
-            var date = dialog.AddDate(title, false);
-            var relative = dialog.AddSelect(title, false).From(new string[] {"начало месяца", "дней"});
+            var date = dialog.AddDate("Дата", false);
+            var relative = dialog.AddSelect("Значения", false).From(new string[] {"начало месяца", "дней"});
             relative.IsVisible = false;
             isRelative.SetOnValueChanged((x)=>
                                          {
@@ -63,13 +64,13 @@ namespace Starkov.ScheduledReports.Client
             if (dialog.Show() == DialogButtons.Ok)
             {
               _obj.IsRelativeDate = isRelative.Value.GetValueOrDefault();
-              _obj.ValueDisplay = isRelative.Value.GetValueOrDefault() ? relative.Value : date.Value.GetValueOrDefault().ToShortDateString();
+              _obj.ValueText = isRelative.Value.GetValueOrDefault() ? relative.Value : date.Value.GetValueOrDefault().ToShortDateString();
             }
             break;
           default:
             var inputString = dialog.AddString(title, true);
             if (dialog.Show() == DialogButtons.Ok)
-              _obj.ValueDisplay = inputString.Value;
+              _obj.ValueText = inputString.Value;
             break;
         }
         
@@ -78,7 +79,7 @@ namespace Starkov.ScheduledReports.Client
         //          var input = dialog.AddBoolean(title);
         //          if (dialog.Show() == DialogButtons.Ok)
         //          {
-        //            _obj.ValueDisplay = input.Value.ToString();
+        //            _obj.ValueText = input.Value.ToString();
         //          }
         //        }
         //        else if (_obj.InternalDataTypeName == "System.DateTime")
@@ -91,16 +92,44 @@ namespace Starkov.ScheduledReports.Client
 //
         //          if (dialog.Show() == DialogButtons.Ok)
         //          {
-        //            _obj.ValueDisplay = input.Value;
+        //            _obj.ValueText = input.Value;
         //          }
         //        }
       }
       
     }
+
+    public virtual bool CanEditDateParameter(Sungero.Domain.Client.CanExecuteChildCollectionActionArgs e)
+    {
+      return _obj.InternalDataTypeName == "System.DateTime";
+    }
+
+    public virtual void EditDateParameter(Sungero.Domain.Client.ExecuteChildCollectionActionArgs e)
+    {
+      var dialog = Dialogs.CreateInputDialog("Изменить дату");
+      var isRelative = dialog.AddBoolean("Относительная дата");
+      var date = dialog.AddDate(title, false);
+      
+      var relative = dialog.AddSelect(title, false).From(new string[] {"Дата отчета", "Неделя", "Месяц", "Год"});
+      var relativeText = dialog.AddString("Выражение относительной даты", false);
+      
+      relative.IsVisible = false;
+      isRelative.SetOnValueChanged((x)=>
+                                   {
+                                     relative.IsVisible = x.NewValue.GetValueOrDefault();
+                                     date.IsVisible = !x.NewValue.GetValueOrDefault();
+                                   });
+      if (dialog.Show() == DialogButtons.Ok)
+      {
+        _obj.IsRelativeDate = isRelative.Value.GetValueOrDefault();
+        _obj.ValueText = isRelative.Value.GetValueOrDefault() ? relative.Value : date.Value.GetValueOrDefault().ToShortDateString();
+      }
+    }
   }
 
   partial class ScheduleSettingActions
   {
+
     public virtual void StartReportWithParameters(Sungero.Domain.Client.ExecuteActionArgs e)
     {
       PublicFunctions.Module.StartSheduleReport(_obj);
@@ -120,8 +149,8 @@ namespace Starkov.ScheduledReports.Client
       //      var rep  = Sungero.Docflow.Reports.GetApprovalRuleCardReport();
       //      rep.Open();
       
-//      PublicFunctions.ScheduleSetting.FillReportParams(_obj, report);
-      PublicFunctions.ScheduleSetting.FillReportParamsClear(_obj, report);
+      PublicFunctions.ScheduleSetting.FillReportParams(_obj, report);
+      //      PublicFunctions.ScheduleSetting.FillReportParamsClear(_obj, report);
     }
 
     public virtual bool CanStartReport(Sungero.Domain.Client.CanExecuteActionArgs e)

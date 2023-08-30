@@ -12,6 +12,7 @@ namespace Starkov.ScheduledReports.Server
 {
   public class ModuleFunctions
   {
+    #region Отправка отчетов по расписанию
     
     [Public]
     public void StartSheduleReport(Starkov.ScheduledReports.IScheduleSetting setting)
@@ -21,23 +22,17 @@ namespace Starkov.ScheduledReports.Server
         return;
       
       var performer = Sungero.Company.Employees.Null;
-      foreach (var parameter in setting.ReportParams.Where(p => !string.IsNullOrEmpty(p.ValueDisplay)))
+      foreach (var parameter in setting.ReportParams.Where(p => !string.IsNullOrEmpty(p.ValueText)))
+        report.SetParameterValue(parameter.Parameter, Functions.ScheduleSetting.GetObjectFromReportParam(parameter));
+      
+      var document = setting.Document;
+      if (document == null)
       {
-        if (parameter.ValueId.HasValue)
-        {
-          var testObject = Sungero.Company.Employees.Get(parameter.ValueId.Value);
-          report.SetParameterValue(parameter.Parameter, testObject);
-          performer = testObject;
-        }
-        else
-        {
-          var testDate = DateTime.Parse(parameter.ValueDisplay);
-          report.SetParameterValue(parameter.Parameter, testDate);
-        }
+        document = Sungero.Docflow.SimpleDocuments.Create();
+        document.Name = setting.Name;
+        setting.Document = document;
       }
       
-      var document = Sungero.Docflow.SimpleDocuments.Create();
-      document.Name = setting.Name;
       report.ExportTo(document);
       document.Save();
       
@@ -47,23 +42,14 @@ namespace Starkov.ScheduledReports.Server
         task.Attachments.Add(document);
         task.Start();
       }
+      
+      if (setting.State.IsChanged)
+        setting.Save();
     }
 
-    [Public, Remote]
-    public List<Sungero.Domain.Shared.IEntity> GetEntitiesByGuid(Guid entityGuid)
-    {
-      var entities = new List<IEntity>();
-      var entityType = Sungero.Domain.Shared.TypeExtension.GetTypeByGuid(entityGuid);
-      if (entityType == null)
-        return entities;
-      
-      using (var session = new Sungero.Domain.Session())
-      {
-        entities = session.GetAll(entityType).ToList();
-      }
-      
-      return entities;
-    }
+    #endregion
+    
+    #region Работа с метаданными
     
     /// <summary>
     /// Получить имена модулей системы, в которых есть отчеты.
@@ -185,27 +171,56 @@ namespace Starkov.ScheduledReports.Server
       return reportMetaData;
     }
     
-    //    [Public]
-    //    public ScheduledReports.Structures.Module.IReportInfo GetReportInfo(Guid reportGuid)
-    //    {
-    //      var reportInfo = ScheduledReports.Structures.Module.ReportInfo.Create();
-//
-    //      var reportMetaData = GetReportMetaData(reportGuid);
-    //      if (reportMetaData == null)
-    //        return reportInfo;
-//
-    //      reportInfo.NameGuid = reportMetaData.NameGuid;
-    //      reportInfo.Name = reportMetaData.Name;
-    //      reportInfo.LocalizedName = GetReportLocalizedName(reportMetaData.NameGuid);
-//
-    //      foreach (var parameter in reportMetaData.Parameters)
-    //      {
-//
-    //        reportInfo.Parameters.Add(parameter.NameResourceKey);
-    //      }
-//
-    //      return reportInfo;
-    //    }
+    #endregion
+    
+    #region Получение сущностей по Guid
+    
+    /// <summary>
+    /// Получить экземпляр сущности по Guid типа объекта и ИД.
+    /// </summary>
+    /// <param name="entityGuid">Guid сущности.</param>
+    /// <param name="id">ИД объекта.</param>
+    /// <returns>Экземпляр сущности.</returns>
+    [Public, Remote]
+    public Sungero.Domain.Shared.IEntity GetEntitiesByGuid(Guid entityGuid, int? id)
+    {
+      return GetEntitiesByGuid(entityGuid).FirstOrDefault(e => e.Id == id);
+    }
+    
+    /// <summary>
+    /// Получить список сущностей по Guid типа объекта и списку ИД.
+    /// </summary>
+    /// <param name="entityGuid">Guid сущности.</param>
+    /// <param name="entitiesIds">Список ИД.</param>
+    /// <returns>Список сущностей.</returns>
+    [Public, Remote]
+    public List<Sungero.Domain.Shared.IEntity> GetEntitiesByGuid(Guid entityGuid, List<int> entitiesIds)
+    {
+      return GetEntitiesByGuid(entityGuid).Where(e => entitiesIds.Contains(e.Id)).ToList();
+    }
+    
+    /// <summary>
+    /// Получить все сущности определенного типа по Guid.
+    /// </summary>
+    /// <param name="entityGuid">Guid сущности.</param>
+    /// <returns>Список сущностей.</returns>
+    [Public, Remote]
+    public IQueryable<Sungero.Domain.Shared.IEntity> GetEntitiesByGuid(Guid entityGuid)
+    {
+      IQueryable<IEntity> entities = null;// new List<IEntity>();
+      var entityType = Sungero.Domain.Shared.TypeExtension.GetTypeByGuid(entityGuid);
+      if (entityType == null)
+        return entities;
+      
+      using (var session = new Sungero.Domain.Session())
+      {
+        entities = session.GetAll(entityType);
+      }
+      
+      return entities;
+    }
+    
+    #endregion
     
   }
 }

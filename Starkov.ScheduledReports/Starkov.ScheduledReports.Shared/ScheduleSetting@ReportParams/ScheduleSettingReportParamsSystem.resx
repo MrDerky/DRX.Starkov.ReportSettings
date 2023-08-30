@@ -61,14 +61,14 @@
   <data name="Property_Parameter" xml:space="preserve">
     <value>Parameter</value>
   </data>
-  <data name="Property_ValueDisplay" xml:space="preserve">
-    <value>ValueDisplay</value>
+  <data name="Property_ValueText" xml:space="preserve">
+    <value>ValueText</value>
   </data>
   <data name="Property_InternalDataTypeName" xml:space="preserve">
     <value>Тип</value>
   </data>
-  <data name="Property_EntityType" xml:space="preserve">
-    <value>EntityType</value>
+  <data name="Property_EntityGuid" xml:space="preserve">
+    <value>Entity Guid</value>
   </data>
   <data name="Property_ValueId" xml:space="preserve">
     <value>ValueId</value>
