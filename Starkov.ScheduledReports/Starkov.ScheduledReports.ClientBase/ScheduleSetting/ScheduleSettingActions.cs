@@ -73,28 +73,6 @@ namespace Starkov.ScheduledReports.Client
               _obj.ValueText = inputString.Value;
             break;
         }
-        
-        //        if (_obj.InternalDataTypeName == "System.Boolean")
-        //        {
-        //          var input = dialog.AddBoolean(title);
-        //          if (dialog.Show() == DialogButtons.Ok)
-        //          {
-        //            _obj.ValueText = input.Value.ToString();
-        //          }
-        //        }
-        //        else if (_obj.InternalDataTypeName == "System.DateTime")
-        //        {
-//
-        //        }
-        //        else
-        //        {
-        //          var input = dialog.AddString(title, true);
-//
-        //          if (dialog.Show() == DialogButtons.Ok)
-        //          {
-        //            _obj.ValueText = input.Value;
-        //          }
-        //        }
       }
       
     }
@@ -108,9 +86,9 @@ namespace Starkov.ScheduledReports.Client
     {
       var dialog = Dialogs.CreateInputDialog("Изменить дату");
       var isRelative = dialog.AddBoolean("Относительная дата");
-      var date = dialog.AddDate(title, false);
+      var date = dialog.AddDate("Дата", false);
       
-      var relative = dialog.AddSelect(title, false).From(new string[] {"Дата отчета", "Неделя", "Месяц", "Год"});
+      var relative = dialog.AddSelect("Период", false).From(new string[] {"Дата отчета", "Неделя", "Месяц", "Год"});
       var relativeText = dialog.AddString("Выражение относительной даты", false);
       
       relative.IsVisible = false;

@@ -2,6 +2,24 @@
   "$type": "Sungero.Metadata.EntityMetadata, Sungero.Metadata",
   "NameGuid": "26553e87-531b-4953-980d-ab3e60bcebee",
   "Name": "RelativeDate",
+  "Actions": [
+    {
+      "NameGuid": "ce0381ee-ccbc-4338-85ec-faec7f409b36",
+      "Name": "Test",
+      "ActionArea": "Card",
+      "GenerateHandler": true,
+      "LargeIconName": null,
+      "SmallIconName": null
+    },
+    {
+      "NameGuid": "be31546e-9ddc-440d-9afb-59649fa559bf",
+      "Name": "Action",
+      "ActionArea": "Card",
+      "GenerateHandler": true,
+      "LargeIconName": null,
+      "SmallIconName": null
+    }
+  ],
   "BaseGuid": "04581d26-0780-4cfd-b3cd-c2cafc5798b0",
   "CanBeNavigationPropertyType": true,
   "Code": "RelativeDate",
@@ -51,7 +69,7 @@
           "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
           "ParentGuid": "8cb08c3a-52b8-4b01-8e36-e9e7e34e675b",
           "PropertyGuid": "20d38dc7-b89e-48e3-bd2f-a88acce2e26e",
-          "RowNumber": 1,
+          "RowNumber": 2,
           "RowSpan": 1,
           "Settings": []
         },
@@ -65,7 +83,20 @@
           "FunctionName": "GetRelativeDateState",
           "HeaderLocation": "None",
           "ParentGuid": "8cb08c3a-52b8-4b01-8e36-e9e7e34e675b",
-          "RowNumber": 2,
+          "RowNumber": 3,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "0dc0b820-3265-46f3-88c2-6b7c51a02241",
+          "Name": "BaseDate",
+          "ColumnNumber": 0,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToEnumerationBinder",
+          "ParentGuid": "8cb08c3a-52b8-4b01-8e36-e9e7e34e675b",
+          "PropertyGuid": "d22e4e67-48c1-4226-ad67-a3f66dc20764",
+          "RowNumber": 1,
           "RowSpan": 1,
           "Settings": []
         }
@@ -99,6 +130,67 @@
       "IsRequired": true,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
       "PreviousPropertyGuid": "c4408352-8bb0-4b55-86b3-9572c0cfa97a"
+    },
+    {
+      "$type": "Sungero.Metadata.EnumPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "d22e4e67-48c1-4226-ad67-a3f66dc20764",
+      "Name": "BaseDate",
+      "Code": "BaseDate",
+      "DirectValues": [
+        {
+          "NameGuid": "2a3c8952-d613-4300-bde6-48005accbd4d",
+          "Name": "Today",
+          "Code": "Today"
+        },
+        {
+          "NameGuid": "99631f33-8e9c-4f68-95b1-fbdd0e344520",
+          "Name": "WeekStart",
+          "Code": "WeekStart"
+        },
+        {
+          "NameGuid": "39cf6890-e4b4-4c12-8601-0f54627fbe70",
+          "Name": "WeekEnd",
+          "Code": "WeekEnd"
+        }
+      ],
+      "IsRequired": true,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToEnumerationBinder",
+      "PreviousPropertyGuid": "20d38dc7-b89e-48e3-bd2f-a88acce2e26e"
+    }
+  ],
+  "PublicFunctions": [
+    {
+      "Name": "CalculateExpression",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "relativeExpression",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
+      "Name": "CalculateRelativeDate",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "baseDate",
+          "ParameterType": "global::System.Nullable<global::System.DateTime>",
+          "ParameterTypeFullName": "System.Nullable"
+        },
+        {
+          "Name": "relativeExpression",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.Nullable<global::System.DateTime>",
+      "ReturnTypeFullName": "System.Nullable"
     }
   ],
   "PublicStructures": [],
@@ -107,7 +199,26 @@
     "NameGuid": "87bb3e47-393c-4326-ab77-5cd44762f416",
     "Name": "RibbonCard",
     "Categories": [],
-    "Elements": [],
+    "Elements": [
+      {
+        "$type": "Sungero.Metadata.RibbonActionButtonMetadata, Sungero.Metadata",
+        "NameGuid": "5b306d00-d69d-4de2-80d1-16fea1321b6d",
+        "Name": "Test",
+        "ActionGuid": "ce0381ee-ccbc-4338-85ec-faec7f409b36",
+        "ButtonSize": "Large",
+        "Index": 51,
+        "ParentGuid": "f3b0ddcd-9d1e-4ca3-8780-695ae25a9e8b"
+      },
+      {
+        "$type": "Sungero.Metadata.RibbonActionButtonMetadata, Sungero.Metadata",
+        "NameGuid": "a120e9ca-c775-4a8c-a676-3d18985890cd",
+        "Name": "Action",
+        "ActionGuid": "be31546e-9ddc-440d-9afb-59649fa559bf",
+        "ButtonSize": "Large",
+        "Index": 52,
+        "ParentGuid": "f3b0ddcd-9d1e-4ca3-8780-695ae25a9e8b"
+      }
+    ],
     "Groups": [],
     "IsAncestorMetadata": true,
     "Pages": [],

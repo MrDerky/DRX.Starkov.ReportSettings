@@ -122,12 +122,12 @@ namespace Starkov.ScheduledReports.Server
     /// <returns>Дата.</returns>
     public static DateTime? GetDateFromReportParam(Starkov.ScheduledReports.IScheduleSettingReportParams reportParam)
     {
-      DateTime? date = null;
+      DateTime date;
       
       if (reportParam.IsRelativeDate != true)
-        System.DateTime.TryParse(reportParam.ValueText, date);
+        System.DateTime.TryParse(reportParam.ValueText, out date);
       else
-        date = null; //TODO дописать логику относительных дат
+        return null; //TODO дописать логику относительных дат
       
       return date;
     }

@@ -76,4 +76,46 @@
   <data name="Control_b37138b05365424eae8bb077b88b854f_EmptyText" xml:space="preserve">
     <value>enter a relative date expression</value>
   </data>
+  <data name="Action_Test" xml:space="preserve">
+    <value>test</value>
+  </data>
+  <data name="Action_TestDescription" xml:space="preserve">
+    <value>test</value>
+  </data>
+  <data name="Action_TestHint" xml:space="preserve">
+    <value>test</value>
+  </data>
+  <data name="Action_TestConfirmationMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Action_TestConfirmationDescription" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Property_BaseDate" xml:space="preserve">
+    <value>Base date</value>
+  </data>
+  <data name="Enum_BaseDate_Today" xml:space="preserve">
+    <value>TODAY</value>
+  </data>
+  <data name="Enum_BaseDate_WeekStart" xml:space="preserve">
+    <value>WEEK START</value>
+  </data>
+  <data name="Enum_BaseDate_WeekEnd" xml:space="preserve">
+    <value>WEEK END</value>
+  </data>
+  <data name="Action_Action" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="Action_ActionDescription" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="Action_ActionHint" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="Action_ActionConfirmationMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Action_ActionConfirmationDescription" xml:space="preserve">
+    <value />
+  </data>
 </root>
