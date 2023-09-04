@@ -10,12 +10,20 @@ namespace Starkov.ScheduledReports.Server
 {
   partial class ScheduleSettingFunctions
   {
+    /// <summary>
+    /// Получить следующую дату выполнения.
+    /// </summary>   
+    [Remote, Public]
+    public DateTime GetNextPeriod()
+    {
+      return RelativeDateCalculator.Calculator.Calculate(_obj.Period.RelativeExpression);
+    }
 
     /// <summary>
-    /// Заполнить параметры отчета.
+    /// Загрузить параметры отчета.
     /// </summary>
     [Public]
-    public void FillReportParams()
+    public void SaveReportParams()
     {
       var reportGuid = Guid.Parse(_obj.ReportGuid);
       var report = Starkov.ScheduledReports.PublicFunctions.Module.GetReportMetaData(reportGuid);
@@ -35,10 +43,10 @@ namespace Starkov.ScheduledReports.Server
     }
     
     /// <summary>
-    /// Заполнить параметры отчета.
+    /// Загрузить параметры отчета.
     /// </summary>
     [Public]
-    public void FillReportParamsClear(Sungero.Reporting.Shared.ReportBase report)
+    public void SaveReportParamsClear(Sungero.Reporting.Shared.ReportBase report)
     {
       _obj.ReportParams.Clear();
       var reportMetaData = Starkov.ScheduledReports.PublicFunctions.Module.GetReportMetaData(report.Info.ReportTypeId);
@@ -63,10 +71,10 @@ namespace Starkov.ScheduledReports.Server
     }
     
     /// <summary>
-    /// Заполнить параметры отчета.
+    /// Загрузить параметры отчета.
     /// </summary>
     [Public]
-    public void FillReportParams(Sungero.Reporting.Shared.ReportBase report)
+    public void SaveReportParams(Sungero.Reporting.Shared.ReportBase report)
     {
       foreach (var parameter in report.Parameters)
       {
@@ -127,7 +135,12 @@ namespace Starkov.ScheduledReports.Server
       if (reportParam.IsRelativeDate != true)
         System.DateTime.TryParse(reportParam.ValueText, out date);
       else
-        return null; //TODO дописать логику относительных дат
+      {
+        var expression = reportParam.ValueId.HasValue
+          ? RelativeDates.GetAll(r => r.Id == reportParam.ValueId.Value).FirstOrDefault()?.RelativeExpression ?? string.Empty
+          : reportParam.ValueText;
+        date = RelativeDateCalculator.Calculator.Calculate(expression);
+      }
       
       return date;
     }

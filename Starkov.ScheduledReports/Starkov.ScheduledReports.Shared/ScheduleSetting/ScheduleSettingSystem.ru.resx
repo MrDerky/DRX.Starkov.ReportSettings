@@ -121,13 +121,7 @@
   <data name="Property_Document" xml:space="preserve">
     <value>Документ</value>
   </data>
-  <data name="Action_EditDateParameter" xml:space="preserve">
-    <value>Изменить дату</value>
-  </data>
-  <data name="Action_EditDateParameterHint" xml:space="preserve">
-    <value>Изменить дату</value>
-  </data>
-  <data name="Action_EditDateParameterDescription" xml:space="preserve">
-    <value>Изменить дату</value>
+  <data name="ControlGroup_1b8735c1caf34bc4bcce4d89ee2535aa" xml:space="preserve">
+    <value>Расписание</value>
   </data>
 </root>

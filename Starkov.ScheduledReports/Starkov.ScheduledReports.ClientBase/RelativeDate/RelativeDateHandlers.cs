@@ -7,8 +7,4 @@ using Starkov.ScheduledReports.RelativeDate;
 
 namespace Starkov.ScheduledReports
 {
-  partial class RelativeDateClientHandlers
-  {
-
-  }
 }

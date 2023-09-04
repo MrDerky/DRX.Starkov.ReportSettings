@@ -7,6 +7,8 @@ using Sungero.Domain.Shared;
 using Sungero.Metadata;
 using Sungero.Reporting;
 using Sungero.Domain.SessionExtensions;
+using Sungero.Reporting.Shared;
+using Sungero.Metadata.Attributes;
 
 namespace Starkov.ScheduledReports.Server
 {
@@ -22,8 +24,7 @@ namespace Starkov.ScheduledReports.Server
         return;
       
       var performer = Sungero.Company.Employees.Null;
-      foreach (var parameter in setting.ReportParams.Where(p => !string.IsNullOrEmpty(p.ValueText)))
-        report.SetParameterValue(parameter.Parameter, Functions.ScheduleSetting.GetObjectFromReportParam(parameter));
+      FillReportParams(report, setting);
       
       var document = setting.Document;
       if (document == null)
@@ -45,6 +46,18 @@ namespace Starkov.ScheduledReports.Server
       
       if (setting.State.IsChanged)
         setting.Save();
+    }
+    
+    /// <summary>
+    /// Заполнить параметры отчета из настроек.
+    /// </summary>
+    /// <param name="report">Отчет.</param>
+    /// <param name="setting">Настройки отчета.</param>
+    [Public]
+    public void FillReportParams(Sungero.Reporting.Shared.ReportBase report, Starkov.ScheduledReports.IScheduleSetting setting)
+    {
+      foreach (var parameter in setting.ReportParams.Where(p => !string.IsNullOrEmpty(p.ValueText)))
+        report.SetParameterValue(parameter.Parameter, Functions.ScheduleSetting.GetObjectFromReportParam(parameter));
     }
 
     #endregion
@@ -79,12 +92,14 @@ namespace Starkov.ScheduledReports.Server
     {
       var reports = new List<ScheduledReports.Structures.Module.IReportInfo>();
       
-      foreach (var report in GetModuleReports(moduleGuid))
+      var moduleReports = Sungero.Metadata.Services.MetadataSearcher.FindModuleMetadata(moduleGuid).Items.OfType<Sungero.Metadata.ReportMetadata>();
+      
+      foreach (var report in moduleReports) //GetModuleReports(moduleGuid))
       {
         var newStructure = ScheduledReports.Structures.Module.ReportInfo.Create();
-        newStructure.NameGuid = report.Info.ReportTypeId;
-        newStructure.Name = report.Info.Name;
-        newStructure.LocalizedName = GetReportLocalizedName(report.Info.ReportTypeId);
+        newStructure.NameGuid = report.GetInfo().NameGuid; //Info.ReportTypeId;
+        newStructure.Name = report.GetInfo().Name; //.Info.Name;
+        newStructure.LocalizedName = GetReportLocalizedName(report.GetInfo().NameGuid); //report.Info.ReportTypeId);
         reports.Add(newStructure);
       }
       
@@ -129,11 +144,11 @@ namespace Starkov.ScheduledReports.Server
       var reportClass = GetReportClassForModule(moduleGuid);
       if (reportClass == null)
         return reports;
-      
+
       var methodGetAll = reportClass.GetMethods().Where(m => m.Name == "GetAll" && m.GetParameters().Length == 0).FirstOrDefault();
       if (methodGetAll != null)
         reports = (IEnumerable<IReport>)methodGetAll.Invoke(null, null);
-      
+        
       return reports;
     }
     

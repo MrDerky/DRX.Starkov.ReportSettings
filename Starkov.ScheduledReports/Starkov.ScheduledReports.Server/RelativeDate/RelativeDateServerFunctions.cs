@@ -144,8 +144,6 @@ namespace Starkov.ScheduledReports.RelativeDateCalculator
       }
     }
     
-    //    public static List<DateOperation> DateOperations { get; private set; }
-    
     private static System.Text.RegularExpressions.Regex regexBasePart = new System.Text.RegularExpressions.Regex(@"^[^+,-]*");
     
     private static System.Text.RegularExpressions.Regex regexAddPart = new System.Text.RegularExpressions.Regex(@"([+,-])([^+,-]*)");
@@ -155,7 +153,7 @@ namespace Starkov.ScheduledReports.RelativeDateCalculator
     private static System.Text.RegularExpressions.Regex regexBracketPart = new System.Text.RegularExpressions.Regex(@"([^+,-]*)(\([^)]+\))");
     
     /// <summary>
-    /// Конструктор для добавления операций с датами.
+    /// Получить список доступных операций с датами.
     /// </summary>
     public static List<RelativeDateCalculator.Calculator.DateOperation> GetDateOperations()
     {
@@ -185,26 +183,27 @@ namespace Starkov.ScheduledReports.RelativeDateCalculator
       };
     }
     
-    //    [PublicAttribute]
-    //    public static System.Collections.Generic.Dictionary<string, string> GetValidValuesForBaseExpressions()
-    //    {
-    //      var result = new Dictionary<string, string>();
-//
-    //      foreach (var keys in templateBaseFunctions.Keys)
-    //      {
-    //        foreach (var element in keys)
-    //          result.Add(element.Key, element.Value);
-    //      }
-//
-    //      return result;
-    //    }
-    
+    // TODO Отрефакторить и оттестировать
     /// <summary>
     /// Вычислить дату из выражения.
     /// </summary>
     /// <param name="expression">Выражение.</param>
     /// <returns>Дата.</returns>
-    public static DateTime? CalculatePart(string expression)
+    public static DateTime Calculate(string expression)
+    {
+      // Проверка на выражение в скобках.
+      var match = regexBracketPart.Match(expression);
+      if (match.Groups.Count == 3)
+      {
+        var basePart = match.Groups[1].Value;
+        var addPart = match.Groups[2].Value.Substring(1, match.Groups[2].Value.Length - 2);
+        return GetBaseDate(basePart, Calculate(addPart));
+      }
+      else
+        return CalculatePart(expression);
+    }
+    
+    private static DateTime CalculatePart(string expression)
     {
       var dateOperation = GetDateOperations();
       var resultDate = GetBaseDate(expression, null);
@@ -219,20 +218,6 @@ namespace Starkov.ScheduledReports.RelativeDateCalculator
       }
       
       return resultDate;
-    }
-    
-    public static DateTime? Calculate(string expression)
-    {
-      // Проверка на выражение в скобках.
-      var match = regexBracketPart.Match(expression);
-      if (match.Groups.Count == 3)
-      {
-        var basePart = match.Groups[1].Value;
-        var addPart = match.Groups[2].Value.Substring(1, match.Groups[2].Value.Length - 2);
-        return GetBaseDate(basePart, Calculate(addPart));
-      }
-      else
-        return CalculatePart(expression);
     }
     
     private static DateTime GetBaseDate(string expression, DateTime? baseDate)

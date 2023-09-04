@@ -160,19 +160,34 @@
   <data name="Property_Document" xml:space="preserve">
     <value>Document</value>
   </data>
-  <data name="Action_EditDateParameter" xml:space="preserve">
-    <value>EditDateParameter</value>
+  <data name="Property_NextDate" xml:space="preserve">
+    <value>Следующий запуск</value>
   </data>
-  <data name="Action_EditDateParameterDescription" xml:space="preserve">
-    <value>EditDateParameter</value>
+  <data name="Property_DateEnd" xml:space="preserve">
+    <value>Завершение</value>
   </data>
-  <data name="Action_EditDateParameterHint" xml:space="preserve">
-    <value>EditDateParameter</value>
+  <data name="Property_Period" xml:space="preserve">
+    <value>Период</value>
   </data>
-  <data name="Action_EditDateParameterConfirmationMessage" xml:space="preserve">
+  <data name="Property_DateBegin" xml:space="preserve">
+    <value>Начало</value>
+  </data>
+  <data name="ControlGroup_1b8735c1caf34bc4bcce4d89ee2535aa" xml:space="preserve">
+    <value>Schedule</value>
+  </data>
+  <data name="Action_TrySendReport" xml:space="preserve">
+    <value>Отправить отчет</value>
+  </data>
+  <data name="Action_TrySendReportDescription" xml:space="preserve">
+    <value>Отправить отчет</value>
+  </data>
+  <data name="Action_TrySendReportHint" xml:space="preserve">
+    <value>Отправить отчет</value>
+  </data>
+  <data name="Action_TrySendReportConfirmationMessage" xml:space="preserve">
     <value />
   </data>
-  <data name="Action_EditDateParameterConfirmationDescription" xml:space="preserve">
+  <data name="Action_TrySendReportConfirmationDescription" xml:space="preserve">
     <value />
   </data>
 </root>

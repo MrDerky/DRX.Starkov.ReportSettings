@@ -67,6 +67,22 @@
   "InterfaceNamespace": "Starkov.ScheduledReports",
   "PublicFunctions": [
     {
+      "Name": "FillReportParams",
+      "Parameters": [
+        {
+          "Name": "report",
+          "ParameterType": "Sungero.Reporting.Shared.ReportBase"
+        },
+        {
+          "Name": "setting",
+          "ParameterType": "global::Starkov.ScheduledReports.IScheduleSetting",
+          "ParameterTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
+        }
+      ],
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    },
+    {
       "Name": "GetEntitiesByGuid",
       "IsRemote": true,
       "Parameters": [
