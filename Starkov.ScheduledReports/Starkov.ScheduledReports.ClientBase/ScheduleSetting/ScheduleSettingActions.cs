@@ -88,19 +88,49 @@ namespace Starkov.ScheduledReports.Client
       var isRelative = dialog.AddBoolean("Относительная дата");
       var date = dialog.AddDate("Дата", false);
       
-      var relative = dialog.AddSelect("Период", false).From(new string[] {"Дата отчета", "Неделя", "Месяц", "Год"});
-      var relativeText = dialog.AddString("Выражение относительной даты", false);
+      var relative = dialog.AddSelect("Период", false, Starkov.ScheduledReports.RelativeDates.Null);//.From(new string[] {"Дата отчета", "Неделя", "Месяц", "Год"});
+      var relativeText = dialog.AddString("Выражение", false);
+      var isCustomInput = dialog.AddBoolean("Ввести вручную");
       
+      isCustomInput.IsVisible = false;
+      relativeText.IsVisible = false;
       relative.IsVisible = false;
-      isRelative.SetOnValueChanged((x)=>
+      
+      isRelative.SetOnValueChanged((x) =>
                                    {
-                                     relative.IsVisible = x.NewValue.GetValueOrDefault();
                                      date.IsVisible = !x.NewValue.GetValueOrDefault();
+                                     relative.IsVisible = x.NewValue.GetValueOrDefault();
+                                     isCustomInput.IsVisible = x.NewValue.GetValueOrDefault();
                                    });
+      
+      relative.SetOnValueChanged((r) =>
+                                 {
+                                   relativeText.Value = r.NewValue.RelativeExpression;
+                                 });
+      
+      isCustomInput.SetOnValueChanged((x) =>
+                                      {
+                                        relative.IsVisible = !x.NewValue.GetValueOrDefault();
+                                        relativeText.IsVisible = x.NewValue.GetValueOrDefault();
+                                      });
+      
+      // TODO Рефакторить это безобразие
       if (dialog.Show() == DialogButtons.Ok)
       {
         _obj.IsRelativeDate = isRelative.Value.GetValueOrDefault();
-        _obj.ValueText = isRelative.Value.GetValueOrDefault() ? relative.Value : date.Value.GetValueOrDefault().ToShortDateString();
+        
+        if (isRelative.Value.GetValueOrDefault())
+        {
+          if (!isCustomInput.Value.GetValueOrDefault())
+          {
+            _obj.ValueText = relative.Value.Name;
+            _obj.ValueId = relative.Value.Id;
+          }
+          else
+            _obj.ValueText = relativeText.Value;
+        }
+        else
+          _obj.ValueText = date.Value.GetValueOrDefault().ToShortDateString();
       }
     }
   }
