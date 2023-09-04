@@ -88,4 +88,7 @@
   <data name="Enum_BaseDate_WeekEnd" xml:space="preserve">
     <value>КОНЕЦ НЕДЕЛИ</value>
   </data>
+  <data name="ControlGroup_5af4bcba6108412daefec9ab7fc6bbf3" xml:space="preserve">
+    <value>Допустимые значения для выражений</value>
+  </data>
 </root>

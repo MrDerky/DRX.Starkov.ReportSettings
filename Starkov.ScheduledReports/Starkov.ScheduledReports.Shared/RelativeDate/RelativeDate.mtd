@@ -74,20 +74,6 @@
           "Settings": []
         },
         {
-          "$type": "Sungero.Metadata.FunctionControlMetadata, Sungero.Metadata",
-          "NameGuid": "e344070d-118e-4823-84b5-0a3eb832e9f7",
-          "Name": "Control1",
-          "ColumnNumber": 0,
-          "ColumnSpan": 1,
-          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StateViewToFunctionBinder",
-          "FunctionName": "GetRelativeDateState",
-          "HeaderLocation": "None",
-          "ParentGuid": "8cb08c3a-52b8-4b01-8e36-e9e7e34e675b",
-          "RowNumber": 3,
-          "RowSpan": 1,
-          "Settings": []
-        },
-        {
           "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
           "NameGuid": "0dc0b820-3265-46f3-88c2-6b7c51a02241",
           "Name": "BaseDate",
@@ -97,6 +83,31 @@
           "ParentGuid": "8cb08c3a-52b8-4b01-8e36-e9e7e34e675b",
           "PropertyGuid": "d22e4e67-48c1-4226-ad67-a3f66dc20764",
           "RowNumber": 1,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlGroupMetadata, Sungero.Metadata",
+          "NameGuid": "5af4bcba-6108-412d-aefe-c9ab7fc6bbf3",
+          "Name": "Instruction",
+          "ColumnNumber": 0,
+          "ColumnSpan": 1,
+          "GroupType": "Expander",
+          "ParentGuid": "8cb08c3a-52b8-4b01-8e36-e9e7e34e675b",
+          "RowNumber": 3,
+          "RowSpan": 1
+        },
+        {
+          "$type": "Sungero.Metadata.FunctionControlMetadata, Sungero.Metadata",
+          "NameGuid": "e344070d-118e-4823-84b5-0a3eb832e9f7",
+          "Name": "ResultPreview",
+          "ColumnNumber": 0,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StateViewToFunctionBinder",
+          "FunctionName": "GetRelativeDateState",
+          "HeaderLocation": "None",
+          "ParentGuid": "5af4bcba-6108-412d-aefe-c9ab7fc6bbf3",
+          "RowNumber": 0,
           "RowSpan": 1,
           "Settings": []
         }
