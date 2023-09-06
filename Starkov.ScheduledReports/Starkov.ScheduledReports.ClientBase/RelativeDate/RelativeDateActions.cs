@@ -11,12 +11,9 @@ namespace Starkov.ScheduledReports.Client
   {
     public virtual void Action(Sungero.Domain.Client.ExecuteActionArgs e)
     {
-      string[] names = System.Reflection.Assembly.GetExecutingAssembly()
-                .GetType("Sungero.Core.Calendar, Sungero.Domain.Interfaces, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null").GetMethods().ToList()
-                .Where(m => m.DeclaringType.Name == "Calendar")
-                .Select(m => m.Name).ToArray();
+      var result = Functions.RelativeDate.CalculateDate(_obj);
       
-      Dialogs.ShowMessage(string.Join(Environment.NewLine, names));
+      Dialogs.NotifyMessage(result.ToString());
     }
 
     public virtual bool CanAction(Sungero.Domain.Client.CanExecuteActionArgs e)

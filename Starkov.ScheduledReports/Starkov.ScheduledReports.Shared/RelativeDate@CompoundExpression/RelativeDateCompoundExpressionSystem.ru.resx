@@ -58,61 +58,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Property_Name" xml:space="preserve">
-    <value>Имя</value>
-  </data>
-  <data name="DisplayName" xml:space="preserve">
+  <data name="Property_ExpressionPart" xml:space="preserve">
     <value>Относительная дата</value>
   </data>
-  <data name="AccusativeDisplayName" xml:space="preserve">
-    <value>Относительную дату</value>
-  </data>
-  <data name="CollectionDisplayName" xml:space="preserve">
-    <value>Относительные даты</value>
-  </data>
-  <data name="Property_RelativeExpression" xml:space="preserve">
-    <value>Выражение</value>
-  </data>
-  <data name="Control_b37138b05365424eae8bb077b88b854f_EmptyText" xml:space="preserve">
-    <value>введите выражение относительной даты</value>
-  </data>
-  <data name="Property_BaseDate" xml:space="preserve">
-    <value>Период отсчета</value>
-  </data>
-  <data name="Enum_BaseDate_Today" xml:space="preserve">
-    <value>СЕГОДНЯ</value>
-  </data>
-  <data name="Enum_BaseDate_WeekStart" xml:space="preserve">
-    <value>НАЧАЛО НЕДЕЛИ</value>
-  </data>
-  <data name="Enum_BaseDate_WeekEnd" xml:space="preserve">
-    <value>КОНЕЦ НЕДЕЛИ</value>
-  </data>
-  <data name="ControlGroup_5af4bcba6108412daefec9ab7fc6bbf3" xml:space="preserve">
-    <value>Допустимые значения для выражений</value>
-  </data>
-  <data name="Property_Type" xml:space="preserve">
-    <value>Тип</value>
-  </data>
-  <data name="Enum_Type_Main" xml:space="preserve">
-    <value>Основной</value>
-  </data>
-  <data name="Enum_Type_Additional" xml:space="preserve">
-    <value>Добавочный</value>
-  </data>
-  <data name="Enum_Type_Mixed" xml:space="preserve">
-    <value>Смешанный</value>
-  </data>
-  <data name="Property_CompoundExpression" xml:space="preserve">
-    <value>Составное выражение</value>
-  </data>
-  <data name="ControlGroup_3c1e04adff1e4e43abbdab2f282f8a10" xml:space="preserve">
-    <value>Составное выражение</value>
-  </data>
-  <data name="Property_FunctionGuid" xml:space="preserve">
-    <value>Идентификатор для поиска функции</value>
-  </data>
-  <data name="Property_Description" xml:space="preserve">
-    <value>Описание</value>
+  <data name="Property_Number" xml:space="preserve">
+    <value>Количество</value>
   </data>
 </root>

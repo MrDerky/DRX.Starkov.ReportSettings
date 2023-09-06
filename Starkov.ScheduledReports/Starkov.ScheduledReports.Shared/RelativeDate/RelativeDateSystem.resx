@@ -121,4 +121,31 @@
   <data name="ControlGroup_5af4bcba6108412daefec9ab7fc6bbf3" xml:space="preserve">
     <value>Valid values for expressions</value>
   </data>
+  <data name="Property_Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Enum_Type_Main" xml:space="preserve">
+    <value>Main</value>
+  </data>
+  <data name="Enum_Type_Additional" xml:space="preserve">
+    <value>Additional</value>
+  </data>
+  <data name="Enum_Type_Mixed" xml:space="preserve">
+    <value>Mixed</value>
+  </data>
+  <data name="AdditionalInfoTemplate" xml:space="preserve">
+    <value>[Description]</value>
+  </data>
+  <data name="Property_CompoundExpression" xml:space="preserve">
+    <value>Compound expression</value>
+  </data>
+  <data name="ControlGroup_3c1e04adff1e4e43abbdab2f282f8a10" xml:space="preserve">
+    <value>Compound expression</value>
+  </data>
+  <data name="Property_FunctionGuid" xml:space="preserve">
+    <value>Guid to search for the function</value>
+  </data>
+  <data name="Property_Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
 </root>
