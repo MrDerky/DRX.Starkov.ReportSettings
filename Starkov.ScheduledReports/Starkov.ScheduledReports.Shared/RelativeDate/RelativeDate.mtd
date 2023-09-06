@@ -254,6 +254,10 @@
       "Name": "CompoundExpression",
       "Code": "RelativeDateCo",
       "EntityGuid": "df946f69-0338-4f70-83b3-b265b641f6ca",
+      "HandledEvents": [
+        "AddedShared",
+        "DeletedShared"
+      ],
       "IsShowedInList": false,
       "PreviousPropertyGuid": "645ea259-a6a1-40b3-9d76-ee365b77c639"
     },

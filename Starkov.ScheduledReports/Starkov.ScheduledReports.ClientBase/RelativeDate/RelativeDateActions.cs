@@ -11,6 +11,8 @@ namespace Starkov.ScheduledReports.Client
   {
     public virtual void Action(Sungero.Domain.Client.ExecuteActionArgs e)
     {
+      if (_obj.State.IsChanged)
+        _obj.Save();
       var result = Functions.RelativeDate.CalculateDate(_obj);
       
       Dialogs.NotifyMessage(result.ToString());

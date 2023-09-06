@@ -44,7 +44,7 @@ namespace Starkov.ScheduledReports.Shared
       if (!string.IsNullOrEmpty(relative.FunctionGuid))
         return CalculateDateByFunctionGuid(Guid.Parse(relative.FunctionGuid), date, number.GetValueOrDefault(1));
       
-      foreach (var expression in relative.CompoundExpression.OrderBy(c => c.Id))
+      foreach (var expression in relative.CompoundExpression.Where(c => c.ExpressionPart != null).OrderBy(c => c.OrderCalculation))
         resultDate = CalculateDate(expression.ExpressionPart, resultDate, expression.Number);
       
       return resultDate;

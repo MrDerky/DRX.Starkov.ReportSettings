@@ -64,4 +64,7 @@
   <data name="Property_Number" xml:space="preserve">
     <value>Number</value>
   </data>
+  <data name="Property_OrderCalculation" xml:space="preserve">
+    <value>Order calculation</value>
+  </data>
 </root>

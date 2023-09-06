@@ -10,6 +10,17 @@
   "IsChildEntity": true,
   "Properties": [
     {
+      "$type": "Sungero.Metadata.IntegerPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "4c144c44-3b9d-4e03-8449-52376a48e6be",
+      "Name": "OrderCalculation",
+      "CanBeSearch": false,
+      "Code": "OrderCalculati",
+      "IsEnabled": false,
+      "IsRequired": true,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.NumericEditorToIntAndDoubleBinder",
+      "PreviousPropertyGuid": "28e55686-f8ff-434f-953c-8629e67e289e"
+    },
+    {
       "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
       "NameGuid": "c4de2337-06c5-42a9-8905-d203151d5af0",
       "Name": "RelativeDate",
@@ -27,6 +38,9 @@
       "Code": "ExpressionPart",
       "EntityGuid": "26553e87-531b-4953-980d-ab3e60bcebee",
       "FlatListInStandaloneLookup": true,
+      "HandledEvents": [
+        "LookupServer"
+      ],
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
       "PreviousPropertyGuid": "2654ba5c-072b-48f1-ad35-b1b93cec2845",
       "Versions": []
