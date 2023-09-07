@@ -63,12 +63,15 @@ namespace Starkov.ScheduledReports.Shared
       if (relative == null)
         return resultDate;
       
-      if (!string.IsNullOrEmpty(relative.FunctionGuid))
-        return CalculateDateByFunctionGuid(Guid.Parse(relative.FunctionGuid), date, number.GetValueOrDefault(1));
+      if (!number.HasValue)
+        number = 1;
+      
+      if (Functions.RelativeDate.IsInitialized(relative))
+        return CalculateDateByFunctionGuid(Guid.Parse(relative.FunctionGuid), date, number.Value);
       
       // Защитой от переполнения стека служит фильтрация для ExpressionPart в коллекции CompoundExpression
       foreach (var expression in relative.CompoundExpression.Where(c => c.ExpressionPart != null).OrderBy(c => c.OrderCalculation))
-        resultDate = CalculateDate(expression.ExpressionPart, resultDate, expression.Number);
+        resultDate = CalculateDate(expression.ExpressionPart, resultDate, expression.Number.GetValueOrDefault(1) * number);
       
       return resultDate;
     }

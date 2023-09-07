@@ -56,36 +56,45 @@ namespace Starkov.ScheduledReports.Client
           case "System.DateTime": // TODO нужен рефакторинг
             #region Правка даты
             
-//            var dialog = Dialogs.CreateInputDialog("Изменить дату");
+            //            var dialog = Dialogs.CreateInputDialog("Изменить дату");
             var isRelative = dialog.AddBoolean("Относительная дата");
             var date = dialog.AddDate("Дата", false);
             
-            var relative = dialog.AddSelect("Период", false, Starkov.ScheduledReports.RelativeDates.Null);//.From(new string[] {"Дата отчета", "Неделя", "Месяц", "Год"});
-            var relativeText = dialog.AddString("Выражение", false);
-            var isCustomInput = dialog.AddBoolean("Ввести вручную");
+            var relative = dialog.AddSelect("Период", false, Starkov.ScheduledReports.RelativeDates.Null).Where(r => r.Status != RelativeDate.Status.Closed);
+            var increment = dialog.AddInteger("Количество", false);
+            //var isCustomInput = dialog.AddBoolean("Ввести вручную");
             
-            isCustomInput.IsVisible = false;
-            relativeText.IsVisible = false;
+            //            isCustomInput.IsVisible = false;
+            increment.IsVisible = false;
             relative.IsVisible = false;
             
             isRelative.SetOnValueChanged((x) =>
                                          {
                                            date.IsVisible = !x.NewValue.GetValueOrDefault();
-                                           relative.IsVisible = x.NewValue.GetValueOrDefault() && !isCustomInput.Value.GetValueOrDefault();
-                                           relativeText.IsVisible = x.NewValue.GetValueOrDefault() && isCustomInput.Value.GetValueOrDefault();
-                                           isCustomInput.IsVisible = x.NewValue.GetValueOrDefault();
+                                           relative.IsVisible = x.NewValue.GetValueOrDefault();
+                                           increment.IsVisible = x.NewValue.GetValueOrDefault() && relative.Value != null && relative.Value.IsIncremental.GetValueOrDefault();
+                                           //                                           isCustomInput.IsVisible = x.NewValue.GetValueOrDefault();
                                          });
             
             relative.SetOnValueChanged((r) =>
                                        {
                                          //relativeText.Value = r.NewValue.RelativeExpression;
+                                         increment.IsVisible = r.NewValue != null && r.NewValue.IsIncremental.GetValueOrDefault();
                                        });
             
-            isCustomInput.SetOnValueChanged((x) =>
-                                            {
-                                              relative.IsVisible = !x.NewValue.GetValueOrDefault();
-                                              relativeText.IsVisible = x.NewValue.GetValueOrDefault();
-                                            });
+            increment.SetOnValueChanged((n) =>
+                                        {
+//                                          if (n.NewValue < -100)
+//                                            increment = -100;
+//                                          else if (n.NewValue > 100)
+//                                            increment = 100; //TODO вынести в настройки
+                                        });
+            
+            //            isCustomInput.SetOnValueChanged((x) =>
+            //                                            {
+            //                                              relative.IsVisible = !x.NewValue.GetValueOrDefault();
+            //                                              relativeText.IsVisible = x.NewValue.GetValueOrDefault();
+            //                                            });
             
             // TODO Рефакторить это безобразие
             if (dialog.Show() == DialogButtons.Ok)
@@ -94,16 +103,11 @@ namespace Starkov.ScheduledReports.Client
               
               if (isRelative.Value.GetValueOrDefault())
               {
-                if (!isCustomInput.Value.GetValueOrDefault())
-                {
-                  _obj.ValueText = relative.Value.Name;
-                  _obj.ValueId = relative.Value.Id;
-                }
-                else
-                  _obj.ValueText = relativeText.Value;
+                _obj.ValueText = string.Join(" ", increment.Value, relative.Value.Name);
+                _obj.ValueId = relative.Value.Id;
               }
               else
-                _obj.ValueText = date.Value.GetValueOrDefault().ToShortDateString();
+                _obj.ValueText = date.Value.GetValueOrDefault().ToString();
             }
             
             break;

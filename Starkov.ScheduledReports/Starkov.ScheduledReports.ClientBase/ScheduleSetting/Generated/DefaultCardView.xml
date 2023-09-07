@@ -8,7 +8,7 @@
         <property name="View" isnull="true" iskey="true">
           <property name="LinesPerRowMode">None</property>
           <property name="ColumnChooserState" isnull="true" iskey="true">
-            <property name="Location">1097,-2</property>
+            <property name="Location">1586,-2</property>
             <property name="Size">220,250</property>
           </property>
           <property name="AllowMoveColumnToDropArea">false</property>
@@ -30,48 +30,42 @@
             <property name="Name">ScheduleSetting_ReportParams_Parameter</property>
             <property name="FieldName">Parameter</property>
             <property name="VisibleIndex">0</property>
-            <property name="Width">125</property>
-            <property name="ActualWidth">7*</property>
+            <property name="ActualWidth">5*</property>
           </property>
           <property name="Item2" isnull="true" iskey="true">
             <property name="Visible">true</property>
             <property name="Name">ScheduleSetting_ReportParams_ValueText</property>
             <property name="FieldName">ValueText</property>
             <property name="VisibleIndex">1</property>
-            <property name="Width">125</property>
-            <property name="ActualWidth">7*</property>
+            <property name="ActualWidth">5*</property>
           </property>
           <property name="Item3" isnull="true" iskey="true">
             <property name="Visible">true</property>
             <property name="Name">ScheduleSetting_ReportParams_InternalDataTypeName</property>
             <property name="FieldName">InternalDataTypeName</property>
             <property name="VisibleIndex">2</property>
-            <property name="Width">71</property>
-            <property name="ActualWidth">4*</property>
+            <property name="ActualWidth">3*</property>
           </property>
           <property name="Item4" isnull="true" iskey="true">
             <property name="Visible">true</property>
             <property name="Name">ScheduleSetting_ReportParams_EntityGuid</property>
             <property name="FieldName">EntityGuid</property>
             <property name="VisibleIndex">3</property>
-            <property name="Width">161</property>
-            <property name="ActualWidth">9*</property>
+            <property name="ActualWidth">6*</property>
           </property>
           <property name="Item5" isnull="true" iskey="true">
             <property name="Visible">true</property>
             <property name="Name">ScheduleSetting_ReportParams_ValueId</property>
             <property name="FieldName">ValueId</property>
             <property name="VisibleIndex">4</property>
-            <property name="Width">71</property>
-            <property name="ActualWidth">4*</property>
+            <property name="ActualWidth">3*</property>
           </property>
           <property name="Item6" isnull="true" iskey="true">
             <property name="Visible">true</property>
             <property name="Name">ScheduleSetting_ReportParams_IsRelativeDate</property>
             <property name="FieldName">IsRelativeDate</property>
             <property name="VisibleIndex">5</property>
-            <property name="Width">196</property>
-            <property name="ActualWidth">11*</property>
+            <property name="ActualWidth">8*</property>
           </property>
         </property>
         <property name="GroupSummarySortInfo" iskey="true" value="0" />

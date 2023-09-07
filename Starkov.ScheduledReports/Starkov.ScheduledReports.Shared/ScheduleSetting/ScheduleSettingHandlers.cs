@@ -11,15 +11,15 @@ namespace Starkov.ScheduledReports
   partial class ScheduleSettingSharedHandlers
   {
 
-    public virtual void DateEndChanged(Sungero.Domain.Shared.DateTimePropertyChangedEventArgs e)
+    public virtual void DateBeginChanged(Sungero.Domain.Shared.DateTimePropertyChangedEventArgs e)
     {
       if (e.OldValue == e.NewValue )
         return;
       
       _obj.NextDate = Functions.ScheduleSetting.Remote.GetNextPeriod(_obj, _obj.PeriodNumber);
     }
-
-    public virtual void DateBeginChanged(Sungero.Domain.Shared.DateTimePropertyChangedEventArgs e)
+    
+    public virtual void DateEndChanged(Sungero.Domain.Shared.DateTimePropertyChangedEventArgs e)
     {
       if (e.OldValue == e.NewValue )
         return;

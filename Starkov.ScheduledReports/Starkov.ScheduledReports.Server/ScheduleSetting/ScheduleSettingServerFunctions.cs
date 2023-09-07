@@ -26,9 +26,6 @@ namespace Starkov.ScheduledReports.Server
     [Remote, Public]
     public DateTime? GetNextPeriod(int? number)
     {
-      if (_obj.DateBegin.HasValue && Calendar.Now < _obj.DateBegin.Value)
-        return _obj.DateBegin.Value;
-      
       //      if (!times.HasValue || times.Value == 0)
       //        times = 1;
       
@@ -39,21 +36,24 @@ namespace Starkov.ScheduledReports.Server
       
       var resultDate = Calendar.Now;
       
-//      if (PublicFunctions.RelativeDate.IsInitialized(_obj.Period))
-        resultDate = PublicFunctions.RelativeDate.CalculateDate(_obj.Period, resultDate, number);
-//      else
-//      {
-//        if (!number.HasValue || number.Value == 0)
-//          number = 1;
-//        
-//        for (int i = 1; i != number.Value; i = number.Value > 0 ? i++ : i--)
-//          resultDate = PublicFunctions.RelativeDate.CalculateDate(_obj.Period, resultDate);
-//      }
+      //      if (PublicFunctions.RelativeDate.IsInitialized(_obj.Period))
+      resultDate = PublicFunctions.RelativeDate.CalculateDate(_obj.Period, resultDate, number);
+      //      else
+      //      {
+      //        if (!number.HasValue || number.Value == 0)
+      //          number = 1;
+//
+      //        for (int i = 1; i != number.Value; i = number.Value > 0 ? i++ : i--)
+      //          resultDate = PublicFunctions.RelativeDate.CalculateDate(_obj.Period, resultDate);
+      //      }
       
       if (_obj.DateEnd.HasValue && resultDate > _obj.DateEnd.Value)
         return null;
       
-      return resultDate;// RelativeDateCalculator.Calculator.Calculate(_obj.Period.RelativeExpression);
+      if (_obj.DateBegin.HasValue && resultDate < _obj.DateBegin.Value)
+        return _obj.DateBegin.Value;
+      
+      return resultDate;
     }
 
     /// <summary>
