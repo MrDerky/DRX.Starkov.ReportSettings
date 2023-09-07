@@ -35,11 +35,11 @@ namespace Starkov.ScheduledReports
       var number = e.NewValue;
       
       if (e.NewValue < 1) //TODO вынести в настройку
-        _obj.PeriodNumber = 1;
+        number =_obj.PeriodNumber = 1;
       else if (e.NewValue > 100)
-        _obj.PeriodNumber = 100;
+        number = _obj.PeriodNumber = 100;
       
-      _obj.NextDate = Functions.ScheduleSetting.Remote.GetNextPeriod(_obj, e.NewValue);
+      _obj.NextDate = Functions.ScheduleSetting.Remote.GetNextPeriod(_obj, number);
     }
 
     public virtual void PeriodChanged(Starkov.ScheduledReports.Shared.ScheduleSettingPeriodChangedEventArgs e)

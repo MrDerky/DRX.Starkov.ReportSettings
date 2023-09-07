@@ -39,16 +39,16 @@ namespace Starkov.ScheduledReports.Server
       
       var resultDate = Calendar.Now;
       
-      if (PublicFunctions.RelativeDate.IsInitialized(_obj.Period))
+//      if (PublicFunctions.RelativeDate.IsInitialized(_obj.Period))
         resultDate = PublicFunctions.RelativeDate.CalculateDate(_obj.Period, resultDate, number);
-      else
-      {
-        if (!number.HasValue || number.Value == 0)
-          number = 1;
-        
-        for (int i = 1; i != number.Value; i = number.Value > 0 ? i++ : i--)
-          resultDate = PublicFunctions.RelativeDate.CalculateDate(_obj.Period, resultDate);
-      }
+//      else
+//      {
+//        if (!number.HasValue || number.Value == 0)
+//          number = 1;
+//        
+//        for (int i = 1; i != number.Value; i = number.Value > 0 ? i++ : i--)
+//          resultDate = PublicFunctions.RelativeDate.CalculateDate(_obj.Period, resultDate);
+//      }
       
       if (_obj.DateEnd.HasValue && resultDate > _obj.DateEnd.Value)
         return null;
