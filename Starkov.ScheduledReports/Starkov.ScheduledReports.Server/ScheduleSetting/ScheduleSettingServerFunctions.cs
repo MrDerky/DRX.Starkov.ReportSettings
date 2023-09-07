@@ -12,11 +12,48 @@ namespace Starkov.ScheduledReports.Server
   {
     /// <summary>
     /// Получить следующую дату выполнения.
-    /// </summary>   
+    /// </summary>
     [Remote, Public]
-    public DateTime GetNextPeriod()
+    public DateTime? GetNextPeriod()
     {
-      return RelativeDateCalculator.Calculator.Calculate(_obj.Period.RelativeExpression);
+      return GetNextPeriod(_obj.PeriodNumber);
+    }
+    
+    /// <summary>
+    /// Получить следующую дату выполнения.
+    /// </summary>
+    /// <param name="number">Множитель.</param>
+    [Remote, Public]
+    public DateTime? GetNextPeriod(int? number)
+    {
+      if (_obj.DateBegin.HasValue && Calendar.Now < _obj.DateBegin.Value)
+        return _obj.DateBegin.Value;
+      
+      //      if (!times.HasValue || times.Value == 0)
+      //        times = 1;
+      
+      
+      //for (int i = 1; i != times.Value; i + times.Value)
+      if (_obj.Period == null)
+        return null;
+      
+      var resultDate = Calendar.Now;
+      
+      if (PublicFunctions.RelativeDate.IsInitialized(_obj.Period))
+        resultDate = PublicFunctions.RelativeDate.CalculateDate(_obj.Period, resultDate, number);
+      else
+      {
+        if (!number.HasValue || number.Value == 0)
+          number = 1;
+        
+        for (int i = 1; i != number.Value; i = number.Value > 0 ? i++ : i--)
+          resultDate = PublicFunctions.RelativeDate.CalculateDate(_obj.Period, resultDate);
+      }
+      
+      if (_obj.DateEnd.HasValue && resultDate > _obj.DateEnd.Value)
+        return null;
+      
+      return resultDate;// RelativeDateCalculator.Calculator.Calculate(_obj.Period.RelativeExpression);
     }
 
     /// <summary>
@@ -126,7 +163,7 @@ namespace Starkov.ScheduledReports.Server
     /// <summary>
     /// Полуить дату из параметра настроек.
     /// </summary>
-  /// <param name="reportParam">Строка коллекции параметров отчета.</param>
+    /// <param name="reportParam">Строка коллекции параметров отчета.</param>
     /// <returns>Дата.</returns>
     public static DateTime? GetDateFromReportParam(Starkov.ScheduledReports.IScheduleSettingReportParams reportParam)
     {
@@ -136,10 +173,12 @@ namespace Starkov.ScheduledReports.Server
         System.DateTime.TryParse(reportParam.ValueText, out date);
       else
       {
-        var expression = reportParam.ValueId.HasValue
-          ? RelativeDates.GetAll(r => r.Id == reportParam.ValueId.Value).FirstOrDefault()?.RelativeExpression ?? string.Empty
-          : reportParam.ValueText;
-        date = RelativeDateCalculator.Calculator.Calculate(expression);
+        // TODO Изменить логику вычисления относительной даты
+        //        var expression = reportParam.ValueId.HasValue
+        //          ? RelativeDates.GetAll(r => r.Id == reportParam.ValueId.Value).FirstOrDefault()?.RelativeExpression ?? string.Empty
+        //          : reportParam.ValueText;
+        //        date = RelativeDateCalculator.Calculator.Calculate(expression);
+        date = Calendar.Now;
       }
       
       return date;

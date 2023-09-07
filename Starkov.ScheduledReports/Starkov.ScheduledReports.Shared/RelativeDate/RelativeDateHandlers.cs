@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -7,6 +7,7 @@ using Starkov.ScheduledReports.RelativeDate;
 
 namespace Starkov.ScheduledReports
 {
+
   partial class RelativeDateCompoundExpressionSharedCollectionHandlers
   {
 
@@ -22,10 +23,5 @@ namespace Starkov.ScheduledReports
       var maxOrder = _obj.CompoundExpression.Max(c => c.OrderCalculation);
       _added.OrderCalculation = maxOrder > 0 ? ++maxOrder : 1;
     }
-  }
-
-  partial class RelativeDateSharedHandlers
-  {
-
   }
 }

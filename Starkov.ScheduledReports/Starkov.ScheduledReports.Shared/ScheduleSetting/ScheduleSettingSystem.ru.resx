@@ -124,4 +124,7 @@
   <data name="ControlGroup_1b8735c1caf34bc4bcce4d89ee2535aa" xml:space="preserve">
     <value>Расписание</value>
   </data>
+  <data name="Property_PeriodNumber" xml:space="preserve">
+    <value>Количество</value>
+  </data>
 </root>

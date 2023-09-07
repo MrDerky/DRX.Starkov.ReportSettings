@@ -12,6 +12,8 @@ namespace Starkov.ScheduledReports
 
     public override void Showing(Sungero.Presentation.FormShowingEventArgs e)
     {
+      _obj.State.Properties.PeriodNumber.IsVisible = _obj.Period != null && _obj.Period.IsIncremental.GetValueOrDefault();
+      
       if (string.IsNullOrEmpty(_obj.ReportName))
         e.Instruction = string.Format(Starkov.ScheduledReports.ScheduleSettings.Resources.SheduleSettingInstruction,
                                       Environment.NewLine,

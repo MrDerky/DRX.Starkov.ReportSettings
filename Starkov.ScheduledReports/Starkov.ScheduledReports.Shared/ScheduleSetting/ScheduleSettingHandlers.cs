@@ -11,10 +11,46 @@ namespace Starkov.ScheduledReports
   partial class ScheduleSettingSharedHandlers
   {
 
+    public virtual void DateEndChanged(Sungero.Domain.Shared.DateTimePropertyChangedEventArgs e)
+    {
+      if (e.OldValue == e.NewValue )
+        return;
+      
+      _obj.NextDate = Functions.ScheduleSetting.Remote.GetNextPeriod(_obj, _obj.PeriodNumber);
+    }
+
+    public virtual void DateBeginChanged(Sungero.Domain.Shared.DateTimePropertyChangedEventArgs e)
+    {
+      if (e.OldValue == e.NewValue )
+        return;
+      
+      _obj.NextDate = Functions.ScheduleSetting.Remote.GetNextPeriod(_obj, _obj.PeriodNumber);
+    }
+
+    public virtual void PeriodNumberChanged(Sungero.Domain.Shared.IntegerPropertyChangedEventArgs e)
+    {
+      if (e.OldValue == e.NewValue )
+        return;
+      
+      var number = e.NewValue;
+      
+      if (e.NewValue < 1) //TODO вынести в настройку
+        _obj.PeriodNumber = 1;
+      else if (e.NewValue > 100)
+        _obj.PeriodNumber = 100;
+      
+      _obj.NextDate = Functions.ScheduleSetting.Remote.GetNextPeriod(_obj, e.NewValue);
+    }
+
     public virtual void PeriodChanged(Starkov.ScheduledReports.Shared.ScheduleSettingPeriodChangedEventArgs e)
     {
-      if (e.OldValue != e.NewValue)
-        _obj.NextDate = Functions.ScheduleSetting.Remote.GetNextPeriod(_obj);
+      if (e.OldValue == e.NewValue)
+        return;
+      
+      var isIncremental = e.NewValue != null && e.NewValue.IsIncremental.GetValueOrDefault();
+      _obj.State.Properties.PeriodNumber.IsVisible = isIncremental;
+      
+      _obj.NextDate = Functions.ScheduleSetting.Remote.GetNextPeriod(_obj, _obj.PeriodNumber);
     }
 
     public virtual void ReportNameChanged(Sungero.Domain.Shared.StringPropertyChangedEventArgs e)

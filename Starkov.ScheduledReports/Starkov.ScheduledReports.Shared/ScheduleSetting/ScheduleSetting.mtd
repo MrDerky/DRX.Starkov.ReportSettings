@@ -173,10 +173,13 @@
           "Name": "Schedule",
           "ColumnDefinitions": [
             {
-              "Percentage": 50.0
+              "Percentage": 25.96
             },
             {
-              "Percentage": 50.0
+              "Percentage": 20.07
+            },
+            {
+              "Percentage": 53.98
             }
           ],
           "ColumnNumber": 0,
@@ -191,7 +194,7 @@
           "NameGuid": "e9e09e23-f35a-4ea4-a2a8-1b7e1724f20f",
           "Name": "DateBegin",
           "ColumnNumber": 0,
-          "ColumnSpan": 1,
+          "ColumnSpan": 2,
           "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
           "ParentGuid": "1b8735c1-caf3-4bc4-bcce-4d89ee2535aa",
           "PropertyGuid": "810b423c-ca10-4c99-8320-9cd09e790d9e",
@@ -203,7 +206,7 @@
           "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
           "NameGuid": "6fbca1a9-e5fb-45ce-857f-f5cd1857fb4a",
           "Name": "DateEnd",
-          "ColumnNumber": 1,
+          "ColumnNumber": 2,
           "ColumnSpan": 1,
           "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
           "ParentGuid": "1b8735c1-caf3-4bc4-bcce-4d89ee2535aa",
@@ -229,11 +232,24 @@
           "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
           "NameGuid": "d436ee2b-aab0-44ff-a3a7-068306d41516",
           "Name": "NextDate",
-          "ColumnNumber": 1,
+          "ColumnNumber": 2,
           "ColumnSpan": 1,
           "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
           "ParentGuid": "1b8735c1-caf3-4bc4-bcce-4d89ee2535aa",
           "PropertyGuid": "7560638f-4099-4332-b77d-a6662c546668",
+          "RowNumber": 0,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "90ab59e8-281a-4684-ab68-d1803ca2668f",
+          "Name": "PeriodNumber",
+          "ColumnNumber": 1,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.NumericEditorToIntAndDoubleBinder",
+          "ParentGuid": "1b8735c1-caf3-4bc4-bcce-4d89ee2535aa",
+          "PropertyGuid": "263d1192-573c-4fd9-a48a-3ff056aea6e0",
           "RowNumber": 0,
           "RowSpan": 1,
           "Settings": []
@@ -333,6 +349,10 @@
       "NameGuid": "810b423c-ca10-4c99-8320-9cd09e790d9e",
       "Name": "DateBegin",
       "Code": "DateBegin",
+      "DateTimeFormat": "DateTime",
+      "HandledEvents": [
+        "ChangedShared"
+      ],
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
       "PreviousPropertyGuid": "f6ab4509-0f98-4867-856d-f8eb7a69738e"
     },
@@ -341,6 +361,10 @@
       "NameGuid": "c5557ea4-bf0c-49fe-b924-ccf13cf1c84d",
       "Name": "DateEnd",
       "Code": "DateEnd",
+      "DateTimeFormat": "DateTime",
+      "HandledEvents": [
+        "ChangedShared"
+      ],
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
       "PreviousPropertyGuid": "810b423c-ca10-4c99-8320-9cd09e790d9e"
     },
@@ -352,7 +376,8 @@
       "EntityGuid": "26553e87-531b-4953-980d-ab3e60bcebee",
       "FlatListInStandaloneLookup": true,
       "HandledEvents": [
-        "ChangedShared"
+        "ChangedShared",
+        "LookupServer"
       ],
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
       "PreviousPropertyGuid": "c5557ea4-bf0c-49fe-b924-ccf13cf1c84d"
@@ -362,8 +387,20 @@
       "NameGuid": "7560638f-4099-4332-b77d-a6662c546668",
       "Name": "NextDate",
       "Code": "NextDate",
+      "DateTimeFormat": "DateTime",
       "IsEnabled": false,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
+      "PreviousPropertyGuid": "263d1192-573c-4fd9-a48a-3ff056aea6e0"
+    },
+    {
+      "$type": "Sungero.Metadata.IntegerPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "263d1192-573c-4fd9-a48a-3ff056aea6e0",
+      "Name": "PeriodNumber",
+      "Code": "PeriodNumber",
+      "HandledEvents": [
+        "ChangedShared"
+      ],
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.NumericEditorToIntAndDoubleBinder",
       "PreviousPropertyGuid": "530e5def-e544-4ccf-98fd-864febb2fbb0"
     }
   ],
@@ -379,8 +416,27 @@
         }
       ],
       "Placement": "Shared",
-      "ReturnType": "global::System.DateTime",
-      "ReturnTypeFullName": "System.DateTime"
+      "ReturnType": "global::System.Nullable<global::System.DateTime>",
+      "ReturnTypeFullName": "System.Nullable"
+    },
+    {
+      "Name": "GetNextPeriod",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "scheduleSetting",
+          "ParameterType": "global::Starkov.ScheduledReports.IScheduleSetting",
+          "ParameterTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "number",
+          "ParameterType": "global::System.Nullable<global::System.Int32>",
+          "ParameterTypeFullName": "System.Nullable"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.Nullable<global::System.DateTime>",
+      "ReturnTypeFullName": "System.Nullable"
     },
     {
       "Name": "SaveReportParams",

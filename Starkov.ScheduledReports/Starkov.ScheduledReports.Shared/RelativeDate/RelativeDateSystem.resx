@@ -70,9 +70,6 @@
   <data name="CollectionDisplayName" xml:space="preserve">
     <value>Relative dates</value>
   </data>
-  <data name="Property_RelativeExpression" xml:space="preserve">
-    <value>Relative expression</value>
-  </data>
   <data name="Control_b37138b05365424eae8bb077b88b854f_EmptyText" xml:space="preserve">
     <value>enter a relative date expression</value>
   </data>
@@ -91,18 +88,6 @@
   <data name="Action_TestConfirmationDescription" xml:space="preserve">
     <value />
   </data>
-  <data name="Property_BaseDate" xml:space="preserve">
-    <value>Base date</value>
-  </data>
-  <data name="Enum_BaseDate_Today" xml:space="preserve">
-    <value>TODAY</value>
-  </data>
-  <data name="Enum_BaseDate_WeekStart" xml:space="preserve">
-    <value>WEEK START</value>
-  </data>
-  <data name="Enum_BaseDate_WeekEnd" xml:space="preserve">
-    <value>WEEK END</value>
-  </data>
   <data name="Action_Action" xml:space="preserve">
     <value>Action</value>
   </data>
@@ -118,21 +103,6 @@
   <data name="Action_ActionConfirmationDescription" xml:space="preserve">
     <value />
   </data>
-  <data name="ControlGroup_5af4bcba6108412daefec9ab7fc6bbf3" xml:space="preserve">
-    <value>Valid values for expressions</value>
-  </data>
-  <data name="Property_Type" xml:space="preserve">
-    <value>Type</value>
-  </data>
-  <data name="Enum_Type_Main" xml:space="preserve">
-    <value>Main</value>
-  </data>
-  <data name="Enum_Type_Additional" xml:space="preserve">
-    <value>Additional</value>
-  </data>
-  <data name="Enum_Type_Mixed" xml:space="preserve">
-    <value>Mixed</value>
-  </data>
   <data name="AdditionalInfoTemplate" xml:space="preserve">
     <value>[Description]</value>
   </data>
@@ -147,5 +117,26 @@
   </data>
   <data name="Property_Description" xml:space="preserve">
     <value>Description</value>
+  </data>
+  <data name="Property_IsIncremental" xml:space="preserve">
+    <value>Incremental</value>
+  </data>
+  <data name="Enum_BaseDate_WeekEnd" xml:space="preserve">
+    <value>BaseDate</value>
+  </data>
+  <data name="Enum_BaseDate_WeekStart" xml:space="preserve">
+    <value>BaseDate</value>
+  </data>
+  <data name="Enum_Type_Main" xml:space="preserve">
+    <value>Main</value>
+  </data>
+  <data name="Enum_Type_Additional" xml:space="preserve">
+    <value>Main</value>
+  </data>
+  <data name="Enum_Type_Mixed" xml:space="preserve">
+    <value>Main</value>
+  </data>
+  <data name="Enum_BaseDate_Today" xml:space="preserve">
+    <value>BaseDate</value>
   </data>
 </root>

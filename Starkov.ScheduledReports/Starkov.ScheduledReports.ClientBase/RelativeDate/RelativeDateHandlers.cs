@@ -15,6 +15,7 @@ namespace Starkov.ScheduledReports
       var canChange = string.IsNullOrEmpty(_obj.FunctionGuid);
       _obj.State.Properties.CompoundExpression.IsVisible = canChange;
       _obj.State.IsEnabled = canChange;
+      _obj.State.Properties.CompoundExpression.IsRequired = canChange;
     }
   }
 

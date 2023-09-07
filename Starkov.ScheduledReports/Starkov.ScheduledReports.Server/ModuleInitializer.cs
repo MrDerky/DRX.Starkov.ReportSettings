@@ -20,24 +20,25 @@ namespace Starkov.ScheduledReports.Server
     /// </summary>
     public virtual void CreateBaseRelativeDates()
     {
+      //TODO локализация
       InitializationLogger.Debug("Init: Create base relative dates.");
-      CreateBaseRelativeDate("Сегодня", "Текущая дата без времени", Constants.RelativeDate.FunctionGuids.Base.Today);
-      CreateBaseRelativeDate("Сейчас", "Текущая дата и время", Constants.RelativeDate.FunctionGuids.Base.Now);
-      CreateBaseRelativeDate("Начало недели", null, Constants.RelativeDate.FunctionGuids.Base.BeginningOfWeek);
-      CreateBaseRelativeDate("Конец недели", null, Constants.RelativeDate.FunctionGuids.Base.EndOfWeek);
-      CreateBaseRelativeDate("Начало месяца", null, Constants.RelativeDate.FunctionGuids.Base.BeginningOfMonth);
-      CreateBaseRelativeDate("Конец месяца", null, Constants.RelativeDate.FunctionGuids.Base.EndOfMonth);
-      CreateBaseRelativeDate("Начало года", null, Constants.RelativeDate.FunctionGuids.Base.BeginningOfYear);
-      CreateBaseRelativeDate("Конец года", null, Constants.RelativeDate.FunctionGuids.Base.EndOfYear);
-      CreateBaseRelativeDate("Сброс времени", "Вернуть дату и время 0:00:00", Constants.RelativeDate.FunctionGuids.Base.Date);
+      CreateBaseRelativeDate("Сегодня", "Текущая дата без времени", Constants.RelativeDate.FunctionGuids.Base.Today, false);
+      CreateBaseRelativeDate("Сейчас", "Текущая дата и время", Constants.RelativeDate.FunctionGuids.Base.Now, false);
+      CreateBaseRelativeDate("Начало недели", null, Constants.RelativeDate.FunctionGuids.Base.BeginningOfWeek, false);
+      CreateBaseRelativeDate("Конец недели", null, Constants.RelativeDate.FunctionGuids.Base.EndOfWeek, false);
+      CreateBaseRelativeDate("Начало месяца", null, Constants.RelativeDate.FunctionGuids.Base.BeginningOfMonth, false);
+      CreateBaseRelativeDate("Конец месяца", null, Constants.RelativeDate.FunctionGuids.Base.EndOfMonth, false);
+      CreateBaseRelativeDate("Начало года", null, Constants.RelativeDate.FunctionGuids.Base.BeginningOfYear, false);
+      CreateBaseRelativeDate("Конец года", null, Constants.RelativeDate.FunctionGuids.Base.EndOfYear, false);
+      CreateBaseRelativeDate("Сброс времени", "Вернуть дату и время 0:00:00", Constants.RelativeDate.FunctionGuids.Base.Date, false);
       
-      CreateBaseRelativeDate("Через день", "Добавить 1 день", Constants.RelativeDate.FunctionGuids.Incremental.AddDays);
-      CreateBaseRelativeDate("Через месяц", "Добавить 1 месяц", Constants.RelativeDate.FunctionGuids.Incremental.AddMonths);
-      CreateBaseRelativeDate("Через час", "Добавить 1 час", Constants.RelativeDate.FunctionGuids.Incremental.AddHours);
-      CreateBaseRelativeDate("Через минуту", "Добавить 1 минуту", Constants.RelativeDate.FunctionGuids.Incremental.AddMinutes);
+      CreateBaseRelativeDate("День", "Добавить n дней", Constants.RelativeDate.FunctionGuids.Incremental.AddDays, true);
+      CreateBaseRelativeDate("Месяц", "Добавить n месяцев", Constants.RelativeDate.FunctionGuids.Incremental.AddMonths, true);
+      CreateBaseRelativeDate("Час", "Добавить n часов", Constants.RelativeDate.FunctionGuids.Incremental.AddHours, true);
+      CreateBaseRelativeDate("Минута", "Добавить n минут", Constants.RelativeDate.FunctionGuids.Incremental.AddMinutes, true);
     }
     
-    private void CreateBaseRelativeDate(string name, string description, Guid guid)
+    private void CreateBaseRelativeDate(string name, string description, Guid guid, bool isIncremental)
     {
       var relativeDate = RelativeDates.GetAll(r => r.FunctionGuid == guid.ToString()).FirstOrDefault();
       if (relativeDate == null)
@@ -49,6 +50,7 @@ namespace Starkov.ScheduledReports.Server
       
       relativeDate.Name = name;
       relativeDate.Description = description;
+      relativeDate.IsIncremental = isIncremental;
       relativeDate.Save();
     }
   }

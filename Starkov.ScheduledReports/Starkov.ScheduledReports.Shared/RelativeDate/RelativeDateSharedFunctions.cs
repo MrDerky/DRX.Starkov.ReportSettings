@@ -9,7 +9,15 @@ namespace Starkov.ScheduledReports.Shared
 {
   partial class RelativeDateFunctions
   {
-
+    /// <summary>
+    /// Признак что запись была инициализирована.
+    /// </summary>
+    [Public]
+    public virtual bool IsInitialized()
+    {
+      return !string.IsNullOrEmpty(_obj.FunctionGuid);
+    }
+    
     /// <summary>
     /// Вычислить дату.
     /// </summary>
@@ -32,6 +40,20 @@ namespace Starkov.ScheduledReports.Shared
     /// <summary>
     /// Вычислить дату.
     /// </summary>
+    /// <param name="date">Дата для вычислений.</param>
+    /// <param name="number">Число для вычислений.</param>
+    [Public]
+    public virtual DateTime CalculateDate(DateTime? date, int? number)
+    {
+      if (_obj.IsIncremental != true && number.HasValue)
+        number = null;
+      
+      return CalculateDate(_obj, date, number);
+    }
+    
+    /// <summary>
+    /// Вычислить дату.
+    /// </summary>
     /// <param name="relative">Экземпляр справочника "Относительная дата".</param>
     /// <param name="date">Дата для вычислений.</param>
     /// <param name="number">Число для вычислений.</param>
@@ -44,6 +66,7 @@ namespace Starkov.ScheduledReports.Shared
       if (!string.IsNullOrEmpty(relative.FunctionGuid))
         return CalculateDateByFunctionGuid(Guid.Parse(relative.FunctionGuid), date, number.GetValueOrDefault(1));
       
+      // Защитой от переполнения стека служит фильтрация для ExpressionPart в коллекции CompoundExpression
       foreach (var expression in relative.CompoundExpression.Where(c => c.ExpressionPart != null).OrderBy(c => c.OrderCalculation))
         resultDate = CalculateDate(expression.ExpressionPart, resultDate, expression.Number);
       

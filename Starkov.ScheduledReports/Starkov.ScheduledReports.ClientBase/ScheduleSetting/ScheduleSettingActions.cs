@@ -78,7 +78,7 @@ namespace Starkov.ScheduledReports.Client
             
             relative.SetOnValueChanged((r) =>
                                        {
-                                         relativeText.Value = r.NewValue.RelativeExpression;
+                                         //relativeText.Value = r.NewValue.RelativeExpression;
                                        });
             
             isCustomInput.SetOnValueChanged((x) =>

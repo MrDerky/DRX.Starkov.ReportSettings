@@ -13,6 +13,7 @@ namespace Starkov.ScheduledReports.Client
     {
       if (_obj.State.IsChanged)
         _obj.Save();
+      
       var result = Functions.RelativeDate.CalculateDate(_obj);
       
       Dialogs.NotifyMessage(result.ToString());
@@ -25,15 +26,15 @@ namespace Starkov.ScheduledReports.Client
 
     public virtual void Test(Sungero.Domain.Client.ExecuteActionArgs e)
     {
-      try
-      {
-        var result = Functions.RelativeDate.Remote.CalculateExpression(_obj.RelativeExpression);
-        Dialogs.NotifyMessage(result);
-      }
-      catch (Exception ex)
-      {
-        e.AddError(ex.Message);
-      }
+//      try
+//      {
+//        var result = Functions.RelativeDate.Remote.CalculateExpression(_obj.RelativeExpression);
+//        Dialogs.NotifyMessage(result);
+//      }
+//      catch (Exception ex)
+//      {
+//        e.AddError(ex.Message);
+//      }
       
     }
 
