@@ -97,4 +97,7 @@
   <data name="CoverDescription_Create" xml:space="preserve">
     <value>Создать настройку расписания</value>
   </data>
+  <data name="AsyncHandler_Description_b396d5a435244af19b1d29963e1bdae1" xml:space="preserve">
+    <value>Send shedule report</value>
+  </data>
 </root>

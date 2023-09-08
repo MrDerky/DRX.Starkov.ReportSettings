@@ -30,7 +30,7 @@
             <property name="Name">ScheduleSetting_ReportParams_Parameter</property>
             <property name="FieldName">Parameter</property>
             <property name="VisibleIndex">0</property>
-            <property name="Width">89</property>
+            <property name="Width">80</property>
             <property name="ActualWidth">5*</property>
           </property>
           <property name="Item2" isnull="true" iskey="true">
@@ -45,7 +45,7 @@
             <property name="Name">ScheduleSetting_ReportParams_InternalDataTypeName</property>
             <property name="FieldName">InternalDataTypeName</property>
             <property name="VisibleIndex">2</property>
-            <property name="Width">54</property>
+            <property name="Width">48</property>
             <property name="ActualWidth">3*</property>
           </property>
           <property name="Item4" isnull="true" iskey="true">
@@ -53,7 +53,7 @@
             <property name="Name">ScheduleSetting_ReportParams_EntityGuid</property>
             <property name="FieldName">EntityGuid</property>
             <property name="VisibleIndex">3</property>
-            <property name="Width">107</property>
+            <property name="Width">96</property>
             <property name="ActualWidth">6*</property>
           </property>
           <property name="Item5" isnull="true" iskey="true">
@@ -68,7 +68,7 @@
             <property name="Name">ScheduleSetting_ReportParams_IsRelativeDate</property>
             <property name="FieldName">IsRelativeDate</property>
             <property name="VisibleIndex">5</property>
-            <property name="Width">143</property>
+            <property name="Width">128</property>
             <property name="ActualWidth">8*</property>
           </property>
         </property>

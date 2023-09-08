@@ -157,7 +157,7 @@ namespace Starkov.ScheduledReports.Client
   {
     public virtual void TrySendReport(Sungero.Domain.Client.ExecuteActionArgs e)
     {
-      PublicFunctions.Module.StartSheduleReport(_obj);
+      PublicFunctions.Module.ExecuteSheduleReportAsync(_obj.Id, _obj.NextDate.Value);
     }
 
     public virtual bool CanTrySendReport(Sungero.Domain.Client.CanExecuteActionArgs e)

@@ -25,6 +25,15 @@ namespace Starkov.ScheduledReports.Server
     }
     
     /// <summary>
+    /// Получить запись настройки расписания для отчета по ИД.
+    /// </summary>
+    [Public, Remote]
+    public static IScheduleSetting GetScheduleSetting(int id)
+    {
+      return ScheduleSettings.GetAll(s => s.Id == id).FirstOrDefault(s => s.Status != ScheduledReports.ScheduleSetting.Status.Closed);
+    }
+    
+    /// <summary>
     /// Получить запись "Относительная дата" по ИД.
     /// </summary>
     /// <param name="id">ИД</param>
@@ -38,13 +47,28 @@ namespace Starkov.ScheduledReports.Server
     #region Отправка отчетов по расписанию
     
     [Public]
+    public void ExecuteSheduleReportAsync (int scheduleSettingId, DateTime nextRetryDate)
+    {
+      if (nextRetryDate <= Calendar.Now)
+      {
+        Logger.DebugFormat("ExecuteSheduleReportAsync. scheduleSettingId={0} nextRetryDate={1} <= Calendar.Now", scheduleSettingId, nextRetryDate);
+        return;
+      }
+      
+      var asyncHandler = Starkov.ScheduledReports.AsyncHandlers.SendSheduleReport.Create();
+      asyncHandler.SheduleSettingId = scheduleSettingId;
+      var property = asyncHandler.GetType().GetProperty("NextRetryTime");
+      property.SetValue(asyncHandler, nextRetryDate);
+      asyncHandler.ExecuteAsync();
+    }
+    
+    [Public]
     public void StartSheduleReport(Starkov.ScheduledReports.IScheduleSetting setting)
     {
       var report = GetModuleReportByGuid(Guid.Parse(setting.ModuleGuid), Guid.Parse(setting.ReportGuid));
       if (report == null)
         return;
       
-      var performer = Sungero.Company.Employees.Null;
       FillReportParams(report, setting);
       
       var document = setting.Document;

@@ -2,7 +2,22 @@
   "$type": "Sungero.Metadata.ModuleMetadata, Sungero.Metadata",
   "NameGuid": "b8698cd4-29e8-4a31-a661-b99e7ec581d1",
   "Name": "ScheduledReports",
-  "AsyncHandlers": [],
+  "AsyncHandlers": [
+    {
+      "NameGuid": "b396d5a4-3524-4af1-9b1d-29963e1bdae1",
+      "Name": "SendSheduleReport",
+      "DelayPeriod": 15,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsHandlerGenerated": true,
+      "Parameters": [
+        {
+          "NameGuid": "114542c3-3756-4b4c-a2d7-2e96cbe43237",
+          "Name": "SheduleSettingId",
+          "ParameterType": "Integer"
+        }
+      ]
+    }
+  ],
   "ClientAssemblyName": "Starkov.ScheduledReports.Client",
   "ClientBaseAssemblyName": "Starkov.ScheduledReports.ClientBase",
   "ClientBaseNamespace": "Starkov.ScheduledReports.ClientBase",
@@ -125,6 +140,23 @@
       "Placement": "Shared",
       "ReturnType": "global::Starkov.ScheduledReports.IScheduleSetting",
       "ReturnTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
+    },
+    {
+      "Name": "ExecuteSheduleReportAsync",
+      "Parameters": [
+        {
+          "Name": "scheduleSettingId",
+          "ParameterType": "global::System.Int32",
+          "ParameterTypeFullName": "System.Int32"
+        },
+        {
+          "Name": "nextRetryDate",
+          "ParameterType": "global::System.DateTime",
+          "ParameterTypeFullName": "System.DateTime"
+        }
+      ],
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
     },
     {
       "Name": "FillReportParams",
@@ -250,6 +282,20 @@
     {
       "Name": "GetReportsModuleNames",
       "ReturnType": "System.Collections.Generic.Dictionary<global::System.Guid, global::System.String>"
+    },
+    {
+      "Name": "GetScheduleSetting",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "id",
+          "ParameterType": "global::System.Int32",
+          "ParameterTypeFullName": "System.Int32"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::Starkov.ScheduledReports.IScheduleSetting",
+      "ReturnTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
     },
     {
       "Name": "StartSheduleReport",
