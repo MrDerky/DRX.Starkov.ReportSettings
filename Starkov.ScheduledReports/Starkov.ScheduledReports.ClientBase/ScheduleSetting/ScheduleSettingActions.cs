@@ -48,23 +48,36 @@ namespace Starkov.ScheduledReports.Client
           case "System.Boolean":
             #region Логический тип
             
-            var input = dialog.AddBoolean(title);
+            var boolInput = dialog.AddBoolean(title, true);
             if (dialog.Show() == DialogButtons.Ok)
-              _obj.ViewValue = input.Value.ToString();
+              _obj.ViewValue = boolInput.Value.ToString();
+            break;
+            #endregion
+          case "System.Int32":
+            #region Целое число
+            
+            var intInput = dialog.AddInteger(title, false);
+            if (dialog.Show() == DialogButtons.Ok)
+              _obj.ViewValue = intInput.Value.ToString();
+            break;
+            #endregion
+          case "System.Double":
+            #region Дробь
+            
+            var doubleInput = dialog.AddDouble(title, false);
+            if (dialog.Show() == DialogButtons.Ok)
+              _obj.ViewValue = doubleInput.Value.ToString();
             break;
             #endregion
           case "System.DateTime": // TODO нужен рефакторинг
             #region Правка даты
             
-            //            var dialog = Dialogs.CreateInputDialog("Изменить дату");
             var isRelative = dialog.AddBoolean("Относительная дата");
             var date = dialog.AddDate("Дата", false);
             
             var relative = dialog.AddSelect("Период", false, Starkov.ScheduledReports.RelativeDates.Null).Where(r => r.Status != RelativeDate.Status.Closed);
             var increment = dialog.AddInteger("Количество", false);
-            //var isCustomInput = dialog.AddBoolean("Ввести вручную");
             
-            //            isCustomInput.IsVisible = false;
             increment.IsVisible = false;
             relative.IsVisible = false;
             
@@ -73,46 +86,15 @@ namespace Starkov.ScheduledReports.Client
                                            date.IsEnabled = !x.NewValue.GetValueOrDefault();
                                            relative.IsVisible = x.NewValue.GetValueOrDefault();
                                            increment.IsVisible = x.NewValue.GetValueOrDefault() && relative.Value != null && relative.Value.IsIncremental.GetValueOrDefault();
-                                           //                                           isCustomInput.IsVisible = x.NewValue.GetValueOrDefault();
                                          });
             
             relative.SetOnValueChanged((r) =>
                                        {
-                                         //relativeText.Value = r.NewValue.RelativeExpression;
                                          var isIncremental = r.NewValue != null && r.NewValue.IsIncremental.GetValueOrDefault();
                                          increment.IsVisible = isIncremental;
                                          if (!isIncremental)
                                            increment.Value = null;
-                                         
-                                         //                                         if (r.NewValue != null)
-                                         //                                           date.Value = PublicFunctions.RelativeDate.CalculateDate(r.NewValue, null, increment.Value);
-                                         //                                         else
-                                         //                                           date.Value = null;
                                        });
-            
-            increment.SetOnValueChanged((n) =>
-                                        {
-                                          //                                          try
-                                          //                                          {
-                                          //                                            date.Value = PublicFunctions.RelativeDate.CalculateDate(relative.Value, null, n.NewValue);
-                                          //                                          }
-                                          //                                          catch (Exception ex)
-                                          //                                          {
-                                          //                                            throw new Exception("Не корректная дата");
-                                          //                                          }
-                                          
-                                          
-                                          //                                          if (n.NewValue < -100)
-                                          //                                            increment = -100;
-                                          //                                          else if (n.NewValue > 100)
-                                          //                                            increment = 100; //TODO вынести в настройки
-                                        });
-            
-            //            isCustomInput.SetOnValueChanged((x) =>
-            //                                            {
-            //                                              relative.IsVisible = !x.NewValue.GetValueOrDefault();
-            //                                              relativeText.IsVisible = x.NewValue.GetValueOrDefault();
-            //                                            });
             
             dialog.SetOnRefresh((d) =>
                                 {
@@ -125,21 +107,7 @@ namespace Starkov.ScheduledReports.Client
                                   {
                                     d.AddError("Не корректное значение");
                                   }
-                                  
-                                  
                                 });
-            
-            dialog.SetOnButtonClick((b) =>
-                                    {
-                                      //                                      if (b.Button == DialogButtons.Ok)
-                                      //                                      {
-                                      //                                        if (increment.Value < -100 || increment.Value > 100) // TODO вынести в настройки
-                                      //                                        {
-                                      //                                          b.AddError("Количество должно быть впределах от -100 до 100");
-                                      //                                          return;
-                                      //                                        }
-                                      //                                      }
-                                    });
             
             // Заполнить значения из карточки.
             if (_obj.IsRelativeDate.GetValueOrDefault())
@@ -155,7 +123,6 @@ namespace Starkov.ScheduledReports.Client
                 date.Value = dateValue;
             }
             
-            // TODO Рефакторить это безобразие
             if (dialog.Show() == DialogButtons.Ok)
             {
               _obj.IsRelativeDate = isRelative.Value.GetValueOrDefault();
@@ -174,11 +141,12 @@ namespace Starkov.ScheduledReports.Client
           default:
             #region Строка
             
-            var inputString = dialog.AddString(title, true);
+            var inputString = dialog.AddString(title, false);
             if (dialog.Show() == DialogButtons.Ok)
               _obj.ViewValue = inputString.Value;
             break;
             #endregion
+            
         }
       }
       

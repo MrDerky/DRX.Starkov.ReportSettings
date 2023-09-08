@@ -7,6 +7,24 @@ using Starkov.ScheduledReports.ScheduleSetting;
 
 namespace Starkov.ScheduledReports
 {
+  partial class ScheduleSettingCreatingFromServerHandler
+  {
+
+    public override void CreatingFrom(Sungero.Domain.CreatingFromEventArgs e)
+    {
+      e.Without(_info.Properties.Author);
+    }
+  }
+
+  partial class ScheduleSettingServerHandlers
+  {
+
+    public override void Created(Sungero.Domain.CreatedEventArgs e)
+    {
+      _obj.Author = Users.Current;
+    }
+  }
+
   partial class ScheduleSettingPeriodPropertyFilteringServerHandler<T>
   {
 

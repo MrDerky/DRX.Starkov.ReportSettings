@@ -263,7 +263,9 @@
     }
   ],
   "HandledEvents": [
-    "ShowingClient"
+    "ShowingClient",
+    "CreatedServer",
+    "CreatingFromServer"
   ],
   "IconResourcesKeys": [],
   "IntegrationServiceName": "ScheduledReportsScheduleSetting",
@@ -280,7 +282,6 @@
       "IsDisplayValue": true,
       "IsQuickSearchAllowed": true,
       "IsRequired": true,
-      "IsVisibility": false,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
       "PreviousPropertyGuid": "1dcedc29-5140-4770-ac92-eabc212326a1"
     },
@@ -300,6 +301,7 @@
       "HandledEvents": [
         "ChangedShared"
       ],
+      "IsEnabled": false,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
       "PreviousPropertyGuid": "f3cb84a2-628c-4a47-982b-e019f8d6f475"
     },

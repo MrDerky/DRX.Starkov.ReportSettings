@@ -233,7 +233,9 @@
   ],
   "ResourceInterfaceAssemblyName": "Sungero.Domain.Interfaces",
   "ResourceInterfaceNamespace": "Starkov.ScheduledReports",
-  "ResourcesKeys": [],
+  "ResourcesKeys": [
+    "ReportSubject"
+  ],
   "ServerAssemblyName": "Starkov.ScheduledReports.Server",
   "ServerNamespace": "Starkov.ScheduledReports.Server",
   "SharedAssemblyName": "Starkov.ScheduledReports.Shared",

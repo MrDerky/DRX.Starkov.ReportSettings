@@ -19,7 +19,6 @@ namespace Starkov.ScheduledReports
                                       Environment.NewLine,
                                       _obj.Info.Actions.SetReport.LocalizedName,
                                       _obj.Info.Actions.StartReport.LocalizedName);
-      
     }
     
   }

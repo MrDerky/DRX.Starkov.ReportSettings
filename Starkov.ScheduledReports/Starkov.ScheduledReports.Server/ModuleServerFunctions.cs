@@ -49,15 +49,23 @@ namespace Starkov.ScheduledReports.Server
       report.ExportTo(document);
       document.Save();
       
-      var obsrvers = setting.Observers.Select(o => o.Recipient).ToArray();
-      if (Sungero.Company.Employees.Is(setting.Author) && setting.Author.Status != Sungero.Company.Employee.Status.Closed && !obsrvers.Contains(setting.Author))
-        obsrvers.Append(setting.Author);
+      var observers = setting.Observers.Select(o => o.Recipient).AsEnumerable();
+      if (Sungero.Company.Employees.Is(setting.Author) && !observers.Contains(setting.Author))
+        observers = observers.Append(setting.Author);
       
-      if (obsrvers.Any())
+      observers = observers.Where(o => o.Status != Sungero.Company.Employee.Status.Closed);
+      
+      if (observers.Any())
       {
-        var task = Sungero.Workflow.SimpleTasks.CreateWithNotices(setting.Name, obsrvers);
+        var subject = string.Format(Starkov.ScheduledReports.Resources.ReportSubject, setting.Name);
+        var task = Sungero.Workflow.SimpleTasks.CreateWithNotices(subject, observers.ToArray());
         task.Attachments.Add(document);
         task.Start();
+      }
+      else
+      {
+        //TODO отправка админам
+        //var task = Sungero.Workflow.SimpleTasks.CreateWithNotices("Не удалось вычислить действующих сотрудников для отправки очтета", Roles.Administrators);
       }
       
       if (setting.State.IsChanged)
