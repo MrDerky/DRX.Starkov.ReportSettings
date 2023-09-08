@@ -61,4 +61,19 @@
   <data name="DisplayName" xml:space="preserve">
     <value>Отчеты по расписанию</value>
   </data>
+  <data name="CoverGroup_Links" xml:space="preserve">
+    <value>Связанная информация</value>
+  </data>
+  <data name="CoverTitle" xml:space="preserve">
+    <value>Отчеты по расписанию</value>
+  </data>
+  <data name="CoverAction_ScheduleSettings" xml:space="preserve">
+    <value>Настройки расписаний</value>
+  </data>
+  <data name="CoverGroup_Settings" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="CoverAction_Create" xml:space="preserve">
+    <value>Создать настройку</value>
+  </data>
 </root>

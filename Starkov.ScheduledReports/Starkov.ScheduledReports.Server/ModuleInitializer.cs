@@ -12,7 +12,45 @@ namespace Starkov.ScheduledReports.Server
 
     public override void Initializing(Sungero.Domain.ModuleInitializingEventArgs e)
     {
+      CreateRoles();
+      GrandRights();
       CreateBaseRelativeDates();
+    }
+    
+    /// <summary>
+    /// Инициализация ролей модуля.
+    /// </summary>
+    public virtual void CreateRoles()
+    {// TODO добавить локализацию ролей
+      Sungero.Docflow.PublicInitializationFunctions.Module.CreateRole("Редакторы относительных дат",
+                                                                      "Пользователи с правами на редактирование списка относительных дат",
+                                                                      Constants.Module.RelativeDatesManagerRole);
+      
+      Sungero.Docflow.PublicInitializationFunctions.Module.CreateRole("Пользователи с доступом к отчетам по расписанию",
+                                                                      "Пользователи с правами на создание настроек для отправки отчетов по расписанию",
+                                                                      Constants.Module.ScheduleSettingManagerRole);
+    }
+    
+    /// <summary>
+    /// Выдача прав на справочники модуля.
+    /// </summary>
+    public virtual void GrandRights()
+    {
+      var allUsers = Roles.AllUsers;
+      if (!RelativeDates.AccessRights.IsGrantedDirectly(DefaultAccessRightsTypes.Read, allUsers))
+        RelativeDates.AccessRights.Grant(allUsers, DefaultAccessRightsTypes.Read);
+      
+      var relativeDatesManagerRole = Roles.GetAll(r => r.Sid == Constants.Module.RelativeDatesManagerRole).FirstOrDefault();
+      if (!RelativeDates.AccessRights.IsGrantedDirectly(DefaultAccessRightsTypes.Change, relativeDatesManagerRole))
+        RelativeDates.AccessRights.Grant(relativeDatesManagerRole, DefaultAccessRightsTypes.Change);
+      
+      RelativeDates.AccessRights.Save();
+      
+      var scheduleSettingManagerRole = Roles.GetAll(r => r.Sid == Constants.Module.ScheduleSettingManagerRole).FirstOrDefault();
+      if (!ScheduleSettings.AccessRights.IsGrantedDirectly(DefaultAccessRightsTypes.Create, scheduleSettingManagerRole))
+        ScheduleSettings.AccessRights.Grant(scheduleSettingManagerRole, DefaultAccessRightsTypes.Create);
+      
+      ScheduleSettings.AccessRights.Save();
     }
     
     /// <summary>

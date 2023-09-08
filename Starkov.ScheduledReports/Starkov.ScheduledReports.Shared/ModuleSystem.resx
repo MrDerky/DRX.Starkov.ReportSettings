@@ -62,18 +62,39 @@
     <value>Scheduled reports</value>
   </data>
   <data name="CoverTitle" xml:space="preserve">
-    <value>ScheduledReports</value>
+    <value>Scheduled reports</value>
   </data>
   <data name="CoverTab_Tab" xml:space="preserve">
     <value>Tab</value>
   </data>
-  <data name="CoverGroup_Group" xml:space="preserve">
-    <value>Group</value>
+  <data name="CoverGroup_Settings" xml:space="preserve">
+    <value>Settings</value>
   </data>
-  <data name="CoverAction_Action" xml:space="preserve">
-    <value>Action</value>
+  <data name="CoverAction_ScheduleSettings" xml:space="preserve">
+    <value>ScheduleSettings</value>
   </data>
-  <data name="CoverDescription_Action" xml:space="preserve">
-    <value />
+  <data name="CoverDescription_ScheduleSettings" xml:space="preserve">
+    <value>Реестр настроек для отправки отчетов по расписанию</value>
+  </data>
+  <data name="CoverGroup_Links" xml:space="preserve">
+    <value>Links</value>
+  </data>
+  <data name="CoverAction_RelativeDatesManagerRole" xml:space="preserve">
+    <value>Редакторы относительных дат</value>
+  </data>
+  <data name="CoverDescription_RelativeDatesManagerRole" xml:space="preserve">
+    <value>Пользователи с правами на редактирование списка относительных дат</value>
+  </data>
+  <data name="CoverAction_ScheduleSettingManagerRole" xml:space="preserve">
+    <value>Доступ к настройкам расписаний</value>
+  </data>
+  <data name="CoverDescription_ScheduleSettingManagerRole" xml:space="preserve">
+    <value>Пользователи с правами на создание настроек для отправки отчетов по расписанию</value>
+  </data>
+  <data name="CoverAction_Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="CoverDescription_Create" xml:space="preserve">
+    <value>Создать настройку расписания</value>
   </data>
 </root>

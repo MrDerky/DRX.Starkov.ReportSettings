@@ -13,11 +13,34 @@
     "NameGuid": "49d19071-904a-44c9-84fe-9536b1cd773d",
     "Actions": [
       {
-        "$type": "Sungero.Metadata.CoverFunctionActionMetadata, Sungero.Metadata",
+        "$type": "Sungero.Metadata.CoverEntityListActionMetadata, Sungero.Metadata",
         "NameGuid": "043d5ecf-61a9-4bc3-9bf4-fd072dd5c380",
-        "Name": "Action",
-        "FunctionName": "Function2",
+        "Name": "ScheduleSettings",
+        "EntityTypeId": "f7180f6a-b987-4a28-a072-d26377fb3912",
+        "GroupId": "f0de7443-fc90-4356-a432-2bb40eb11f8b",
+        "PreviousItemGuid": "12267a64-53ea-4d76-9fda-f84e91945060"
+      },
+      {
+        "$type": "Sungero.Metadata.CoverFunctionActionMetadata, Sungero.Metadata",
+        "NameGuid": "12267a64-53ea-4d76-9fda-f84e91945060",
+        "Name": "Create",
+        "FunctionName": "CreateScheduleSetting",
         "GroupId": "f0de7443-fc90-4356-a432-2bb40eb11f8b"
+      },
+      {
+        "$type": "Sungero.Metadata.CoverFunctionActionMetadata, Sungero.Metadata",
+        "NameGuid": "1edeabe4-f1a0-4549-af1a-e1bf473fc77a",
+        "Name": "ScheduleSettingManagerRole",
+        "FunctionName": "ScheduleSettingManagerRoleShow",
+        "GroupId": "bbc9ca63-c0d5-4c9b-9090-1e04a42f3253"
+      },
+      {
+        "$type": "Sungero.Metadata.CoverFunctionActionMetadata, Sungero.Metadata",
+        "NameGuid": "3ee49337-d241-45fd-9809-5e50a39c9e17",
+        "Name": "RelativeDatesManagerRole",
+        "FunctionName": "RelativeDatesManagerRoleShow",
+        "GroupId": "bbc9ca63-c0d5-4c9b-9090-1e04a42f3253",
+        "PreviousItemGuid": "1edeabe4-f1a0-4549-af1a-e1bf473fc77a"
       }
     ],
     "Background": null,
@@ -28,8 +51,17 @@
     "Groups": [
       {
         "NameGuid": "f0de7443-fc90-4356-a432-2bb40eb11f8b",
-        "Name": "Group",
+        "Name": "Settings",
         "BackgroundPosition": "Stretch",
+        "IconName": "GroupIconSettings_f0de7443fc904356a4322bb40eb11f8b.png",
+        "TabId": "cb489d3d-c67e-4346-b462-a7292e057c1d"
+      },
+      {
+        "NameGuid": "bbc9ca63-c0d5-4c9b-9090-1e04a42f3253",
+        "Name": "Links",
+        "BackgroundPosition": "Stretch",
+        "IconName": "GroupIconLinks_bbc9ca63c0d54c9b90901e04a42f3253.png",
+        "PreviousItemGuid": "f0de7443-fc90-4356-a432-2bb40eb11f8b",
         "TabId": "cb489d3d-c67e-4346-b462-a7292e057c1d"
       }
     ],
@@ -68,7 +100,32 @@
   "Importance": "Medium",
   "InterfaceAssemblyName": "Sungero.Domain.Interfaces",
   "InterfaceNamespace": "Starkov.ScheduledReports",
+  "PublicConstants": [
+    {
+      "Name": "RelativeDatesManagerRole",
+      "ParentClasses": [
+        "Module"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"F4EA8EF4-A03E-489F-BBF5-9691405EFFBC\")"
+    },
+    {
+      "Name": "ScheduleSettingManagerRole",
+      "ParentClasses": [
+        "Module"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"349B25C0-EA2E-464A-A10A-BBD6FBF45761\")"
+    }
+  ],
   "PublicFunctions": [
+    {
+      "Name": "CreateScheduleSetting",
+      "IsRemote": true,
+      "Placement": "Shared",
+      "ReturnType": "global::Starkov.ScheduledReports.IScheduleSetting",
+      "ReturnTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
+    },
     {
       "Name": "FillReportParams",
       "Parameters": [

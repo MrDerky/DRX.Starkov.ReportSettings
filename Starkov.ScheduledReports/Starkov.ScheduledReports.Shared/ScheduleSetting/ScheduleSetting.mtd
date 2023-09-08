@@ -2,6 +2,7 @@
   "$type": "Sungero.Metadata.EntityMetadata, Sungero.Metadata",
   "NameGuid": "f7180f6a-b987-4a28-a072-d26377fb3912",
   "Name": "ScheduleSetting",
+  "AccessRightsMode": "Both",
   "Actions": [
     {
       "NameGuid": "425413e2-cc77-4f00-a093-16226e773d34",

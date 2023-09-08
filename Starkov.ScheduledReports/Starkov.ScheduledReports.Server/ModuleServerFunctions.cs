@@ -16,6 +16,15 @@ namespace Starkov.ScheduledReports.Server
   {
     
     /// <summary>
+    /// Создать запись настройки расписания для отчета.
+    /// </summary>
+    [Public, Remote]
+    public static IScheduleSetting CreateScheduleSetting()
+    {
+      return ScheduleSettings.Create();
+    }
+    
+    /// <summary>
     /// Получить запись "Относительная дата" по ИД.
     /// </summary>
     /// <param name="id">ИД</param>
