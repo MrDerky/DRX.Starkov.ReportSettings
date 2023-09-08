@@ -370,25 +370,6 @@
       "ReturnTypeFullName": "System.DateTime"
     },
     {
-      "Name": "CalculateRelativeDate",
-      "IsRemote": true,
-      "Parameters": [
-        {
-          "Name": "baseDate",
-          "ParameterType": "global::System.Nullable<global::System.DateTime>",
-          "ParameterTypeFullName": "System.Nullable"
-        },
-        {
-          "Name": "relativeExpression",
-          "ParameterType": "global::System.String",
-          "ParameterTypeFullName": "System.String"
-        }
-      ],
-      "Placement": "Shared",
-      "ReturnType": "global::System.Nullable<global::System.DateTime>",
-      "ReturnTypeFullName": "System.Nullable"
-    },
-    {
       "Name": "IsInitialized",
       "Parameters": [
         {

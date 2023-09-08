@@ -193,4 +193,7 @@
   <data name="Property_PeriodNumber" xml:space="preserve">
     <value>Number</value>
   </data>
+  <data name="Property_Author" xml:space="preserve">
+    <value>Author</value>
+  </data>
 </root>

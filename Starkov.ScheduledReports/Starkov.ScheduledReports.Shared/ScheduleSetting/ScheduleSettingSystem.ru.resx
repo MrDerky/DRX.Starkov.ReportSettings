@@ -127,4 +127,7 @@
   <data name="Property_PeriodNumber" xml:space="preserve">
     <value>Количество</value>
   </data>
+  <data name="Property_Author" xml:space="preserve">
+    <value>Автор</value>
+  </data>
 </root>

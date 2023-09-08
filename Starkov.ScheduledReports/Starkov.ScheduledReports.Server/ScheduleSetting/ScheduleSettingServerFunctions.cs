@@ -29,12 +29,15 @@ namespace Starkov.ScheduledReports.Server
       //      if (!times.HasValue || times.Value == 0)
       //        times = 1;
       
+      if (_obj.DateBegin.HasValue && Calendar.Now < _obj.DateBegin.Value)
+        return _obj.DateBegin.Value;
       
       //for (int i = 1; i != times.Value; i + times.Value)
       if (_obj.Period == null)
         return null;
       
       var resultDate = Calendar.Now;
+      
       
       //      if (PublicFunctions.RelativeDate.IsInitialized(_obj.Period))
       resultDate = PublicFunctions.RelativeDate.CalculateDate(_obj.Period, resultDate, number);
@@ -97,13 +100,13 @@ namespace Starkov.ScheduledReports.Server
         var entityParameter = parameter.Value as Sungero.Reporting.Shared.EntityParameter;
         if (entityParameter != null)
         {
-          reportParam.ValueId = entityParameter.Entity.Id; //EntityIdentifier.Id;
-          reportParam.ValueText = entityParameter.Entity.DisplayValue;
+          reportParam.EntityId = entityParameter.Entity.Id; //EntityIdentifier.Id;
+          reportParam.ViewValue = entityParameter.Entity.DisplayValue;
           reportParam.EntityGuid = entityParameter.EntityType.ToString();
           reportParam.InternalDataTypeName = entityParameter.GetType().ToString();
         }
         else
-          reportParam.ValueText = parameter.Value.ToString();
+          reportParam.ViewValue = parameter.Value.ToString();
       }
     }
     
@@ -121,68 +124,78 @@ namespace Starkov.ScheduledReports.Server
           var entityParameter = parameter.Value as Sungero.Reporting.Shared.EntityParameter;
           if (entityParameter != null)
           {
-            reportParam.ValueId = entityParameter.Entity.Id; //EntityIdentifier.Id;
-            reportParam.ValueText = entityParameter.Entity.DisplayValue;
+            reportParam.EntityId = entityParameter.Entity.Id; //EntityIdentifier.Id;
+            reportParam.ViewValue = entityParameter.Entity.DisplayValue;
           }
           else
-            reportParam.ValueText = parameter.Value.ToString();
+            reportParam.ViewValue = parameter.Value.ToString();
         }
       }
     }
     
-    /// <summary>
-    /// Получить объект из параметров отчета в настройках.
-    /// </summary>
-    /// <param name="reportParam">Строка коллекции параметров отчета.</param>
-    /// <returns>Объект.</returns>
-    public static object GetObjectFromReportParam(Starkov.ScheduledReports.IScheduleSettingReportParams reportParam)
-    {
-      try
-      {
-        Guid typeGuid;
-        if (Guid.TryParse(reportParam.EntityGuid, out typeGuid))
-          return PublicFunctions.Module.Remote.GetEntitiesByGuid(typeGuid, reportParam.ValueId);
-        
-        if (reportParam.InternalDataTypeName == "System.DateTime")
-          return GetDateFromReportParam(reportParam);
-        
-        var type = System.Type.GetType(reportParam.InternalDataTypeName);
-        if (type != null)
-          return System.Convert.ChangeType(reportParam.ValueText, type);
-      }
-      catch (Exception ex)
-      {
-        Logger.ErrorFormat("GetObjectFromReportParam. Не удалось получить объект: Parameter={0}, InternalDataTypeName={1}, EntityGuid={2}, ValueText={3}",
-                           ex, reportParam.Parameter, reportParam.InternalDataTypeName, reportParam.EntityGuid, reportParam.ValueText);
-        throw ex;
-      }
-
-      return null;
-    }
-    
-    /// <summary>
-    /// Полуить дату из параметра настроек.
-    /// </summary>
-    /// <param name="reportParam">Строка коллекции параметров отчета.</param>
-    /// <returns>Дата.</returns>
-    public static DateTime? GetDateFromReportParam(Starkov.ScheduledReports.IScheduleSettingReportParams reportParam)
-    {
-      DateTime date;
-      
-      if (reportParam.IsRelativeDate != true)
-        System.DateTime.TryParse(reportParam.ValueText, out date);
-      else
-      {
-        // TODO Изменить логику вычисления относительной даты
-        //        var expression = reportParam.ValueId.HasValue
-        //          ? RelativeDates.GetAll(r => r.Id == reportParam.ValueId.Value).FirstOrDefault()?.RelativeExpression ?? string.Empty
-        //          : reportParam.ValueText;
-        //        date = RelativeDateCalculator.Calculator.Calculate(expression);
-        date = Calendar.Now;
-      }
-      
-      return date;
-    }
+//    /// <summary>
+//    /// Получить объект из параметров отчета в настройках.
+//    /// </summary>
+//    /// <param name="reportParam">Строка коллекции параметров отчета.</param>
+//    /// <returns>Объект.</returns>
+//    public static object GetObjectFromReportParam(Starkov.ScheduledReports.IScheduleSettingReportParams reportParam)
+//    {
+//      try
+//      {
+//        Guid typeGuid;
+//        if (Guid.TryParse(reportParam.EntityGuid, out typeGuid))
+//          return PublicFunctions.Module.Remote.GetEntitiesByGuid(typeGuid, reportParam.EntityId);
+//        
+//        if (reportParam.InternalDataTypeName == "System.DateTime")
+//          return GetDateFromReportParam(reportParam);
+//        
+//        var type = System.Type.GetType(reportParam.InternalDataTypeName);
+//        if (type != null)
+//          return System.Convert.ChangeType(reportParam.ViewValue, type);
+//      }
+//      catch (Exception ex)
+//      {
+//        Logger.ErrorFormat("GetObjectFromReportParam. Не удалось получить объект: Parameter={0}, InternalDataTypeName={1}, EntityGuid={2}, ViewValue={3}",
+//                           ex, reportParam.Parameter, reportParam.InternalDataTypeName, reportParam.EntityGuid, reportParam.ViewValue);
+//        throw ex;
+//      }
+//
+//      return null;
+//    }
+//    
+//    /// <summary>
+//    /// Получить дату из параметра настроек.
+//    /// </summary>
+//    /// <param name="reportParam">Строка коллекции параметров отчета.</param>
+//    /// <returns>Дата.</returns>
+//    public static DateTime? GetDateFromReportParam(Starkov.ScheduledReports.IScheduleSettingReportParams reportParam)
+//    {
+//      DateTime date;
+//      
+//      if (reportParam.IsRelativeDate != true)
+//        System.DateTime.TryParse(reportParam.ViewValue, out date);
+//      else
+//      {
+//        // TODO Изменить логику вычисления относительной даты
+//        //        var expression = reportParam.EntityId.HasValue
+//        //          ? RelativeDates.GetAll(r => r.Id == reportParam.EntityId.Value).FirstOrDefault()?.RelativeExpression ?? string.Empty
+//        //          : reportParam.ViewValue;
+//        //        date = RelativeDateCalculator.Calculator.Calculate(expression);
+//        date = Calendar.Now;
+//      }
+//      
+//      return date;
+//    }
+//    
+//    public static void BuildViewValueForRelativeDate(IRelativeDate relativeDate, int? increment)
+//    {
+//      
+//    }
+//    
+//    public static int? GetIncrementForRelativeDateFromViewValue(string ViewValue)
+//    {
+//      
+//    }
     
   }
 }

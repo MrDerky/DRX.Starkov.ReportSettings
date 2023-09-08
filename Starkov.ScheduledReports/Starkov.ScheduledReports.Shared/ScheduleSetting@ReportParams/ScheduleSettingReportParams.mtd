@@ -31,9 +31,10 @@
     {
       "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
       "NameGuid": "18bd77fd-a2bb-4299-9232-658b084897e7",
-      "Name": "ValueText",
+      "Name": "ViewValue",
       "CanBeSearch": false,
-      "Code": "ValueText",
+      "Code": "ViewValue",
+      "IsEnabled": false,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
       "PreviousPropertyGuid": "6154c98f-1588-4867-b08f-d1e1252e3ede"
     },
@@ -60,9 +61,9 @@
     {
       "$type": "Sungero.Metadata.IntegerPropertyMetadata, Sungero.Metadata",
       "NameGuid": "b4dae9d3-a1f2-4b39-8fb7-622c55670fca",
-      "Name": "ValueId",
+      "Name": "EntityId",
       "CanBeSearch": false,
-      "Code": "ValueId",
+      "Code": "EntityId",
       "IsVisibility": false,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.NumericEditorToIntAndDoubleBinder",
       "PreviousPropertyGuid": "d718a661-4813-4445-ae38-42af059b1ca0"

@@ -14,6 +14,18 @@ namespace Starkov.ScheduledReports.Server
 {
   public class ModuleFunctions
   {
+    
+    /// <summary>
+    /// Получить запись "Относительная дата" по ИД.
+    /// </summary>
+    /// <param name="id">ИД</param>
+    /// <returns>Относительная дата</returns>
+    [Public, Remote]
+    public static IRelativeDate GetRelativeDate(int id)
+    {
+      return RelativeDates.GetAll(r => r.Id == id).FirstOrDefault(r => r.Status != ScheduledReports.RelativeDate.Status.Closed);
+    }
+    
     #region Отправка отчетов по расписанию
     
     [Public]
@@ -37,9 +49,13 @@ namespace Starkov.ScheduledReports.Server
       report.ExportTo(document);
       document.Save();
       
-      if (setting.Observers.Any())
+      var obsrvers = setting.Observers.Select(o => o.Recipient).ToArray();
+      if (Sungero.Company.Employees.Is(setting.Author) && setting.Author.Status != Sungero.Company.Employee.Status.Closed && !obsrvers.Contains(setting.Author))
+        obsrvers.Append(setting.Author);
+      
+      if (obsrvers.Any())
       {
-        var task = Sungero.Workflow.SimpleTasks.CreateWithNotices(setting.Name, setting.Observers.Select(o => o.Recipient).ToArray());
+        var task = Sungero.Workflow.SimpleTasks.CreateWithNotices(setting.Name, obsrvers);
         task.Attachments.Add(document);
         task.Start();
       }
@@ -56,7 +72,7 @@ namespace Starkov.ScheduledReports.Server
     [Public]
     public void FillReportParams(Sungero.Reporting.Shared.ReportBase report, Starkov.ScheduledReports.IScheduleSetting setting)
     {
-      foreach (var parameter in setting.ReportParams.Where(p => !string.IsNullOrEmpty(p.ValueText)))
+      foreach (var parameter in setting.ReportParams.Where(p => !string.IsNullOrEmpty(p.ViewValue)))
         report.SetParameterValue(parameter.Parameter, Functions.ScheduleSetting.GetObjectFromReportParam(parameter));
     }
 
@@ -148,7 +164,7 @@ namespace Starkov.ScheduledReports.Server
       var methodGetAll = reportClass.GetMethods().Where(m => m.Name == "GetAll" && m.GetParameters().Length == 0).FirstOrDefault();
       if (methodGetAll != null)
         reports = (IEnumerable<IReport>)methodGetAll.Invoke(null, null);
-        
+      
       return reports;
     }
     
@@ -236,6 +252,6 @@ namespace Starkov.ScheduledReports.Server
     }
     
     #endregion
-    
+
   }
 }

@@ -268,6 +268,9 @@
   "IconResourcesKeys": [],
   "IntegrationServiceName": "ScheduledReportsScheduleSetting",
   "OperationsClass": "",
+  "Overridden": [
+    "AccessRightsMode"
+  ],
   "Properties": [
     {
       "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
@@ -407,6 +410,15 @@
       ],
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.NumericEditorToIntAndDoubleBinder",
       "PreviousPropertyGuid": "530e5def-e544-4ccf-98fd-864febb2fbb0"
+    },
+    {
+      "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "8f54d286-79cb-4cd1-b6b9-787734437812",
+      "Name": "Author",
+      "Code": "Author",
+      "EntityGuid": "243c2d26-f5f7-495f-9faf-951d91215c77",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
+      "PreviousPropertyGuid": "7560638f-4099-4332-b77d-a6662c546668"
     }
   ],
   "PublicFunctions": [
@@ -490,7 +502,8 @@
   ],
   "PublicStructures": [],
   "ResourcesKeys": [
-    "SheduleSettingInstruction"
+    "SheduleSettingInstruction",
+    "IncrementDelimeter"
   ],
   "RibbonCardMetadata": {
     "NameGuid": "76fbcfd9-7bb7-4916-b25b-2f689dec3dd7",

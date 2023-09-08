@@ -61,8 +61,8 @@
   <data name="Property_Parameter" xml:space="preserve">
     <value>Parameter</value>
   </data>
-  <data name="Property_ValueText" xml:space="preserve">
-    <value>ValueText</value>
+  <data name="Property_ViewValue" xml:space="preserve">
+    <value>ViewValue</value>
   </data>
   <data name="Property_InternalDataTypeName" xml:space="preserve">
     <value>Тип</value>
@@ -70,8 +70,8 @@
   <data name="Property_EntityGuid" xml:space="preserve">
     <value>Entity Guid</value>
   </data>
-  <data name="Property_ValueId" xml:space="preserve">
-    <value>ValueId</value>
+  <data name="Property_EntityId" xml:space="preserve">
+    <value>EntityId</value>
   </data>
   <data name="Property_IsRelativeDate" xml:space="preserve">
     <value>relative date</value>
