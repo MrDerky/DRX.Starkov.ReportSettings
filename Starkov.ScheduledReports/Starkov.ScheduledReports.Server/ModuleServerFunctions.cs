@@ -47,18 +47,83 @@ namespace Starkov.ScheduledReports.Server
     #region Отправка отчетов по расписанию
     
     [Public]
-    public void ExecuteSheduleReportAsync (int scheduleSettingId, DateTime nextRetryDate)
+    public void CloseScheduleLog(Starkov.ScheduledReports.IScheduleSetting setting)
     {
-      if (nextRetryDate <= Calendar.Now)
+      AccessRights.AllowRead(() =>
+                             {
+                               var scheduleLog = ScheduleLogs.GetAll(s => s.ScheduleSettingId == setting.Id)
+                                 .Where(s => s.Status == ScheduledReports.ScheduleLog.Status.Waiting || s.Status == ScheduledReports.ScheduleLog.Status.Error)
+                                 .OrderByDescending(s => s.StartDate)
+                                 .FirstOrDefault();
+                               
+                               scheduleLog.Status = ScheduledReports.ScheduleLog.Status.Closed;
+                               //                               scheduleLog.ScheduleSettingId = setting.Id;
+                               //                               scheduleLog.StartDate = Functions.ScheduleSetting.GetNextPeriod(setting);
+                               //                               scheduleLog.Status = ScheduledReports.ScheduleLog.Status.Waiting;
+                               scheduleLog.Save();
+                             });
+    }
+    
+    //    [Public]
+    //    public IScheduleLog GetLastScheduleLog(Starkov.ScheduledReports.IScheduleSetting setting)
+    //    {
+//
+    //    }
+    
+    [Public]
+    public void EnableSchedule(Starkov.ScheduledReports.IScheduleSetting setting)
+    {
+      CreateScheduleLog(setting, null);
+      ExecuteSheduleReportAsync(setting.Id);
+    }
+    
+    /// <summary>
+    /// Создать запись Журнала расписаний
+    /// </summary>
+    [Public]
+    public IScheduleLog CreateScheduleLog(Starkov.ScheduledReports.IScheduleSetting setting, DateTime? startDate)
+    {
+      var scheduleLog = ScheduleLogs.Null;
+      if (setting == null)
+        return scheduleLog;
+      
+      if (startDate == null)
+        startDate = Functions.ScheduleSetting.GetNextPeriod(setting, startDate);
+      
+      if (startDate == null)
       {
-        Logger.DebugFormat("ExecuteSheduleReportAsync. scheduleSettingId={0} nextRetryDate={1} <= Calendar.Now", scheduleSettingId, nextRetryDate);
-        return;
+        Logger.ErrorFormat("CreateScheduleLog. setting={0}. Не удалось вычислить дату следующего выполнения.", setting.Id);
+        throw new Exception("Не удалось вычислить дату следующего выполнения.");
       }
+      
+      AccessRights.AllowRead(() =>
+                             {
+                               scheduleLog = ScheduleLogs.Create();
+                               scheduleLog.ScheduleSettingId = setting.Id;
+                               scheduleLog.StartDate = startDate;
+                               scheduleLog.Status = ScheduledReports.ScheduleLog.Status.Waiting;
+                               scheduleLog.Save();
+                             });
+      return scheduleLog;
+    }
+    
+    /// <summary>
+    /// Создать асинхронный обработчик для отправки отчета.
+    /// </summary>
+    /// <param name="scheduleSettingId"></param>
+    [Public]
+    public void ExecuteSheduleReportAsync (int scheduleSettingId) //, DateTime nextRetryDate)
+    {
+      //      if (nextRetryDate <= Calendar.Now)
+      //      {
+      //        Logger.DebugFormat("ExecuteSheduleReportAsync. scheduleSettingId={0} nextRetryDate={1} <= Calendar.Now", scheduleSettingId, nextRetryDate);
+      //        return;
+      //      }
       
       var asyncHandler = Starkov.ScheduledReports.AsyncHandlers.SendSheduleReport.Create();
       asyncHandler.SheduleSettingId = scheduleSettingId;
-      var property = asyncHandler.GetType().GetProperty("NextRetryTime");
-      property.SetValue(asyncHandler, nextRetryDate);
+      //      var property = asyncHandler.GetType().GetProperty("NextRetryTime");
+      //      property.SetValue(asyncHandler, nextRetryDate);
       asyncHandler.ExecuteAsync();
     }
     
@@ -71,13 +136,14 @@ namespace Starkov.ScheduledReports.Server
       
       FillReportParams(report, setting);
       
-      var document = setting.Document;
-      if (document == null)
-      {
-        document = Sungero.Docflow.SimpleDocuments.Create();
-        document.Name = setting.Name;
-        setting.Document = document;
-      }
+      // Экспорт в документ
+      //      var document = setting.Document;
+      //      if (document == null)
+      //      {
+      var document = Sungero.Docflow.SimpleDocuments.Create();
+      document.Name = setting.Name;
+      //        setting.Document = document;
+      //      }
       
       report.ExportTo(document);
       document.Save();

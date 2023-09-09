@@ -11,6 +11,18 @@ namespace Starkov.ScheduledReports.Shared
   {
 
     /// <summary>
+    /// Установить доступность свойств.
+    /// </summary>       
+    public void SetPropertyStates()
+    {
+      var poroperties = _obj.State.Properties;
+      var canChangeSchedule = _obj.Status != Status.Active;
+      
+      poroperties.Period.IsEnabled = canChangeSchedule;
+      poroperties.PeriodNumber.IsEnabled = canChangeSchedule;
+    }
+
+    /// <summary>
     /// Заполнить имя.
     /// </summary>
     public virtual void FillName()

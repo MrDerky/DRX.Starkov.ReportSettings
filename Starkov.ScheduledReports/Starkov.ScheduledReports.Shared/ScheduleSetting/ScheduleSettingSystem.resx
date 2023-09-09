@@ -97,7 +97,7 @@
   <data name="Action_SetReportConfirmationDescription" xml:space="preserve">
     <value />
   </data>
-  <data name="Ribbon_Group_4634388320d6469ba0b0b958c15b2fae" xml:space="preserve">
+  <data name="Ribbon_Schedule_4634388320d6469ba0b0b958c15b2fae" xml:space="preserve">
     <value>Расписание</value>
   </data>
   <data name="ControlGroup_47fac36024ce4fad8359245c4dbce89d" xml:space="preserve">
@@ -175,19 +175,19 @@
   <data name="ControlGroup_1b8735c1caf34bc4bcce4d89ee2535aa" xml:space="preserve">
     <value>Schedule</value>
   </data>
-  <data name="Action_TrySendReport" xml:space="preserve">
-    <value>Отправить отчет</value>
+  <data name="Action_EnableSchedule" xml:space="preserve">
+    <value>Enable schedule</value>
   </data>
-  <data name="Action_TrySendReportDescription" xml:space="preserve">
-    <value>Отправить отчет</value>
+  <data name="Action_EnableScheduleDescription" xml:space="preserve">
+    <value>Enable schedule</value>
   </data>
-  <data name="Action_TrySendReportHint" xml:space="preserve">
-    <value>Отправить отчет</value>
+  <data name="Action_EnableScheduleHint" xml:space="preserve">
+    <value>Enable schedule</value>
   </data>
-  <data name="Action_TrySendReportConfirmationMessage" xml:space="preserve">
+  <data name="Action_EnableScheduleConfirmationMessage" xml:space="preserve">
     <value />
   </data>
-  <data name="Action_TrySendReportConfirmationDescription" xml:space="preserve">
+  <data name="Action_EnableScheduleConfirmationDescription" xml:space="preserve">
     <value />
   </data>
   <data name="Property_PeriodNumber" xml:space="preserve">
@@ -195,5 +195,23 @@
   </data>
   <data name="Property_Author" xml:space="preserve">
     <value>Author</value>
+  </data>
+  <data name="Action_DisableSchedule" xml:space="preserve">
+    <value>Disable schedule</value>
+  </data>
+  <data name="Action_DisableScheduleDescription" xml:space="preserve">
+    <value>Disable schedule</value>
+  </data>
+  <data name="Action_DisableScheduleHint" xml:space="preserve">
+    <value>Disable schedule</value>
+  </data>
+  <data name="Action_DisableScheduleConfirmationMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Action_DisableScheduleConfirmationDescription" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Ribbon_Settings_3eaef5a67bcc41a7a47a693133e5a63b" xml:space="preserve">
+    <value>Settings</value>
   </data>
 </root>

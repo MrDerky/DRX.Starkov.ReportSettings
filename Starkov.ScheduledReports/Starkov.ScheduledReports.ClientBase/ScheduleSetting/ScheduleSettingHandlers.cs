@@ -10,6 +10,11 @@ namespace Starkov.ScheduledReports
   partial class ScheduleSettingClientHandlers
   {
 
+    public override void Refresh(Sungero.Presentation.FormRefreshEventArgs e)
+    {
+      Functions.ScheduleSetting.SetPropertyStates(_obj);
+    }
+
     public override void Showing(Sungero.Presentation.FormShowingEventArgs e)
     {
       _obj.State.Properties.PeriodNumber.IsVisible = _obj.Period != null && _obj.Period.IsIncremental.GetValueOrDefault();

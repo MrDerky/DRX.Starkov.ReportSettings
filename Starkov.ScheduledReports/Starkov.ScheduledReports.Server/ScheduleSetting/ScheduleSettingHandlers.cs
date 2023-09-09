@@ -13,6 +13,7 @@ namespace Starkov.ScheduledReports
     public override void CreatingFrom(Sungero.Domain.CreatingFromEventArgs e)
     {
       e.Without(_info.Properties.Author);
+      e.Without(_info.Properties.Status);
     }
   }
 
@@ -22,6 +23,7 @@ namespace Starkov.ScheduledReports
     public override void Created(Sungero.Domain.CreatedEventArgs e)
     {
       _obj.Author = Users.Current;
+      _obj.Status = Status.Closed;
     }
   }
 

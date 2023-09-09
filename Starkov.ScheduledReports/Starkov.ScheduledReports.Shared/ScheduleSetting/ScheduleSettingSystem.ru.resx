@@ -130,4 +130,25 @@
   <data name="Property_Author" xml:space="preserve">
     <value>Автор</value>
   </data>
+  <data name="Action_EnableSchedule" xml:space="preserve">
+    <value>Запустить расписание</value>
+  </data>
+  <data name="Action_EnableScheduleHint" xml:space="preserve">
+    <value>Запустить расписание</value>
+  </data>
+  <data name="Action_EnableScheduleDescription" xml:space="preserve">
+    <value>Запустить расписание</value>
+  </data>
+  <data name="Action_DisableSchedule" xml:space="preserve">
+    <value>Остановить расписание</value>
+  </data>
+  <data name="Action_DisableScheduleHint" xml:space="preserve">
+    <value>Остановить расписание</value>
+  </data>
+  <data name="Action_DisableScheduleDescription" xml:space="preserve">
+    <value>Остановить расписание</value>
+  </data>
+  <data name="Ribbon_Settings_3eaef5a67bcc41a7a47a693133e5a63b" xml:space="preserve">
+    <value>Параметры</value>
+  </data>
 </root>

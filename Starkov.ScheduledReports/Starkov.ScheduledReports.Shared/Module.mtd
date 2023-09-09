@@ -106,6 +106,10 @@
     {
       "ItemId": "26553e87-531b-4953-980d-ab3e60bcebee",
       "PreviousItemId": "f7180f6a-b987-4a28-a072-d26377fb3912"
+    },
+    {
+      "ItemId": "14ecf32c-4688-4751-a90f-835f5b0d8698",
+      "PreviousItemId": "26553e87-531b-4953-980d-ab3e60bcebee"
     }
   ],
   "HandledEvents": [
@@ -135,11 +139,52 @@
   ],
   "PublicFunctions": [
     {
+      "Name": "CloseScheduleLog",
+      "Parameters": [
+        {
+          "Name": "setting",
+          "ParameterType": "global::Starkov.ScheduledReports.IScheduleSetting",
+          "ParameterTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
+        }
+      ],
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "CreateScheduleLog",
+      "Parameters": [
+        {
+          "Name": "setting",
+          "ParameterType": "global::Starkov.ScheduledReports.IScheduleSetting",
+          "ParameterTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "startDate",
+          "ParameterType": "global::System.Nullable<global::System.DateTime>",
+          "ParameterTypeFullName": "System.Nullable"
+        }
+      ],
+      "ReturnType": "global::Starkov.ScheduledReports.IScheduleLog",
+      "ReturnTypeFullName": "Starkov.ScheduledReports.IScheduleLog, Sungero.Domain.Interfaces"
+    },
+    {
       "Name": "CreateScheduleSetting",
       "IsRemote": true,
       "Placement": "Shared",
       "ReturnType": "global::Starkov.ScheduledReports.IScheduleSetting",
       "ReturnTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
+    },
+    {
+      "Name": "EnableSchedule",
+      "Parameters": [
+        {
+          "Name": "setting",
+          "ParameterType": "global::Starkov.ScheduledReports.IScheduleSetting",
+          "ParameterTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
+        }
+      ],
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
     },
     {
       "Name": "ExecuteSheduleReportAsync",
@@ -148,11 +193,6 @@
           "Name": "scheduleSettingId",
           "ParameterType": "global::System.Int32",
           "ParameterTypeFullName": "System.Int32"
-        },
-        {
-          "Name": "nextRetryDate",
-          "ParameterType": "global::System.DateTime",
-          "ParameterTypeFullName": "System.DateTime"
         }
       ],
       "ReturnType": "void",

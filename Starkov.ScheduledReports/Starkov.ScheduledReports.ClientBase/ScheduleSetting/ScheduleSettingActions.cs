@@ -155,14 +155,44 @@ namespace Starkov.ScheduledReports.Client
 
   partial class ScheduleSettingActions
   {
-    public virtual void TrySendReport(Sungero.Domain.Client.ExecuteActionArgs e)
+    public virtual void DisableSchedule(Sungero.Domain.Client.ExecuteActionArgs e)
     {
-      PublicFunctions.Module.ExecuteSheduleReportAsync(_obj.Id, _obj.NextDate.Value);
+      _obj.Status = Status.Closed;
+      _obj.Save();
+      
+      PublicFunctions.Module.CloseScheduleLog(_obj);
     }
 
-    public virtual bool CanTrySendReport(Sungero.Domain.Client.CanExecuteActionArgs e)
+    public virtual bool CanDisableSchedule(Sungero.Domain.Client.CanExecuteActionArgs e)
     {
-      return true;
+      return _obj.Status == Status.Active;
+    }
+
+    public virtual void EnableSchedule(Sungero.Domain.Client.ExecuteActionArgs e)
+    {
+      if (_obj.NextDate <= Calendar.Now)
+      {
+        e.AddError("Следующий запуск не может быть меньше текущего времени.");
+        return;
+      }
+      
+//      if (_obj.Document == null)
+//      {
+//        var document = Sungero.Docflow.SimpleDocuments.Create();
+//        document.Name = setting.Name;
+//        _obj.Document = document;
+//      }
+      
+      _obj.Status = Status.Active;
+      _obj.Save();
+      PublicFunctions.Module.EnableSchedule(_obj);
+      //      PublicFunctions.Module.ExecuteSheduleReportAsync(_obj.Id);
+      Dialogs.NotifyMessage("Запланирована отправка отчета по расписанию");
+    }
+
+    public virtual bool CanEnableSchedule(Sungero.Domain.Client.CanExecuteActionArgs e)
+    {
+      return _obj.Status == Status.Closed;
     }
 
     public virtual void StartReportWithParameters(Sungero.Domain.Client.ExecuteActionArgs e)
