@@ -160,8 +160,8 @@
   <data name="Property_Document" xml:space="preserve">
     <value>Document</value>
   </data>
-  <data name="Property_NextDate" xml:space="preserve">
-    <value>Следующий запуск</value>
+  <data name="Form_be2058865d184da0b5e6b425e553d368" xml:space="preserve">
+    <value>Schedule log</value>
   </data>
   <data name="Property_DateEnd" xml:space="preserve">
     <value>Завершение</value>
@@ -213,5 +213,8 @@
   </data>
   <data name="Ribbon_Settings_3eaef5a67bcc41a7a47a693133e5a63b" xml:space="preserve">
     <value>Settings</value>
+  </data>
+  <data name="ControlGroup_e1689ab92fd343d7b6fdafe51d90f1b2" xml:space="preserve">
+    <value />
   </data>
 </root>

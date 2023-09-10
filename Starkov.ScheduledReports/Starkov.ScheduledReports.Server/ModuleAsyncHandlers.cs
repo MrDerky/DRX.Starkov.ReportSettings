@@ -38,11 +38,11 @@ namespace Starkov.ScheduledReports.Server
         return;
       }
       
-      if (Calendar.Now < schedluleLog.StartDate.Value)
+      if (Calendar.Now.AddMinutes(1) < schedluleLog.StartDate.Value)
       {
         args.NextRetryTime = schedluleLog.StartDate.Value;
         args.Retry = true;
-        Logger.DebugFormat("{0}. Запуск отложен до {1}.", logInfo, setting.NextDate);
+        Logger.DebugFormat("{0}. Запуск отложен до {1}.", logInfo, schedluleLog.StartDate.Value);
         return;
       }
       
@@ -55,10 +55,15 @@ namespace Starkov.ScheduledReports.Server
       
       try
       {
-        PublicFunctions.Module.StartSheduleReport(setting);
+        PublicFunctions.Module.StartSheduleReport(setting, schedluleLog);
         PublicFunctions.Module.CreateScheduleLog(setting, schedluleLog.StartDate);
-        schedluleLog.Status = ScheduledReports.ScheduleLog.Status.Complete;
-        var comment = string.Format("Выполнено {0}", Calendar.Now);
+        
+        if (schedluleLog.Status == ScheduledReports.ScheduleLog.Status.Waiting)
+          schedluleLog.Status = !schedluleLog.DocumentId.HasValue
+            ? ScheduledReports.ScheduleLog.Status.Complete 
+            : ScheduledReports.ScheduleLog.Status.Error;
+
+        schedluleLog.Comment = string.Format("Запуск {0}", Calendar.Now);
         schedluleLog.Save();
       }
       catch (Exception ex)
@@ -69,6 +74,7 @@ namespace Starkov.ScheduledReports.Server
         var message = ex.Message.Length > 250 ? ex.Message.Substring(250) : ex.Message;
         schedluleLog.Comment = message;
         schedluleLog.Status = ScheduledReports.ScheduleLog.Status.Error;
+        schedluleLog.Save();
         
         return;
       }

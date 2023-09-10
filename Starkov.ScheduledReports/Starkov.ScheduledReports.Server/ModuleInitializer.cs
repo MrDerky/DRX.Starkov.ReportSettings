@@ -40,6 +40,9 @@ namespace Starkov.ScheduledReports.Server
       if (!RelativeDates.AccessRights.IsGrantedDirectly(DefaultAccessRightsTypes.Read, allUsers))
         RelativeDates.AccessRights.Grant(allUsers, DefaultAccessRightsTypes.Read);
       
+       if (!ScheduleLogs.AccessRights.IsGrantedDirectly(DefaultAccessRightsTypes.Read, allUsers))
+        ScheduleLogs.AccessRights.Grant(allUsers, DefaultAccessRightsTypes.Read);
+      
       var relativeDatesManagerRole = Roles.GetAll(r => r.Sid == Constants.Module.RelativeDatesManagerRole).FirstOrDefault();
       if (!RelativeDates.AccessRights.IsGrantedDirectly(DefaultAccessRightsTypes.Change, relativeDatesManagerRole))
         RelativeDates.AccessRights.Grant(relativeDatesManagerRole, DefaultAccessRightsTypes.Change);

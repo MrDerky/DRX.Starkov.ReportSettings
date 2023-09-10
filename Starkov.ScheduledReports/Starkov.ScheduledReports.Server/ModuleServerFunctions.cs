@@ -57,18 +57,22 @@ namespace Starkov.ScheduledReports.Server
                                  .FirstOrDefault();
                                
                                scheduleLog.Status = ScheduledReports.ScheduleLog.Status.Closed;
-                               //                               scheduleLog.ScheduleSettingId = setting.Id;
-                               //                               scheduleLog.StartDate = Functions.ScheduleSetting.GetNextPeriod(setting);
-                               //                               scheduleLog.Status = ScheduledReports.ScheduleLog.Status.Waiting;
                                scheduleLog.Save();
                              });
     }
     
-    //    [Public]
-    //    public IScheduleLog GetLastScheduleLog(Starkov.ScheduledReports.IScheduleSetting setting)
-    //    {
-//
-    //    }
+    [Public]
+    public IQueryable<IScheduleLog> GetScheduleLogs(Starkov.ScheduledReports.IScheduleSetting setting)
+    {
+      IQueryable<IScheduleLog> scheduleLogs = null;
+      
+      AccessRights.AllowRead(() =>
+                             {
+                               scheduleLogs = ScheduleLogs.GetAll(s => s.ScheduleSettingId == setting.Id);
+                             });
+      
+      return scheduleLogs;
+    }
     
     [Public]
     public void EnableSchedule(Starkov.ScheduledReports.IScheduleSetting setting)
@@ -128,44 +132,64 @@ namespace Starkov.ScheduledReports.Server
     }
     
     [Public]
-    public void StartSheduleReport(Starkov.ScheduledReports.IScheduleSetting setting)
+    public void StartSheduleReport(Starkov.ScheduledReports.IScheduleSetting setting, IScheduleLog scheduleLog)
     {
+      var observers = setting.Observers.Select(o => o.Recipient).Distinct().AsEnumerable();
+      if (Sungero.Company.Employees.Is(setting.Author) && !observers.Contains(setting.Author))
+        observers = observers.Append(setting.Author);
+      
+      observers = observers.Where(o => o.Status != Sungero.Company.Employee.Status.Closed);
+      
+      if (!observers.Any())
+      {
+        //TODO отправка админам
+        return;
+      }
+      
+      Logger.DebugFormat("StartSheduleReport.1");
       var report = GetModuleReportByGuid(Guid.Parse(setting.ModuleGuid), Guid.Parse(setting.ReportGuid));
       if (report == null)
         return;
       
       FillReportParams(report, setting);
-      
+      Logger.DebugFormat("StartSheduleReport.2");
       // Экспорт в документ
       //      var document = setting.Document;
       //      if (document == null)
       //      {
       var document = Sungero.Docflow.SimpleDocuments.Create();
       document.Name = setting.Name;
+      
+      foreach (var recipient in observers)
+        document.AccessRights.Grant(recipient, DefaultAccessRightsTypes.Read);
+      
+      
+      document.Save();
+      scheduleLog.DocumentId = document.Id;
       //        setting.Document = document;
       //      }
       
       report.ExportTo(document);
-      document.Save();
       
-      var observers = setting.Observers.Select(o => o.Recipient).AsEnumerable();
-      if (Sungero.Company.Employees.Is(setting.Author) && !observers.Contains(setting.Author))
-        observers = observers.Append(setting.Author);
       
-      observers = observers.Where(o => o.Status != Sungero.Company.Employee.Status.Closed);
+      //      var observers = setting.Observers.Select(o => o.Recipient).AsEnumerable();
+      //      if (Sungero.Company.Employees.Is(setting.Author) && !observers.Contains(setting.Author))
+      //        observers = observers.Append(setting.Author);
+//
+      //      observers = observers.Where(o => o.Status != Sungero.Company.Employee.Status.Closed);
       
-      if (observers.Any())
-      {
-        var subject = string.Format(Starkov.ScheduledReports.Resources.ReportSubject, setting.Name);
-        var task = Sungero.Workflow.SimpleTasks.CreateWithNotices(subject, observers.ToArray());
-        task.Attachments.Add(document);
-        task.Start();
-      }
-      else
-      {
-        //TODO отправка админам
-        //var task = Sungero.Workflow.SimpleTasks.CreateWithNotices("Не удалось вычислить действующих сотрудников для отправки очтета", Roles.Administrators);
-      }
+      //      if (observers.Any())
+      //      {
+      var subject = string.Format(Starkov.ScheduledReports.Resources.ReportSubject, setting.Name);
+      var task = Sungero.Workflow.SimpleTasks.CreateWithNotices(subject, observers.ToArray());
+      task.Attachments.Add(document);
+      task.Start();
+      //      }
+      //      else
+      //      {
+      //        //TODO отправка админам
+      //        //var task = Sungero.Workflow.SimpleTasks.CreateWithNotices("Не удалось вычислить действующих сотрудников для отправки очтета", Roles.Administrators);
+      //      }
       
       if (setting.State.IsChanged)
         setting.Save();

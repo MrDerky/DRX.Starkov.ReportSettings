@@ -10,9 +10,18 @@ namespace Starkov.ScheduledReports
   partial class ScheduleSettingClientHandlers
   {
 
-    public override void Refresh(Sungero.Presentation.FormRefreshEventArgs e)
+    public override void StatusValueInput(Sungero.Presentation.EnumerationValueInputEventArgs e)
     {
       Functions.ScheduleSetting.SetPropertyStates(_obj);
+    }
+
+    public override void Refresh(Sungero.Presentation.FormRefreshEventArgs e)
+    {
+      //Functions.ScheduleSetting.SetPropertyStates(_obj);
+      
+//      var nextDate = Functions.ScheduleSetting.Remote.GetNextPeriod(_obj);
+//      if (nextDate.HasValue)
+//        e.AddInformation("Время следующего запуска " + nextDate.Value);
     }
 
     public override void Showing(Sungero.Presentation.FormShowingEventArgs e)
@@ -24,6 +33,8 @@ namespace Starkov.ScheduledReports
                                       Environment.NewLine,
                                       _obj.Info.Actions.SetReport.LocalizedName,
                                       _obj.Info.Actions.StartReport.LocalizedName);
+      
+      Functions.ScheduleSetting.SetPropertyStates(_obj);
     }
     
   }

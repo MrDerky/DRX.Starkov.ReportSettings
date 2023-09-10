@@ -161,6 +161,7 @@ namespace Starkov.ScheduledReports.Client
       _obj.Save();
       
       PublicFunctions.Module.CloseScheduleLog(_obj);
+      _obj.State.Controls.ScheduleReportState.Refresh();
     }
 
     public virtual bool CanDisableSchedule(Sungero.Domain.Client.CanExecuteActionArgs e)
@@ -170,7 +171,8 @@ namespace Starkov.ScheduledReports.Client
 
     public virtual void EnableSchedule(Sungero.Domain.Client.ExecuteActionArgs e)
     {
-      if (_obj.NextDate <= Calendar.Now)
+      var nextDate = Functions.ScheduleSetting.Remote.GetNextPeriod(_obj);
+      if (nextDate <= Calendar.Now)
       {
         e.AddError("Следующий запуск не может быть меньше текущего времени.");
         return;
@@ -187,7 +189,9 @@ namespace Starkov.ScheduledReports.Client
       _obj.Save();
       PublicFunctions.Module.EnableSchedule(_obj);
       //      PublicFunctions.Module.ExecuteSheduleReportAsync(_obj.Id);
-      Dialogs.NotifyMessage("Запланирована отправка отчета по расписанию");
+      var message = string.Format("Запланирована отправка отчета по расписанию.{0}Время следующего запуска {1}", Environment.NewLine, nextDate);
+      Dialogs.NotifyMessage(message);
+      _obj.State.Controls.ScheduleReportState.Refresh();
     }
 
     public virtual bool CanEnableSchedule(Sungero.Domain.Client.CanExecuteActionArgs e)
@@ -214,7 +218,7 @@ namespace Starkov.ScheduledReports.Client
 
     public virtual bool CanStartReportWithParameters(Sungero.Domain.Client.CanExecuteActionArgs e)
     {
-      return true;
+      return !string.IsNullOrEmpty(_obj.ReportGuid);
     }
 
     public virtual void StartReport(Sungero.Domain.Client.ExecuteActionArgs e)
@@ -238,7 +242,7 @@ namespace Starkov.ScheduledReports.Client
 
     public virtual bool CanStartReport(Sungero.Domain.Client.CanExecuteActionArgs e)
     {
-      return true;
+      return !string.IsNullOrEmpty(_obj.ReportGuid);
     }
 
 

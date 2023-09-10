@@ -10,6 +10,56 @@ namespace Starkov.ScheduledReports.Server
 {
   partial class ScheduleSettingFunctions
   {
+
+    /// <summary>
+    /// Получить состояние из журнала расписаний.
+    /// </summary>
+    [Remote]
+    public StateView GetScheduleSettingState()
+    {
+      var stateView = StateView.Create();
+      stateView.IsPrintable = true;
+      
+      var scheduleLogs = Functions.Module.GetScheduleLogs(_obj)
+        .OrderByDescending(s => s.StartDate)
+        .Take(10);
+      
+      var iconSize = StateBlockIconSize.Large;
+      
+      foreach (var log in scheduleLogs)
+      {
+        var block = stateView.AddBlock();
+        
+        block.AddLabel("Плановый запуск: " + log.StartDate.Value.ToUserTime().ToString("g"));
+        var content = block.AddContent();
+        
+        var statusStyle = StateBlockLabelStyle.Create();
+        statusStyle.FontWeight = FontWeight.Bold;
+        
+        if (log.Status == ScheduledReports.ScheduleLog.Status.Error)
+          statusStyle.Color = Colors.Common.Red;
+        else if (log.Status == ScheduledReports.ScheduleLog.Status.Waiting)
+        {
+          statusStyle.Color = Colors.Common.Green;
+          block.AssignIcon(ScheduleLogs.Resources.Waiting, iconSize);
+        }
+        else if(log.Status == ScheduledReports.ScheduleLog.Status.Closed)
+        {
+          statusStyle.Color = Colors.Common.LightGray;
+        }
+        
+        block.AddLabel(log.Info.Properties.Status.GetLocalizedValue(log.Status.Value), statusStyle);
+        block.AddLineBreak();
+        block.AddLabel(log.Comment);
+        
+        if (log.DocumentId.HasValue)
+          block.AddHyperlink("Открыть", Hyperlinks.Get(Sungero.Docflow.OfficialDocuments.Info, log.DocumentId.Value));
+      }
+      
+      
+      return stateView;
+    }
+    
     /// <summary>
     /// Получить следующую дату выполнения.
     /// </summary>

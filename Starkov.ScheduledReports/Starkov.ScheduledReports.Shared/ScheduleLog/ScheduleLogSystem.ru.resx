@@ -74,7 +74,7 @@
     <value>Настройка расписания</value>
   </data>
   <data name="Enum_Status_Closed" xml:space="preserve">
-    <value>Закрытая</value>
+    <value>Отмена</value>
   </data>
   <data name="Enum_Status_Active" xml:space="preserve">
     <value>Активная</value>
@@ -93,5 +93,8 @@
   </data>
   <data name="Property_Comment" xml:space="preserve">
     <value>Комментарий</value>
+  </data>
+  <data name="Property_DocumentId" xml:space="preserve">
+    <value>Документ</value>
   </data>
 </root>

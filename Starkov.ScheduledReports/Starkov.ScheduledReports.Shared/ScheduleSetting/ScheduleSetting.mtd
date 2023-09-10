@@ -9,8 +9,8 @@
       "Name": "SetReport",
       "ActionArea": "Card",
       "GenerateHandler": true,
-      "LargeIconName": null,
-      "SmallIconName": null
+      "LargeIconName": "Action_SetReport_large_425413e2cc774f00a09316226e773d34.png",
+      "SmallIconName": "Action_SetReport_small_425413e2cc774f00a09316226e773d34.png"
     },
     {
       "NameGuid": "4518fd16-7772-4bce-b1a6-088d5243f292",
@@ -26,16 +26,16 @@
       "Name": "StartReport",
       "ActionArea": "Card",
       "GenerateHandler": true,
-      "LargeIconName": null,
-      "SmallIconName": null
+      "LargeIconName": "Action_StartReport_large_ba83e3afb2fa44668a767763264cb28b.png",
+      "SmallIconName": "Action_StartReport_small_ba83e3afb2fa44668a767763264cb28b.png"
     },
     {
       "NameGuid": "cbc203b8-4428-4b75-b092-b0b6568f51b1",
       "Name": "StartReportWithParameters",
       "ActionArea": "Card",
       "GenerateHandler": true,
-      "LargeIconName": null,
-      "SmallIconName": null
+      "LargeIconName": "Action_StartReportWithParameters_large_cbc203b844284b75b092b0b6568f51b1.png",
+      "SmallIconName": "Action_StartReportWithParameters_small_cbc203b844284b75b092b0b6568f51b1.png"
     },
     {
       "NameGuid": "270275eb-d6dd-43d0-a860-ddb64ede1daf",
@@ -97,7 +97,7 @@
         {
           "$type": "Sungero.Metadata.ControlGroupMetadata, Sungero.Metadata",
           "NameGuid": "47fac360-24ce-4fad-8359-245c4dbce89d",
-          "Name": "ControlGroup",
+          "Name": "ReportData",
           "ColumnNumber": 0,
           "ColumnSpan": 1,
           "GroupType": "WithTitleNoBorder",
@@ -148,13 +148,10 @@
           "Name": "Schedule",
           "ColumnDefinitions": [
             {
-              "Percentage": 25.96
+              "Percentage": 46.04
             },
             {
-              "Percentage": 20.07
-            },
-            {
-              "Percentage": 53.98
+              "Percentage": 53.99
             }
           ],
           "ColumnNumber": 0,
@@ -169,7 +166,7 @@
           "NameGuid": "e9e09e23-f35a-4ea4-a2a8-1b7e1724f20f",
           "Name": "DateBegin",
           "ColumnNumber": 0,
-          "ColumnSpan": 2,
+          "ColumnSpan": 1,
           "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
           "ParentGuid": "1b8735c1-caf3-4bc4-bcce-4d89ee2535aa",
           "PropertyGuid": "810b423c-ca10-4c99-8320-9cd09e790d9e",
@@ -181,7 +178,7 @@
           "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
           "NameGuid": "6fbca1a9-e5fb-45ce-857f-f5cd1857fb4a",
           "Name": "DateEnd",
-          "ColumnNumber": 2,
+          "ColumnNumber": 1,
           "ColumnSpan": 1,
           "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
           "ParentGuid": "1b8735c1-caf3-4bc4-bcce-4d89ee2535aa",
@@ -199,19 +196,6 @@
           "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
           "ParentGuid": "1b8735c1-caf3-4bc4-bcce-4d89ee2535aa",
           "PropertyGuid": "530e5def-e544-4ccf-98fd-864febb2fbb0",
-          "RowNumber": 0,
-          "RowSpan": 1,
-          "Settings": []
-        },
-        {
-          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
-          "NameGuid": "d436ee2b-aab0-44ff-a3a7-068306d41516",
-          "Name": "NextDate",
-          "ColumnNumber": 2,
-          "ColumnSpan": 1,
-          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
-          "ParentGuid": "1b8735c1-caf3-4bc4-bcce-4d89ee2535aa",
-          "PropertyGuid": "7560638f-4099-4332-b77d-a6662c546668",
           "RowNumber": 0,
           "RowSpan": 1,
           "Settings": []
@@ -243,6 +227,33 @@
           "Settings": []
         }
       ]
+    },
+    {
+      "$type": "Sungero.Metadata.InplaceFormMetadata, Sungero.Metadata",
+      "NameGuid": "be205886-5d18-4da0-b5e6-b425e553d368",
+      "Name": "ScheduleLog",
+      "Controls": [
+        {
+          "$type": "Sungero.Metadata.ControlGroupMetadata, Sungero.Metadata",
+          "NameGuid": "e1689ab9-2fd3-43d7-b6fd-afe51d90f1b2",
+          "Name": "ControlGroup"
+        },
+        {
+          "$type": "Sungero.Metadata.FunctionControlMetadata, Sungero.Metadata",
+          "NameGuid": "1dde6c39-b866-443f-9355-67cf375b24ea",
+          "Name": "ScheduleReportState",
+          "ColumnNumber": 0,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StateViewToFunctionBinder",
+          "FunctionName": "GetScheduleSettingState",
+          "HeaderLocation": "None",
+          "ParentGuid": "e1689ab9-2fd3-43d7-b6fd-afe51d90f1b2",
+          "RowNumber": 0,
+          "RowSpan": 1,
+          "Settings": []
+        }
+      ],
+      "ParentFormGuid": "f40609a7-3879-4a09-80ef-db64a7f75d18"
     }
   ],
   "HandledEvents": [
@@ -258,6 +269,18 @@
     "AccessRightsMode"
   ],
   "Properties": [
+    {
+      "$type": "Sungero.Metadata.EnumPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "1dcedc29-5140-4770-ac92-eabc212326a1",
+      "Name": "Status",
+      "HandledEvents": [
+        "ValueInputClient"
+      ],
+      "IsAncestorMetadata": true,
+      "Overridden": [
+        "HandledEvents"
+      ]
+    },
     {
       "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
       "NameGuid": "f8230e36-4e55-47fa-b817-a7b09ca8516a",
@@ -380,16 +403,6 @@
       "PreviousPropertyGuid": "c5557ea4-bf0c-49fe-b924-ccf13cf1c84d"
     },
     {
-      "$type": "Sungero.Metadata.DateTimePropertyMetadata, Sungero.Metadata",
-      "NameGuid": "7560638f-4099-4332-b77d-a6662c546668",
-      "Name": "NextDate",
-      "Code": "NextDate",
-      "DateTimeFormat": "DateTime",
-      "IsEnabled": false,
-      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
-      "PreviousPropertyGuid": "263d1192-573c-4fd9-a48a-3ff056aea6e0"
-    },
-    {
       "$type": "Sungero.Metadata.IntegerPropertyMetadata, Sungero.Metadata",
       "NameGuid": "263d1192-573c-4fd9-a48a-3ff056aea6e0",
       "Name": "PeriodNumber",
@@ -407,7 +420,7 @@
       "Code": "Author",
       "EntityGuid": "243c2d26-f5f7-495f-9faf-951d91215c77",
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
-      "PreviousPropertyGuid": "7560638f-4099-4332-b77d-a6662c546668"
+      "PreviousPropertyGuid": "263d1192-573c-4fd9-a48a-3ff056aea6e0"
     }
   ],
   "PublicFunctions": [

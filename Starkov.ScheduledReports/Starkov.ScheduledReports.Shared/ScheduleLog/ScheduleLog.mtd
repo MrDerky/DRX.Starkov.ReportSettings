@@ -45,7 +45,10 @@
       ]
     }
   ],
-  "IconResourcesKeys": [],
+  "IconResourcesKeys": [
+    "Waiting",
+    "Completed"
+  ],
   "IntegrationServiceName": "ScheduledReportsScheduleLog",
   "IsAutoCreated": true,
   "IsVisible": false,
@@ -119,6 +122,14 @@
       "Code": "Comment",
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
       "PreviousPropertyGuid": "f7f6f121-44d7-4685-a743-5262f998bfd5"
+    },
+    {
+      "$type": "Sungero.Metadata.IntegerPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "260b5d62-c312-45df-b9d0-9a4387164e1e",
+      "Name": "DocumentId",
+      "Code": "DocumentId",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.NumericEditorToIntAndDoubleBinder",
+      "PreviousPropertyGuid": "ba355aa6-64cd-42a4-aa5b-03404c88de91"
     }
   ],
   "PublicStructures": [],

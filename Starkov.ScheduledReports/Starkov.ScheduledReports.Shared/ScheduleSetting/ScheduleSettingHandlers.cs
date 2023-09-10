@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -13,18 +13,18 @@ namespace Starkov.ScheduledReports
 
     public virtual void DateBeginChanged(Sungero.Domain.Shared.DateTimePropertyChangedEventArgs e)
     {
-      if (e.OldValue == e.NewValue )
-        return;
-      
-      _obj.NextDate = Functions.ScheduleSetting.Remote.GetNextPeriod(_obj);
+//      if (e.OldValue == e.NewValue )
+//        return;
+//      
+//      _obj.NextDate = Functions.ScheduleSetting.Remote.GetNextPeriod(_obj);
     }
     
     public virtual void DateEndChanged(Sungero.Domain.Shared.DateTimePropertyChangedEventArgs e)
     {
-      if (e.OldValue == e.NewValue )
-        return;
-      
-      _obj.NextDate = Functions.ScheduleSetting.Remote.GetNextPeriod(_obj);
+//      if (e.OldValue == e.NewValue )
+//        return;
+//      
+//      _obj.NextDate = Functions.ScheduleSetting.Remote.GetNextPeriod(_obj);
     }
 
     public virtual void PeriodNumberChanged(Sungero.Domain.Shared.IntegerPropertyChangedEventArgs e)
@@ -39,7 +39,7 @@ namespace Starkov.ScheduledReports
       else if (e.NewValue > 100)
         number = _obj.PeriodNumber = 100;
       
-      _obj.NextDate = Functions.ScheduleSetting.Remote.GetNextPeriod(_obj, number, null);
+//      _obj.NextDate = Functions.ScheduleSetting.Remote.GetNextPeriod(_obj, number, null);
     }
 
     public virtual void PeriodChanged(Starkov.ScheduledReports.Shared.ScheduleSettingPeriodChangedEventArgs e)
@@ -50,7 +50,7 @@ namespace Starkov.ScheduledReports
       var isIncremental = e.NewValue != null && e.NewValue.IsIncremental.GetValueOrDefault();
       _obj.State.Properties.PeriodNumber.IsVisible = isIncremental;
       
-      _obj.NextDate = Functions.ScheduleSetting.Remote.GetNextPeriod(_obj);
+//      _obj.NextDate = Functions.ScheduleSetting.Remote.GetNextPeriod(_obj);
     }
 
     public virtual void ReportNameChanged(Sungero.Domain.Shared.StringPropertyChangedEventArgs e)

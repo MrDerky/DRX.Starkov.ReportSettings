@@ -6,7 +6,7 @@
     {
       "NameGuid": "b396d5a4-3524-4af1-9b1d-29963e1bdae1",
       "Name": "SendSheduleReport",
-      "DelayPeriod": 15,
+      "DelayPeriod": 1,
       "DelayStrategy": "RegularDelayStrategy",
       "IsHandlerGenerated": true,
       "Parameters": [
@@ -324,6 +324,18 @@
       "ReturnType": "System.Collections.Generic.Dictionary<global::System.Guid, global::System.String>"
     },
     {
+      "Name": "GetScheduleLogs",
+      "Parameters": [
+        {
+          "Name": "setting",
+          "ParameterType": "global::Starkov.ScheduledReports.IScheduleSetting",
+          "ParameterTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
+        }
+      ],
+      "ReturnType": "global::System.Linq.IQueryable<global::Starkov.ScheduledReports.IScheduleLog>",
+      "ReturnTypeFullName": "System.Linq.IQueryable"
+    },
+    {
       "Name": "GetScheduleSetting",
       "IsRemote": true,
       "Parameters": [
@@ -344,6 +356,11 @@
           "Name": "setting",
           "ParameterType": "global::Starkov.ScheduledReports.IScheduleSetting",
           "ParameterTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "scheduleLog",
+          "ParameterType": "global::Starkov.ScheduledReports.IScheduleLog",
+          "ParameterTypeFullName": "Starkov.ScheduledReports.IScheduleLog, Sungero.Domain.Interfaces"
         }
       ],
       "ReturnType": "void",

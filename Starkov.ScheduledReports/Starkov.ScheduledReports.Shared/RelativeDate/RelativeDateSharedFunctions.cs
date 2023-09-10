@@ -80,6 +80,8 @@ namespace Starkov.ScheduledReports.Shared
     {
       var resultDate = date.HasValue ? date.Value : Calendar.Now;
       
+      try
+      {
       if (functionGuid == Constants.RelativeDate.FunctionGuids.Base.Today)
         resultDate = Calendar.Today;
       else if (functionGuid == Constants.RelativeDate.FunctionGuids.Base.Now)
@@ -107,6 +109,12 @@ namespace Starkov.ScheduledReports.Shared
         resultDate = resultDate.AddHours(number);
       else if (functionGuid == Constants.RelativeDate.FunctionGuids.Incremental.AddMinutes)
         resultDate = resultDate.AddMinutes(number);
+            }
+      catch (Exception ex)
+      {
+        Logger.ErrorFormat("CalculateDateByFunctionGuid. functionGuid={0}, date={1}, number={2}", ex, functionGuid, date, number);
+        throw new Exception(Starkov.ScheduledReports.RelativeDates.Resources.RelativeCalculatedError);
+      }
       
       return resultDate;
     }
