@@ -161,6 +161,8 @@ namespace Starkov.ScheduledReports.Client
       _obj.Save();
       
       PublicFunctions.Module.CloseScheduleLog(_obj);
+      
+      Functions.ScheduleSetting.SetPropertyStates(_obj);
       _obj.State.Controls.ScheduleReportState.Refresh();
     }
 
@@ -171,6 +173,12 @@ namespace Starkov.ScheduledReports.Client
 
     public virtual void EnableSchedule(Sungero.Domain.Client.ExecuteActionArgs e)
     {
+      if (_obj.DateEnd.HasValue && _obj.DateEnd.Value <= Calendar.Now)
+      {
+        e.AddError("Завершение расписания должно быть больше текущего времени");
+        return;
+      }
+      
       var nextDate = Functions.ScheduleSetting.Remote.GetNextPeriod(_obj);
       if (nextDate <= Calendar.Now)
       {
@@ -178,25 +186,42 @@ namespace Starkov.ScheduledReports.Client
         return;
       }
       
-//      if (_obj.Document == null)
-//      {
-//        var document = Sungero.Docflow.SimpleDocuments.Create();
-//        document.Name = setting.Name;
-//        _obj.Document = document;
-//      }
+      //      if (_obj.Document == null)
+      //      {
+      //        var document = Sungero.Docflow.SimpleDocuments.Create();
+      //        document.Name = setting.Name;
+      //        _obj.Document = document;
+      //      }
+      
+      //      _obj.Status = Status.Active;
+      //      _obj.Save();
+      
+      try
+      {
+        PublicFunctions.Module.EnableSchedule(_obj);
+        var message = string.Format("Запланирована отправка отчета по расписанию.{0}Время следующего запуска {1}", Environment.NewLine, nextDate);
+        Dialogs.NotifyMessage(message);
+      }
+      catch (Exception ex)
+      {
+        e.AddError(ex.Message);
+        return;
+      }
+      //      PublicFunctions.Module.EnableSchedule(_obj);
+      //      //      PublicFunctions.Module.ExecuteSheduleReportAsync(_obj.Id);
+      //      var message = string.Format("Запланирована отправка отчета по расписанию.{0}Время следующего запуска {1}", Environment.NewLine, nextDate);
+      //      Dialogs.NotifyMessage(message);
       
       _obj.Status = Status.Active;
       _obj.Save();
-      PublicFunctions.Module.EnableSchedule(_obj);
-      //      PublicFunctions.Module.ExecuteSheduleReportAsync(_obj.Id);
-      var message = string.Format("Запланирована отправка отчета по расписанию.{0}Время следующего запуска {1}", Environment.NewLine, nextDate);
-      Dialogs.NotifyMessage(message);
+      
+      Functions.ScheduleSetting.SetPropertyStates(_obj);
       _obj.State.Controls.ScheduleReportState.Refresh();
     }
 
     public virtual bool CanEnableSchedule(Sungero.Domain.Client.CanExecuteActionArgs e)
     {
-      return _obj.Status == Status.Closed;
+      return _obj.Status == Status.Closed && (!_obj.DateEnd.HasValue || _obj.DateEnd.HasValue && _obj.DateEnd.Value > Calendar.Now);
     }
 
     public virtual void StartReportWithParameters(Sungero.Domain.Client.ExecuteActionArgs e)

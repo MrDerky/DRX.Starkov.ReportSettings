@@ -34,11 +34,24 @@ namespace Starkov.ScheduledReports.Server
       if (schedluleLog == null)
       {
         Logger.DebugFormat("{0}. Не найдено записей справочника ScheduleLog со статусом Waiting.", logInfo);
+        if (!Locks.TryLock(setting))
+        {
+          Logger.DebugFormat("{0}. Запись справочника ScheduleSetting заблокирована пользователем {1}.", logInfo, Locks.GetLockInfo(setting).OwnerName);
+          args.Retry = true;
+          return;
+        }
+        
+        setting.Status = ScheduledReports.ScheduleSetting.Status.Closed;
+        setting.Save();
+        
+        if (Locks.GetLockInfo(setting).IsLockedByMe)
+          Locks.Unlock(setting);
+        
         args.Retry = false;
         return;
       }
       
-      if (Calendar.Now.AddMinutes(1) < schedluleLog.StartDate.Value)
+      if (Calendar.Now < schedluleLog.StartDate.Value)
       {
         args.NextRetryTime = schedluleLog.StartDate.Value;
         args.Retry = true;
@@ -55,16 +68,17 @@ namespace Starkov.ScheduledReports.Server
       
       try
       {
-        PublicFunctions.Module.StartSheduleReport(setting, schedluleLog);
-        PublicFunctions.Module.CreateScheduleLog(setting, schedluleLog.StartDate);
-        
-        if (schedluleLog.Status == ScheduledReports.ScheduleLog.Status.Waiting)
-          schedluleLog.Status = !schedluleLog.DocumentId.HasValue
-            ? ScheduledReports.ScheduleLog.Status.Complete 
-            : ScheduledReports.ScheduleLog.Status.Error;
-
         schedluleLog.Comment = string.Format("Запуск {0}", Calendar.Now);
-        schedluleLog.Save();
+        
+        PublicFunctions.Module.StartSheduleReport(setting, schedluleLog);
+        PublicFunctions.Module.EnableSchedule(setting);
+        
+//        schedluleLog.Status = !schedluleLog.DocumentId.HasValue
+//          ? ScheduledReports.ScheduleLog.Status.Complete
+//          : ScheduledReports.ScheduleLog.Status.Error;
+
+//        schedluleLog.Comment = string.Format("Запуск {0}", Calendar.Now);
+//        schedluleLog.Save();
       }
       catch (Exception ex)
       {

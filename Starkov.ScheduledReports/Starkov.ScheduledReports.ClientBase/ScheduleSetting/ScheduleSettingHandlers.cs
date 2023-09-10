@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -9,11 +9,6 @@ namespace Starkov.ScheduledReports
 {
   partial class ScheduleSettingClientHandlers
   {
-
-    public override void StatusValueInput(Sungero.Presentation.EnumerationValueInputEventArgs e)
-    {
-      Functions.ScheduleSetting.SetPropertyStates(_obj);
-    }
 
     public override void Refresh(Sungero.Presentation.FormRefreshEventArgs e)
     {

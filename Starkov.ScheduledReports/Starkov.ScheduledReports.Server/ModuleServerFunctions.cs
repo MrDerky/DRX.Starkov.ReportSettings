@@ -51,13 +51,16 @@ namespace Starkov.ScheduledReports.Server
     {
       AccessRights.AllowRead(() =>
                              {
-                               var scheduleLog = ScheduleLogs.GetAll(s => s.ScheduleSettingId == setting.Id)
+                               var scheduleLogs = ScheduleLogs.GetAll(s => s.ScheduleSettingId == setting.Id)
                                  .Where(s => s.Status == ScheduledReports.ScheduleLog.Status.Waiting || s.Status == ScheduledReports.ScheduleLog.Status.Error)
-                                 .OrderByDescending(s => s.StartDate)
-                                 .FirstOrDefault();
+                                 .OrderByDescending(s => s.StartDate);
+                               //                                 .FirstOrDefault();
                                
-                               scheduleLog.Status = ScheduledReports.ScheduleLog.Status.Closed;
-                               scheduleLog.Save();
+                               foreach (var scheduleLog in scheduleLogs)
+                               {
+                                 scheduleLog.Status = ScheduledReports.ScheduleLog.Status.Closed;
+                                 scheduleLog.Save();
+                               }
                              });
     }
     
@@ -78,7 +81,9 @@ namespace Starkov.ScheduledReports.Server
     public void EnableSchedule(Starkov.ScheduledReports.IScheduleSetting setting)
     {
       CreateScheduleLog(setting, null);
+      Logger.Debug("StartSheduleReport. CreateScheduleLog");
       ExecuteSheduleReportAsync(setting.Id);
+      Logger.Debug("StartSheduleReport. ExecuteSheduleReportAsync");
     }
     
     /// <summary>
@@ -146,13 +151,13 @@ namespace Starkov.ScheduledReports.Server
         return;
       }
       
-      Logger.DebugFormat("StartSheduleReport.1");
+      Logger.Debug("StartSheduleReport. Get report");
       var report = GetModuleReportByGuid(Guid.Parse(setting.ModuleGuid), Guid.Parse(setting.ReportGuid));
       if (report == null)
         return;
       
       FillReportParams(report, setting);
-      Logger.DebugFormat("StartSheduleReport.2");
+      Logger.Debug("StartSheduleReport. FillReportParams");
       // Экспорт в документ
       //      var document = setting.Document;
       //      if (document == null)
@@ -163,14 +168,14 @@ namespace Starkov.ScheduledReports.Server
       foreach (var recipient in observers)
         document.AccessRights.Grant(recipient, DefaultAccessRightsTypes.Read);
       
-      
+      Logger.Debug("StartSheduleReport. document save");
       document.Save();
-      scheduleLog.DocumentId = document.Id;
+
       //        setting.Document = document;
       //      }
       
       report.ExportTo(document);
-      
+      Logger.Debug("StartSheduleReport. repirt export to doc");
       
       //      var observers = setting.Observers.Select(o => o.Recipient).AsEnumerable();
       //      if (Sungero.Company.Employees.Is(setting.Author) && !observers.Contains(setting.Author))
@@ -184,12 +189,18 @@ namespace Starkov.ScheduledReports.Server
       var task = Sungero.Workflow.SimpleTasks.CreateWithNotices(subject, observers.ToArray());
       task.Attachments.Add(document);
       task.Start();
+      Logger.Debug("StartSheduleReport. task start");
       //      }
       //      else
       //      {
       //        //TODO отправка админам
       //        //var task = Sungero.Workflow.SimpleTasks.CreateWithNotices("Не удалось вычислить действующих сотрудников для отправки очтета", Roles.Administrators);
       //      }
+      
+      scheduleLog.DocumentId = document.Id;
+      scheduleLog.Status = ScheduledReports.ScheduleLog.Status.Complete;
+      scheduleLog.Save();
+      Logger.DebugFormat("StartSheduleReport. scheduleLog {0} save status = {1}", scheduleLog.Id, scheduleLog.Status);
       
       if (setting.State.IsChanged)
         setting.Save();

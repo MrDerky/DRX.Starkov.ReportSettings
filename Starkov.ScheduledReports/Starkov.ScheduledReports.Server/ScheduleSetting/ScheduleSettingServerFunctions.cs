@@ -30,9 +30,7 @@ namespace Starkov.ScheduledReports.Server
       {
         var block = stateView.AddBlock();
         
-        block.AddLabel("Плановый запуск: " + log.StartDate.Value.ToUserTime().ToString("g"));
-        var content = block.AddContent();
-        
+        #region Стили
         var statusStyle = StateBlockLabelStyle.Create();
         statusStyle.FontWeight = FontWeight.Bold;
         
@@ -47,8 +45,12 @@ namespace Starkov.ScheduledReports.Server
         {
           statusStyle.Color = Colors.Common.LightGray;
         }
+        #endregion
         
         block.AddLabel(log.Info.Properties.Status.GetLocalizedValue(log.Status.Value), statusStyle);
+        var content = block.AddContent();
+        block.AddLabel("Плановый запуск: " + log.StartDate.Value.ToUserTime().ToString("g"));
+        
         block.AddLineBreak();
         block.AddLabel(log.Comment);
         
