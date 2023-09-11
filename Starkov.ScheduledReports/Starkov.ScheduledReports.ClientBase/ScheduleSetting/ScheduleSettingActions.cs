@@ -19,10 +19,11 @@ namespace Starkov.ScheduledReports.Client
 
     public virtual void EditParameter(Sungero.Domain.Client.ExecuteChildCollectionActionArgs e)
     {
-      // TODO Перенести код
+      // TODO Возмно следует перенести код
       if (!string.IsNullOrEmpty(_obj.EntityGuid))
       {
-        // Типы сущностей системы
+        #region Типы сущностей системы
+        
         var entities = PublicFunctions.Module.Remote.GetEntitiesByGuid(Guid.Parse(_obj.EntityGuid));
         if (entities.Any())
         {
@@ -33,11 +34,14 @@ namespace Starkov.ScheduledReports.Client
             _obj.EntityId = selected.Id;
           }
         }
+        
+        #endregion
       }
       else
       {
-        // TODO Доработать типы
-        // Простые типы
+        // TODO Доработать Простые типы
+        #region Простые типы
+        
         var type = System.Type.GetType(_obj.InternalDataTypeName);
         var dialog = Dialogs.CreateInputDialog("Введите значение");
         
@@ -69,7 +73,7 @@ namespace Starkov.ScheduledReports.Client
               _obj.ViewValue = doubleInput.Value.ToString();
             break;
             #endregion
-          case "System.DateTime": // TODO нужен рефакторинг
+          case "System.DateTime":
             #region Правка даты
             
             var isRelative = dialog.AddBoolean("Относительная дата");
@@ -146,10 +150,10 @@ namespace Starkov.ScheduledReports.Client
               _obj.ViewValue = inputString.Value;
             break;
             #endregion
-            
         }
+        
+        #endregion
       }
-      
     }
   }
 
@@ -186,16 +190,6 @@ namespace Starkov.ScheduledReports.Client
         return;
       }
       
-      //      if (_obj.Document == null)
-      //      {
-      //        var document = Sungero.Docflow.SimpleDocuments.Create();
-      //        document.Name = setting.Name;
-      //        _obj.Document = document;
-      //      }
-      
-      //      _obj.Status = Status.Active;
-      //      _obj.Save();
-      
       try
       {
         PublicFunctions.Module.EnableSchedule(_obj);
@@ -204,13 +198,10 @@ namespace Starkov.ScheduledReports.Client
       }
       catch (Exception ex)
       {
+        // TODO Доработать обработку ошибок в EnableSchedule
         e.AddError(ex.Message);
         return;
       }
-      //      PublicFunctions.Module.EnableSchedule(_obj);
-      //      //      PublicFunctions.Module.ExecuteSheduleReportAsync(_obj.Id);
-      //      var message = string.Format("Запланирована отправка отчета по расписанию.{0}Время следующего запуска {1}", Environment.NewLine, nextDate);
-      //      Dialogs.NotifyMessage(message);
       
       _obj.Status = Status.Active;
       _obj.Save();
@@ -262,14 +253,12 @@ namespace Starkov.ScheduledReports.Client
       {
         e.AddError("Не удалось выполнить отчет. Проверьте параметры.");
       }
-      
     }
 
     public virtual bool CanStartReport(Sungero.Domain.Client.CanExecuteActionArgs e)
     {
       return !string.IsNullOrEmpty(_obj.ReportGuid);
     }
-
 
     public virtual void SetReport(Sungero.Domain.Client.ExecuteActionArgs e)
     {
@@ -284,8 +273,6 @@ namespace Starkov.ScheduledReports.Client
       var dialog = Dialogs.CreateInputDialog("Выбор отчета");
       var module = dialog.AddSelect("Модуль", true).From(modulesInfo.Select(m => m.Value).ToArray());
       var report = dialog.AddSelect("Отчет", true);
-      
-      //var entityReport = dialog.AddSelect("Отчеты сущ", false).From(PublicFunctions.Module.Remote.GetEntityReports().ToArray());
       
       module.SetOnValueChanged((m) =>
                                {

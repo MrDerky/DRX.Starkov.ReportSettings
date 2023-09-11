@@ -118,9 +118,6 @@
   <data name="Action_EditParameterDescription" xml:space="preserve">
     <value>Редактировать параметр</value>
   </data>
-  <data name="Property_Document" xml:space="preserve">
-    <value>Документ</value>
-  </data>
   <data name="ControlGroup_1b8735c1caf34bc4bcce4d89ee2535aa" xml:space="preserve">
     <value>Расписание</value>
   </data>

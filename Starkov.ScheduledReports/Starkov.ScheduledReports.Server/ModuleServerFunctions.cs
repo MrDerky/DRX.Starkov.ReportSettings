@@ -44,8 +44,51 @@ namespace Starkov.ScheduledReports.Server
       return RelativeDates.GetAll(r => r.Id == id).FirstOrDefault(r => r.Status != ScheduledReports.RelativeDate.Status.Closed);
     }
     
+    #region Отправка уведомлений
+    
+    /// <summary>
+    /// Отправить уведомление.
+    /// </summary>
+    /// <param name="role">Роль.</param>
+    /// <param name="subject">Тема.</param>
+    /// <param name="body">Текст.</param>
+    /// <param name="attachment">Приложение.</param>
+    public void SendNotice(IRole role, string subject, string body, IEntity attachment)
+    {
+      var performers = role.RecipientLinks.Select(r => r.Member).OfType<IRecipient>().ToArray();
+      SendNotice(performers, subject, body, attachment);
+    }
+    
+    /// <summary>
+    /// Отправить уведомление.
+    /// </summary>
+    /// <param name="performers">Получатели.</param>
+    /// <param name="subject">Тема.</param>
+    /// <param name="body">Текст.</param>
+    /// <param name="attachment">Приложение.</param>
+    public void SendNotice(IRecipient[] performers, string subject, string body, IEntity attachment)
+    {
+      var task = Sungero.Workflow.SimpleTasks.CreateWithNotices(subject, performers.ToArray());
+      if (!string.IsNullOrEmpty(body))
+      {
+        var text = task.Texts.AddNew();
+        text.Body = "body";
+      }
+      
+      if (attachment != null)
+        task.Attachments.Add(attachment);
+      
+      task.Start();
+    }
+    
+    #endregion
+    
     #region Отправка отчетов по расписанию
     
+    /// <summary>
+    /// Отключить расписание.
+    /// </summary>
+    /// <param name="setting">Настройка расписания.</param>
     [Public]
     public void CloseScheduleLog(Starkov.ScheduledReports.IScheduleSetting setting)
     {
@@ -54,7 +97,6 @@ namespace Starkov.ScheduledReports.Server
                                var scheduleLogs = ScheduleLogs.GetAll(s => s.ScheduleSettingId == setting.Id)
                                  .Where(s => s.Status == ScheduledReports.ScheduleLog.Status.Waiting || s.Status == ScheduledReports.ScheduleLog.Status.Error)
                                  .OrderByDescending(s => s.StartDate);
-                               //                                 .FirstOrDefault();
                                
                                foreach (var scheduleLog in scheduleLogs)
                                {
@@ -64,6 +106,11 @@ namespace Starkov.ScheduledReports.Server
                              });
     }
     
+    /// <summary>
+    /// Получить записи журнала расписаний.
+    /// </summary>
+    /// <param name="setting">Настройка расписания.</param>
+    /// <returns></returns>
     [Public]
     public IQueryable<IScheduleLog> GetScheduleLogs(Starkov.ScheduledReports.IScheduleSetting setting)
     {
@@ -77,13 +124,17 @@ namespace Starkov.ScheduledReports.Server
       return scheduleLogs;
     }
     
+    /// <summary>
+    /// Включить расписание.
+    /// </summary>
+    /// <param name="setting">Настройка расписания.</param>
     [Public]
     public void EnableSchedule(Starkov.ScheduledReports.IScheduleSetting setting)
     {
-      CreateScheduleLog(setting, null);
       Logger.Debug("StartSheduleReport. CreateScheduleLog");
-      ExecuteSheduleReportAsync(setting.Id);
+      CreateScheduleLog(setting, null);
       Logger.Debug("StartSheduleReport. ExecuteSheduleReportAsync");
+      ExecuteSheduleReportAsync(setting.Id);
     }
     
     /// <summary>
@@ -121,21 +172,18 @@ namespace Starkov.ScheduledReports.Server
     /// </summary>
     /// <param name="scheduleSettingId"></param>
     [Public]
-    public void ExecuteSheduleReportAsync (int scheduleSettingId) //, DateTime nextRetryDate)
+    public void ExecuteSheduleReportAsync (int scheduleSettingId)
     {
-      //      if (nextRetryDate <= Calendar.Now)
-      //      {
-      //        Logger.DebugFormat("ExecuteSheduleReportAsync. scheduleSettingId={0} nextRetryDate={1} <= Calendar.Now", scheduleSettingId, nextRetryDate);
-      //        return;
-      //      }
-      
       var asyncHandler = Starkov.ScheduledReports.AsyncHandlers.SendSheduleReport.Create();
       asyncHandler.SheduleSettingId = scheduleSettingId;
-      //      var property = asyncHandler.GetType().GetProperty("NextRetryTime");
-      //      property.SetValue(asyncHandler, nextRetryDate);
       asyncHandler.ExecuteAsync();
     }
     
+    /// <summary>
+    /// Отправить отчет по расписанию.
+    /// </summary>
+    /// <param name="setting">Настройки расписания.</param>
+    /// <param name="scheduleLog">Журнал расписания.</param>
     [Public]
     public void StartSheduleReport(Starkov.ScheduledReports.IScheduleSetting setting, IScheduleLog scheduleLog)
     {
@@ -143,11 +191,12 @@ namespace Starkov.ScheduledReports.Server
       if (Sungero.Company.Employees.Is(setting.Author) && !observers.Contains(setting.Author))
         observers = observers.Append(setting.Author);
       
-      observers = observers.Where(o => o.Status != Sungero.Company.Employee.Status.Closed);
+      observers = observers.Where(o => o.Status != Sungero.Company.Employee.Status.Closed)
+        .OfType<IRecipient>();
       
       if (!observers.Any())
       {
-        //TODO отправка админам
+        SendNotice(Roles.Administrators, string.Format("ScheduleSetting={0}. Не удалось вычислить получателей", setting.Id), null, setting);
         return;
       }
       
@@ -156,12 +205,9 @@ namespace Starkov.ScheduledReports.Server
       if (report == null)
         return;
       
-      FillReportParams(report, setting);
       Logger.Debug("StartSheduleReport. FillReportParams");
-      // Экспорт в документ
-      //      var document = setting.Document;
-      //      if (document == null)
-      //      {
+      FillReportParams(report, setting);
+
       var document = Sungero.Docflow.SimpleDocuments.Create();
       document.Name = setting.Name;
       
@@ -170,32 +216,12 @@ namespace Starkov.ScheduledReports.Server
       
       Logger.Debug("StartSheduleReport. document save");
       document.Save();
-
-      //        setting.Document = document;
-      //      }
       
-      report.ExportTo(document);
       Logger.Debug("StartSheduleReport. repirt export to doc");
+      report.ExportTo(document);
       
-      //      var observers = setting.Observers.Select(o => o.Recipient).AsEnumerable();
-      //      if (Sungero.Company.Employees.Is(setting.Author) && !observers.Contains(setting.Author))
-      //        observers = observers.Append(setting.Author);
-//
-      //      observers = observers.Where(o => o.Status != Sungero.Company.Employee.Status.Closed);
-      
-      //      if (observers.Any())
-      //      {
-      var subject = string.Format(Starkov.ScheduledReports.Resources.ReportSubject, setting.Name);
-      var task = Sungero.Workflow.SimpleTasks.CreateWithNotices(subject, observers.ToArray());
-      task.Attachments.Add(document);
-      task.Start();
       Logger.Debug("StartSheduleReport. task start");
-      //      }
-      //      else
-      //      {
-      //        //TODO отправка админам
-      //        //var task = Sungero.Workflow.SimpleTasks.CreateWithNotices("Не удалось вычислить действующих сотрудников для отправки очтета", Roles.Administrators);
-      //      }
+      SendNotice(observers.ToArray(), string.Format(Starkov.ScheduledReports.Resources.ReportSubject, setting.Name), null, document);
       
       scheduleLog.DocumentId = document.Id;
       scheduleLog.Status = ScheduledReports.ScheduleLog.Status.Complete;
@@ -214,7 +240,9 @@ namespace Starkov.ScheduledReports.Server
     [Public]
     public void FillReportParams(Sungero.Reporting.Shared.ReportBase report, Starkov.ScheduledReports.IScheduleSetting setting)
     {
-      foreach (var parameter in setting.ReportParams.Where(p => !string.IsNullOrEmpty(p.ViewValue)))
+      var reportParams = setting.ReportParams.Where(p => !string.IsNullOrEmpty(p.ViewValue));
+      Logger.DebugFormat("FillReportParams. setting={0}, reportParam={1}", setting.Id, string.Join(", ", reportParams.Select(p => string.Format("{0}: ViewValue={1}, Id={2}", p.Parameter, p.ViewValue, p.Id))));
+      foreach (var parameter in reportParams)
         report.SetParameterValue(parameter.Parameter, Functions.ScheduleSetting.GetObjectFromReportParam(parameter));
     }
 
@@ -252,31 +280,28 @@ namespace Starkov.ScheduledReports.Server
       
       var moduleReports = Sungero.Metadata.Services.MetadataSearcher.FindModuleMetadata(moduleGuid).Items.OfType<Sungero.Metadata.ReportMetadata>();
       
-      foreach (var report in moduleReports) //GetModuleReports(moduleGuid))
+      foreach (var report in moduleReports)
       {
         var newStructure = ScheduledReports.Structures.Module.ReportInfo.Create();
-        newStructure.NameGuid = report.GetInfo().NameGuid; //Info.ReportTypeId;
-        newStructure.Name = report.GetInfo().Name; //.Info.Name;
-        newStructure.LocalizedName = GetReportLocalizedName(report.GetInfo().NameGuid); //report.Info.ReportTypeId);
+        newStructure.NameGuid = report.GetInfo().NameGuid;
+        newStructure.Name = report.GetInfo().Name;
+        newStructure.LocalizedName = GetReportLocalizedName(report.GetInfo().NameGuid);
         reports.Add(newStructure);
       }
       
       return reports;
     }
     
+    /// <summary>
+    /// Получить отчет модуля по Guid.
+    /// </summary>
+    /// <param name="moduleGuid">Guid модуля.</param>
+    /// <param name="reportGuid">Guid отчета.</param>
+    /// <returns>Отчет.</returns>
     [Public]
     public Sungero.Reporting.Shared.ReportBase GetModuleReportByGuid(Guid moduleGuid, Guid reportGuid)
     {
       Sungero.Reporting.Shared.ReportBase report = null;
-      //      if (reportGuid == null)
-      //        return report;
-//
-      //      using (var session = new Sungero.Domain.Session())
-      //      {
-      //        report = session.GetAll(Sungero.Reporting.Shared.ReportBase)
-      //          .Where(r => (IReport)r != null && ((IReport)r).Info.ReportTypeId == reportGuid)
-      //          .FirstOrDefault();
-      //      }
 
       var reportClass = GetReportClassForModule(moduleGuid);
       if (reportClass == null)
@@ -332,6 +357,11 @@ namespace Starkov.ScheduledReports.Server
       return reportLocalizedName;
     }
     
+    /// <summary>
+    /// Получить метаданные отчета по Guid.
+    /// </summary>
+    /// <param name="reportGuid">Guid Отчета.</param>
+    /// <returns>метаданные отчета.</returns>
     [Public]
     public Sungero.Metadata.ReportMetadata GetReportMetaData(Guid reportGuid)
     {
@@ -361,18 +391,6 @@ namespace Starkov.ScheduledReports.Server
     }
     
     /// <summary>
-    /// Получить список сущностей по Guid типа объекта и списку ИД.
-    /// </summary>
-    /// <param name="entityGuid">Guid сущности.</param>
-    /// <param name="entitiesIds">Список ИД.</param>
-    /// <returns>Список сущностей.</returns>
-    [Public, Remote]
-    public List<Sungero.Domain.Shared.IEntity> GetEntitiesByGuid(Guid entityGuid, List<int> entitiesIds)
-    {
-      return GetEntitiesByGuid(entityGuid).Where(e => entitiesIds.Contains(e.Id)).ToList();
-    }
-    
-    /// <summary>
     /// Получить все сущности определенного типа по Guid.
     /// </summary>
     /// <param name="entityGuid">Guid сущности.</param>
@@ -380,7 +398,7 @@ namespace Starkov.ScheduledReports.Server
     [Public, Remote]
     public IQueryable<Sungero.Domain.Shared.IEntity> GetEntitiesByGuid(Guid entityGuid)
     {
-      IQueryable<IEntity> entities = null;// new List<IEntity>();
+      IQueryable<IEntity> entities = null;
       var entityType = Sungero.Domain.Shared.TypeExtension.GetTypeByGuid(entityGuid);
       if (entityType == null)
         return entities;

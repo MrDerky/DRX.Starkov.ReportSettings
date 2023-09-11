@@ -259,8 +259,7 @@
   "HandledEvents": [
     "ShowingClient",
     "CreatedServer",
-    "CreatingFromServer",
-    "RefreshClient"
+    "CreatingFromServer"
   ],
   "IconResourcesKeys": [],
   "IntegrationServiceName": "ScheduledReportsScheduleSetting",
@@ -285,6 +284,7 @@
       "NameGuid": "0c802c09-2c1b-475e-b470-c074127823fe",
       "Name": "ModuleName",
       "Code": "ModuleName",
+      "IsEnabled": false,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
       "PreviousPropertyGuid": "f8230e36-4e55-47fa-b817-a7b09ca8516a"
     },
@@ -329,7 +329,11 @@
       "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
       "NameGuid": "f3cb84a2-628c-4a47-982b-e019f8d6f475",
       "Name": "ModuleGuid",
+      "CanBeSearch": false,
       "Code": "ModuleGuid",
+      "IsEnabled": false,
+      "IsShowedInList": false,
+      "IsVisibility": false,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
       "PreviousPropertyGuid": "0c802c09-2c1b-475e-b470-c074127823fe"
     },
@@ -343,16 +347,6 @@
       "PreviousPropertyGuid": "4a1aa97b-cccd-4125-bfdf-44d3703a4b7b"
     },
     {
-      "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
-      "NameGuid": "f6ab4509-0f98-4867-856d-f8eb7a69738e",
-      "Name": "Document",
-      "Code": "Document",
-      "EntityGuid": "030d8d67-9b94-4f0d-bcc6-691016eb70f3",
-      "FlatListInStandaloneLookup": true,
-      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
-      "PreviousPropertyGuid": "4e2d2e98-ccf6-4ee3-87cf-36d383647203"
-    },
-    {
       "$type": "Sungero.Metadata.DateTimePropertyMetadata, Sungero.Metadata",
       "NameGuid": "810b423c-ca10-4c99-8320-9cd09e790d9e",
       "Name": "DateBegin",
@@ -362,7 +356,7 @@
         "ChangedShared"
       ],
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
-      "PreviousPropertyGuid": "f6ab4509-0f98-4867-856d-f8eb7a69738e"
+      "PreviousPropertyGuid": "4e2d2e98-ccf6-4ee3-87cf-36d383647203"
     },
     {
       "$type": "Sungero.Metadata.DateTimePropertyMetadata, Sungero.Metadata",

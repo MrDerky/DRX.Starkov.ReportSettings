@@ -72,13 +72,6 @@ namespace Starkov.ScheduledReports.Server
         
         PublicFunctions.Module.StartSheduleReport(setting, schedluleLog);
         PublicFunctions.Module.EnableSchedule(setting);
-        
-//        schedluleLog.Status = !schedluleLog.DocumentId.HasValue
-//          ? ScheduledReports.ScheduleLog.Status.Complete
-//          : ScheduledReports.ScheduleLog.Status.Error;
-
-//        schedluleLog.Comment = string.Format("Запуск {0}", Calendar.Now);
-//        schedluleLog.Save();
       }
       catch (Exception ex)
       {
@@ -86,9 +79,11 @@ namespace Starkov.ScheduledReports.Server
         Logger.ErrorFormat("{0} Ошибка при отправке отчета.", ex, logInfo);
         
         var message = ex.Message.Length > 250 ? ex.Message.Substring(250) : ex.Message;
-        schedluleLog.Comment = message;
+        schedluleLog.Comment += ". " + message;
         schedluleLog.Status = ScheduledReports.ScheduleLog.Status.Error;
         schedluleLog.Save();
+        
+        Functions.Module.SendNotice(Roles.Administrators, "Ошибка при отправке отчета по расписанию", ex.StackTrace, setting);
         
         return;
       }

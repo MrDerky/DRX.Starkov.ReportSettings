@@ -61,4 +61,76 @@
   <data name="ReportSubject" xml:space="preserve">
     <value>Отчет: {0}</value>
   </data>
+  <data name="RelativeDateEditorsRoleName" xml:space="preserve">
+    <value>Редакторы относительных дат</value>
+  </data>
+  <data name="RelativeDateEditorsRoleDescription" xml:space="preserve">
+    <value>Пользователи с правами на редактирование списка относительных дат</value>
+  </data>
+  <data name="ScheduledReportsAccessRoleName" xml:space="preserve">
+    <value>Пользователи с доступом к отчетам по расписанию</value>
+  </data>
+  <data name="ScheduledReportsAccessRoleDescription" xml:space="preserve">
+    <value>Пользователи с правами на создание настроек для отправки отчетов по расписанию</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Сегодня</value>
+  </data>
+  <data name="TodayDescription" xml:space="preserve">
+    <value>Текущая дата без времени</value>
+  </data>
+  <data name="Now" xml:space="preserve">
+    <value>Сейчас</value>
+  </data>
+  <data name="NowDescription" xml:space="preserve">
+    <value>Текущая дата и время</value>
+  </data>
+  <data name="BeginningOfWeek" xml:space="preserve">
+    <value>Начало недели</value>
+  </data>
+  <data name="EndOfWeek" xml:space="preserve">
+    <value>Конец недели</value>
+  </data>
+  <data name="BeginningOfMonth" xml:space="preserve">
+    <value>Начало месяца</value>
+  </data>
+  <data name="EndOfMonth" xml:space="preserve">
+    <value>Конец месяца</value>
+  </data>
+  <data name="BeginningOfYear" xml:space="preserve">
+    <value>Начало года</value>
+  </data>
+  <data name="EndOfYear" xml:space="preserve">
+    <value>Конец года</value>
+  </data>
+  <data name="DateWithoutTime" xml:space="preserve">
+    <value>Сброс времени</value>
+  </data>
+  <data name="DateWithoutTimeDescription" xml:space="preserve">
+    <value>Вернуть дату и время 0:00:00</value>
+  </data>
+  <data name="AddDays" xml:space="preserve">
+    <value>День</value>
+  </data>
+  <data name="AddMonths" xml:space="preserve">
+    <value>Месяц</value>
+  </data>
+  <data name="AddHours" xml:space="preserve">
+    <value>Час</value>
+  </data>
+  <data name="AddMinutes" xml:space="preserve">
+    <value>Минута</value>
+  </data>
+  <data name="AddDaysDescr" xml:space="preserve">
+    <value>Добавить n дней</value>
+  </data>
+  <data name="AddMonthsDescr" xml:space="preserve">
+    <value>Добавить n месяцев</value>
+  </data>
+  <data name="AddHoursDescr" xml:space="preserve">
+    <value>Добавить n часов</value>
+  </data>
+  <data name="AddMinutesDescr" xml:space="preserve">
+    <value>Добавить n минут</value>
+  </data>
 </root>
