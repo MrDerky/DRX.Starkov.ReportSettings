@@ -24,17 +24,28 @@ namespace Starkov.ScheduledReports.Server
         .OrderByDescending(s => s.StartDate)
         .Take(10);
       
+      if (!scheduleLogs.Any())
+        return stateView;
+      
+      // TODO Реализовать возможность просмотра всех записей (Листание или отчет)
+      var block = stateView.AddBlock();
+      block.AddHyperlink("Показать все записи", Hyperlinks.Get(ScheduleLogs.Info));
+      
       var iconSize = StateBlockIconSize.Large;
       
       foreach (var log in scheduleLogs)
       {
-        var block = stateView.AddBlock();
+        block = stateView.AddBlock();
         
         #region Стили
         var statusStyle = StateBlockLabelStyle.Create();
         statusStyle.FontWeight = FontWeight.Bold;
         
-        if (log.Status == ScheduledReports.ScheduleLog.Status.Error)
+        if (log.Status == ScheduledReports.ScheduleLog.Status.Complete)
+        {
+          block.AssignIcon(ScheduleLogs.Resources.Complete, iconSize);
+        }
+        else if (log.Status == ScheduledReports.ScheduleLog.Status.Error)
           statusStyle.Color = Colors.Common.Red;
         else if (log.Status == ScheduledReports.ScheduleLog.Status.Waiting)
         {
@@ -48,16 +59,17 @@ namespace Starkov.ScheduledReports.Server
         #endregion
         
         block.AddLabel(log.Info.Properties.Status.GetLocalizedValue(log.Status.Value), statusStyle);
+        
         var content = block.AddContent();
-        block.AddLabel("Плановый запуск: " + log.StartDate.Value.ToUserTime().ToString("g"));
+        content.AddLabel("Плановый запуск: " + log.StartDate.Value.ToUserTime().ToString("g"));
+        
+        content.AddLineBreak();
+        content.AddLabel(log.Comment);
         
         block.AddLineBreak();
-        block.AddLabel(log.Comment);
-        
         if (log.DocumentId.HasValue)
-          block.AddHyperlink("Открыть", Hyperlinks.Get(Sungero.Docflow.OfficialDocuments.Info, log.DocumentId.Value));
+          block.AddHyperlink("Просмотр", Hyperlinks.Get(Sungero.Docflow.OfficialDocuments.Info, log.DocumentId.Value));
       }
-      
       
       return stateView;
     }
@@ -126,8 +138,8 @@ namespace Starkov.ScheduledReports.Server
       _obj.ReportParams.Clear();
       foreach (var parameter in report.Parameters)
       {
-        //        if (parameter.NameResourceKey == "ReportSessionId")
-        //          continue;
+        if (parameter.NameResourceKey == "ReportSessionId")
+          continue;
         
         var reportParam = _obj.ReportParams.AddNew();
         reportParam.Parameter = parameter.NameResourceKey;
@@ -148,6 +160,9 @@ namespace Starkov.ScheduledReports.Server
       
       foreach (var parameter in report.Parameters)
       {
+        if (parameter.Key == "ReportSessionId")
+          continue;
+        
         var reportParam = _obj.ReportParams.AddNew();
 
         reportParam.Parameter = parameter.Key;
@@ -155,7 +170,7 @@ namespace Starkov.ScheduledReports.Server
         var entityParameter = parameter.Value as Sungero.Reporting.Shared.EntityParameter;
         if (entityParameter != null)
         {
-          reportParam.EntityId = entityParameter.Entity.Id; //EntityIdentifier.Id;
+          reportParam.EntityId = entityParameter.Entity.Id;
           reportParam.ViewValue = entityParameter.Entity.DisplayValue;
           reportParam.EntityGuid = entityParameter.EntityType.ToString();
           reportParam.InternalDataTypeName = entityParameter.GetType().ToString();
@@ -179,7 +194,7 @@ namespace Starkov.ScheduledReports.Server
           var entityParameter = parameter.Value as Sungero.Reporting.Shared.EntityParameter;
           if (entityParameter != null)
           {
-            reportParam.EntityId = entityParameter.Entity.Id; //EntityIdentifier.Id;
+            reportParam.EntityId = entityParameter.Entity.Id;
             reportParam.ViewValue = entityParameter.Entity.DisplayValue;
           }
           else

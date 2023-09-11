@@ -101,6 +101,7 @@ namespace Starkov.ScheduledReports.Server
                                foreach (var scheduleLog in scheduleLogs)
                                {
                                  scheduleLog.Status = ScheduledReports.ScheduleLog.Status.Closed;
+                                 scheduleLog.Comment = string.Format("Отменил: {0}", Users.Current.Name);
                                  scheduleLog.Save();
                                }
                              });
@@ -125,7 +126,7 @@ namespace Starkov.ScheduledReports.Server
     }
     
     /// <summary>
-    /// Включить расписание.
+    /// Создать запись расписания и асинхронный обработчик для выполнения.
     /// </summary>
     /// <param name="setting">Настройка расписания.</param>
     [Public]
@@ -133,7 +134,6 @@ namespace Starkov.ScheduledReports.Server
     {
       Logger.Debug("StartSheduleReport. CreateScheduleLog");
       CreateScheduleLog(setting, null);
-      Logger.Debug("StartSheduleReport. ExecuteSheduleReportAsync");
       ExecuteSheduleReportAsync(setting.Id);
     }
     
@@ -145,6 +145,9 @@ namespace Starkov.ScheduledReports.Server
     {
       var scheduleLog = ScheduleLogs.Null;
       if (setting == null)
+        return scheduleLog;
+      
+      if (setting.DateEnd.HasValue && setting.DateEnd.Value <= Calendar.Now)
         return scheduleLog;
       
       if (startDate == null)

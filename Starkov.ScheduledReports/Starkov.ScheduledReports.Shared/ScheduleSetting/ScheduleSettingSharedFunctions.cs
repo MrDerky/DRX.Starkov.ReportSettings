@@ -15,11 +15,19 @@ namespace Starkov.ScheduledReports.Shared
     /// </summary>       
     public void SetPropertyStates()
     {
-      var poroperties = _obj.State.Properties;
+      var properties = _obj.State.Properties;
       var canChangeSchedule = _obj.Status != Status.Active;
       
-      poroperties.Period.IsEnabled = canChangeSchedule;
-      poroperties.PeriodNumber.IsEnabled = canChangeSchedule;
+      properties.Period.IsEnabled = canChangeSchedule;
+      properties.PeriodNumber.IsEnabled = canChangeSchedule;
+      
+      var isHasReport = !string.IsNullOrEmpty(_obj.ReportGuid);
+      properties.Observers.IsVisible = isHasReport;
+      properties.Period.IsVisible = isHasReport;
+      properties.DateBegin.IsVisible = isHasReport;
+      properties.DateEnd.IsVisible = isHasReport;
+      properties.ReportName.IsVisible = isHasReport;
+      properties.ShowParams.IsVisible = isHasReport;
     }
 
     /// <summary>
@@ -28,6 +36,14 @@ namespace Starkov.ScheduledReports.Shared
     public virtual void FillName()
     {
       _obj.Name = _obj.ReportName;
+    }
+    
+    /// <summary>
+    /// Признак что заполнен значением хотя бы один параметр.
+    /// </summary>
+    public bool IsFillReportParamsAny()
+    {
+      return _obj.ReportParams.Any(r => !string.IsNullOrEmpty(r.ViewValue));
     }
 
     /// <summary>
@@ -75,7 +91,7 @@ namespace Starkov.ScheduledReports.Shared
         if (relativeDate != null)
           date = PublicFunctions.RelativeDate.CalculateDate(relativeDate, null, Functions.ScheduleSetting.GetIncrementForRelativeDateFromViewValue(reportParam.ViewValue));
       }
-      else
+      else if (!string.IsNullOrEmpty(reportParam.ViewValue))
         Calendar.TryParseDateTime(reportParam.ViewValue, out date);
       
       return date;

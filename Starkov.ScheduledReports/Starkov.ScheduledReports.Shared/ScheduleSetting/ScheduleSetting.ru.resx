@@ -64,4 +64,10 @@
   <data name="IncrementDelimeter" xml:space="preserve">
     <value>X</value>
   </data>
+  <data name="NeedSelectReportError" xml:space="preserve">
+    <value>Необходимо выбрать отчет через действие на ленте.</value>
+  </data>
+  <data name="FillRequiredParametersError" xml:space="preserve">
+    <value>Не удалось запустить отчет. Заполните необходимые параметры.</value>
+  </data>
 </root>

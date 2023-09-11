@@ -64,4 +64,10 @@
   <data name="IncrementDelimeter" xml:space="preserve">
     <value>X</value>
   </data>
+  <data name="NeedSelectReportError" xml:space="preserve">
+    <value>You need to select a report via an action on the ribbon.</value>
+  </data>
+  <data name="FillRequiredParametersError" xml:space="preserve">
+    <value>The report could not be started. Fill in the required parameters.</value>
+  </data>
 </root>

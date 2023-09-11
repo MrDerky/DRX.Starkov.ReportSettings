@@ -52,7 +52,7 @@ namespace Starkov.ScheduledReports.Client
           case "System.Boolean":
             #region Логический тип
             
-            var boolInput = dialog.AddBoolean(title, true);
+            var boolInput = dialog.AddBoolean(title, false);
             if (dialog.Show() == DialogButtons.Ok)
               _obj.ViewValue = boolInput.Value.ToString();
             break;
@@ -123,7 +123,7 @@ namespace Starkov.ScheduledReports.Client
             else
             {
               DateTime dateValue;
-              if (Calendar.TryParseDateTime(_obj.ViewValue, out dateValue))
+              if (!string.IsNullOrEmpty(_obj.ViewValue) && Calendar.TryParseDateTime(_obj.ViewValue, out dateValue))
                 date.Value = dateValue;
             }
             
@@ -159,6 +159,7 @@ namespace Starkov.ScheduledReports.Client
 
   partial class ScheduleSettingActions
   {
+
     public virtual void DisableSchedule(Sungero.Domain.Client.ExecuteActionArgs e)
     {
       _obj.Status = Status.Closed;
@@ -212,7 +213,7 @@ namespace Starkov.ScheduledReports.Client
 
     public virtual bool CanEnableSchedule(Sungero.Domain.Client.CanExecuteActionArgs e)
     {
-      return _obj.Status == Status.Closed && (!_obj.DateEnd.HasValue || _obj.DateEnd.HasValue && _obj.DateEnd.Value > Calendar.Now);
+      return _obj.Status == Status.Closed && _obj.Period != null && (!_obj.DateEnd.HasValue || _obj.DateEnd.HasValue && _obj.DateEnd.Value > Calendar.Now);
     }
 
     public virtual void StartReportWithParameters(Sungero.Domain.Client.ExecuteActionArgs e)
@@ -228,13 +229,16 @@ namespace Starkov.ScheduledReports.Client
       }
       catch (Exception ex)
       {
-        e.AddError("Не удалось выполнить отчет. Проверьте параметры.");
+        if (_obj.ShowParams != true)
+          _obj.ShowParams = _obj.State.Properties.ReportParams.IsVisible = true;
+        
+        e.AddError(Starkov.ScheduledReports.ScheduleSettings.Resources.FillRequiredParametersError);
       }
     }
 
     public virtual bool CanStartReportWithParameters(Sungero.Domain.Client.CanExecuteActionArgs e)
     {
-      return !string.IsNullOrEmpty(_obj.ReportGuid);
+      return !string.IsNullOrEmpty(_obj.ReportGuid) && Functions.ScheduleSetting.IsFillReportParamsAny(_obj);
     }
 
     public virtual void StartReport(Sungero.Domain.Client.ExecuteActionArgs e)
@@ -248,10 +252,16 @@ namespace Starkov.ScheduledReports.Client
         report.Open();
         
         PublicFunctions.ScheduleSetting.SaveReportParams(_obj, report);
+        
+        if (_obj.ShowParams != true && Functions.ScheduleSetting.IsFillReportParamsAny(_obj))
+          _obj.ShowParams = _obj.State.Properties.ReportParams.IsVisible = true;
       }
       catch (Exception ex)
       {
-        e.AddError("Не удалось выполнить отчет. Проверьте параметры.");
+        if (_obj.ShowParams != true)
+          _obj.ShowParams = _obj.State.Properties.ReportParams.IsVisible = true;
+        
+        e.AddError(Starkov.ScheduledReports.ScheduleSettings.Resources.FillRequiredParametersError);
       }
     }
 
@@ -286,6 +296,8 @@ namespace Starkov.ScheduledReports.Client
         _obj.ModuleGuid = modulesInfo.FirstOrDefault(m => m.Value == module.Value).Key.ToString();
         _obj.ReportName = report.Value;
         _obj.ReportGuid = reports.FirstOrDefault(r => r.LocalizedName == report.Value).NameGuid.ToString();
+        
+        Functions.ScheduleSetting.SetPropertyStates(_obj);
       }
     }
 

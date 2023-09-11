@@ -5,25 +5,94 @@
     <XtraSerializer version="1.0" application="GridControl">
       <property name="#LayoutVersion" isnull="true" />
       <property name="$GridControl" iskey="true" value="GridControl">
-        <property name="Columns" iskey="true" value="3">
+        <property name="View" isnull="true" iskey="true">
+          <property name="LinesPerRowMode">OneLineMode</property>
+          <property name="ColumnChooserState" isnull="true" iskey="true">
+            <property name="Location">743,-194</property>
+            <property name="Size">220,250</property>
+          </property>
+          <property name="AllowSorting">true</property>
+          <property name="IsRowCellMenuEnabled">false</property>
+          <property name="AllowGrouping">true</property>
+        </property>
+        <property name="TotalSummary" iskey="true" value="0" />
+        <property name="SortInfo" iskey="true" value="0" />
+        <property name="GroupSummary" iskey="true" value="0" />
+        <property name="GroupCount">0</property>
+        <property name="Columns" iskey="true" value="11">
           <property name="Item1" isnull="true" iskey="true">
-            <property name="FieldName">T</property>
+            <property name="MinWidth">32</property>
+            <property name="FixedWidth">true</property>
             <property name="Visible">true</property>
+            <property name="FieldName">T</property>
             <property name="VisibleIndex">0</property>
+            <property name="Width">32</property>
+            <property name="ActualWidth">3*</property>
           </property>
           <property name="Item2" isnull="true" iskey="true">
-            <property name="FieldName">Id</property>
-            <property name="Visible">true</property>
+            <property name="Visible">false</property>
             <property name="Name">ScheduleSetting_Id</property>
+            <property name="FieldName">Id</property>
             <property name="VisibleIndex">1</property>
+            <property name="ActualWidth">NaN</property>
           </property>
           <property name="Item3" isnull="true" iskey="true">
-            <property name="FieldName">Name</property>
             <property name="Visible">true</property>
             <property name="Name">ScheduleSetting_Name</property>
-            <property name="VisibleIndex">2</property>
+            <property name="FieldName">Name</property>
+            <property name="VisibleIndex">1</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item4" isnull="true" iskey="true">
+            <property name="Visible">false</property>
+            <property name="Name">ScheduleSetting_ModuleName</property>
+            <property name="FieldName">ModuleName</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item5" isnull="true" iskey="true">
+            <property name="Visible">false</property>
+            <property name="Name">ScheduleSetting_ReportName</property>
+            <property name="FieldName">ReportName</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item6" isnull="true" iskey="true">
+            <property name="Visible">false</property>
+            <property name="Name">ScheduleSetting_DateBegin</property>
+            <property name="FieldName">DateBegin</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item7" isnull="true" iskey="true">
+            <property name="Visible">false</property>
+            <property name="Name">ScheduleSetting_DateEnd</property>
+            <property name="FieldName">DateEnd</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item8" isnull="true" iskey="true">
+            <property name="Visible">false</property>
+            <property name="Name">ScheduleSetting_Period</property>
+            <property name="FieldName">Period.DisplayValue</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item9" isnull="true" iskey="true">
+            <property name="Visible">false</property>
+            <property name="Name">ScheduleSetting_PeriodNumber</property>
+            <property name="FieldName">PeriodNumber</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item10" isnull="true" iskey="true">
+            <property name="Visible">false</property>
+            <property name="Name">ScheduleSetting_Author</property>
+            <property name="FieldName">Author.DisplayValue</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item11" isnull="true" iskey="true">
+            <property name="Visible">false</property>
+            <property name="Name">ScheduleSetting_ShowParams</property>
+            <property name="FieldName">ShowParams</property>
+            <property name="ActualWidth">NaN</property>
           </property>
         </property>
+        <property name="GroupSummarySortInfo" iskey="true" value="0" />
       </property>
     </XtraSerializer>
   </Collection>

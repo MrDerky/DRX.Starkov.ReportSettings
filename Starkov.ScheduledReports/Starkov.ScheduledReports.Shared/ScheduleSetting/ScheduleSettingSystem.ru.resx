@@ -118,6 +118,9 @@
   <data name="Action_EditParameterDescription" xml:space="preserve">
     <value>Редактировать параметр</value>
   </data>
+  <data name="Property_ShowParams" xml:space="preserve">
+    <value>Показать параметры</value>
+  </data>
   <data name="ControlGroup_1b8735c1caf34bc4bcce4d89ee2535aa" xml:space="preserve">
     <value>Расписание</value>
   </data>
@@ -128,7 +131,7 @@
     <value>Автор</value>
   </data>
   <data name="Action_EnableSchedule" xml:space="preserve">
-    <value>Запустить расписание</value>
+    <value>Запустить</value>
   </data>
   <data name="Action_EnableScheduleHint" xml:space="preserve">
     <value>Запустить расписание</value>
@@ -137,7 +140,7 @@
     <value>Запустить расписание</value>
   </data>
   <data name="Action_DisableSchedule" xml:space="preserve">
-    <value>Остановить расписание</value>
+    <value>Остановить</value>
   </data>
   <data name="Action_DisableScheduleHint" xml:space="preserve">
     <value>Остановить расписание</value>
@@ -150,5 +153,14 @@
   </data>
   <data name="Form_be2058865d184da0b5e6b425e553d368" xml:space="preserve">
     <value>Журнал</value>
+  </data>
+  <data name="Action_StartReportWithParameters" xml:space="preserve">
+    <value>Запуск с параметрами</value>
+  </data>
+  <data name="Action_StartReportWithParametersHint" xml:space="preserve">
+    <value>Запустить отчет с параметрами</value>
+  </data>
+  <data name="Action_StartReportWithParametersDescription" xml:space="preserve">
+    <value>Запустить отчет с параметрами</value>
   </data>
 </root>

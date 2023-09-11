@@ -20,10 +20,20 @@ namespace Starkov.ScheduledReports
   partial class ScheduleSettingServerHandlers
   {
 
+    public override void BeforeSave(Sungero.Domain.BeforeSaveEventArgs e)
+    {
+      if (string.IsNullOrEmpty(_obj.ReportGuid))
+      {
+        e.AddError(Starkov.ScheduledReports.ScheduleSettings.Resources.NeedSelectReportError);
+        return;
+      }
+    }
+
     public override void Created(Sungero.Domain.CreatedEventArgs e)
     {
       _obj.Author = Users.Current;
       _obj.Status = Status.Closed;
+      _obj.ShowParams = false;
     }
   }
 
