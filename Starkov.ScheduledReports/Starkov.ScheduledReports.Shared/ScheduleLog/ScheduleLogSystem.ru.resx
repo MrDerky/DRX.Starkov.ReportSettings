@@ -97,4 +97,10 @@
   <data name="Property_DocumentId" xml:space="preserve">
     <value>Документ</value>
   </data>
+  <data name="Enum_Status_Preview" xml:space="preserve">
+    <value>Предпросмотр</value>
+  </data>
+  <data name="Form_4509df3d9afa4c9a869f43542f1185cf" xml:space="preserve">
+    <value>Просмотр журнала</value>
+  </data>
 </root>

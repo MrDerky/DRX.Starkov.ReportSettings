@@ -15,6 +15,7 @@ namespace Starkov.ScheduledReports.Server
       CreateRoles();
       GrandRights();
       CreateBaseRelativeDates();
+      CreatePreviewScheduleLog();
     }
     
     /// <summary>
@@ -40,20 +41,20 @@ namespace Starkov.ScheduledReports.Server
       if (!RelativeDates.AccessRights.IsGrantedDirectly(DefaultAccessRightsTypes.Read, allUsers))
         RelativeDates.AccessRights.Grant(allUsers, DefaultAccessRightsTypes.Read);
       
-       if (!ScheduleLogs.AccessRights.IsGrantedDirectly(DefaultAccessRightsTypes.Read, allUsers))
-        ScheduleLogs.AccessRights.Grant(allUsers, DefaultAccessRightsTypes.Read);
-      
       var relativeDatesManagerRole = Roles.GetAll(r => r.Sid == Constants.Module.RelativeDatesManagerRole).FirstOrDefault();
       if (!RelativeDates.AccessRights.IsGrantedDirectly(DefaultAccessRightsTypes.Change, relativeDatesManagerRole))
         RelativeDates.AccessRights.Grant(relativeDatesManagerRole, DefaultAccessRightsTypes.Change);
-      
-      RelativeDates.AccessRights.Save();
       
       var scheduleSettingManagerRole = Roles.GetAll(r => r.Sid == Constants.Module.ScheduleSettingManagerRole).FirstOrDefault();
       if (!ScheduleSettings.AccessRights.IsGrantedDirectly(DefaultAccessRightsTypes.Create, scheduleSettingManagerRole))
         ScheduleSettings.AccessRights.Grant(scheduleSettingManagerRole, DefaultAccessRightsTypes.Create);
       
+      if (!ScheduleLogs.AccessRights.IsGrantedDirectly(DefaultAccessRightsTypes.Read, scheduleSettingManagerRole))
+        ScheduleLogs.AccessRights.Grant(scheduleSettingManagerRole, DefaultAccessRightsTypes.Read);
+      
+      RelativeDates.AccessRights.Save();
       ScheduleSettings.AccessRights.Save();
+      ScheduleLogs.AccessRights.Save();
     }
     
     /// <summary>
@@ -92,6 +93,21 @@ namespace Starkov.ScheduledReports.Server
       relativeDate.Description = description;
       relativeDate.IsIncremental = isIncremental;
       relativeDate.Save();
+    }
+    
+    /// <summary>
+    /// Создание записи справочника для вывода StateView.
+    /// </summary>
+    private void CreatePreviewScheduleLog()
+    {
+      var previewLog = ScheduleLogs.GetAll().FirstOrDefault(s => s.Status == ScheduledReports.ScheduleLog.Status.Preview);
+      if (previewLog != null)
+        return;
+      
+      previewLog = ScheduleLogs.Create();
+      previewLog.Status = ScheduledReports.ScheduleLog.Status.Preview;
+      previewLog.Save();
+      InitializationLogger.DebugFormat("Init: Created new previewLog id={0}", previewLog.Id);
     }
   }
 }

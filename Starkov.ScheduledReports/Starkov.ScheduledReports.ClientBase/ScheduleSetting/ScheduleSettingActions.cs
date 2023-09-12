@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -8,6 +8,9 @@ using Sungero.Domain.Shared;
 
 namespace Starkov.ScheduledReports.Client
 {
+
+
+
 
   partial class ScheduleSettingReportParamsActions
   {
@@ -160,62 +163,6 @@ namespace Starkov.ScheduledReports.Client
   partial class ScheduleSettingActions
   {
 
-    public virtual void DisableSchedule(Sungero.Domain.Client.ExecuteActionArgs e)
-    {
-      _obj.Status = Status.Closed;
-      _obj.Save();
-      
-      PublicFunctions.Module.CloseScheduleLog(_obj);
-      
-      Functions.ScheduleSetting.SetPropertyStates(_obj);
-      _obj.State.Controls.ScheduleReportState.Refresh();
-    }
-
-    public virtual bool CanDisableSchedule(Sungero.Domain.Client.CanExecuteActionArgs e)
-    {
-      return _obj.Status == Status.Active;
-    }
-
-    public virtual void EnableSchedule(Sungero.Domain.Client.ExecuteActionArgs e)
-    {
-      if (_obj.DateEnd.HasValue && _obj.DateEnd.Value <= Calendar.Now)
-      {
-        e.AddError("Завершение расписания должно быть больше текущего времени");
-        return;
-      }
-      
-      var nextDate = Functions.ScheduleSetting.Remote.GetNextPeriod(_obj);
-      if (nextDate <= Calendar.Now)
-      {
-        e.AddError("Следующий запуск не может быть меньше текущего времени.");
-        return;
-      }
-      
-      try
-      {
-        PublicFunctions.Module.EnableSchedule(_obj);
-        var message = string.Format("Запланирована отправка отчета по расписанию.{0}Время следующего запуска {1}", Environment.NewLine, nextDate);
-        Dialogs.NotifyMessage(message);
-      }
-      catch (Exception ex)
-      {
-        // TODO Доработать обработку ошибок в EnableSchedule
-        e.AddError(ex.Message);
-        return;
-      }
-      
-      _obj.Status = Status.Active;
-      _obj.Save();
-      
-      Functions.ScheduleSetting.SetPropertyStates(_obj);
-      _obj.State.Controls.ScheduleReportState.Refresh();
-    }
-
-    public virtual bool CanEnableSchedule(Sungero.Domain.Client.CanExecuteActionArgs e)
-    {
-      return _obj.Status == Status.Closed && _obj.Period != null && (!_obj.DateEnd.HasValue || _obj.DateEnd.HasValue && _obj.DateEnd.Value > Calendar.Now);
-    }
-
     public virtual void StartReportWithParameters(Sungero.Domain.Client.ExecuteActionArgs e)
     {
       try
@@ -270,42 +217,74 @@ namespace Starkov.ScheduledReports.Client
       return !string.IsNullOrEmpty(_obj.ReportGuid);
     }
 
-    public virtual void SetReport(Sungero.Domain.Client.ExecuteActionArgs e)
-    {
-      var reports = new List<ScheduledReports.Structures.Module.IReportInfo>();
-      var modulesInfo = PublicFunctions.Module.GetReportsModuleNames();
-      if (!modulesInfo.Any())
-      {
-        Dialogs.ShowMessage("Модулей с отчетами не найдено", MessageType.Error);
-        return;
-      }
-      
-      var dialog = Dialogs.CreateInputDialog("Выбор отчета");
-      var module = dialog.AddSelect("Модуль", true).From(modulesInfo.Select(m => m.Value).ToArray());
-      var report = dialog.AddSelect("Отчет", true);
-      
-      module.SetOnValueChanged((m) =>
-                               {
-                                 reports = PublicFunctions.Module.GetModuleReportsStructure(modulesInfo.FirstOrDefault(i => i.Value == m.NewValue).Key);
-                                 report.From(reports.Select(r => r.LocalizedName).ToArray());
-                               });
-      
-      if (dialog.Show() == DialogButtons.Ok)
-      {
-        _obj.ModuleName = module.Value; // TODO Пока вопрос нужно ли хранить модуль
-        _obj.ModuleGuid = modulesInfo.FirstOrDefault(m => m.Value == module.Value).Key.ToString();
-        _obj.ReportName = report.Value;
-        _obj.ReportGuid = reports.FirstOrDefault(r => r.LocalizedName == report.Value).NameGuid.ToString();
-        
-        Functions.ScheduleSetting.SetPropertyStates(_obj);
-      }
-    }
-
     public virtual bool CanSetReport(Sungero.Domain.Client.CanExecuteActionArgs e)
     {
       return true;
     }
 
+    public virtual void SetReport(Sungero.Domain.Client.ExecuteActionArgs e)
+    {
+      Functions.ScheduleSetting.SelectReport(_obj);
+    }
+
+    public virtual bool CanEnableSchedule(Sungero.Domain.Client.CanExecuteActionArgs e)
+    {
+      return _obj.Status == Status.Closed && _obj.Period != null && (!_obj.DateEnd.HasValue || _obj.DateEnd.HasValue && _obj.DateEnd.Value > Calendar.Now);
+    }
+
+    public virtual void EnableSchedule(Sungero.Domain.Client.ExecuteActionArgs e)
+    {
+      if (_obj.DateEnd.HasValue && _obj.DateEnd.Value <= Calendar.Now)
+      {
+        e.AddError("Завершение расписания должно быть больше текущего времени");
+        return;
+      }
+      
+      var nextDate = Functions.ScheduleSetting.Remote.GetNextPeriod(_obj);
+      if (nextDate <= Calendar.Now)
+      {
+        e.AddError("Следующий запуск не может быть меньше текущего времени.");
+        return;
+      }
+      
+      try
+      {
+        PublicFunctions.Module.EnableSchedule(_obj);
+        var message = string.Format("Запланирована отправка отчета по расписанию.{0}Время следующего запуска {1}", Environment.NewLine, nextDate);
+        Dialogs.NotifyMessage(message);
+      }
+      catch (Exception ex)
+      {
+        // TODO Доработать обработку ошибок в EnableSchedule
+        e.AddError(ex.Message);
+        return;
+      }
+      
+      _obj.Status = Status.Active;
+      _obj.Save();
+      
+      Functions.ScheduleSetting.SetPropertyStates(_obj);
+      _obj.State.Controls.ScheduleReportState.Refresh();
+    }
+
+    public virtual bool CanDisableSchedule(Sungero.Domain.Client.CanExecuteActionArgs e)
+    {
+      return _obj.Status == Status.Active;
+    }
+
+
+    public virtual void DisableSchedule(Sungero.Domain.Client.ExecuteActionArgs e)
+    {
+      _obj.Status = Status.Closed;
+      _obj.Save();
+      
+      PublicFunctions.Module.CloseScheduleLog(_obj);
+      
+      Functions.ScheduleSetting.SetPropertyStates(_obj);
+      _obj.State.Controls.ScheduleReportState.Refresh();
+    }
+
+    
   }
 
 }

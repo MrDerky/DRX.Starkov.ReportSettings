@@ -163,4 +163,19 @@
   <data name="Action_StartReportWithParametersDescription" xml:space="preserve">
     <value>Запустить отчет с параметрами</value>
   </data>
+  <data name="Action_DisableScheduleConfirmationMessage" xml:space="preserve">
+    <value>Подтверждение</value>
+  </data>
+  <data name="Action_DisableScheduleConfirmationDescription" xml:space="preserve">
+    <value>Вы действительно хотите отменить расписание?</value>
+  </data>
+  <data name="Action_EnableScheduleConfirmationMessage" xml:space="preserve">
+    <value>Подтверждение</value>
+  </data>
+  <data name="Action_EnableScheduleConfirmationDescription" xml:space="preserve">
+    <value>Запланировать расписание с заданными настройками?</value>
+  </data>
+  <data name="Ribbon_Schedule_7e8a6724437d40fc90b558f6e2bf58ef" xml:space="preserve">
+    <value>Расписание</value>
+  </data>
 </root>

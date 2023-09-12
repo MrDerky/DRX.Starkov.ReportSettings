@@ -59,13 +59,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DisplayName" xml:space="preserve">
-    <value>Отчеты по расписанию</value>
+    <value>Расписание отчетов</value>
   </data>
   <data name="CoverGroup_Links" xml:space="preserve">
     <value>Связанная информация</value>
   </data>
   <data name="CoverTitle" xml:space="preserve">
-    <value>Отчеты по расписанию</value>
+    <value>Расписание отчетов</value>
   </data>
   <data name="CoverAction_ScheduleSettings" xml:space="preserve">
     <value>Настройки расписаний</value>
@@ -78,5 +78,23 @@
   </data>
   <data name="AsyncHandler_Description_b396d5a435244af19b1d29963e1bdae1" xml:space="preserve">
     <value>Отправка отчета по расписанию</value>
+  </data>
+  <data name="CoverAction_RelativeDates" xml:space="preserve">
+    <value>Относительные даты</value>
+  </data>
+  <data name="CoverDescription_RelativeDates" xml:space="preserve">
+    <value>Реестр записей с относительными датами</value>
+  </data>
+  <data name="CoverDescription" xml:space="preserve">
+    <value>Модуль предназначен для автоматизации доставки отчетов</value>
+  </data>
+  <data name="CoverGroup_Control" xml:space="preserve">
+    <value>Контроль</value>
+  </data>
+  <data name="CoverAction_ScheduleLog" xml:space="preserve">
+    <value>Журнал</value>
+  </data>
+  <data name="CoverDescription_ScheduleLog" xml:space="preserve">
+    <value>Просмотр созданных расписаний</value>
   </data>
 </root>

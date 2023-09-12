@@ -97,8 +97,8 @@
   <data name="Action_SetReportConfirmationDescription" xml:space="preserve">
     <value />
   </data>
-  <data name="Ribbon_Schedule_4634388320d6469ba0b0b958c15b2fae" xml:space="preserve">
-    <value>Расписание</value>
+  <data name="Ribbon_Schedule_7e8a6724437d40fc90b558f6e2bf58ef" xml:space="preserve">
+    <value>Schedule</value>
   </data>
   <data name="ControlGroup_47fac36024ce4fad8359245c4dbce89d" xml:space="preserve">
     <value>Параметры отчета</value>
@@ -185,10 +185,10 @@
     <value>Enable schedule</value>
   </data>
   <data name="Action_EnableScheduleConfirmationMessage" xml:space="preserve">
-    <value />
+    <value>Confirmation</value>
   </data>
   <data name="Action_EnableScheduleConfirmationDescription" xml:space="preserve">
-    <value />
+    <value>Schedule a schedule with the specified settings?</value>
   </data>
   <data name="Property_PeriodNumber" xml:space="preserve">
     <value>Number</value>
@@ -206,10 +206,10 @@
     <value>Disable schedule</value>
   </data>
   <data name="Action_DisableScheduleConfirmationMessage" xml:space="preserve">
-    <value />
+    <value>Confirmation</value>
   </data>
   <data name="Action_DisableScheduleConfirmationDescription" xml:space="preserve">
-    <value />
+    <value>Do you really want to cancel the schedule?</value>
   </data>
   <data name="Ribbon_Settings_3eaef5a67bcc41a7a47a693133e5a63b" xml:space="preserve">
     <value>Settings</value>

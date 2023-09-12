@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -9,7 +9,7 @@ namespace Starkov.ScheduledReports.Client
 {
   partial class RelativeDateActions
   {
-    public virtual void Action(Sungero.Domain.Client.ExecuteActionArgs e)
+    public virtual void Calculate(Sungero.Domain.Client.ExecuteActionArgs e)
     {
       if (_obj.State.IsChanged)
         _obj.Save();
@@ -19,26 +19,7 @@ namespace Starkov.ScheduledReports.Client
       Dialogs.NotifyMessage(result.ToString());
     }
 
-    public virtual bool CanAction(Sungero.Domain.Client.CanExecuteActionArgs e)
-    {
-      return true;
-    }
-
-    public virtual void Test(Sungero.Domain.Client.ExecuteActionArgs e)
-    {
-//      try
-//      {
-//        var result = Functions.RelativeDate.Remote.CalculateExpression(_obj.RelativeExpression);
-//        Dialogs.NotifyMessage(result);
-//      }
-//      catch (Exception ex)
-//      {
-//        e.AddError(ex.Message);
-//      }
-      
-    }
-
-    public virtual bool CanTest(Sungero.Domain.Client.CanExecuteActionArgs e)
+    public virtual bool CanCalculate(Sungero.Domain.Client.CanExecuteActionArgs e)
     {
       return true;
     }

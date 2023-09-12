@@ -41,16 +41,20 @@
       "NameGuid": "270275eb-d6dd-43d0-a860-ddb64ede1daf",
       "Name": "EnableSchedule",
       "ActionArea": "Card",
+      "AllowUserDisableConfirmation": true,
       "GenerateHandler": true,
       "LargeIconName": "Action_EnableSchedule_large_270275ebd6dd43d0a860ddb64ede1daf.png",
+      "NeedConfirmation": true,
       "SmallIconName": "Action_EnableSchedule_small_270275ebd6dd43d0a860ddb64ede1daf.png"
     },
     {
       "NameGuid": "bfcd242f-986a-443b-800e-d1d14a3c5494",
       "Name": "DisableSchedule",
       "ActionArea": "Card",
+      "AllowUserDisableConfirmation": true,
       "GenerateHandler": true,
       "LargeIconName": "Action_DisableSchedule_large_bfcd242f986a443b800ed1d14a3c5494.png",
+      "NeedConfirmation": true,
       "SmallIconName": "Action_DisableSchedule_small_bfcd242f986a443b800ed1d14a3c5494.png"
     }
   ],
@@ -560,24 +564,6 @@
     "Elements": [
       {
         "$type": "Sungero.Metadata.RibbonActionButtonMetadata, Sungero.Metadata",
-        "NameGuid": "9c3e0401-66a6-4a34-ae9b-4a165290a8af",
-        "Name": "EnableSchedule",
-        "ActionGuid": "270275eb-d6dd-43d0-a860-ddb64ede1daf",
-        "ButtonSize": "Large",
-        "Index": 3,
-        "ParentGuid": "46343883-20d6-469b-a0b0-b958c15b2fae"
-      },
-      {
-        "$type": "Sungero.Metadata.RibbonActionButtonMetadata, Sungero.Metadata",
-        "NameGuid": "1d927266-1cd6-4869-98f3-6b3994a9c047",
-        "Name": "DisableSchedule",
-        "ActionGuid": "bfcd242f-986a-443b-800e-d1d14a3c5494",
-        "ButtonSize": "Large",
-        "Index": 4,
-        "ParentGuid": "46343883-20d6-469b-a0b0-b958c15b2fae"
-      },
-      {
-        "$type": "Sungero.Metadata.RibbonActionButtonMetadata, Sungero.Metadata",
         "NameGuid": "58c42898-b568-4469-a916-02f3bf39a14a",
         "Name": "SetReport",
         "ActionGuid": "425413e2-cc77-4f00-a093-16226e773d34",
@@ -602,22 +588,40 @@
         "ButtonSize": "Large",
         "Index": 1,
         "ParentGuid": "3eaef5a6-7bcc-41a7-a47a-693133e5a63b"
+      },
+      {
+        "$type": "Sungero.Metadata.RibbonActionButtonMetadata, Sungero.Metadata",
+        "NameGuid": "b18bc6af-02cd-49d8-a52e-b15ac29be60d",
+        "Name": "EnableSchedule",
+        "ActionGuid": "270275eb-d6dd-43d0-a860-ddb64ede1daf",
+        "ButtonSize": "Large",
+        "Index": -1,
+        "ParentGuid": "7e8a6724-437d-40fc-90b5-58f6e2bf58ef"
+      },
+      {
+        "$type": "Sungero.Metadata.RibbonActionButtonMetadata, Sungero.Metadata",
+        "NameGuid": "2f36e1b2-abb5-41dc-9efb-b875514d982d",
+        "Name": "DisableSchedule",
+        "ActionGuid": "bfcd242f-986a-443b-800e-d1d14a3c5494",
+        "ButtonSize": "Large",
+        "Index": 0,
+        "ParentGuid": "7e8a6724-437d-40fc-90b5-58f6e2bf58ef"
       }
     ],
     "Groups": [
-      {
-        "NameGuid": "46343883-20d6-469b-a0b0-b958c15b2fae",
-        "Name": "Schedule",
-        "IconName": null,
-        "Index": 22,
-        "ParentGuid": "21a31627-5f58-4416-8c4a-90f538ee2e57",
-        "SmallIconName": null
-      },
       {
         "NameGuid": "3eaef5a6-7bcc-41a7-a47a-693133e5a63b",
         "Name": "Settings",
         "IconName": null,
         "Index": 21,
+        "ParentGuid": "21a31627-5f58-4416-8c4a-90f538ee2e57",
+        "SmallIconName": null
+      },
+      {
+        "NameGuid": "7e8a6724-437d-40fc-90b5-58f6e2bf58ef",
+        "Name": "Schedule",
+        "IconName": null,
+        "Index": 22,
         "ParentGuid": "21a31627-5f58-4416-8c4a-90f538ee2e57",
         "SmallIconName": null
       }

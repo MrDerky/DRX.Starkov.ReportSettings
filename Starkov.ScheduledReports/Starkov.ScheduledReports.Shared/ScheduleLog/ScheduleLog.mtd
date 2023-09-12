@@ -27,7 +27,8 @@
         {
           "$type": "Sungero.Metadata.ControlGroupMetadata, Sungero.Metadata",
           "NameGuid": "f45737f1-f992-4553-9e2b-d261b14e6868",
-          "Name": "ControlGroup"
+          "Name": "ControlGroup",
+          "IsVisible": false
         },
         {
           "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
@@ -43,7 +44,37 @@
           "Settings": []
         }
       ]
+    },
+    {
+      "$type": "Sungero.Metadata.InplaceFormMetadata, Sungero.Metadata",
+      "NameGuid": "4509df3d-9afa-4c9a-869f-43542f1185cf",
+      "Name": "Preview",
+      "Controls": [
+        {
+          "$type": "Sungero.Metadata.ControlGroupMetadata, Sungero.Metadata",
+          "NameGuid": "babcb602-c90c-41af-9c90-1cb68cd81327",
+          "Name": "ControlGroup"
+        },
+        {
+          "$type": "Sungero.Metadata.FunctionControlMetadata, Sungero.Metadata",
+          "NameGuid": "6c10ab4e-f5aa-466f-9add-08ae702d0e64",
+          "Name": "Control",
+          "ColumnNumber": 0,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StateViewToFunctionBinder",
+          "FunctionName": "GetScheduleLogState",
+          "HeaderLocation": "None",
+          "ParentGuid": "babcb602-c90c-41af-9c90-1cb68cd81327",
+          "RowNumber": 0,
+          "RowSpan": 1,
+          "Settings": []
+        }
+      ],
+      "ParentFormGuid": "16115bc2-acfd-45c9-b7ed-c72567216aa4"
     }
+  ],
+  "HandledEvents": [
+    "ShowingClient"
   ],
   "IconResourcesKeys": [
     "Waiting",
@@ -78,6 +109,11 @@
           "NameGuid": "1bb7d27e-c179-4154-a2bc-d464fce5ae4f",
           "Name": "Error",
           "Code": "Error"
+        },
+        {
+          "NameGuid": "8c459d1d-e87c-4073-b24c-28f58b22fd11",
+          "Name": "Preview",
+          "Code": "Preview"
         }
       ],
       "IsAncestorMetadata": true,
@@ -111,7 +147,6 @@
       "Name": "StartDate",
       "Code": "StartDate",
       "DateTimeFormat": "DateTime",
-      "IsRequired": true,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
       "PreviousPropertyGuid": "23baf00a-f6d4-4434-81d1-05ae78138c9b"
     },

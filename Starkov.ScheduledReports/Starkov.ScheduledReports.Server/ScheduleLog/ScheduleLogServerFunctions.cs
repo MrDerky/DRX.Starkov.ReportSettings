@@ -10,5 +10,14 @@ namespace Starkov.ScheduledReports.Server
   partial class ScheduleLogFunctions
   {
 
+    /// <summary>
+    /// Получить StateView для просмотра журналов расписаний.
+    /// </summary>       
+    [Remote]
+    public StateView GetScheduleLogState()
+    {
+      return Functions.Module.GetScheduleState(null);
+    }
+
   }
 }

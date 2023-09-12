@@ -11,6 +11,17 @@ namespace Starkov.ScheduledReports.Client
 {
   public class ModuleFunctions
   {
+
+    /// <summary>
+    /// Показать карточку со Stateview журнала.
+    /// </summary>
+    public virtual void ShowScheduleLogs()
+    {
+      var previewLog = Functions.Module.Remote.GetPreviewScheduleLog();
+      
+      if (previewLog != null)
+        previewLog.Show();
+    }
     
     public virtual void CreateScheduleSetting()
     {

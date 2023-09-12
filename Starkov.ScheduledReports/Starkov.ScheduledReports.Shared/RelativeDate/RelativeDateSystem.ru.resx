@@ -88,4 +88,16 @@
   <data name="Property_IsIncremental" xml:space="preserve">
     <value>Принимает множитель</value>
   </data>
+  <data name="Action_Calculate" xml:space="preserve">
+    <value>Вычислить</value>
+  </data>
+  <data name="Action_CalculateHint" xml:space="preserve">
+    <value>Вычислить выражение</value>
+  </data>
+  <data name="Action_CalculateDescription" xml:space="preserve">
+    <value>Вычислить</value>
+  </data>
+  <data name="Ribbon_Test_e7a802f275e5441896f4f506cb86dfaa" xml:space="preserve">
+    <value>Проверка</value>
+  </data>
 </root>

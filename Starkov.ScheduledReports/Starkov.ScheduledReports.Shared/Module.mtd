@@ -28,6 +28,13 @@
     "NameGuid": "49d19071-904a-44c9-84fe-9536b1cd773d",
     "Actions": [
       {
+        "$type": "Sungero.Metadata.CoverFunctionActionMetadata, Sungero.Metadata",
+        "NameGuid": "016b2462-0108-4e06-ae9d-63e1a0911049",
+        "Name": "ScheduleLog",
+        "FunctionName": "ShowScheduleLogs",
+        "GroupId": "476a8291-f526-47e7-9dbc-6ccb9597427b"
+      },
+      {
         "$type": "Sungero.Metadata.CoverEntityListActionMetadata, Sungero.Metadata",
         "NameGuid": "043d5ecf-61a9-4bc3-9bf4-fd072dd5c380",
         "Name": "ScheduleSettings",
@@ -56,6 +63,14 @@
         "FunctionName": "RelativeDatesManagerRoleShow",
         "GroupId": "bbc9ca63-c0d5-4c9b-9090-1e04a42f3253",
         "PreviousItemGuid": "1edeabe4-f1a0-4549-af1a-e1bf473fc77a"
+      },
+      {
+        "$type": "Sungero.Metadata.CoverEntityListActionMetadata, Sungero.Metadata",
+        "NameGuid": "5669231a-5c28-4b3d-9f7d-6319bc4129bf",
+        "Name": "RelativeDates",
+        "EntityTypeId": "26553e87-531b-4953-980d-ab3e60bcebee",
+        "GroupId": "bbc9ca63-c0d5-4c9b-9090-1e04a42f3253",
+        "PreviousItemGuid": "3ee49337-d241-45fd-9809-5e50a39c9e17"
       }
     ],
     "Background": null,
@@ -77,6 +92,14 @@
         "BackgroundPosition": "Stretch",
         "IconName": "GroupIconLinks_bbc9ca63c0d54c9b90901e04a42f3253.png",
         "PreviousItemGuid": "f0de7443-fc90-4356-a432-2bb40eb11f8b",
+        "TabId": "cb489d3d-c67e-4346-b462-a7292e057c1d"
+      },
+      {
+        "NameGuid": "476a8291-f526-47e7-9dbc-6ccb9597427b",
+        "Name": "Control",
+        "BackgroundPosition": "Stretch",
+        "IconName": "GroupIconGroup_476a8291f52647e79dbc6ccb9597427b.png",
+        "PreviousItemGuid": "bbc9ca63-c0d5-4c9b-9090-1e04a42f3253",
         "TabId": "cb489d3d-c67e-4346-b462-a7292e057c1d"
       }
     ],
@@ -276,6 +299,13 @@
       "ReturnTypeFullName": "System.Collections.Generic.List"
     },
     {
+      "Name": "GetPreviewScheduleLog",
+      "IsRemote": true,
+      "Placement": "Shared",
+      "ReturnType": "global::Starkov.ScheduledReports.IScheduleLog",
+      "ReturnTypeFullName": "Starkov.ScheduledReports.IScheduleLog, Sungero.Domain.Interfaces"
+    },
+    {
       "Name": "GetRelativeDate",
       "IsRemote": true,
       "Parameters": [
@@ -306,6 +336,7 @@
     },
     {
       "Name": "GetScheduleLogs",
+      "IsRemote": true,
       "Parameters": [
         {
           "Name": "setting",
@@ -313,6 +344,7 @@
           "ParameterTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
         }
       ],
+      "Placement": "Shared",
       "ReturnType": "global::System.Linq.IQueryable<global::Starkov.ScheduledReports.IScheduleLog>",
       "ReturnTypeFullName": "System.Linq.IQueryable"
     },

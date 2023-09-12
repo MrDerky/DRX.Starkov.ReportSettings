@@ -73,34 +73,22 @@
   <data name="Control_b37138b05365424eae8bb077b88b854f_EmptyText" xml:space="preserve">
     <value>enter a relative date expression</value>
   </data>
-  <data name="Action_Test" xml:space="preserve">
-    <value>test</value>
+  <data name="Ribbon_Test_e7a802f275e5441896f4f506cb86dfaa" xml:space="preserve">
+    <value>Test</value>
   </data>
-  <data name="Action_TestDescription" xml:space="preserve">
-    <value>test</value>
+  <data name="Action_Calculate" xml:space="preserve">
+    <value>Calculate</value>
   </data>
-  <data name="Action_TestHint" xml:space="preserve">
-    <value>test</value>
+  <data name="Action_CalculateDescription" xml:space="preserve">
+    <value>Calculate</value>
   </data>
-  <data name="Action_TestConfirmationMessage" xml:space="preserve">
+  <data name="Action_CalculateHint" xml:space="preserve">
+    <value>Calculate</value>
+  </data>
+  <data name="Action_CalculateConfirmationMessage" xml:space="preserve">
     <value />
   </data>
-  <data name="Action_TestConfirmationDescription" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Action_Action" xml:space="preserve">
-    <value>Action</value>
-  </data>
-  <data name="Action_ActionDescription" xml:space="preserve">
-    <value>Action</value>
-  </data>
-  <data name="Action_ActionHint" xml:space="preserve">
-    <value>Action</value>
-  </data>
-  <data name="Action_ActionConfirmationMessage" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Action_ActionConfirmationDescription" xml:space="preserve">
+  <data name="Action_CalculateConfirmationDescription" xml:space="preserve">
     <value />
   </data>
   <data name="AdditionalInfoTemplate" xml:space="preserve">

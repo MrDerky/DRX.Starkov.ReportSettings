@@ -4,20 +4,12 @@
   "Name": "RelativeDate",
   "Actions": [
     {
-      "NameGuid": "ce0381ee-ccbc-4338-85ec-faec7f409b36",
-      "Name": "Test",
-      "ActionArea": "Card",
-      "GenerateHandler": true,
-      "LargeIconName": null,
-      "SmallIconName": null
-    },
-    {
       "NameGuid": "be31546e-9ddc-440d-9afb-59649fa559bf",
-      "Name": "Action",
+      "Name": "Calculate",
       "ActionArea": "Card",
       "GenerateHandler": true,
-      "LargeIconName": null,
-      "SmallIconName": null
+      "LargeIconName": "Action_Calculate_large_be31546e9ddc440d9afb59649fa559bf.png",
+      "SmallIconName": "Action_Calculate_small_be31546e9ddc440d9afb59649fa559bf.png"
     }
   ],
   "BaseGuid": "04581d26-0780-4cfd-b3cd-c2cafc5798b0",
@@ -137,9 +129,21 @@
   "IsCacheable": true,
   "OperationsClass": "",
   "Overridden": [
-    "IsCacheable"
+    "IsCacheable",
+    "IsVisible"
   ],
   "Properties": [
+    {
+      "$type": "Sungero.Metadata.EnumPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "1dcedc29-5140-4770-ac92-eabc212326a1",
+      "Name": "Status",
+      "IsAncestorMetadata": true,
+      "Overridden": [
+        "IsShowedInList",
+        "IsVisibility",
+        "CanBeSearch"
+      ]
+    },
     {
       "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
       "NameGuid": "c4408352-8bb0-4b55-86b3-9572c0cfa97a",
@@ -407,24 +411,24 @@
     "Elements": [
       {
         "$type": "Sungero.Metadata.RibbonActionButtonMetadata, Sungero.Metadata",
-        "NameGuid": "5b306d00-d69d-4de2-80d1-16fea1321b6d",
-        "Name": "Test",
-        "ActionGuid": "ce0381ee-ccbc-4338-85ec-faec7f409b36",
-        "ButtonSize": "Large",
-        "Index": 51,
-        "ParentGuid": "f3b0ddcd-9d1e-4ca3-8780-695ae25a9e8b"
-      },
-      {
-        "$type": "Sungero.Metadata.RibbonActionButtonMetadata, Sungero.Metadata",
         "NameGuid": "a120e9ca-c775-4a8c-a676-3d18985890cd",
-        "Name": "Action",
+        "Name": "Calculate",
         "ActionGuid": "be31546e-9ddc-440d-9afb-59649fa559bf",
         "ButtonSize": "Large",
-        "Index": 52,
-        "ParentGuid": "f3b0ddcd-9d1e-4ca3-8780-695ae25a9e8b"
+        "Index": 51,
+        "ParentGuid": "e7a802f2-75e5-4418-96f4-f506cb86dfaa"
       }
     ],
-    "Groups": [],
+    "Groups": [
+      {
+        "NameGuid": "e7a802f2-75e5-4418-96f4-f506cb86dfaa",
+        "Name": "Test",
+        "IconName": null,
+        "Index": 21,
+        "ParentGuid": "21a31627-5f58-4416-8c4a-90f538ee2e57",
+        "SmallIconName": null
+      }
+    ],
     "IsAncestorMetadata": true,
     "Pages": [],
     "RibbonKind": "Card"
