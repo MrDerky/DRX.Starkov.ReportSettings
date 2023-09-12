@@ -85,7 +85,10 @@ namespace Starkov.ScheduledReports.Server
           block.AssignIcon(ScheduleLogs.Resources.Complete, iconSize);
         }
         else if (log.Status == ScheduledReports.ScheduleLog.Status.Error)
+        {
           statusStyle = errorBlockStyle;
+          block.AssignIcon(ScheduleLogs.Resources.Error, iconSize);
+        }
         else if (log.Status == ScheduledReports.ScheduleLog.Status.Waiting)
         {
           statusStyle.Color = Colors.Common.Green;
@@ -114,7 +117,7 @@ namespace Starkov.ScheduledReports.Server
         if (log.LastStart.HasValue)
         {
           content.AddLineBreak();
-          content.AddLabel("Запуск " + log.LastStart.Value.ToUserTime());
+          content.AddLabel("Запуск " + log.LastStart.Value.ToUserTime().ToString("g"));
         }
         
         block.AddLineBreak();

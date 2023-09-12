@@ -99,7 +99,8 @@
   ],
   "IconResourcesKeys": [
     "Waiting",
-    "Complete"
+    "Complete",
+    "Error"
   ],
   "IntegrationServiceName": "ScheduledReportsScheduleLog",
   "IsAutoCreated": true,
