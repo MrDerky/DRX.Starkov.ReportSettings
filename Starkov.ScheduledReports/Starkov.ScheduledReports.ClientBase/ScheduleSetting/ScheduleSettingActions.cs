@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -247,10 +247,18 @@ namespace Starkov.ScheduledReports.Client
         return;
       }
       
+      if (_obj.DateEnd.HasValue && nextDate >= _obj.DateEnd.Value)
+      {
+        e.AddError(string.Format("Следующий запуск {0} не может быть позже даты завершения расписания.", nextDate.Value.ToString()));
+        return;
+      }
+      
       try
       {
         PublicFunctions.Module.EnableSchedule(_obj);
-        var message = string.Format("Запланирована отправка отчета по расписанию.{0}Время следующего запуска {1}", Environment.NewLine, nextDate);
+        var message = _obj.IsAsyncExecute.GetValueOrDefault()
+          ? string.Format("Запланирована отправка отчета по расписанию.{0}Время следующего запуска {1}", Environment.NewLine, nextDate)
+          : string.Format("Запланирована отправка отчета по расписанию.{0}Время запуска зависит от настроек фонового процесса", Environment.NewLine);
         Dialogs.NotifyMessage(message);
       }
       catch (Exception ex)

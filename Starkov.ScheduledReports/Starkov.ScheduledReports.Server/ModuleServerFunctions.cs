@@ -28,7 +28,7 @@ namespace Starkov.ScheduledReports.Server
     /// Получить запись настройки расписания для отчета по ИД.
     /// </summary>
     [Public, Remote]
-    public static IScheduleSetting GetScheduleSetting(int id)
+    public static IScheduleSetting GetScheduleSetting(int? id)
     {
       return ScheduleSettings.GetAll(s => s.Id == id).FirstOrDefault(s => s.Status != ScheduledReports.ScheduleSetting.Status.Closed);
     }
@@ -49,7 +49,6 @@ namespace Starkov.ScheduledReports.Server
     /// <summary>
     /// Получить состояние из журнала расписаний.
     /// </summary>
-    [Remote]
     public StateView GetScheduleState(IScheduleSetting setting)
     {
       var stateView = StateView.Create();
@@ -62,11 +61,16 @@ namespace Starkov.ScheduledReports.Server
       if (!scheduleLogs.Any())
         return stateView;
       
+      var nextJobExecuteTime = Functions.Module.GetNextJobExecuteTime(Constants.Module.SendSheduleReportsJobId);
+      
       // TODO Реализовать возможность просмотра всех записей (Листание или отчет)
       var block = stateView.AddBlock();
       block.AddHyperlink("Показать все записи", Hyperlinks.Get(ScheduleLogs.Info));
       
       var iconSize = StateBlockIconSize.Large;
+      var errorBlockStyle = StateBlockLabelStyle.Create();
+      errorBlockStyle.Color = Colors.Common.Red;
+      errorBlockStyle.FontWeight = FontWeight.Bold;
       
       foreach (var log in scheduleLogs)
       {
@@ -81,7 +85,7 @@ namespace Starkov.ScheduledReports.Server
           block.AssignIcon(ScheduleLogs.Resources.Complete, iconSize);
         }
         else if (log.Status == ScheduledReports.ScheduleLog.Status.Error)
-          statusStyle.Color = Colors.Common.Red;
+          statusStyle = errorBlockStyle;
         else if (log.Status == ScheduledReports.ScheduleLog.Status.Waiting)
         {
           statusStyle.Color = Colors.Common.Green;
@@ -93,23 +97,43 @@ namespace Starkov.ScheduledReports.Server
         }
         #endregion
         
+        // Статус
         block.AddLabel(log.Info.Properties.Status.GetLocalizedValue(log.Status.Value), statusStyle);
         
+        // Ссылка на настройку расписания
         if (setting == null && log.ScheduleSettingId.HasValue)
-        {
-          var settingContent = block.AddContent();
-          settingContent.AddHyperlink(log.Name, Hyperlinks.Get(ScheduledReports.ScheduleSettings.Info, log.ScheduleSettingId.Value));
-        }
+          block.AddHyperlink(log.Name, Hyperlinks.Get(ScheduledReports.ScheduleSettings.Info, log.ScheduleSettingId.Value));
         
+        // Плановый запуск
         var content = block.AddContent();
         content.AddLabel("Плановый запуск: " + log.StartDate.Value.ToUserTime().ToString("g"));
         
-        content.AddLineBreak();
-        content.AddLabel(log.Comment);
+        // Последний запуск
+        if (log.LastStart.HasValue)
+        {
+          content.AddLineBreak();
+          content.AddLabel("Запуск " + log.LastStart.Value.ToUserTime());
+        }
         
         block.AddLineBreak();
         if (log.DocumentId.HasValue)
+          // Ссылка на документ с отчетом
           block.AddHyperlink("Просмотр", Hyperlinks.Get(Sungero.Docflow.OfficialDocuments.Info, log.DocumentId.Value));
+        else if (log.IsAsyncExecute != true)
+        {
+          // Информация о фоновом обработчике
+          if (nextJobExecuteTime.HasValue)
+            block.AddLabel(string.Format("Старт фоного процесса: {0}", nextJobExecuteTime.ToUserTime()));
+          else
+            block.AddLabel("Фоновый процесс выключен", errorBlockStyle);
+        }
+        
+        //Комментарий
+        if (!string.IsNullOrEmpty(log.Comment))
+        {
+          block.AddLineBreak();
+          block.AddLabel(log.Comment);
+        }
       }
       
       return stateView;
@@ -165,9 +189,9 @@ namespace Starkov.ScheduledReports.Server
     [Public]
     public void EnableSchedule(Starkov.ScheduledReports.IScheduleSetting setting)
     {
-      Logger.Debug("StartSheduleReport. CreateScheduleLog");
       CreateScheduleLog(setting, null);
-      ExecuteSheduleReportAsync(setting.Id);
+      if (setting.IsAsyncExecute == true)
+        ExecuteSheduleReportAsync(setting.Id);
     }
     
     /// <summary>
@@ -202,6 +226,46 @@ namespace Starkov.ScheduledReports.Server
       var asyncHandler = Starkov.ScheduledReports.AsyncHandlers.SendSheduleReport.Create();
       asyncHandler.SheduleSettingId = scheduleSettingId;
       asyncHandler.ExecuteAsync();
+    }
+    
+    /// <summary>
+    /// Обработать запись журнала расписания и отправить отчет.
+    /// </summary>
+    /// <param name="setting">Настройка расписания.</param>
+    /// <param name="scheduleLog">Запись журнала расписания.</param>
+    /// <param name="logInfo">Информация для логирования.</param>
+    /// <returns>Признак успешного выполнения.</returns>
+    public bool ScheduleLogExecute(IScheduleSetting setting, IScheduleLog scheduleLog, string logInfo)
+    {
+      try
+      {
+        scheduleLog.LastStart = Calendar.Now;
+        
+        StartSheduleReport(setting, scheduleLog);
+        EnableSchedule(setting);
+      }
+      catch (Exception ex)
+      {
+        Logger.ErrorFormat("{0} Ошибка при отправке отчета.", ex, logInfo);
+        var message = string.Format("Последний запуск: {0}. {1}", scheduleLog.LastStart, ex.Message);
+        if (message.Length > 250)
+          message = message.Substring(250);
+        
+        scheduleLog.Comment = message;
+        scheduleLog.Status = ScheduledReports.ScheduleLog.Status.Error;
+        scheduleLog.Save();
+        
+        SendNotice(Roles.Administrators, "Ошибка при отправке отчета по расписанию", ex.StackTrace, setting);
+        
+        return false;
+      }
+      finally
+      {
+        if (Locks.GetLockInfo(scheduleLog).IsLockedByMe)
+          Locks.Unlock(scheduleLog);
+      }
+      
+      return true;
     }
     
     /// <summary>
@@ -278,6 +342,16 @@ namespace Starkov.ScheduledReports.Server
     /// <summary>
     /// Получить записи журнала расписаний.
     /// </summary>
+    /// <returns>Список записей журнала.</returns>
+    [Public, Remote]
+    public IQueryable<IScheduleLog> GetScheduleLogs()
+    {
+      return GetScheduleLogs(null);
+    }
+    
+    /// <summary>
+    /// Получить записи журнала расписаний.
+    /// </summary>
     /// <param name="setting">Настройка расписания.</param>
     /// <returns>Список записей журнала.</returns>
     [Public, Remote]
@@ -315,8 +389,6 @@ namespace Starkov.ScheduledReports.Server
       return scheduleLog;
     }
     
-
-    
     /// <summary>
     /// Создать запись Журнала расписаний
     /// </summary>
@@ -346,6 +418,7 @@ namespace Starkov.ScheduledReports.Server
                                scheduleLog.Name = setting.Name;
                                scheduleLog.StartDate = startDate;
                                scheduleLog.Status = ScheduledReports.ScheduleLog.Status.Waiting;
+                               scheduleLog.IsAsyncExecute = setting.IsAsyncExecute;
                                scheduleLog.Save();
                              });
       return scheduleLog;
@@ -518,5 +591,48 @@ namespace Starkov.ScheduledReports.Server
     
     #endregion
     
+    #region Получение данных о фоновом процессе
+    
+    /// <summary>
+    /// Получить время последнего запуска фонового процесса.
+    /// </summary>
+    /// <param name="jobId">Идентификатор фонового процесса.</param>
+    /// <returns>Дата последней синхронизации.</returns>
+    public virtual DateTime? GetLastJobExecuteTime(Guid jobId)
+    {
+      var command = string.Format(Queries.Module.GetLastJobExecute, jobId.ToString());
+      return GetJobExecuteTime(command);
+    }
+    
+    /// <summary>
+    /// Получить время следующего запуска фонового процесса.
+    /// </summary>
+    /// <param name="jobId">Идентификатор фонового процесса.</param>
+    /// <returns>Дата последней синхронизации.</returns>
+    public virtual DateTime? GetNextJobExecuteTime(Guid jobId)
+    {
+      var command = string.Format(Queries.Module.GetNextJobExecute, jobId.ToString());
+      return GetJobExecuteTime(command);
+    }
+    
+    private DateTime? GetJobExecuteTime(string command)
+    {
+      try
+      {
+        var executionResult = Sungero.Docflow.PublicFunctions.Module.ExecuteScalarSQLCommand(command);
+        DateTime date;
+        if (!(executionResult is DBNull) && executionResult != null && Calendar.TryParseDateTime(executionResult.ToString(), out date))
+          return date;
+        else
+          return null;
+      }
+      catch (Exception ex)
+      {
+        Logger.Error("Error while getting next notification date", ex);
+        return null;
+      }
+    }
+    
+    #endregion
   }
 }

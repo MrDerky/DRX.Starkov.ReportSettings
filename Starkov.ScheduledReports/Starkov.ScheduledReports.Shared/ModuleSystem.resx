@@ -118,4 +118,10 @@
   <data name="CoverDescription_ScheduleLog" xml:space="preserve">
     <value>Viewing created schedules</value>
   </data>
+  <data name="JobDisplayName_6862cdbe45d647c19e7310687664a758" xml:space="preserve">
+    <value>Scheduled reports. Sending reports on a schedule</value>
+  </data>
+  <data name="JobDescription_6862cdbe45d647c19e7310687664a758" xml:space="preserve">
+    <value>Sending reports on a schedule</value>
+  </data>
 </root>

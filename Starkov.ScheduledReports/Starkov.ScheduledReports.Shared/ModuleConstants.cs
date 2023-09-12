@@ -5,9 +5,21 @@ namespace Starkov.ScheduledReports.Constants
 {
   public static class Module
   {
+    /// <summary>
+    /// Идентификатор фонового процесса "Отправка отчетов по расписанию".
+    /// </summary>
+    [Public]
+    public static readonly Guid SendSheduleReportsJobId = Guid.Parse("6862cdbe-45d6-47c1-9e73-10687664a758");
+    
+    /// <summary>
+    /// Guid роли Редакторы относительных дат.
+    /// </summary>
     [Public]
     public static readonly Guid RelativeDatesManagerRole = Guid.Parse("F4EA8EF4-A03E-489F-BBF5-9691405EFFBC");
     
+    /// <summary>
+    /// Guid роли Пользователи с доступом к отчетам по расписанию.
+    /// </summary>
     [Public]
     public static readonly Guid ScheduleSettingManagerRole = Guid.Parse("349B25C0-EA2E-464A-A10A-BBD6FBF45761");
     

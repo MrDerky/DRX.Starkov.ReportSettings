@@ -34,6 +34,7 @@ namespace Starkov.ScheduledReports
       _obj.Author = Users.Current;
       _obj.Status = Status.Closed;
       _obj.ShowParams = false;
+      _obj.IsAsyncExecute = Functions.Module.GetNextJobExecuteTime(Constants.Module.SendSheduleReportsJobId) == null;
     }
   }
 

@@ -250,6 +250,19 @@
               "Value": "8f353f3f-7296-43b5-9ed1-48a86ab6468e"
             }
           ]
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "dfad005b-495e-497e-8b4c-90c29c1f300e",
+          "Name": "IsAsyncExecute",
+          "ColumnNumber": 0,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.BooleanEditorToBooleanBinder",
+          "ParentGuid": "1b8735c1-caf3-4bc4-bcce-4d89ee2535aa",
+          "PropertyGuid": "6d9d62f1-1360-4aec-9e48-d370ea37e200",
+          "RowNumber": 3,
+          "RowSpan": 1,
+          "Settings": []
         }
       ]
     },
@@ -445,6 +458,14 @@
       ],
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.BooleanEditorToBooleanBinder",
       "PreviousPropertyGuid": "8f54d286-79cb-4cd1-b6b9-787734437812"
+    },
+    {
+      "$type": "Sungero.Metadata.BooleanPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "6d9d62f1-1360-4aec-9e48-d370ea37e200",
+      "Name": "IsAsyncExecute",
+      "Code": "IsAsyncExecute",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.BooleanEditorToBooleanBinder",
+      "PreviousPropertyGuid": "268fe4ef-1a76-44d2-8af8-03fa789e7e97"
     }
   ],
   "PublicFunctions": [

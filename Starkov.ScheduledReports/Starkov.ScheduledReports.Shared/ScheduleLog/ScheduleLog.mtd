@@ -2,6 +2,27 @@
   "$type": "Sungero.Metadata.EntityMetadata, Sungero.Metadata",
   "NameGuid": "14ecf32c-4688-4751-a90f-835f5b0d8698",
   "Name": "ScheduleLog",
+  "Actions": [
+    {
+      "NameGuid": "00fae4b6-935a-4047-831d-312fd3c02faf",
+      "Name": "CopyEntity",
+      "GenerateHandler": true,
+      "IsAncestorMetadata": true,
+      "Overridden": [
+        "GenerateHandler"
+      ]
+    },
+    {
+      "NameGuid": "18cdb157-e89a-488b-8cea-bce6a63d0a13",
+      "Name": "DeleteEntity",
+      "GenerateHandler": true,
+      "IsAncestorMetadata": true,
+      "NeedConfirmation": true,
+      "Overridden": [
+        "GenerateHandler"
+      ]
+    }
+  ],
   "BaseGuid": "04581d26-0780-4cfd-b3cd-c2cafc5798b0",
   "CanBeNavigationPropertyType": true,
   "Code": "ScheduleLog",
@@ -156,7 +177,7 @@
       "Name": "Comment",
       "Code": "Comment",
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
-      "PreviousPropertyGuid": "f7f6f121-44d7-4685-a743-5262f998bfd5"
+      "PreviousPropertyGuid": "533fe26d-e450-495b-8d36-8d996f765944"
     },
     {
       "$type": "Sungero.Metadata.IntegerPropertyMetadata, Sungero.Metadata",
@@ -165,6 +186,23 @@
       "Code": "DocumentId",
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.NumericEditorToIntAndDoubleBinder",
       "PreviousPropertyGuid": "ba355aa6-64cd-42a4-aa5b-03404c88de91"
+    },
+    {
+      "$type": "Sungero.Metadata.BooleanPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "98a52539-5db7-48c7-8ade-461f74d6c86a",
+      "Name": "IsAsyncExecute",
+      "Code": "IsAsyncExecute",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.BooleanEditorToBooleanBinder",
+      "PreviousPropertyGuid": "260b5d62-c312-45df-b9d0-9a4387164e1e",
+      "Versions": []
+    },
+    {
+      "$type": "Sungero.Metadata.DateTimePropertyMetadata, Sungero.Metadata",
+      "NameGuid": "533fe26d-e450-495b-8d36-8d996f765944",
+      "Name": "LastStart",
+      "Code": "LastStart",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
+      "PreviousPropertyGuid": "f7f6f121-44d7-4685-a743-5262f998bfd5"
     }
   ],
   "PublicStructures": [],

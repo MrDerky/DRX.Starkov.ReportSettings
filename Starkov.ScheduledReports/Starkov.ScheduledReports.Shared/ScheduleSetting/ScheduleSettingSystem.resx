@@ -185,10 +185,10 @@
     <value>Enable schedule</value>
   </data>
   <data name="Action_EnableScheduleConfirmationMessage" xml:space="preserve">
-    <value>Confirmation</value>
+    <value>Schedule a schedule with the specified settings?</value>
   </data>
   <data name="Action_EnableScheduleConfirmationDescription" xml:space="preserve">
-    <value>Schedule a schedule with the specified settings?</value>
+    <value />
   </data>
   <data name="Property_PeriodNumber" xml:space="preserve">
     <value>Number</value>
@@ -206,15 +206,18 @@
     <value>Disable schedule</value>
   </data>
   <data name="Action_DisableScheduleConfirmationMessage" xml:space="preserve">
-    <value>Confirmation</value>
+    <value>Do you really want to cancel the schedule?</value>
   </data>
   <data name="Action_DisableScheduleConfirmationDescription" xml:space="preserve">
-    <value>Do you really want to cancel the schedule?</value>
+    <value />
   </data>
   <data name="Ribbon_Settings_3eaef5a67bcc41a7a47a693133e5a63b" xml:space="preserve">
     <value>Settings</value>
   </data>
   <data name="ControlGroup_e1689ab92fd343d7b6fdafe51d90f1b2" xml:space="preserve">
     <value />
+  </data>
+  <data name="Property_IsAsyncExecute" xml:space="preserve">
+    <value>Use asynchronous execution instead of background process</value>
   </data>
 </root>

@@ -97,4 +97,10 @@
   <data name="CoverDescription_ScheduleLog" xml:space="preserve">
     <value>Просмотр созданных расписаний</value>
   </data>
+  <data name="JobDisplayName_6862cdbe45d647c19e7310687664a758" xml:space="preserve">
+    <value>Расписание отчетов. Отправка отчетов по расписанию</value>
+  </data>
+  <data name="JobDescription_6862cdbe45d647c19e7310687664a758" xml:space="preserve">
+    <value>Отправка отчетов по расписанию</value>
+  </data>
 </root>

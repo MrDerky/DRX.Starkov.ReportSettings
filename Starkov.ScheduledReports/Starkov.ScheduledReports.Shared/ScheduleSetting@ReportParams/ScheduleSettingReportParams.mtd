@@ -44,6 +44,8 @@
       "Name": "InternalDataTypeName",
       "CanBeSearch": false,
       "Code": "InternalDataTy",
+      "IsShowedInList": false,
+      "IsVisibility": false,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
       "PreviousPropertyGuid": "18bd77fd-a2bb-4299-9232-658b084897e7"
     },

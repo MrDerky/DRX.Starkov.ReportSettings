@@ -103,4 +103,10 @@
   <data name="Form_4509df3d9afa4c9a869f43542f1185cf" xml:space="preserve">
     <value>Просмотр журнала</value>
   </data>
+  <data name="Property_IsAsyncExecute" xml:space="preserve">
+    <value>Использовать асинхронное выполнение вместо фонового процесса</value>
+  </data>
+  <data name="Property_LastStart" xml:space="preserve">
+    <value>Последний запуск</value>
+  </data>
 </root>

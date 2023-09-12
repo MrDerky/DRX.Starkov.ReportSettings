@@ -6,7 +6,7 @@
     {
       "NameGuid": "b396d5a4-3524-4af1-9b1d-29963e1bdae1",
       "Name": "SendSheduleReport",
-      "DelayPeriod": 1,
+      "DelayPeriod": 15,
       "DelayStrategy": "RegularDelayStrategy",
       "IsHandlerGenerated": true,
       "Parameters": [
@@ -142,6 +142,15 @@
   "Importance": "Medium",
   "InterfaceAssemblyName": "Sungero.Domain.Interfaces",
   "InterfaceNamespace": "Starkov.ScheduledReports",
+  "Jobs": [
+    {
+      "NameGuid": "6862cdbe-45d6-47c1-9e73-10687664a758",
+      "Name": "SendSheduleReports",
+      "GenerateHandler": true,
+      "MonthSchedule": "Monthly",
+      "StartAt": "1753-01-01T07:00:00"
+    }
+  ],
   "PublicConstants": [
     {
       "Name": "RelativeDatesManagerRole",
@@ -158,6 +167,14 @@
       ],
       "TypeName": "System.Guid",
       "Value": "new System.Guid(\"349B25C0-EA2E-464A-A10A-BBD6FBF45761\")"
+    },
+    {
+      "Name": "SendSheduleReportsJobId",
+      "ParentClasses": [
+        "Module"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"6862cdbe-45d6-47c1-9e73-10687664a758\")"
     }
   ],
   "PublicFunctions": [
@@ -337,6 +354,13 @@
     {
       "Name": "GetScheduleLogs",
       "IsRemote": true,
+      "Placement": "Shared",
+      "ReturnType": "global::System.Linq.IQueryable<global::Starkov.ScheduledReports.IScheduleLog>",
+      "ReturnTypeFullName": "System.Linq.IQueryable"
+    },
+    {
+      "Name": "GetScheduleLogs",
+      "IsRemote": true,
       "Parameters": [
         {
           "Name": "setting",
@@ -354,8 +378,8 @@
       "Parameters": [
         {
           "Name": "id",
-          "ParameterType": "global::System.Int32",
-          "ParameterTypeFullName": "System.Int32"
+          "ParameterType": "global::System.Nullable<global::System.Int32>",
+          "ParameterTypeFullName": "System.Nullable"
         }
       ],
       "Placement": "Shared",

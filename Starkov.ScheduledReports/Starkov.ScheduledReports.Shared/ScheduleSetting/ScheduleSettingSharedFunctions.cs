@@ -20,6 +20,7 @@ namespace Starkov.ScheduledReports.Shared
       
       properties.Period.IsEnabled = canChangeSchedule;
       properties.PeriodNumber.IsEnabled = canChangeSchedule;
+      properties.IsAsyncExecute.IsEnabled = canChangeSchedule;
       
       var isHasReport = !string.IsNullOrEmpty(_obj.ReportGuid);
       properties.Observers.IsVisible = isHasReport;
