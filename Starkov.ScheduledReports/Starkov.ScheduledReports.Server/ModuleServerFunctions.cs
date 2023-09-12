@@ -97,6 +97,8 @@ namespace Starkov.ScheduledReports.Server
         }
         #endregion
         
+        //TODO локализация
+        
         // Статус
         block.AddLabel(log.Info.Properties.Status.GetLocalizedValue(log.Status.Value), statusStyle);
         
@@ -123,16 +125,16 @@ namespace Starkov.ScheduledReports.Server
         {
           // Информация о фоновом обработчике
           if (nextJobExecuteTime.HasValue)
-            block.AddLabel(string.Format("Старт фоного процесса: {0}", nextJobExecuteTime.ToUserTime()));
+            block.AddLabel(string.Format("Старт фонового процесса: {0}", nextJobExecuteTime.ToUserTime()));
           else
             block.AddLabel("Фоновый процесс выключен", errorBlockStyle);
         }
         
-        //Комментарий
-        if (!string.IsNullOrEmpty(log.Comment))
+        // Сообщение об ошибке
+        if (log.Status == ScheduledReports.ScheduleLog.Status.Error && !string.IsNullOrEmpty(log.Comment))
         {
           block.AddLineBreak();
-          block.AddLabel(log.Comment);
+          block.AddLabel("Ошибка: " + log.Comment);
         }
       }
       
@@ -247,15 +249,14 @@ namespace Starkov.ScheduledReports.Server
       catch (Exception ex)
       {
         Logger.ErrorFormat("{0} Ошибка при отправке отчета.", ex, logInfo);
-        var message = string.Format("Последний запуск: {0}. {1}", scheduleLog.LastStart, ex.Message);
-        if (message.Length > 250)
-          message = message.Substring(250);
         
-        scheduleLog.Comment = message;
+        scheduleLog.Comment = ex.Message.Length > 250 ? ex.Message.Substring(250) : ex.Message;
         scheduleLog.Status = ScheduledReports.ScheduleLog.Status.Error;
         scheduleLog.Save();
         
-        SendNotice(Roles.Administrators, "Ошибка при отправке отчета по расписанию", ex.StackTrace, setting);
+        SendNotice(Roles.Administrators, "Ошибка при отправке отчета по расписанию", 
+                   string.Join(Environment.NewLine, ex.Message, ex.StackTrace), 
+                   setting);
         
         return false;
       }

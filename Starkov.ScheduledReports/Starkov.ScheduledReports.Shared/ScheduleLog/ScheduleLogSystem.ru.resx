@@ -89,7 +89,7 @@
     <value>Плановый запуск</value>
   </data>
   <data name="Enum_Status_Error" xml:space="preserve">
-    <value>Ошибка при отправке</value>
+    <value>Ошибка</value>
   </data>
   <data name="Property_Comment" xml:space="preserve">
     <value>Комментарий</value>

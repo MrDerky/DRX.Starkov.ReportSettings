@@ -201,6 +201,7 @@
       "NameGuid": "533fe26d-e450-495b-8d36-8d996f765944",
       "Name": "LastStart",
       "Code": "LastStart",
+      "DateTimeFormat": "DateTime",
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
       "PreviousPropertyGuid": "f7f6f121-44d7-4685-a743-5262f998bfd5"
     }
