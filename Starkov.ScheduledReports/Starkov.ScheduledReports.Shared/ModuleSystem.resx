@@ -62,18 +62,66 @@
     <value>Scheduled reports</value>
   </data>
   <data name="CoverTitle" xml:space="preserve">
-    <value>ScheduledReports</value>
+    <value>Scheduled reports</value>
   </data>
   <data name="CoverTab_Tab" xml:space="preserve">
     <value>Tab</value>
   </data>
-  <data name="CoverGroup_Group" xml:space="preserve">
-    <value>Group</value>
+  <data name="CoverGroup_Settings" xml:space="preserve">
+    <value>Settings</value>
   </data>
-  <data name="CoverAction_Action" xml:space="preserve">
-    <value>Action</value>
+  <data name="CoverAction_ScheduleSettings" xml:space="preserve">
+    <value>ScheduleSettings</value>
   </data>
-  <data name="CoverDescription_Action" xml:space="preserve">
-    <value />
+  <data name="CoverDescription_ScheduleSettings" xml:space="preserve">
+    <value>Реестр настроек для отправки отчетов по расписанию</value>
+  </data>
+  <data name="CoverGroup_Links" xml:space="preserve">
+    <value>Links</value>
+  </data>
+  <data name="CoverAction_RelativeDatesManagerRole" xml:space="preserve">
+    <value>Редакторы относительных дат</value>
+  </data>
+  <data name="CoverDescription_RelativeDatesManagerRole" xml:space="preserve">
+    <value>Пользователи с правами на редактирование списка относительных дат</value>
+  </data>
+  <data name="CoverAction_ScheduleSettingManagerRole" xml:space="preserve">
+    <value>Доступ к настройкам расписаний</value>
+  </data>
+  <data name="CoverDescription_ScheduleSettingManagerRole" xml:space="preserve">
+    <value>Пользователи с правами на создание настроек для отправки отчетов по расписанию</value>
+  </data>
+  <data name="CoverAction_Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="CoverDescription_Create" xml:space="preserve">
+    <value>Создать настройку расписания</value>
+  </data>
+  <data name="AsyncHandler_Description_b396d5a435244af19b1d29963e1bdae1" xml:space="preserve">
+    <value>Send shedule report</value>
+  </data>
+  <data name="CoverAction_RelativeDates" xml:space="preserve">
+    <value>Relative dates</value>
+  </data>
+  <data name="CoverDescription_RelativeDates" xml:space="preserve">
+    <value>Registry of records with relative dates</value>
+  </data>
+  <data name="CoverDescription" xml:space="preserve">
+    <value>The module is designed to automate the delivery of reports</value>
+  </data>
+  <data name="CoverGroup_Control" xml:space="preserve">
+    <value>Control</value>
+  </data>
+  <data name="CoverAction_ScheduleLog" xml:space="preserve">
+    <value>Schedule log</value>
+  </data>
+  <data name="CoverDescription_ScheduleLog" xml:space="preserve">
+    <value>Viewing created schedules</value>
+  </data>
+  <data name="JobDisplayName_6862cdbe45d647c19e7310687664a758" xml:space="preserve">
+    <value>Scheduled reports. Sending reports on a schedule</value>
+  </data>
+  <data name="JobDescription_6862cdbe45d647c19e7310687664a758" xml:space="preserve">
+    <value>Sending reports on a schedule</value>
   </data>
 </root>

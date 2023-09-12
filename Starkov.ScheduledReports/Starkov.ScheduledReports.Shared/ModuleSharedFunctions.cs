@@ -11,6 +11,5 @@ namespace Starkov.ScheduledReports.Shared
   public class ModuleFunctions
   {
 
-
   }
 }

@@ -2,7 +2,22 @@
   "$type": "Sungero.Metadata.ModuleMetadata, Sungero.Metadata",
   "NameGuid": "b8698cd4-29e8-4a31-a661-b99e7ec581d1",
   "Name": "ScheduledReports",
-  "AsyncHandlers": [],
+  "AsyncHandlers": [
+    {
+      "NameGuid": "b396d5a4-3524-4af1-9b1d-29963e1bdae1",
+      "Name": "SendSheduleReport",
+      "DelayPeriod": 15,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsHandlerGenerated": true,
+      "Parameters": [
+        {
+          "NameGuid": "114542c3-3756-4b4c-a2d7-2e96cbe43237",
+          "Name": "SheduleSettingId",
+          "ParameterType": "Integer"
+        }
+      ]
+    }
+  ],
   "ClientAssemblyName": "Starkov.ScheduledReports.Client",
   "ClientBaseAssemblyName": "Starkov.ScheduledReports.ClientBase",
   "ClientBaseNamespace": "Starkov.ScheduledReports.ClientBase",
@@ -14,10 +29,48 @@
     "Actions": [
       {
         "$type": "Sungero.Metadata.CoverFunctionActionMetadata, Sungero.Metadata",
+        "NameGuid": "016b2462-0108-4e06-ae9d-63e1a0911049",
+        "Name": "ScheduleLog",
+        "FunctionName": "ShowScheduleLogs",
+        "GroupId": "476a8291-f526-47e7-9dbc-6ccb9597427b"
+      },
+      {
+        "$type": "Sungero.Metadata.CoverEntityListActionMetadata, Sungero.Metadata",
         "NameGuid": "043d5ecf-61a9-4bc3-9bf4-fd072dd5c380",
-        "Name": "Action",
-        "FunctionName": "Function2",
+        "Name": "ScheduleSettings",
+        "EntityTypeId": "f7180f6a-b987-4a28-a072-d26377fb3912",
+        "GroupId": "f0de7443-fc90-4356-a432-2bb40eb11f8b",
+        "PreviousItemGuid": "12267a64-53ea-4d76-9fda-f84e91945060"
+      },
+      {
+        "$type": "Sungero.Metadata.CoverFunctionActionMetadata, Sungero.Metadata",
+        "NameGuid": "12267a64-53ea-4d76-9fda-f84e91945060",
+        "Name": "Create",
+        "FunctionName": "CreateScheduleSetting",
         "GroupId": "f0de7443-fc90-4356-a432-2bb40eb11f8b"
+      },
+      {
+        "$type": "Sungero.Metadata.CoverFunctionActionMetadata, Sungero.Metadata",
+        "NameGuid": "1edeabe4-f1a0-4549-af1a-e1bf473fc77a",
+        "Name": "ScheduleSettingManagerRole",
+        "FunctionName": "ScheduleSettingManagerRoleShow",
+        "GroupId": "bbc9ca63-c0d5-4c9b-9090-1e04a42f3253"
+      },
+      {
+        "$type": "Sungero.Metadata.CoverFunctionActionMetadata, Sungero.Metadata",
+        "NameGuid": "3ee49337-d241-45fd-9809-5e50a39c9e17",
+        "Name": "RelativeDatesManagerRole",
+        "FunctionName": "RelativeDatesManagerRoleShow",
+        "GroupId": "bbc9ca63-c0d5-4c9b-9090-1e04a42f3253",
+        "PreviousItemGuid": "1edeabe4-f1a0-4549-af1a-e1bf473fc77a"
+      },
+      {
+        "$type": "Sungero.Metadata.CoverEntityListActionMetadata, Sungero.Metadata",
+        "NameGuid": "5669231a-5c28-4b3d-9f7d-6319bc4129bf",
+        "Name": "RelativeDates",
+        "EntityTypeId": "26553e87-531b-4953-980d-ab3e60bcebee",
+        "GroupId": "bbc9ca63-c0d5-4c9b-9090-1e04a42f3253",
+        "PreviousItemGuid": "3ee49337-d241-45fd-9809-5e50a39c9e17"
       }
     ],
     "Background": null,
@@ -28,8 +81,25 @@
     "Groups": [
       {
         "NameGuid": "f0de7443-fc90-4356-a432-2bb40eb11f8b",
-        "Name": "Group",
+        "Name": "Settings",
         "BackgroundPosition": "Stretch",
+        "IconName": "GroupIconSettings_f0de7443fc904356a4322bb40eb11f8b.png",
+        "TabId": "cb489d3d-c67e-4346-b462-a7292e057c1d"
+      },
+      {
+        "NameGuid": "bbc9ca63-c0d5-4c9b-9090-1e04a42f3253",
+        "Name": "Links",
+        "BackgroundPosition": "Stretch",
+        "IconName": "GroupIconLinks_bbc9ca63c0d54c9b90901e04a42f3253.png",
+        "PreviousItemGuid": "f0de7443-fc90-4356-a432-2bb40eb11f8b",
+        "TabId": "cb489d3d-c67e-4346-b462-a7292e057c1d"
+      },
+      {
+        "NameGuid": "476a8291-f526-47e7-9dbc-6ccb9597427b",
+        "Name": "Control",
+        "BackgroundPosition": "Stretch",
+        "IconName": "GroupIconGroup_476a8291f52647e79dbc6ccb9597427b.png",
+        "PreviousItemGuid": "bbc9ca63-c0d5-4c9b-9090-1e04a42f3253",
         "TabId": "cb489d3d-c67e-4346-b462-a7292e057c1d"
       }
     ],
@@ -55,13 +125,184 @@
   "ExplorerTreeOrder": [
     {
       "ItemId": "f7180f6a-b987-4a28-a072-d26377fb3912"
+    },
+    {
+      "ItemId": "26553e87-531b-4953-980d-ab3e60bcebee",
+      "PreviousItemId": "f7180f6a-b987-4a28-a072-d26377fb3912"
+    },
+    {
+      "ItemId": "14ecf32c-4688-4751-a90f-835f5b0d8698",
+      "PreviousItemId": "26553e87-531b-4953-980d-ab3e60bcebee"
     }
+  ],
+  "HandledEvents": [
+    "InitializingServer"
   ],
   "IconResourcesKeys": [],
   "Importance": "Medium",
   "InterfaceAssemblyName": "Sungero.Domain.Interfaces",
   "InterfaceNamespace": "Starkov.ScheduledReports",
+  "Jobs": [
+    {
+      "NameGuid": "6862cdbe-45d6-47c1-9e73-10687664a758",
+      "Name": "SendSheduleReports",
+      "GenerateHandler": true,
+      "MonthSchedule": "Monthly",
+      "StartAt": "1753-01-01T07:00:00"
+    }
+  ],
+  "PublicConstants": [
+    {
+      "Name": "RelativeDatesManagerRole",
+      "ParentClasses": [
+        "Module"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"F4EA8EF4-A03E-489F-BBF5-9691405EFFBC\")"
+    },
+    {
+      "Name": "ScheduleSettingManagerRole",
+      "ParentClasses": [
+        "Module"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"349B25C0-EA2E-464A-A10A-BBD6FBF45761\")"
+    },
+    {
+      "Name": "SendSheduleReportsJobId",
+      "ParentClasses": [
+        "Module"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"6862cdbe-45d6-47c1-9e73-10687664a758\")"
+    }
+  ],
   "PublicFunctions": [
+    {
+      "Name": "CloseScheduleLog",
+      "Parameters": [
+        {
+          "Name": "setting",
+          "ParameterType": "global::Starkov.ScheduledReports.IScheduleSetting",
+          "ParameterTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
+        }
+      ],
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "CreateScheduleLog",
+      "Parameters": [
+        {
+          "Name": "setting",
+          "ParameterType": "global::Starkov.ScheduledReports.IScheduleSetting",
+          "ParameterTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "startDate",
+          "ParameterType": "global::System.Nullable<global::System.DateTime>",
+          "ParameterTypeFullName": "System.Nullable"
+        }
+      ],
+      "ReturnType": "global::Starkov.ScheduledReports.IScheduleLog",
+      "ReturnTypeFullName": "Starkov.ScheduledReports.IScheduleLog, Sungero.Domain.Interfaces"
+    },
+    {
+      "Name": "CreateScheduleSetting",
+      "IsRemote": true,
+      "Placement": "Shared",
+      "ReturnType": "global::Starkov.ScheduledReports.IScheduleSetting",
+      "ReturnTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
+    },
+    {
+      "Name": "EnableSchedule",
+      "Parameters": [
+        {
+          "Name": "setting",
+          "ParameterType": "global::Starkov.ScheduledReports.IScheduleSetting",
+          "ParameterTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
+        }
+      ],
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "ExecuteSheduleReportAsync",
+      "Parameters": [
+        {
+          "Name": "scheduleSettingId",
+          "ParameterType": "global::System.Int32",
+          "ParameterTypeFullName": "System.Int32"
+        }
+      ],
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "FillReportParams",
+      "Parameters": [
+        {
+          "Name": "report",
+          "ParameterType": "Sungero.Reporting.Shared.ReportBase"
+        },
+        {
+          "Name": "setting",
+          "ParameterType": "global::Starkov.ScheduledReports.IScheduleSetting",
+          "ParameterTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
+        }
+      ],
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "GetEntitiesByGuid",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "entityGuid",
+          "ParameterType": "global::System.Guid",
+          "ParameterTypeFullName": "System.Guid"
+        },
+        {
+          "Name": "id",
+          "ParameterType": "global::System.Nullable<global::System.Int32>",
+          "ParameterTypeFullName": "System.Nullable"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::Sungero.Domain.Shared.IEntity",
+      "ReturnTypeFullName": "Sungero.Domain.Shared.IEntity, Sungero.Domain.Shared"
+    },
+    {
+      "Name": "GetEntitiesByGuid",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "entityGuid",
+          "ParameterType": "global::System.Guid",
+          "ParameterTypeFullName": "System.Guid"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.Linq.IQueryable<global::Sungero.Domain.Shared.IEntity>",
+      "ReturnTypeFullName": "System.Linq.IQueryable"
+    },
+    {
+      "Name": "GetModuleReportByGuid",
+      "Parameters": [
+        {
+          "Name": "moduleGuid",
+          "ParameterType": "global::System.Guid",
+          "ParameterTypeFullName": "System.Guid"
+        },
+        {
+          "Name": "reportGuid",
+          "ParameterType": "global::System.Guid",
+          "ParameterTypeFullName": "System.Guid"
+        }
+      ],
+      "ReturnType": "Sungero.Reporting.Shared.ReportBase"
+    },
     {
       "Name": "GetModuleReportsStructure",
       "Parameters": [
@@ -73,6 +314,27 @@
       ],
       "ReturnType": "global::System.Collections.Generic.List<global::Starkov.ScheduledReports.Structures.Module.IReportInfo>",
       "ReturnTypeFullName": "System.Collections.Generic.List"
+    },
+    {
+      "Name": "GetPreviewScheduleLog",
+      "IsRemote": true,
+      "Placement": "Shared",
+      "ReturnType": "global::Starkov.ScheduledReports.IScheduleLog",
+      "ReturnTypeFullName": "Starkov.ScheduledReports.IScheduleLog, Sungero.Domain.Interfaces"
+    },
+    {
+      "Name": "GetRelativeDate",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "id",
+          "ParameterType": "global::System.Int32",
+          "ParameterTypeFullName": "System.Int32"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::Starkov.ScheduledReports.IRelativeDate",
+      "ReturnTypeFullName": "Starkov.ScheduledReports.IRelativeDate, Sungero.Domain.Interfaces"
     },
     {
       "Name": "GetReportMetaData",
@@ -88,6 +350,58 @@
     {
       "Name": "GetReportsModuleNames",
       "ReturnType": "System.Collections.Generic.Dictionary<global::System.Guid, global::System.String>"
+    },
+    {
+      "Name": "GetScheduleLogs",
+      "IsRemote": true,
+      "Placement": "Shared",
+      "ReturnType": "global::System.Linq.IQueryable<global::Starkov.ScheduledReports.IScheduleLog>",
+      "ReturnTypeFullName": "System.Linq.IQueryable"
+    },
+    {
+      "Name": "GetScheduleLogs",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "setting",
+          "ParameterType": "global::Starkov.ScheduledReports.IScheduleSetting",
+          "ParameterTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.Linq.IQueryable<global::Starkov.ScheduledReports.IScheduleLog>",
+      "ReturnTypeFullName": "System.Linq.IQueryable"
+    },
+    {
+      "Name": "GetScheduleSetting",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "id",
+          "ParameterType": "global::System.Nullable<global::System.Int32>",
+          "ParameterTypeFullName": "System.Nullable"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::Starkov.ScheduledReports.IScheduleSetting",
+      "ReturnTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
+    },
+    {
+      "Name": "StartSheduleReport",
+      "Parameters": [
+        {
+          "Name": "setting",
+          "ParameterType": "global::Starkov.ScheduledReports.IScheduleSetting",
+          "ParameterTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "scheduleLog",
+          "ParameterType": "global::Starkov.ScheduledReports.IScheduleLog",
+          "ParameterTypeFullName": "Starkov.ScheduledReports.IScheduleLog, Sungero.Domain.Interfaces"
+        }
+      ],
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
     }
   ],
   "PublicStructures": [
@@ -116,7 +430,33 @@
   ],
   "ResourceInterfaceAssemblyName": "Sungero.Domain.Interfaces",
   "ResourceInterfaceNamespace": "Starkov.ScheduledReports",
-  "ResourcesKeys": [],
+  "ResourcesKeys": [
+    "ReportSubject",
+    "RelativeDateEditorsRoleName",
+    "RelativeDateEditorsRoleDescription",
+    "ScheduledReportsAccessRoleName",
+    "ScheduledReportsAccessRoleDescription",
+    "Today",
+    "TodayDescription",
+    "Now",
+    "NowDescription",
+    "BeginningOfWeek",
+    "EndOfWeek",
+    "BeginningOfMonth",
+    "EndOfMonth",
+    "BeginningOfYear",
+    "EndOfYear",
+    "DateWithoutTime",
+    "DateWithoutTimeDescription",
+    "AddDays",
+    "AddMonths",
+    "AddHours",
+    "AddMinutes",
+    "AddDaysDescr",
+    "AddMonthsDescr",
+    "AddHoursDescr",
+    "AddMinutesDescr"
+  ],
   "ServerAssemblyName": "Starkov.ScheduledReports.Server",
   "ServerNamespace": "Starkov.ScheduledReports.Server",
   "SharedAssemblyName": "Starkov.ScheduledReports.Shared",

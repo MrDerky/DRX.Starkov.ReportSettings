@@ -1,3 +1,19 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <queries>
+  <query key="GetLastJobExecute">
+    <mssql><![CDATA[SELECT lastexecuted 
+FROM sungero_core_job job
+WHERE job.jobid = '{0}']]></mssql>
+    <postgres><![CDATA[SELECT lastexecuted 
+FROM public.sungero_core_job job
+WHERE job.jobid = '{0}']]></postgres>
+  </query>
+  <query key="GetNextJobExecute">
+    <mssql><![CDATA[SELECT nextexecute 
+FROM sungero_core_job job
+WHERE job.jobid = '{0}']]></mssql>
+    <postgres><![CDATA[SELECT nextexecute 
+FROM public.sungero_core_job job
+WHERE job.jobid = '{0}']]></postgres>
+  </query>
 </queries>

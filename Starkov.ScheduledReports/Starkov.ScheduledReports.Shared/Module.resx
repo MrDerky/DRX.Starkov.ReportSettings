@@ -58,4 +58,79 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ReportSubject" xml:space="preserve">
+    <value>Report: {0}</value>
+  </data>
+  <data name="RelativeDateEditorsRoleName" xml:space="preserve">
+    <value>Relative Date Editors</value>
+  </data>
+  <data name="RelativeDateEditorsRoleDescription" xml:space="preserve">
+    <value>Users with rights to edit the list of relative dates</value>
+  </data>
+  <data name="ScheduledReportsAccessRoleName" xml:space="preserve">
+    <value>Users with access to scheduled reports</value>
+  </data>
+  <data name="ScheduledReportsAccessRoleDescription" xml:space="preserve">
+    <value>Users with rights to create settings for sending reports on a schedule</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="TodayDescription" xml:space="preserve">
+    <value>Current date without time</value>
+  </data>
+  <data name="Now" xml:space="preserve">
+    <value>Now</value>
+  </data>
+  <data name="NowDescription" xml:space="preserve">
+    <value>Current date and time</value>
+  </data>
+  <data name="BeginningOfWeek" xml:space="preserve">
+    <value>Beginning of the week</value>
+  </data>
+  <data name="EndOfWeek" xml:space="preserve">
+    <value>End of the week</value>
+  </data>
+  <data name="BeginningOfMonth" xml:space="preserve">
+    <value>Beginning of the month</value>
+  </data>
+  <data name="EndOfMonth" xml:space="preserve">
+    <value>End of the month</value>
+  </data>
+  <data name="BeginningOfYear" xml:space="preserve">
+    <value>Beginning of the year</value>
+  </data>
+  <data name="EndOfYear" xml:space="preserve">
+    <value>End of the year</value>
+  </data>
+  <data name="DateWithoutTime" xml:space="preserve">
+    <value>Reset time</value>
+  </data>
+  <data name="DateWithoutTimeDescription" xml:space="preserve">
+    <value>Return date and time 0:00:00</value>
+  </data>
+  <data name="AddDays" xml:space="preserve">
+    <value>Day</value>
+  </data>
+  <data name="AddMonths" xml:space="preserve">
+    <value>Month</value>
+  </data>
+  <data name="AddHours" xml:space="preserve">
+    <value>Hour</value>
+  </data>
+  <data name="AddMinutes" xml:space="preserve">
+    <value>Minute</value>
+  </data>
+  <data name="AddDaysDescr" xml:space="preserve">
+    <value>Add n days</value>
+  </data>
+  <data name="AddMonthsDescr" xml:space="preserve">
+    <value>Add n months</value>
+  </data>
+  <data name="AddHoursDescr" xml:space="preserve">
+    <value>Add n hours</value>
+  </data>
+  <data name="AddMinutesDescr" xml:space="preserve">
+    <value>Add n minutes</value>
+  </data>
 </root>

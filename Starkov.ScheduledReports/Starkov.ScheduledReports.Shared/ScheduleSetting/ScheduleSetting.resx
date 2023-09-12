@@ -58,4 +58,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="SheduleSettingInstruction" xml:space="preserve">
+    <value>Perform the action "{1}" to start the setup. {0}Perform the action "{2}" in order for the parameters to be automatically pulled up from the dialog.</value>
+  </data>
+  <data name="IncrementDelimeter" xml:space="preserve">
+    <value>X</value>
+  </data>
+  <data name="NeedSelectReportError" xml:space="preserve">
+    <value>You need to select a report via an action on the ribbon.</value>
+  </data>
+  <data name="FillRequiredParametersError" xml:space="preserve">
+    <value>The report could not be started. Fill in the required parameters.</value>
+  </data>
 </root>
