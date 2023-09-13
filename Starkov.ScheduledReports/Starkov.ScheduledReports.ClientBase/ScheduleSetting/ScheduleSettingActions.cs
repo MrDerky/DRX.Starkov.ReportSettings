@@ -283,10 +283,10 @@ namespace Starkov.ScheduledReports.Client
 
     public virtual void DisableSchedule(Sungero.Domain.Client.ExecuteActionArgs e)
     {
+      PublicFunctions.Module.CloseScheduleLog(_obj);
+      
       _obj.Status = Status.Closed;
       _obj.Save();
-      
-      PublicFunctions.Module.CloseScheduleLog(_obj);
       
       Functions.ScheduleSetting.SetPropertyStates(_obj);
       _obj.State.Controls.ScheduleReportState.Refresh();
