@@ -28,6 +28,12 @@ namespace Starkov.ScheduledReports
       Functions.ScheduleSetting.SetPropertyStates(_obj);
       
       _obj.State.Properties.ReportParams.IsVisible = _obj.ShowParams.GetValueOrDefault();
+      
+      if (_obj.Status == Status.Active && !Functions.Module.Remote.GetScheduleLogs(_obj)
+          .Any(l => l.Status == ScheduleLog.Status.Waiting || l.Status == ScheduleLog.Status.Error))
+      {
+        _obj.Status = Status.Closed;
+      }
     }
     
   }

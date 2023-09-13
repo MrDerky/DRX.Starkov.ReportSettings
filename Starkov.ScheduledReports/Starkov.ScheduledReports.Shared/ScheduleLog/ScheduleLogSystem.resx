@@ -92,7 +92,7 @@
     <value>Comment</value>
   </data>
   <data name="Enum_Status_Error" xml:space="preserve">
-    <value>Error sending</value>
+    <value>Error</value>
   </data>
   <data name="Property_DocumentId" xml:space="preserve">
     <value>Document</value>

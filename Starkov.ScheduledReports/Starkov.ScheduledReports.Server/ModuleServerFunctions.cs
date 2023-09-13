@@ -27,7 +27,7 @@ namespace Starkov.ScheduledReports.Server
     /// <summary>
     /// Получить запись настройки расписания для отчета по ИД.
     /// </summary>
-    [Public, Remote]
+    [Public, Remote(IsPure = true)]
     public static IScheduleSetting GetScheduleSetting(int? id)
     {
       return ScheduleSettings.GetAll(s => s.Id == id).FirstOrDefault(s => s.Status != ScheduledReports.ScheduleSetting.Status.Closed);
@@ -38,7 +38,7 @@ namespace Starkov.ScheduledReports.Server
     /// </summary>
     /// <param name="id">ИД</param>
     /// <returns>Относительная дата</returns>
-    [Public, Remote]
+    [Public, Remote(IsPure = true)]
     public static IRelativeDate GetRelativeDate(int id)
     {
       return RelativeDates.GetAll(r => r.Id == id).FirstOrDefault(r => r.Status != ScheduledReports.RelativeDate.Status.Closed);
@@ -55,8 +55,7 @@ namespace Starkov.ScheduledReports.Server
       stateView.IsPrintable = true;
       
       var scheduleLogs = Functions.Module.GetScheduleLogs(setting)
-        .OrderByDescending(s => s.StartDate)
-        .Take(10);
+        .OrderByDescending(s => s.StartDate);
       
       if (!scheduleLogs.Any())
         return stateView;
@@ -67,76 +66,110 @@ namespace Starkov.ScheduledReports.Server
       var block = stateView.AddBlock();
       block.AddHyperlink("Показать все записи", Hyperlinks.Get(ScheduleLogs.Info));
       
+      var childBlockRowsLimit = setting != null ? 100 : 10;
+      foreach (var scheduleBySetting in scheduleLogs.GroupBy(s => s.ScheduleSettingId))
+      {
+        foreach (var log in scheduleBySetting.Take(childBlockRowsLimit))
+        {
+          if (setting != null || log.Id == scheduleBySetting.FirstOrDefault().Id)
+          {
+            block = stateView.AddBlock();
+            FillBlock(block, setting, log, nextJobExecuteTime);
+          }
+          else
+            FillBlock(block.AddChildBlock(), setting, log, nextJobExecuteTime);
+        }
+      }
+      
+      return stateView;
+    }
+    
+    /// <summary>
+    /// Добавить блок.
+    /// </summary>
+    /// <param name="block">Блок.</param>
+    /// <param name="setting">Запись настроек расписания.</param>
+    /// <param name="log">Запись журнала расписания.</param>
+    /// <param name="nextJobExecuteTime">Следующий запуск фонового процесса.</param>
+    private void FillBlock(Sungero.Core.StateBlock block, IScheduleSetting setting, IScheduleLog log, DateTime? nextJobExecuteTime)
+    {
+      #region Стили
       var iconSize = StateBlockIconSize.Large;
       var errorBlockStyle = StateBlockLabelStyle.Create();
       errorBlockStyle.Color = Colors.Common.Red;
       errorBlockStyle.FontWeight = FontWeight.Bold;
       
-      foreach (var log in scheduleLogs)
+      var statusStyle = StateBlockLabelStyle.Create();
+      statusStyle.FontWeight = FontWeight.Bold;
+      
+      if (log.Status == ScheduledReports.ScheduleLog.Status.Complete)
       {
-        block = stateView.AddBlock();
-        
-        #region Стили
-        var statusStyle = StateBlockLabelStyle.Create();
-        statusStyle.FontWeight = FontWeight.Bold;
-        
-        if (log.Status == ScheduledReports.ScheduleLog.Status.Complete)
-        {
-          block.AssignIcon(ScheduleLogs.Resources.Complete, iconSize);
-        }
-        else if (log.Status == ScheduledReports.ScheduleLog.Status.Error)
-          statusStyle = errorBlockStyle;
-        else if (log.Status == ScheduledReports.ScheduleLog.Status.Waiting)
-        {
-          statusStyle.Color = Colors.Common.Green;
-          block.AssignIcon(ScheduleLogs.Resources.Waiting, iconSize);
-        }
-        else if(log.Status == ScheduledReports.ScheduleLog.Status.Closed)
-        {
-          statusStyle.Color = Colors.Common.LightGray;
-        }
-        #endregion
-        
-        // Статус
-        block.AddLabel(log.Info.Properties.Status.GetLocalizedValue(log.Status.Value), statusStyle);
-        
-        // Ссылка на настройку расписания
-        if (setting == null && log.ScheduleSettingId.HasValue)
-          block.AddHyperlink(log.Name, Hyperlinks.Get(ScheduledReports.ScheduleSettings.Info, log.ScheduleSettingId.Value));
-        
-        // Плановый запуск
-        var content = block.AddContent();
-        content.AddLabel("Плановый запуск: " + log.StartDate.Value.ToUserTime().ToString("g"));
-        
-        // Последний запуск
-        if (log.LastStart.HasValue)
-        {
-          content.AddLineBreak();
-          content.AddLabel("Запуск " + log.LastStart.Value.ToUserTime());
-        }
-        
-        block.AddLineBreak();
-        if (log.DocumentId.HasValue)
-          // Ссылка на документ с отчетом
-          block.AddHyperlink("Просмотр", Hyperlinks.Get(Sungero.Docflow.OfficialDocuments.Info, log.DocumentId.Value));
-        else if (log.IsAsyncExecute != true)
-        {
-          // Информация о фоновом обработчике
-          if (nextJobExecuteTime.HasValue)
-            block.AddLabel(string.Format("Старт фоного процесса: {0}", nextJobExecuteTime.ToUserTime()));
-          else
-            block.AddLabel("Фоновый процесс выключен", errorBlockStyle);
-        }
-        
-        //Комментарий
-        if (!string.IsNullOrEmpty(log.Comment))
-        {
-          block.AddLineBreak();
-          block.AddLabel(log.Comment);
-        }
+        block.AssignIcon(ScheduleLogs.Resources.Complete, iconSize);
+      }
+      else if (log.Status == ScheduledReports.ScheduleLog.Status.Waiting)
+      {
+        statusStyle.Color = Colors.Common.Green;
+        block.AssignIcon(ScheduleLogs.Resources.Waiting, iconSize);
+      }
+      else if (log.Status == ScheduledReports.ScheduleLog.Status.Error)
+      {
+        statusStyle = errorBlockStyle;
+        block.AssignIcon(ScheduleLogs.Resources.Error, iconSize);
+      }
+      else if(log.Status == ScheduledReports.ScheduleLog.Status.Closed)
+      {
+        statusStyle.Color = Colors.Common.LightGray;
+      }
+      #endregion
+      
+      //TODO локализация
+      //TODO рефакторинг разбить на подфункции со своими блоками в зависимости от статуса
+      
+      // Статус
+      block.AddLabel(log.Info.Properties.Status.GetLocalizedValue(log.Status.Value), statusStyle);
+      
+      // Ссылка на настройку расписания
+      if (setting == null && log.ScheduleSettingId.HasValue)
+        block.AddHyperlink(log.Name, Hyperlinks.Get(ScheduledReports.ScheduleSettings.Info, log.ScheduleSettingId.Value));
+      
+      // Плановый запуск
+      var content = block.AddContent();
+      content.AddLabel("Плановый запуск: " + log.StartDate.Value.ToUserTime().ToString("g"));
+      
+      // Последний запуск
+      if (log.LastStart.HasValue)
+      {
+        content.AddLineBreak();
+        content.AddLabel("Запуск " + log.LastStart.Value.ToUserTime().ToString("g"));
       }
       
-      return stateView;
+      block.AddLineBreak();
+      if (log.DocumentId.HasValue)
+        // Ссылка на документ с отчетом
+        block.AddHyperlink("Просмотр", Hyperlinks.Get(Sungero.Docflow.OfficialDocuments.Info, log.DocumentId.Value));
+      else if (log.IsAsyncExecute != true)
+      {
+        // Информация о фоновом обработчике
+        if (nextJobExecuteTime.HasValue)
+          block.AddLabel(string.Format("Старт фонового процесса: {0}", nextJobExecuteTime.ToUserTime()));
+        else
+          block.AddLabel("Фоновый процесс выключен", errorBlockStyle);
+      }
+      
+      // Комментарий
+      if (log.Status == ScheduledReports.ScheduleLog.Status.Error && !string.IsNullOrEmpty(log.Comment))
+      {
+        // Сообщение об ошибке
+        block.AddLineBreak();
+        block.AddLabel("Ошибка: " + log.Comment);
+      }
+      else if(log.Status == ScheduledReports.ScheduleLog.Status.Closed && !string.IsNullOrEmpty(log.Comment))
+      {
+        //          block.AddLineBreak();
+        content.AddLineBreak();
+        //          content = block.AddContent();
+        content.AddLabel(log.Comment);
+      }
     }
     
     #endregion
@@ -247,15 +280,14 @@ namespace Starkov.ScheduledReports.Server
       catch (Exception ex)
       {
         Logger.ErrorFormat("{0} Ошибка при отправке отчета.", ex, logInfo);
-        var message = string.Format("Последний запуск: {0}. {1}", scheduleLog.LastStart, ex.Message);
-        if (message.Length > 250)
-          message = message.Substring(250);
         
-        scheduleLog.Comment = message;
+        SendNotice(Roles.Administrators, "Ошибка при отправке отчета по расписанию",
+                   string.Join(Environment.NewLine, ex.Message, ex.StackTrace),
+                   setting);
+        
+        scheduleLog.Comment = ex.Message.Length > 250 ? ex.Message.Substring(250) : ex.Message;
         scheduleLog.Status = ScheduledReports.ScheduleLog.Status.Error;
         scheduleLog.Save();
-        
-        SendNotice(Roles.Administrators, "Ошибка при отправке отчета по расписанию", ex.StackTrace, setting);
         
         return false;
       }
@@ -263,6 +295,9 @@ namespace Starkov.ScheduledReports.Server
       {
         if (Locks.GetLockInfo(scheduleLog).IsLockedByMe)
           Locks.Unlock(scheduleLog);
+        
+        if (Locks.GetLockInfo(setting).IsLockedByMe)
+          Locks.Unlock(setting);
       }
       
       return true;
@@ -273,8 +308,7 @@ namespace Starkov.ScheduledReports.Server
     /// </summary>
     /// <param name="setting">Настройки расписания.</param>
     /// <param name="scheduleLog">Журнал расписания.</param>
-    [Public]
-    public void StartSheduleReport(Starkov.ScheduledReports.IScheduleSetting setting, IScheduleLog scheduleLog)
+    private void StartSheduleReport(Starkov.ScheduledReports.IScheduleSetting setting, IScheduleLog scheduleLog)
     {
       var observers = setting.Observers.Select(o => o.Recipient).Distinct().AsEnumerable();
       if (Sungero.Company.Employees.Is(setting.Author) && !observers.Contains(setting.Author))
@@ -290,6 +324,7 @@ namespace Starkov.ScheduledReports.Server
       }
       
       Logger.Debug("StartSheduleReport. Get report");
+      
       var report = GetModuleReportByGuid(Guid.Parse(setting.ModuleGuid), Guid.Parse(setting.ReportGuid));
       if (report == null)
         return;
@@ -298,27 +333,38 @@ namespace Starkov.ScheduledReports.Server
       FillReportParams(report, setting);
 
       var document = Sungero.Docflow.SimpleDocuments.Create();
+      if (!Locks.GetLockInfo(document).IsLocked)
+        Locks.Lock(document);
+      
       document.Name = setting.Name;
       
+      Logger.Debug("StartSheduleReport. document.AccessRights.Grant");
       foreach (var recipient in observers)
         document.AccessRights.Grant(recipient, DefaultAccessRightsTypes.Read);
       
-      Logger.Debug("StartSheduleReport. document save");
-      document.Save();
-      
-      Logger.Debug("StartSheduleReport. repirt export to doc");
-      report.ExportTo(document);
+      using(var stream = new System.IO.MemoryStream())
+      {
+        using (var reportStream = report.Export())
+          reportStream.CopyTo(stream);
+        
+        Logger.Debug("StartSheduleReport. report export to doc");
+        document.CreateVersionFrom(stream, report.ExportFormat.GetFileExtension());
+        
+        Logger.Debug("StartSheduleReport. document save");
+        document.Save();
+        
+        if (!Locks.GetLockInfo(document).IsLockedByMe)
+          Locks.Unlock(document);
+      }
       
       Logger.Debug("StartSheduleReport. task start");
-      SendNotice(observers.ToArray(), string.Format(Starkov.ScheduledReports.Resources.ReportSubject, setting.Name), null, document);
+      SendNotice(observers.ToArray(), setting.Name, null, document);
       
       scheduleLog.DocumentId = document.Id;
       scheduleLog.Status = ScheduledReports.ScheduleLog.Status.Complete;
       scheduleLog.Save();
-      Logger.DebugFormat("StartSheduleReport. scheduleLog {0} save status = {1}", scheduleLog.Id, scheduleLog.Status);
       
-      if (setting.State.IsChanged)
-        setting.Save();
+      Logger.DebugFormat("StartSheduleReport. scheduleLog {0} save status = {1}", scheduleLog.Id, scheduleLog.Status);
     }
     
     /// <summary>
@@ -343,7 +389,7 @@ namespace Starkov.ScheduledReports.Server
     /// Получить записи журнала расписаний.
     /// </summary>
     /// <returns>Список записей журнала.</returns>
-    [Public, Remote]
+    [Public, Remote(IsPure = true)]
     public IQueryable<IScheduleLog> GetScheduleLogs()
     {
       return GetScheduleLogs(null);
@@ -354,7 +400,7 @@ namespace Starkov.ScheduledReports.Server
     /// </summary>
     /// <param name="setting">Настройка расписания.</param>
     /// <returns>Список записей журнала.</returns>
-    [Public, Remote]
+    [Public, Remote(IsPure = true)]
     public IQueryable<IScheduleLog> GetScheduleLogs(Starkov.ScheduledReports.IScheduleSetting setting)
     {
       IQueryable<IScheduleLog> scheduleLogs = null;
@@ -375,7 +421,7 @@ namespace Starkov.ScheduledReports.Server
     /// Получить запись журнала расписаний для предпросмотра.
     /// </summary>
     /// <returns>Запись журнала со статусом Preview.</returns>
-    [Public, Remote]
+    [Public, Remote(IsPure = true)]
     public IScheduleLog GetPreviewScheduleLog()
     {
       var scheduleLog = ScheduleLogs.Null;

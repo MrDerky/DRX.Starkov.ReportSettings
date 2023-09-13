@@ -23,13 +23,13 @@ namespace Starkov.ScheduledReports.Server
       
       Logger.DebugFormat("{0}. lastJobExecuteTime={1}, nextJobExecuteTime={2}", logInfo, lastJobExecuteTime, nextJobExecuteTime);
       
+      // Если есть асинхронные варианты, но с ошибками - подхватить их фоновым процессом
       var scheduleLogs = Functions.Module.GetScheduleLogs()
-        .Where(s => s.Status == ScheduledReports.ScheduleLog.Status.Waiting)
-        .Where(s => s.IsAsyncExecute != true)
+        .Where(s => s.IsAsyncExecute != true && s.Status == ScheduledReports.ScheduleLog.Status.Waiting || s.Status == ScheduledReports.ScheduleLog.Status.Error)
         .Where(s => s.StartDate.HasValue &&
                !lastJobExecuteTime.HasValue || lastJobExecuteTime < s.StartDate.Value &&
                !nextJobExecuteTime.HasValue || s.StartDate.Value <= nextJobExecuteTime);
-      
+      //TODO добавить закрытие Setting
       foreach (var schedule in scheduleLogs)
       {
         Logger.DebugFormat("{0}. scheduleLog={1}", logInfo, schedule.Id);
