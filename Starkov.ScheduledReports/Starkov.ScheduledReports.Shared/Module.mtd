@@ -385,23 +385,6 @@
       "Placement": "Shared",
       "ReturnType": "global::Starkov.ScheduledReports.IScheduleSetting",
       "ReturnTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
-    },
-    {
-      "Name": "StartSheduleReport",
-      "Parameters": [
-        {
-          "Name": "setting",
-          "ParameterType": "global::Starkov.ScheduledReports.IScheduleSetting",
-          "ParameterTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
-        },
-        {
-          "Name": "scheduleLog",
-          "ParameterType": "global::Starkov.ScheduledReports.IScheduleLog",
-          "ParameterTypeFullName": "Starkov.ScheduledReports.IScheduleLog, Sungero.Domain.Interfaces"
-        }
-      ],
-      "ReturnType": "void",
-      "ReturnTypeFullName": "System.Void"
     }
   ],
   "PublicStructures": [
@@ -431,7 +414,6 @@
   "ResourceInterfaceAssemblyName": "Sungero.Domain.Interfaces",
   "ResourceInterfaceNamespace": "Starkov.ScheduledReports",
   "ResourcesKeys": [
-    "ReportSubject",
     "RelativeDateEditorsRoleName",
     "RelativeDateEditorsRoleDescription",
     "ScheduledReportsAccessRoleName",
