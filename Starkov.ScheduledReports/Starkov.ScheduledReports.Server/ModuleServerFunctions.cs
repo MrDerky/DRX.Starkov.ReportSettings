@@ -41,7 +41,7 @@ namespace Starkov.ScheduledReports.Server
     [Public, Remote(IsPure = true)]
     public static IRelativeDate GetRelativeDate(int id)
     {
-      return RelativeDates.GetAll(r => r.Id == id).FirstOrDefault(r => r.Status != ScheduledReports.RelativeDate.Status.Closed);
+      return RelativeDates.GetAllCached(r => r.Id == id).FirstOrDefault(r => r.Status != ScheduledReports.RelativeDate.Status.Closed);
     }
     
     #region StateView расписаний
@@ -74,10 +74,10 @@ namespace Starkov.ScheduledReports.Server
           if (setting != null || log.Id == scheduleBySetting.FirstOrDefault().Id)
           {
             block = stateView.AddBlock();
-            FillBlock(block, setting, log, nextJobExecuteTime);
+            FillBlock(block, setting, log, nextJobExecuteTime, false);
           }
           else
-            FillBlock(block.AddChildBlock(), setting, log, nextJobExecuteTime);
+            FillBlock(block.AddChildBlock(), setting, log, nextJobExecuteTime, true);
         }
       }
       
@@ -91,7 +91,7 @@ namespace Starkov.ScheduledReports.Server
     /// <param name="setting">Запись настроек расписания.</param>
     /// <param name="log">Запись журнала расписания.</param>
     /// <param name="nextJobExecuteTime">Следующий запуск фонового процесса.</param>
-    private void FillBlock(Sungero.Core.StateBlock block, IScheduleSetting setting, IScheduleLog log, DateTime? nextJobExecuteTime)
+    private void FillBlock(Sungero.Core.StateBlock block, IScheduleSetting setting, IScheduleLog log, DateTime? nextJobExecuteTime, bool IsChildBlock)
     {
       #region Стили
       var iconSize = StateBlockIconSize.Large;
@@ -129,18 +129,18 @@ namespace Starkov.ScheduledReports.Server
       block.AddLabel(log.Info.Properties.Status.GetLocalizedValue(log.Status.Value), statusStyle);
       
       // Ссылка на настройку расписания
-      if (setting == null && log.ScheduleSettingId.HasValue)
+      if (!IsChildBlock && setting == null && log.ScheduleSettingId.HasValue)
         block.AddHyperlink(log.Name, Hyperlinks.Get(ScheduledReports.ScheduleSettings.Info, log.ScheduleSettingId.Value));
       
       // Плановый запуск
       var content = block.AddContent();
-      content.AddLabel("Плановый запуск: " + log.StartDate.Value.ToUserTime().ToString("g"));
+      content.AddLabel("Плановый запуск: " + GetStringDate(log.StartDate));
       
       // Последний запуск
       if (log.LastStart.HasValue)
       {
         content.AddLineBreak();
-        content.AddLabel("Запуск " + log.LastStart.Value.ToUserTime().ToString("g"));
+        content.AddLabel("Запуск " + GetStringDate(log.LastStart));
       }
       
       block.AddLineBreak();
@@ -170,6 +170,17 @@ namespace Starkov.ScheduledReports.Server
         //          content = block.AddContent();
         content.AddLabel(log.Comment);
       }
+    }
+    
+    private string GetStringDate(DateTime? date)
+    {
+      if (!date.HasValue)
+        return string.Empty;
+      
+      if (Calendar.Today == date.Value.Date)
+        return date.Value.ToUserTime().ToShortTimeString();
+      
+      return date.Value.ToUserTime().ToString("g");
     }
     
     #endregion
@@ -272,6 +283,12 @@ namespace Starkov.ScheduledReports.Server
     {
       try
       {
+        if (!Locks.GetLockInfo(scheduleLog).IsLockedByMe && !Locks.TryLock(scheduleLog))
+        {
+          Logger.DebugFormat("{0} Запись справочника scheduleLog={1} заблокирована пользователем {2}.", logInfo, scheduleLog.Id, Locks.GetLockInfo(scheduleLog).OwnerName);
+          return false;
+        }
+        
         scheduleLog.LastStart = Calendar.Now;
         
         StartSheduleReport(setting, scheduleLog);
@@ -293,6 +310,7 @@ namespace Starkov.ScheduledReports.Server
       }
       finally
       {
+        Logger.ErrorFormat("{0} Разблокировка scheduleLog={1}, setting={2}.", logInfo, scheduleLog.Id, setting.Id);
         if (Locks.GetLockInfo(scheduleLog).IsLockedByMe)
           Locks.Unlock(scheduleLog);
         
@@ -438,15 +456,10 @@ namespace Starkov.ScheduledReports.Server
     /// <summary>
     /// Создать запись Журнала расписаний
     /// </summary>
-    [Public]
-    public IScheduleLog CreateScheduleLog(Starkov.ScheduledReports.IScheduleSetting setting, DateTime? startDate)
+    private void CreateScheduleLog(Starkov.ScheduledReports.IScheduleSetting setting, DateTime? startDate)
     {
-      var scheduleLog = ScheduleLogs.Null;
       if (setting == null)
-        return scheduleLog;
-      
-      if (setting.DateEnd.HasValue && setting.DateEnd.Value <= Calendar.Now)
-        return scheduleLog;
+        return;
       
       if (startDate == null)
         startDate = Functions.ScheduleSetting.GetNextPeriod(setting, startDate);
@@ -457,17 +470,22 @@ namespace Starkov.ScheduledReports.Server
         throw new Exception("Не удалось вычислить дату следующего выполнения.");
       }
       
+      if (setting.DateEnd.HasValue && setting.DateEnd.Value < startDate.Value)
+        return;
+      
       AccessRights.AllowRead(() =>
                              {
-                               scheduleLog = ScheduleLogs.Create();
+                               var scheduleLog = ScheduleLogs.Create();
                                scheduleLog.ScheduleSettingId = setting.Id;
                                scheduleLog.Name = setting.Name;
                                scheduleLog.StartDate = startDate;
                                scheduleLog.Status = ScheduledReports.ScheduleLog.Status.Waiting;
                                scheduleLog.IsAsyncExecute = setting.IsAsyncExecute;
                                scheduleLog.Save();
+                               
+                               if (Locks.GetLockInfo(scheduleLog).IsLockedByMe)
+                                 Locks.Unlock(scheduleLog);
                              });
-      return scheduleLog;
     }
     
     #endregion

@@ -41,7 +41,10 @@ namespace Starkov.ScheduledReports.Server
         }
         
         if (!Functions.Module.ScheduleLogExecute(setting, schedule, logInfo))
+        {
           Logger.DebugFormat("{0}. scheduleLog={1}. Ошибка при обработке.", logInfo, schedule.Id);
+          return;
+        }
       }
       
       Logger.DebugFormat("{0}. Done.", logInfo);

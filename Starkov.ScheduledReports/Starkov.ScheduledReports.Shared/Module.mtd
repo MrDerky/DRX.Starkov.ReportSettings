@@ -6,7 +6,7 @@
     {
       "NameGuid": "b396d5a4-3524-4af1-9b1d-29963e1bdae1",
       "Name": "SendSheduleReport",
-      "DelayPeriod": 15,
+      "DelayPeriod": 1,
       "DelayStrategy": "RegularDelayStrategy",
       "IsHandlerGenerated": true,
       "Parameters": [
@@ -189,23 +189,6 @@
       ],
       "ReturnType": "void",
       "ReturnTypeFullName": "System.Void"
-    },
-    {
-      "Name": "CreateScheduleLog",
-      "Parameters": [
-        {
-          "Name": "setting",
-          "ParameterType": "global::Starkov.ScheduledReports.IScheduleSetting",
-          "ParameterTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
-        },
-        {
-          "Name": "startDate",
-          "ParameterType": "global::System.Nullable<global::System.DateTime>",
-          "ParameterTypeFullName": "System.Nullable"
-        }
-      ],
-      "ReturnType": "global::Starkov.ScheduledReports.IScheduleLog",
-      "ReturnTypeFullName": "Starkov.ScheduledReports.IScheduleLog, Sungero.Domain.Interfaces"
     },
     {
       "Name": "CreateScheduleSetting",
