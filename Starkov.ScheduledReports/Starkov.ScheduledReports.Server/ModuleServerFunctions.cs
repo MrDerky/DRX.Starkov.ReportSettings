@@ -62,9 +62,12 @@ namespace Starkov.ScheduledReports.Server
       
       var nextJobExecuteTime = Functions.Module.GetNextJobExecuteTime(Constants.Module.SendSheduleReportsJobId);
       
-      // TODO Реализовать возможность просмотра всех записей (Листание или отчет)
       var block = stateView.AddBlock();
-      block.AddHyperlink("Показать все записи", Hyperlinks.Get(ScheduleLogs.Info));
+      // TODO Подумать как лучше реализовать возможность просмотра всех записей (Листание или отчет)
+      if (Users.Current.IncludedIn(Roles.Administrators))
+        block.AddHyperlink("Показать все записи", Hyperlinks.Get(ScheduleLogs.Info));
+      else
+        block.AddLabel("Информация о созданных расписаниях.");
       
       var childBlockRowsLimit = setting != null ? 100 : 10;
       foreach (var scheduleBySetting in scheduleLogs.GroupBy(s => s.ScheduleSettingId))
@@ -239,28 +242,6 @@ namespace Starkov.ScheduledReports.Server
     }
     
     /// <summary>
-    /// Отключить расписание.
-    /// </summary>
-    /// <param name="setting">Настройка расписания.</param>
-    [Public]
-    public void CloseScheduleLog(Starkov.ScheduledReports.IScheduleSetting setting)
-    {
-      AccessRights.AllowRead(() =>
-                             {
-                               var scheduleLogs = ScheduleLogs.GetAll(s => s.ScheduleSettingId == setting.Id)
-                                 .Where(s => s.Status == ScheduledReports.ScheduleLog.Status.Waiting || s.Status == ScheduledReports.ScheduleLog.Status.Error)
-                                 .OrderByDescending(s => s.StartDate);
-                               
-                               foreach (var scheduleLog in scheduleLogs)
-                               {
-                                 scheduleLog.Status = ScheduledReports.ScheduleLog.Status.Closed;
-                                 scheduleLog.Comment = string.Format("Отменил: {0}", Users.Current.Name);
-                                 scheduleLog.Save();
-                               }
-                             });
-    }
-    
-    /// <summary>
     /// Создать асинхронный обработчик для отправки отчета.
     /// </summary>
     /// <param name="scheduleSettingId"></param>
@@ -421,16 +402,11 @@ namespace Starkov.ScheduledReports.Server
     [Public, Remote(IsPure = true)]
     public IQueryable<IScheduleLog> GetScheduleLogs(Starkov.ScheduledReports.IScheduleSetting setting)
     {
-      IQueryable<IScheduleLog> scheduleLogs = null;
-      
-      AccessRights.AllowRead(() =>
-                             {
-                               scheduleLogs = ScheduleLogs.GetAll()
-                                 .Where(s => s.Status != ScheduledReports.ScheduleLog.Status.Preview);
-                               
-                               if (setting != null)
-                                 scheduleLogs = scheduleLogs.Where(s => s.ScheduleSettingId == setting.Id);
-                             });
+      var scheduleLogs = ScheduleLogs.GetAll()
+        .Where(s => s.Status != ScheduledReports.ScheduleLog.Status.Preview);
+
+      if (setting != null)
+        scheduleLogs = scheduleLogs.Where(s => s.ScheduleSettingId == setting.Id);
       
       return scheduleLogs;
     }
@@ -442,13 +418,8 @@ namespace Starkov.ScheduledReports.Server
     [Public, Remote(IsPure = true)]
     public IScheduleLog GetPreviewScheduleLog()
     {
-      var scheduleLog = ScheduleLogs.Null;
-      
-      AccessRights.AllowRead(() =>
-                             {
-                               scheduleLog = ScheduleLogs.GetAll()
-                                 .FirstOrDefault(s => s.Status == ScheduledReports.ScheduleLog.Status.Preview);
-                             });
+      var scheduleLog = ScheduleLogs.GetAll()
+        .FirstOrDefault(s => s.Status == ScheduledReports.ScheduleLog.Status.Preview);
       
       return scheduleLog;
     }
@@ -473,19 +444,42 @@ namespace Starkov.ScheduledReports.Server
       if (setting.DateEnd.HasValue && setting.DateEnd.Value < startDate.Value)
         return;
       
-      AccessRights.AllowRead(() =>
-                             {
-                               var scheduleLog = ScheduleLogs.Create();
-                               scheduleLog.ScheduleSettingId = setting.Id;
-                               scheduleLog.Name = setting.Name;
-                               scheduleLog.StartDate = startDate;
-                               scheduleLog.Status = ScheduledReports.ScheduleLog.Status.Waiting;
-                               scheduleLog.IsAsyncExecute = setting.IsAsyncExecute;
-                               scheduleLog.Save();
-                               
-                               if (Locks.GetLockInfo(scheduleLog).IsLockedByMe)
-                                 Locks.Unlock(scheduleLog);
-                             });
+      var scheduleLog = ScheduleLogs.Create();
+      scheduleLog.ScheduleSettingId = setting.Id;
+      scheduleLog.Name = setting.Name;
+      scheduleLog.StartDate = startDate;
+      scheduleLog.Status = ScheduledReports.ScheduleLog.Status.Waiting;
+      scheduleLog.IsAsyncExecute = setting.IsAsyncExecute;
+      
+      if (Users.Current.Id != setting.Author.Id)
+        scheduleLog.AccessRights.Grant(setting.Author, DefaultAccessRightsTypes.FullAccess);
+      
+      foreach (var observer in setting.Observers.Select(o => o.Recipient))
+        scheduleLog.AccessRights.Grant(observer, DefaultAccessRightsTypes.Read);
+      
+      scheduleLog.Save();
+      
+      if (Locks.GetLockInfo(scheduleLog).IsLockedByMe)
+        Locks.Unlock(scheduleLog);
+    }
+    
+    /// <summary>
+    /// Отключить расписание.
+    /// </summary>
+    /// <param name="setting">Настройка расписания.</param>
+    [Public]
+    public void CloseScheduleLog(Starkov.ScheduledReports.IScheduleSetting setting)
+    {
+      var scheduleLogs = ScheduleLogs.GetAll(s => s.ScheduleSettingId == setting.Id)
+        .Where(s => s.Status == ScheduledReports.ScheduleLog.Status.Waiting || s.Status == ScheduledReports.ScheduleLog.Status.Error)
+        .OrderByDescending(s => s.StartDate);
+      
+      foreach (var scheduleLog in scheduleLogs)
+      {
+        scheduleLog.Status = ScheduledReports.ScheduleLog.Status.Closed;
+        scheduleLog.Comment = string.Format("Отменил: {0}", Users.Current.Name);
+        scheduleLog.Save();
+      }
     }
     
     #endregion
