@@ -62,6 +62,11 @@ namespace Starkov.ScheduledReports.Server
       if (!Functions.Module.ScheduleLogExecute(setting, scheduleLog, logInfo))
       {
         Logger.DebugFormat("{0}. scheduleLog={1}. Ошибка при обработке.", logInfo, scheduleLog.Id);
+        
+        // HACK Обход платформенного бага при генерации отчетов
+        if (scheduleLog.Comment.Contains("System.NullReferenceException"))
+          args.NextRetryTime = Calendar.Now.AddSeconds(10);
+        
         args.Retry = args.RetryIteration < 100;
         return;
       }

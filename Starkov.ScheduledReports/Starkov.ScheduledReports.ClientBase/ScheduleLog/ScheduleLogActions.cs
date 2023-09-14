@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -27,7 +27,8 @@ namespace Starkov.ScheduledReports.Client
 
     public override bool CanDeleteEntity(Sungero.Domain.Client.CanExecuteActionArgs e)
     {
-      return false;
+      // TODO Отключить возможность удаления
+      return true;
     }
 
   }

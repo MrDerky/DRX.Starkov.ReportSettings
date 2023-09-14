@@ -27,7 +27,7 @@ namespace Starkov.ScheduledReports.Server
       var scheduleLogs = Functions.Module.GetScheduleLogs()
         .Where(s => s.IsAsyncExecute != true && s.Status == ScheduledReports.ScheduleLog.Status.Waiting || s.Status == ScheduledReports.ScheduleLog.Status.Error)
         .Where(s => s.StartDate.HasValue &&
-               !lastJobExecuteTime.HasValue || lastJobExecuteTime < s.StartDate.Value &&
+               //!lastJobExecuteTime.HasValue || lastJobExecuteTime < s.StartDate.Value &&
                !nextJobExecuteTime.HasValue || s.StartDate.Value <= nextJobExecuteTime);
       //TODO добавить закрытие Setting
       foreach (var schedule in scheduleLogs)
@@ -43,6 +43,14 @@ namespace Starkov.ScheduledReports.Server
         if (!Functions.Module.ScheduleLogExecute(setting, schedule, logInfo))
         {
           Logger.DebugFormat("{0}. scheduleLog={1}. Ошибка при обработке.", logInfo, schedule.Id);
+          
+          // HACK Обход платформенного бага при генерации отчетов
+          if (schedule.Comment.Contains("System.NullReferenceException"))
+          {
+            Logger.DebugFormat("{0}. scheduleLog={1}. Передача обработки в асинхронный обработчик.", logInfo, schedule.Id);
+            Functions.Module.ExecuteSheduleReportAsync(setting.Id);
+          }
+          
           return;
         }
       }
