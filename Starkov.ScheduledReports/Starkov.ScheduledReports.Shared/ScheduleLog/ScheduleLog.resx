@@ -262,4 +262,7 @@
         D///+B////w////8P////n////////////8=
 </value>
   </data>
+  <data name="CancelByUser" xml:space="preserve">
+    <value>Canceled: {0}</value>
+  </data>
 </root>
