@@ -28,7 +28,7 @@ namespace Starkov.ScheduledReports.Server
       
       var scheduleLog = ScheduleLogs.GetAll(s => s.ScheduleSettingId == setting.Id)
         .Where(s => s.Status == ScheduledReports.ScheduleLog.Status.Waiting || s.Status == ScheduledReports.ScheduleLog.Status.Error)
-        .OrderByDescending(s => s.StartDate)
+        .OrderByDescending(s => s.Id)
         .FirstOrDefault();
       
       if (scheduleLog == null)

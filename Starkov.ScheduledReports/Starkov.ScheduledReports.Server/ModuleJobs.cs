@@ -25,13 +25,12 @@ namespace Starkov.ScheduledReports.Server
       
       // Если есть асинхронные варианты, но с ошибками - подхватить их фоновым процессом
       var scheduleLogs = Functions.Module.GetScheduleLogs()
-        .Where(s => s.IsAsyncExecute != true && s.Status == ScheduledReports.ScheduleLog.Status.Waiting || s.Status == ScheduledReports.ScheduleLog.Status.Error)
+        .Where(s => (s.IsAsyncExecute != true || s.StartDate < Calendar.Now) && s.Status == ScheduledReports.ScheduleLog.Status.Waiting || s.Status == ScheduledReports.ScheduleLog.Status.Error)
         .Where(s => s.StartDate.HasValue &&
                //!lastJobExecuteTime.HasValue || lastJobExecuteTime < s.StartDate.Value &&
                !nextJobExecuteTime.HasValue || s.StartDate.Value <= nextJobExecuteTime)
-        .OrderByDescending(s => s.StartDate);
+        .OrderByDescending(s => s.Id);
       
-      //TODO добавить закрытие Setting
       foreach (var scheduleBySetting in scheduleLogs.GroupBy(s => s.ScheduleSettingId))
       {
         var schedule = scheduleBySetting.First();
@@ -40,13 +39,13 @@ namespace Starkov.ScheduledReports.Server
         if (setting == null)
         {
           Logger.DebugFormat("{0}. Не удалось получить действующую запись справочника SheduleSetting.", logInfo);
-          if (Locks.TryLock(setting))
+          if (Locks.TryLock(schedule))
           {
-            setting.Status = ScheduledReports.ScheduleSetting.Status.Closed;
-            setting.Save();
+            schedule.Status = ScheduledReports.ScheduleLog.Status.Closed;
+            schedule.Save();
             
-            if (Locks.GetLockInfo(setting).IsLockedByMe)
-              Locks.Unlock(setting);
+            if (Locks.GetLockInfo(schedule).IsLockedByMe)
+              Locks.Unlock(schedule);
           }
           continue;
         }
