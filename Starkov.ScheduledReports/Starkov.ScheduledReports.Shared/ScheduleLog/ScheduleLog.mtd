@@ -98,6 +98,8 @@
   "HandledEvents": [
     "ShowingClient"
   ],
+  "HideFromCreationArea": true,
+  "HideFromNavigationEditorCreationArea": true,
   "IconResourcesKeys": [
     "Waiting",
     "Complete",
@@ -111,7 +113,9 @@
     "IsVisible",
     "NeedWriteHistory",
     "IsAutoCreated",
-    "AccessRightsMode"
+    "AccessRightsMode",
+    "HideFromNavigationEditorCreationArea",
+    "HideFromCreationArea"
   ],
   "Properties": [
     {

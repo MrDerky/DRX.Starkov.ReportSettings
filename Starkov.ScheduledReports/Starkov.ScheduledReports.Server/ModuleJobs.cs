@@ -14,7 +14,7 @@ namespace Starkov.ScheduledReports.Server
     /// </summary>
     public virtual void SendSheduleReports()
     {
-      var logInfo = string.Format("SendSheduleReports");
+      var logInfo = string.Format("SendSheduleReports Job");
       Logger.DebugFormat("{0}. Start.", logInfo);
       
       var jobId = Constants.Module.SendSheduleReportsJobId;
@@ -28,15 +28,26 @@ namespace Starkov.ScheduledReports.Server
         .Where(s => s.IsAsyncExecute != true && s.Status == ScheduledReports.ScheduleLog.Status.Waiting || s.Status == ScheduledReports.ScheduleLog.Status.Error)
         .Where(s => s.StartDate.HasValue &&
                //!lastJobExecuteTime.HasValue || lastJobExecuteTime < s.StartDate.Value &&
-               !nextJobExecuteTime.HasValue || s.StartDate.Value <= nextJobExecuteTime);
+               !nextJobExecuteTime.HasValue || s.StartDate.Value <= nextJobExecuteTime)
+        .OrderByDescending(s => s.StartDate);
+      
       //TODO добавить закрытие Setting
-      foreach (var schedule in scheduleLogs)
+      foreach (var scheduleBySetting in scheduleLogs.GroupBy(s => s.ScheduleSettingId))
       {
+        var schedule = scheduleBySetting.First();
         Logger.DebugFormat("{0}. scheduleLog={1}", logInfo, schedule.Id);
         var setting = PublicFunctions.Module.Remote.GetScheduleSetting(schedule.ScheduleSettingId);
         if (setting == null)
         {
           Logger.DebugFormat("{0}. Не удалось получить действующую запись справочника SheduleSetting.", logInfo);
+          if (Locks.TryLock(setting))
+          {
+            setting.Status = ScheduledReports.ScheduleSetting.Status.Closed;
+            setting.Save();
+            
+            if (Locks.GetLockInfo(setting).IsLockedByMe)
+              Locks.Unlock(setting);
+          }
           continue;
         }
         
@@ -45,7 +56,7 @@ namespace Starkov.ScheduledReports.Server
           Logger.DebugFormat("{0}. scheduleLog={1}. Ошибка при обработке.", logInfo, schedule.Id);
           
           // HACK Обход платформенного бага при генерации отчетов
-          if (schedule.Comment.Contains("System.NullReferenceException"))
+          if (schedule.Comment.Contains("Object reference not set to an instance of an object."))
           {
             Logger.DebugFormat("{0}. scheduleLog={1}. Передача обработки в асинхронный обработчик.", logInfo, schedule.Id);
             Functions.Module.ExecuteSheduleReportAsync(setting.Id);

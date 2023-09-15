@@ -16,7 +16,7 @@ namespace Starkov.ScheduledReports.Server
     public virtual void SendSheduleReport(Starkov.ScheduledReports.Server.AsyncHandlerInvokeArgs.SendSheduleReportInvokeArgs args)
     {
       var logInfo = string.Format("SendSheduleReport. SheduleSettingId = {0}.", args.SheduleSettingId);
-      Logger.DebugFormat("{0} Start.", logInfo);
+      Logger.DebugFormat("{0} Start. RetryIteration={1}", logInfo, args.RetryIteration);
       
       var setting = PublicFunctions.Module.Remote.GetScheduleSetting(args.SheduleSettingId);
       if (setting == null)
@@ -64,7 +64,7 @@ namespace Starkov.ScheduledReports.Server
         Logger.DebugFormat("{0}. scheduleLog={1}. Ошибка при обработке.", logInfo, scheduleLog.Id);
         
         // HACK Обход платформенного бага при генерации отчетов
-        if (scheduleLog.Comment.Contains("System.NullReferenceException"))
+        if (scheduleLog.Comment.Contains("Object reference not set to an instance of an object."))
           args.NextRetryTime = Calendar.Now.AddSeconds(10);
         
         args.Retry = args.RetryIteration < 100;
