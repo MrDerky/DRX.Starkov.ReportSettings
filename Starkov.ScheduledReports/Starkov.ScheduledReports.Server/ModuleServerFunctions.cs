@@ -140,7 +140,7 @@ namespace Starkov.ScheduledReports.Server
       content.AddLabel("Плановый запуск: " + GetStringDate(log.StartDate));
       
       // Последний запуск
-      if (log.LastStart.HasValue)
+      if (log.LastStart.HasValue && log.Status != ScheduledReports.ScheduleLog.Status.Closed)
       {
         content.AddLineBreak();
         content.AddLabel("Запуск " + GetStringDate(log.LastStart));
@@ -156,7 +156,7 @@ namespace Starkov.ScheduledReports.Server
         if (nextJobExecuteTime.HasValue)
           block.AddLabel(string.Format("Старт фонового процесса: {0}", nextJobExecuteTime.ToUserTime()));
         else
-          block.AddLabel("Фоновый процесс выключен", errorBlockStyle);
+          block.AddLabel("Не удалось получить время старта фонового процесса", errorBlockStyle);
       }
       
       // Комментарий
@@ -476,8 +476,10 @@ namespace Starkov.ScheduledReports.Server
       
       foreach (var scheduleLog in scheduleLogs)
       {
+        if (scheduleLog.Status == ScheduledReports.ScheduleLog.Status.Error && scheduleLog.Id != scheduleLogs.FirstOrDefault().Id)
+          continue;
+        
         scheduleLog.Status = ScheduledReports.ScheduleLog.Status.Closed;
-        scheduleLog.Comment = string.Format("Отменил: {0}", Users.Current.Name);
         scheduleLog.Save();
       }
     }
