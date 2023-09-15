@@ -124,4 +124,10 @@
   <data name="JobDescription_6862cdbe45d647c19e7310687664a758" xml:space="preserve">
     <value>Sending reports on a schedule</value>
   </data>
+  <data name="CoverAction_ReportList" xml:space="preserve">
+    <value>Reports</value>
+  </data>
+  <data name="CoverDescription_ReportList" xml:space="preserve">
+    <value>List of reports available for creating a schedule</value>
+  </data>
 </root>

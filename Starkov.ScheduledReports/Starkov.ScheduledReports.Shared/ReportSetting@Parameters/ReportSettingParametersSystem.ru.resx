@@ -58,55 +58,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DisplayName" xml:space="preserve">
-    <value>Расписание отчетов</value>
+  <data name="Property_ParameterName" xml:space="preserve">
+    <value>Параметр</value>
   </data>
-  <data name="CoverGroup_Links" xml:space="preserve">
-    <value>Связанная информация</value>
+  <data name="Property_DisplayName" xml:space="preserve">
+    <value>Отображаемое имя</value>
   </data>
-  <data name="CoverTitle" xml:space="preserve">
-    <value>Расписание отчетов</value>
+  <data name="Property_EntityGuid" xml:space="preserve">
+    <value>Тип сущности</value>
   </data>
-  <data name="CoverAction_ScheduleSettings" xml:space="preserve">
-    <value>Настройки расписаний</value>
+  <data name="Property_EntityId" xml:space="preserve">
+    <value>ИД</value>
   </data>
-  <data name="CoverGroup_Settings" xml:space="preserve">
-    <value>Настройки</value>
-  </data>
-  <data name="CoverAction_Create" xml:space="preserve">
-    <value>Создать настройку</value>
-  </data>
-  <data name="AsyncHandler_Description_b396d5a435244af19b1d29963e1bdae1" xml:space="preserve">
-    <value>Отправка отчета по расписанию</value>
-  </data>
-  <data name="CoverAction_RelativeDates" xml:space="preserve">
-    <value>Относительные даты</value>
-  </data>
-  <data name="CoverDescription_RelativeDates" xml:space="preserve">
-    <value>Реестр записей с относительными датами</value>
-  </data>
-  <data name="CoverDescription" xml:space="preserve">
-    <value>Модуль предназначен для автоматизации доставки отчетов</value>
-  </data>
-  <data name="CoverGroup_Control" xml:space="preserve">
-    <value>Контроль</value>
-  </data>
-  <data name="CoverAction_ScheduleLog" xml:space="preserve">
-    <value>Журнал</value>
-  </data>
-  <data name="CoverDescription_ScheduleLog" xml:space="preserve">
-    <value>Просмотр созданных расписаний</value>
-  </data>
-  <data name="JobDisplayName_6862cdbe45d647c19e7310687664a758" xml:space="preserve">
-    <value>Расписание отчетов. Отправка отчетов по расписанию</value>
-  </data>
-  <data name="JobDescription_6862cdbe45d647c19e7310687664a758" xml:space="preserve">
-    <value>Отправка отчетов по расписанию</value>
-  </data>
-  <data name="CoverAction_ReportList" xml:space="preserve">
-    <value>Отчеты</value>
-  </data>
-  <data name="CoverDescription_ReportList" xml:space="preserve">
-    <value>Список отчетов, доступных для создания расписания</value>
+  <data name="Property_ViewValue" xml:space="preserve">
+    <value>Значение</value>
   </data>
 </root>

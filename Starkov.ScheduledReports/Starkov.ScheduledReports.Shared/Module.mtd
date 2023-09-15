@@ -71,6 +71,14 @@
         "EntityTypeId": "26553e87-531b-4953-980d-ab3e60bcebee",
         "GroupId": "bbc9ca63-c0d5-4c9b-9090-1e04a42f3253",
         "PreviousItemGuid": "3ee49337-d241-45fd-9809-5e50a39c9e17"
+      },
+      {
+        "$type": "Sungero.Metadata.CoverEntityListActionMetadata, Sungero.Metadata",
+        "NameGuid": "9f5e6348-f544-4ec7-8ca5-8381dd44d6fe",
+        "Name": "ReportList",
+        "EntityTypeId": "1a5e10f7-94af-4743-8f32-23e7082cad39",
+        "GroupId": "bbc9ca63-c0d5-4c9b-9090-1e04a42f3253",
+        "PreviousItemGuid": "5669231a-5c28-4b3d-9f7d-6319bc4129bf"
       }
     ],
     "Background": null,
@@ -133,6 +141,14 @@
     {
       "ItemId": "14ecf32c-4688-4751-a90f-835f5b0d8698",
       "PreviousItemId": "26553e87-531b-4953-980d-ab3e60bcebee"
+    },
+    {
+      "ItemId": "e16bca43-f163-4828-855d-222a38a1994a",
+      "PreviousItemId": "14ecf32c-4688-4751-a90f-835f5b0d8698"
+    },
+    {
+      "ItemId": "1a5e10f7-94af-4743-8f32-23e7082cad39",
+      "PreviousItemId": "e16bca43-f163-4828-855d-222a38a1994a"
     }
   ],
   "HandledEvents": [
