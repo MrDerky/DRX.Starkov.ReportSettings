@@ -66,6 +66,9 @@ namespace Starkov.ScheduledReports.Server
       if (_obj.DateBegin.HasValue && resultDate < _obj.DateBegin.Value)
         return _obj.DateBegin.Value;
       
+      if (resultDate < Calendar.Now)
+        return GetNextPeriod(number, resultDate);
+      
       return resultDate;
     }
 
@@ -141,7 +144,7 @@ namespace Starkov.ScheduledReports.Server
             reportParam.ViewValue = entityParameter.Entity.DisplayValue;
           }
           else
-            reportParam.ViewValue = parameter.Value.ToString();
+            reportParam.ViewValue = parameter.Value.ToString().Contains(reportParam.InternalDataTypeName) ? string.Empty : parameter.Value.ToString();
         }
       }
     }

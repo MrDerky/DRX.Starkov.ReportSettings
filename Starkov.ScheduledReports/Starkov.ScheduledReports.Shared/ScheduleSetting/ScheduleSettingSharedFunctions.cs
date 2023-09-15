@@ -12,7 +12,7 @@ namespace Starkov.ScheduledReports.Shared
 
     /// <summary>
     /// Установить доступность свойств.
-    /// </summary>       
+    /// </summary>
     public void SetPropertyStates()
     {
       var properties = _obj.State.Properties;
@@ -74,6 +74,7 @@ namespace Starkov.ScheduledReports.Shared
       {
         Logger.ErrorFormat("GetObjectFromReportParam. Не удалось получить объект: Parameter={0}, InternalDataTypeName={1}, EntityGuid={2}, ViewValue={3}",
                            ex, reportParam.Parameter, reportParam.InternalDataTypeName, reportParam.EntityGuid, reportParam.ViewValue);
+        
         throw ex;
       }
 
@@ -85,7 +86,7 @@ namespace Starkov.ScheduledReports.Shared
     /// </summary>
     /// <param name="reportParam">Строка коллекции параметров отчета.</param>
     /// <returns>Дата, или текущая дата и время, если получить из настроек не удалось.</returns>
-    public static DateTime? GetDateFromReportParam(Starkov.ScheduledReports.IScheduleSettingReportParams reportParam)
+    private static DateTime? GetDateFromReportParam(Starkov.ScheduledReports.IScheduleSettingReportParams reportParam)
     {
       DateTime date = Calendar.Now;
       
@@ -126,7 +127,7 @@ namespace Starkov.ScheduledReports.Shared
       int increment;
       if (int.TryParse(viewValueParts[0], out increment))
         return increment;
-          
+      
       return null;
     }
     
