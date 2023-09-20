@@ -11,6 +11,17 @@ namespace Starkov.ScheduledReports
   partial class ScheduleSettingSharedHandlers
   {
 
+    public virtual void ReportSettingChanged(Starkov.ScheduledReports.Shared.ScheduleSettingReportSettingChangedEventArgs e)
+    {
+      if (Equals(e.OldValue, e.NewValue))
+        return;
+      
+      if (string.IsNullOrEmpty(_obj.Name) || e.OldValue != null && e.OldValue.ReportName == _obj.Name)
+        Functions.ScheduleSetting.FillName(_obj);
+                  
+      PublicFunctions.ScheduleSetting.SaveReportParams(_obj);
+    }
+
     public virtual void PeriodNumberChanged(Sungero.Domain.Shared.IntegerPropertyChangedEventArgs e)
     {
       if (e.OldValue == e.NewValue )
@@ -31,20 +42,6 @@ namespace Starkov.ScheduledReports
       
       var isIncremental = e.NewValue != null && e.NewValue.IsIncremental.GetValueOrDefault();
       _obj.State.Properties.PeriodNumber.IsVisible = isIncremental;
-    }
-
-    public virtual void ReportNameChanged(Sungero.Domain.Shared.StringPropertyChangedEventArgs e)
-    {
-      if (string.IsNullOrEmpty(_obj.Name) || e.OldValue == _obj.Name)
-        Functions.ScheduleSetting.FillName(_obj);
-    }
-
-    public virtual void ReportGuidChanged(Sungero.Domain.Shared.StringPropertyChangedEventArgs e)
-    {
-      if (Equals(e.OldValue, e.NewValue))
-        return;
-      
-      PublicFunctions.ScheduleSetting.SaveReportParams(_obj);
     }
 
   }

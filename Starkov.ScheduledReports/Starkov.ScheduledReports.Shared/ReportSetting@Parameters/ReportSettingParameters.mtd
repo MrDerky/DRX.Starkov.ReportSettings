@@ -68,7 +68,6 @@
       "Name": "EntityId",
       "CanBeSearch": false,
       "Code": "EntityId",
-      "IsEnabled": false,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.NumericEditorToIntAndDoubleBinder",
       "PreviousPropertyGuid": "b942f7b9-264b-4508-9f00-880b75edf080",
       "Versions": []

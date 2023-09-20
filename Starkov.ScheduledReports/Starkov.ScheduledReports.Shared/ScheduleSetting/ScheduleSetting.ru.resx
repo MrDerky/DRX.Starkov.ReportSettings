@@ -65,7 +65,7 @@
     <value>X</value>
   </data>
   <data name="NeedSelectReportError" xml:space="preserve">
-    <value>Необходимо выбрать отчет через действие на ленте.</value>
+    <value>Необходимо выбрать отчет</value>
   </data>
   <data name="FillRequiredParametersError" xml:space="preserve">
     <value>Не удалось запустить отчет. Заполните необходимые параметры.</value>

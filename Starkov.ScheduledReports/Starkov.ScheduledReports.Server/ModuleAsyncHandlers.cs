@@ -18,7 +18,7 @@ namespace Starkov.ScheduledReports.Server
       var logInfo = string.Format("SendSheduleReport. SheduleSettingId = {0}.", args.SheduleSettingId);
       Logger.DebugFormat("{0} Start. RetryIteration={1}", logInfo, args.RetryIteration);
       
-      var setting = PublicFunctions.Module.Remote.GetScheduleSetting(args.SheduleSettingId);
+      var setting = PublicFunctions.ScheduleSetting.Remote.GetScheduleSetting(args.SheduleSettingId);
       if (setting == null)
       {
         Logger.DebugFormat("{0} Не удалось получить действующую запись справочника SheduleSetting.", logInfo);
@@ -65,7 +65,7 @@ namespace Starkov.ScheduledReports.Server
         
         // HACK Обход платформенного бага при генерации отчетов
         if (scheduleLog.Comment.Contains("Object reference not set to an instance of an object."))
-          args.NextRetryTime = Calendar.Now.AddSeconds(10);
+          args.NextRetryTime = Calendar.Now.AddMinutes(1);
         
         args.Retry = args.RetryIteration < 100;
         return;

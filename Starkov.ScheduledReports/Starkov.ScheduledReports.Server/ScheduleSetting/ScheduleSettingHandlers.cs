@@ -22,7 +22,7 @@ namespace Starkov.ScheduledReports
 
     public override void BeforeSave(Sungero.Domain.BeforeSaveEventArgs e)
     {
-      if (string.IsNullOrEmpty(_obj.ReportGuid))
+      if (_obj.ReportSetting == null)
       {
         e.AddError(Starkov.ScheduledReports.ScheduleSettings.Resources.NeedSelectReportError);
         return;
@@ -33,7 +33,6 @@ namespace Starkov.ScheduledReports
     {
       _obj.Author = Users.Current;
       _obj.Status = Status.Closed;
-      _obj.ShowParams = false;
       _obj.IsAsyncExecute = Functions.Module.GetNextJobExecuteTime(Constants.Module.SendSheduleReportsJobId) == null;
     }
   }

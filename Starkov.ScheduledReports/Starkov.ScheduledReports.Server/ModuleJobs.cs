@@ -35,7 +35,7 @@ namespace Starkov.ScheduledReports.Server
       {
         var schedule = scheduleBySetting.First();
         Logger.DebugFormat("{0}. scheduleLog={1}", logInfo, schedule.Id);
-        var setting = PublicFunctions.Module.Remote.GetScheduleSetting(schedule.ScheduleSettingId);
+        var setting = PublicFunctions.ScheduleSetting.Remote.GetScheduleSetting(schedule.ScheduleSettingId);
         if (setting == null)
         {
           Logger.DebugFormat("{0}. Не удалось получить действующую запись справочника SheduleSetting.", logInfo);

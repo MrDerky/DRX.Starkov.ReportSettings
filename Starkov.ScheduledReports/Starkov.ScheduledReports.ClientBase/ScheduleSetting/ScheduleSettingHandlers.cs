@@ -10,11 +10,6 @@ namespace Starkov.ScheduledReports
   partial class ScheduleSettingClientHandlers
   {
 
-    public virtual void ShowParamsValueInput(Sungero.Presentation.BooleanValueInputEventArgs e)
-    {
-      _obj.State.Properties.ReportParams.IsVisible = e.NewValue.GetValueOrDefault();
-    }
-
     public override void Showing(Sungero.Presentation.FormShowingEventArgs e)
     {
       _obj.State.Properties.PeriodNumber.IsVisible = _obj.Period != null && _obj.Period.IsIncremental.GetValueOrDefault();
@@ -26,7 +21,6 @@ namespace Starkov.ScheduledReports
                                       _obj.Info.Actions.StartReport.LocalizedName);
       
       Functions.ScheduleSetting.SetPropertyStates(_obj);
-      _obj.State.Properties.ReportParams.IsVisible = _obj.ShowParams.GetValueOrDefault();
       
       var scheduleSettingManagerRole = Roles.GetAll(r => r.Sid == Constants.Module.ScheduleSettingManagerRole).FirstOrDefault();
       if (scheduleSettingManagerRole == null || !Users.Current.IncludedIn(scheduleSettingManagerRole))

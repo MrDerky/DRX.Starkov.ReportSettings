@@ -10,6 +10,23 @@ namespace Starkov.ScheduledReports.Server
 {
   partial class ScheduleSettingFunctions
   {
+    /// <summary>
+    /// Создать запись настройки расписания для отчета.
+    /// </summary>
+    [Public, Remote]
+    public static IScheduleSetting CreateScheduleSetting()
+    {
+      return ScheduleSettings.Create();
+    }
+    
+    /// <summary>
+    /// Получить запись настройки расписания для отчета по ИД.
+    /// </summary>
+    [Public, Remote(IsPure = true)]
+    public static IScheduleSetting GetScheduleSetting(int? id)
+    {
+      return ScheduleSettings.GetAll(s => s.Id == id).FirstOrDefault(s => s.Status != ScheduledReports.ScheduleSetting.Status.Closed);
+    }
 
     /// <summary>
     /// Получить состояние из журнала расписаний.
@@ -78,53 +95,65 @@ namespace Starkov.ScheduledReports.Server
     [Public]
     public void SaveReportParams()
     {
-      var reportGuid = Guid.Parse(_obj.ReportGuid);
-      var report = Starkov.ScheduledReports.PublicFunctions.Module.GetReportMetaData(reportGuid);
-      
+      //var reportGuid = Guid.Parse(_obj.ReportGuid);
       _obj.ReportParams.Clear();
-      foreach (var parameter in report.Parameters)
+      var report = _obj.ReportSetting;// Starkov.ScheduledReports.PublicFunctions.Module.GetReportMetaData(reportGuid);
+      if (report == null)
+        return;
+      
+      foreach (var parameter in report.Parameters.Where(p => !string.IsNullOrEmpty(p.DisplayName)))
       {
-        if (parameter.NameResourceKey == "ReportSessionId")
-          continue;
-        
         var reportParam = _obj.ReportParams.AddNew();
-        reportParam.Parameter = parameter.NameResourceKey;
-        reportParam.InternalDataTypeName = parameter.InternalDataTypeName;
-        if (parameter.EntityMetadata != null)
-          reportParam.EntityGuid = parameter.EntityType.ToString();
+        reportParam.ParameterName = parameter.ParameterName;
+        reportParam.ParameterDisplay = parameter.DisplayName;
+        
+        if (!string.IsNullOrEmpty(parameter.DisplayValue))
+          reportParam.DisplayValue = parameter.DisplayValue;
+        
+        if (!string.IsNullOrEmpty(parameter.EntityGuid))
+          reportParam.EntityGuid = parameter.EntityGuid;
+        
+        if (parameter.EntityId.HasValue)
+          reportParam.EntityId = parameter.EntityId.Value;
+        
+        if (!string.IsNullOrEmpty(parameter.InternalDataTypeName))
+          reportParam.InternalDataTypeName = parameter.InternalDataTypeName;
+        
+        if (!string.IsNullOrEmpty(parameter.DisplayValue))
+          reportParam.ViewValue = parameter.ViewValue;
       }
     }
     
-    /// <summary>
-    /// Загрузить параметры отчета.
-    /// </summary>
-    [Public]
-    public void SaveReportParamsClear(Sungero.Reporting.Shared.ReportBase report)
-    {
-      _obj.ReportParams.Clear();
-      var reportMetaData = Starkov.ScheduledReports.PublicFunctions.Module.GetReportMetaData(report.Info.ReportTypeId);
-      
-      foreach (var parameter in report.Parameters)
-      {
-        if (parameter.Key == "ReportSessionId")
-          continue;
-        
-        var reportParam = _obj.ReportParams.AddNew();
-
-        reportParam.Parameter = parameter.Key;
-
-        var entityParameter = parameter.Value as Sungero.Reporting.Shared.EntityParameter;
-        if (entityParameter != null)
-        {
-          reportParam.EntityId = entityParameter.Entity.Id;
-          reportParam.ViewValue = entityParameter.Entity.DisplayValue;
-          reportParam.EntityGuid = entityParameter.EntityType.ToString();
-          reportParam.InternalDataTypeName = entityParameter.GetType().ToString();
-        }
-        else
-          reportParam.ViewValue = parameter.Value.ToString();
-      }
-    }
+    //    /// <summary>
+    //    /// Загрузить параметры отчета.
+    //    /// </summary>
+    //    [Public]
+    //    public void SaveReportParamsClear(Sungero.Reporting.Shared.ReportBase report)
+    //    {
+    //      _obj.ReportParams.Clear();
+    //      var reportMetaData = Starkov.ScheduledReports.PublicFunctions.Module.GetReportMetaData(report.Info.ReportTypeId);
+//
+    //      foreach (var parameter in report.Parameters)
+    //      {
+    //        if (parameter.Key == "ReportSessionId")
+    //          continue;
+//
+    //        var reportParam = _obj.ReportParams.AddNew();
+//
+    //        reportParam.Parameter = parameter.Key;
+//
+    //        var entityParameter = parameter.Value as Sungero.Reporting.Shared.EntityParameter;
+    //        if (entityParameter != null)
+    //        {
+    //          reportParam.EntityId = entityParameter.Entity.Id;
+    //          reportParam.ViewValue = entityParameter.Entity.DisplayValue;
+    //          reportParam.EntityGuid = entityParameter.EntityType.ToString();
+    //          reportParam.InternalDataTypeName = entityParameter.GetType().ToString();
+    //        }
+    //        else
+    //          reportParam.ViewValue = parameter.Value.ToString();
+    //      }
+    //    }
     
     /// <summary>
     /// Загрузить параметры отчета.
@@ -134,7 +163,7 @@ namespace Starkov.ScheduledReports.Server
     {
       foreach (var parameter in report.Parameters)
       {
-        var reportParam = _obj.ReportParams.FirstOrDefault(p => p.Parameter == parameter.Key);
+        var reportParam = _obj.ReportParams.FirstOrDefault(p => p.ParameterName == parameter.Key);
         if (reportParam != null)
         {
           var entityParameter = parameter.Value as Sungero.Reporting.Shared.EntityParameter;

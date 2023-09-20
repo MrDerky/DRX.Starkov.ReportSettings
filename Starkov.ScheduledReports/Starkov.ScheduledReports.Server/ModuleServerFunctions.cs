@@ -15,35 +15,6 @@ namespace Starkov.ScheduledReports.Server
   public class ModuleFunctions
   {
     
-    /// <summary>
-    /// Создать запись настройки расписания для отчета.
-    /// </summary>
-    [Public, Remote]
-    public static IScheduleSetting CreateScheduleSetting()
-    {
-      return ScheduleSettings.Create();
-    }
-    
-    /// <summary>
-    /// Получить запись настройки расписания для отчета по ИД.
-    /// </summary>
-    [Public, Remote(IsPure = true)]
-    public static IScheduleSetting GetScheduleSetting(int? id)
-    {
-      return ScheduleSettings.GetAll(s => s.Id == id).FirstOrDefault(s => s.Status != ScheduledReports.ScheduleSetting.Status.Closed);
-    }
-    
-    /// <summary>
-    /// Получить запись "Относительная дата" по ИД.
-    /// </summary>
-    /// <param name="id">ИД</param>
-    /// <returns>Относительная дата</returns>
-    [Public, Remote(IsPure = true)]
-    public static IRelativeDate GetRelativeDate(int id)
-    {
-      return RelativeDates.GetAllCached(r => r.Id == id).FirstOrDefault(r => r.Status != ScheduledReports.RelativeDate.Status.Closed);
-    }
-    
     #region StateView расписаний
     
     /// <summary>
@@ -375,9 +346,9 @@ namespace Starkov.ScheduledReports.Server
     public void FillReportParams(Sungero.Reporting.Shared.ReportBase report, Starkov.ScheduledReports.IScheduleSetting setting)
     {
       var reportParams = setting.ReportParams.Where(p => !string.IsNullOrEmpty(p.ViewValue));
-      Logger.DebugFormat("FillReportParams. setting={0}, reportParam={1}", setting.Id, string.Join(", ", reportParams.Select(p => string.Format("{0}: ViewValue={1}, Id={2}", p.Parameter, p.ViewValue, p.Id))));
+      Logger.DebugFormat("FillReportParams. setting={0}, reportParam={1}", setting.Id, string.Join(", ", reportParams.Select(p => string.Format("{0}: ViewValue={1}, Id={2}", p.ParameterName, p.ViewValue, p.Id))));
       foreach (var parameter in reportParams)
-        report.SetParameterValue(parameter.Parameter, Functions.ScheduleSetting.GetObjectFromReportParam(parameter));
+        report.SetParameterValue(parameter.ParameterName, Functions.ScheduleSetting.GetObjectFromReportParam(parameter));
     }
 
     #endregion

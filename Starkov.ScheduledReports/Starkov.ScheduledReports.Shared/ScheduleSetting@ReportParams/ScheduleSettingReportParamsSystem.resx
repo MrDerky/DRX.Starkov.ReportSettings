@@ -58,8 +58,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Property_Parameter" xml:space="preserve">
-    <value>Parameter</value>
+  <data name="Property_ParameterName" xml:space="preserve">
+    <value>Parameter name</value>
   </data>
   <data name="Property_ViewValue" xml:space="preserve">
     <value>ViewValue</value>
@@ -73,7 +73,7 @@
   <data name="Property_EntityId" xml:space="preserve">
     <value>EntityId</value>
   </data>
-  <data name="Property_IsRelativeDate" xml:space="preserve">
-    <value>relative date</value>
+  <data name="Property_ParameterDisplay" xml:space="preserve">
+    <value>Parameter</value>
   </data>
 </root>

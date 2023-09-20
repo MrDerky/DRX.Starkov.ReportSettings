@@ -143,12 +143,8 @@
       "PreviousItemId": "26553e87-531b-4953-980d-ab3e60bcebee"
     },
     {
-      "ItemId": "e16bca43-f163-4828-855d-222a38a1994a",
-      "PreviousItemId": "14ecf32c-4688-4751-a90f-835f5b0d8698"
-    },
-    {
       "ItemId": "1a5e10f7-94af-4743-8f32-23e7082cad39",
-      "PreviousItemId": "e16bca43-f163-4828-855d-222a38a1994a"
+      "PreviousItemId": "14ecf32c-4688-4751-a90f-835f5b0d8698"
     }
   ],
   "HandledEvents": [
@@ -205,13 +201,6 @@
       ],
       "ReturnType": "void",
       "ReturnTypeFullName": "System.Void"
-    },
-    {
-      "Name": "CreateScheduleSetting",
-      "IsRemote": true,
-      "Placement": "Shared",
-      "ReturnType": "global::Starkov.ScheduledReports.IScheduleSetting",
-      "ReturnTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
     },
     {
       "Name": "EnableSchedule",
@@ -322,20 +311,6 @@
       "ReturnTypeFullName": "Starkov.ScheduledReports.IScheduleLog, Sungero.Domain.Interfaces"
     },
     {
-      "Name": "GetRelativeDate",
-      "IsRemote": true,
-      "Parameters": [
-        {
-          "Name": "id",
-          "ParameterType": "global::System.Int32",
-          "ParameterTypeFullName": "System.Int32"
-        }
-      ],
-      "Placement": "Shared",
-      "ReturnType": "global::Starkov.ScheduledReports.IRelativeDate",
-      "ReturnTypeFullName": "Starkov.ScheduledReports.IRelativeDate, Sungero.Domain.Interfaces"
-    },
-    {
       "Name": "GetReportMetaData",
       "Parameters": [
         {
@@ -370,20 +345,6 @@
       "Placement": "Shared",
       "ReturnType": "global::System.Linq.IQueryable<global::Starkov.ScheduledReports.IScheduleLog>",
       "ReturnTypeFullName": "System.Linq.IQueryable"
-    },
-    {
-      "Name": "GetScheduleSetting",
-      "IsRemote": true,
-      "Parameters": [
-        {
-          "Name": "id",
-          "ParameterType": "global::System.Nullable<global::System.Int32>",
-          "ParameterTypeFullName": "System.Nullable"
-        }
-      ],
-      "Placement": "Shared",
-      "ReturnType": "global::Starkov.ScheduledReports.IScheduleSetting",
-      "ReturnTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
     }
   ],
   "PublicStructures": [

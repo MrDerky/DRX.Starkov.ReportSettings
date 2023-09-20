@@ -24,14 +24,6 @@ namespace Starkov.ScheduledReports.Shared
       properties.PeriodNumber.IsEnabled = canChangeSchedule;
       properties.IsAsyncExecute.IsEnabled = canChangeSchedule;
       properties.Observers.IsEnabled = canChangeSchedule;
-      
-      var isHasReport = !string.IsNullOrEmpty(_obj.ReportGuid);
-      properties.Observers.IsVisible = isHasReport;
-      properties.Period.IsVisible = isHasReport;
-      properties.DateBegin.IsVisible = isHasReport;
-      properties.DateEnd.IsVisible = isHasReport;
-      properties.ReportName.IsVisible = isHasReport;
-      properties.ShowParams.IsVisible = isHasReport;
     }
 
     /// <summary>
@@ -39,7 +31,7 @@ namespace Starkov.ScheduledReports.Shared
     /// </summary>
     public virtual void FillName()
     {
-      _obj.Name = _obj.ReportName;
+        _obj.Name = _obj.ReportSetting?.ReportName;
     }
     
     /// <summary>
@@ -73,7 +65,7 @@ namespace Starkov.ScheduledReports.Shared
       catch (Exception ex)
       {
         Logger.ErrorFormat("GetObjectFromReportParam. Не удалось получить объект: Parameter={0}, InternalDataTypeName={1}, EntityGuid={2}, ViewValue={3}",
-                           ex, reportParam.Parameter, reportParam.InternalDataTypeName, reportParam.EntityGuid, reportParam.ViewValue);
+                           ex, reportParam.ParameterName, reportParam.InternalDataTypeName, reportParam.EntityGuid, reportParam.ViewValue);
         
         throw ex;
       }
@@ -92,7 +84,7 @@ namespace Starkov.ScheduledReports.Shared
       
       if (reportParam.EntityId.HasValue)
       {
-        var relativeDate = PublicFunctions.Module.Remote.GetRelativeDate(reportParam.EntityId.Value);
+        var relativeDate = PublicFunctions.RelativeDate.Remote.GetRelativeDate(reportParam.EntityId.Value);
         if (relativeDate != null)
           date = PublicFunctions.RelativeDate.CalculateDate(relativeDate, null, Functions.ScheduleSetting.GetIncrementForRelativeDateFromViewValue(reportParam.ViewValue));
       }

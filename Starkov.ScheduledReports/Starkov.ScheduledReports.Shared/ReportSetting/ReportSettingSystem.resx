@@ -118,4 +118,19 @@
   <data name="Ribbon_Settings_654707e3e0144917a109ddd7c5c19995" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="Action_EditParameterValue" xml:space="preserve">
+    <value>Edit Parameter Value</value>
+  </data>
+  <data name="Action_EditParameterValueDescription" xml:space="preserve">
+    <value>Edit Parameter Value</value>
+  </data>
+  <data name="Action_EditParameterValueHint" xml:space="preserve">
+    <value>Edit Parameter Value</value>
+  </data>
+  <data name="Action_EditParameterValueConfirmationMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Action_EditParameterValueConfirmationDescription" xml:space="preserve">
+    <value />
+  </data>
 </root>

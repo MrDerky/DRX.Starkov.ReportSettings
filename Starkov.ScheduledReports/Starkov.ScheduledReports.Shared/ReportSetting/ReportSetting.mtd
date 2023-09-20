@@ -20,6 +20,16 @@
       "LargeIconName": "Action_StartReport_large_2c60c04bd78348e7a0dead1ff23ec614.png",
       "SmallIconName": "Action_StartReport_small_2c60c04bd78348e7a0dead1ff23ec614.png",
       "Versions": []
+    },
+    {
+      "NameGuid": "a3255cc0-a916-4b50-8f25-d9e2fe025a74",
+      "Name": "EditParameterValue",
+      "ActionArea": "ChildCollection",
+      "CollectionPropertyGuid": "26fcca67-6f30-4628-8197-b0e82b7a17fa",
+      "GenerateHandler": true,
+      "LargeIconName": "Action_EditParameter_large_a3255cc0a9164b508f25d9e2fe025a74.png",
+      "SmallIconName": "Action_EditParameter_small_a3255cc0a9164b508f25d9e2fe025a74.png",
+      "Versions": []
     }
   ],
   "BaseGuid": "04581d26-0780-4cfd-b3cd-c2cafc5798b0",
@@ -169,7 +179,6 @@
       "Name": "Parameters",
       "Code": "ReportSettingP",
       "EntityGuid": "5203be09-76e8-49d8-a282-9a79a9037d02",
-      "IsEnabled": false,
       "IsShowedInList": false,
       "PreviousPropertyGuid": "a84dd5a5-9225-4168-838f-1c3e63f7c536",
       "Versions": []

@@ -8,8 +8,19 @@ using Sungero.Domain.Shared;
 
 namespace Starkov.ScheduledReports.Client
 {
+  internal static class ScheduleSettingStaticActions
+  {
 
+    public static bool CanSetReport(Sungero.Domain.Client.CanExecuteCreationActionArgs e)
+    {
+      return true;
+    }
 
+    public static void SetReport(Sungero.Domain.Client.ExecuteCreationActionArgs e)
+    {
+      Functions.Module.CreateScheduleSetting();
+    }
+  }
 
 
   partial class ScheduleSettingReportParamsActions
@@ -117,10 +128,10 @@ namespace Starkov.ScheduledReports.Client
                                 });
             
             // Заполнить значения из карточки.
-            if (_obj.IsRelativeDate.GetValueOrDefault())
+            if (_obj.EntityId.HasValue)
             {
               isRelative.Value = true;
-              relative.Value = PublicFunctions.Module.Remote.GetRelativeDate(_obj.EntityId.GetValueOrDefault());
+              relative.Value = PublicFunctions.RelativeDate.Remote.GetRelativeDate(_obj.EntityId.GetValueOrDefault());
               increment.Value = Functions.ScheduleSetting.GetIncrementForRelativeDateFromViewValue(_obj.ViewValue);
             }
             else
@@ -132,8 +143,6 @@ namespace Starkov.ScheduledReports.Client
             
             if (dialog.Show() == DialogButtons.Ok)
             {
-              _obj.IsRelativeDate = isRelative.Value.GetValueOrDefault();
-              
               if (isRelative.Value.GetValueOrDefault() && relative.Value != null)
               {
                 _obj.ViewValue = Functions.ScheduleSetting.BuildViewValueForRelativeDate(relative.Value, increment.Value);
@@ -176,9 +185,6 @@ namespace Starkov.ScheduledReports.Client
       }
       catch (Exception ex)
       {
-        if (_obj.ShowParams != true)
-          _obj.ShowParams = _obj.State.Properties.ReportParams.IsVisible = true;
-        
         e.AddError(Starkov.ScheduledReports.ScheduleSettings.Resources.FillRequiredParametersError);
       }
     }
@@ -199,15 +205,9 @@ namespace Starkov.ScheduledReports.Client
         report.Open();
         
         PublicFunctions.ScheduleSetting.SaveReportParams(_obj, report);
-        
-        if (_obj.ShowParams != true && Functions.ScheduleSetting.IsFillReportParamsAny(_obj))
-          _obj.ShowParams = _obj.State.Properties.ReportParams.IsVisible = true;
       }
       catch (Exception ex)
       {
-        if (_obj.ShowParams != true)
-          _obj.ShowParams = _obj.State.Properties.ReportParams.IsVisible = true;
-        
         e.AddError(Starkov.ScheduledReports.ScheduleSettings.Resources.FillRequiredParametersError);
       }
     }
@@ -215,16 +215,6 @@ namespace Starkov.ScheduledReports.Client
     public virtual bool CanStartReport(Sungero.Domain.Client.CanExecuteActionArgs e)
     {
       return !string.IsNullOrEmpty(_obj.ReportGuid);
-    }
-
-    public virtual bool CanSetReport(Sungero.Domain.Client.CanExecuteActionArgs e)
-    {
-      return true;
-    }
-
-    public virtual void SetReport(Sungero.Domain.Client.ExecuteActionArgs e)
-    {
-      Functions.ScheduleSetting.SelectReport(_obj);
     }
 
     public virtual bool CanEnableSchedule(Sungero.Domain.Client.CanExecuteActionArgs e)
