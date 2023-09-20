@@ -14,7 +14,7 @@ namespace Starkov.ScheduledReports
     {
       _obj.State.Properties.PeriodNumber.IsVisible = _obj.Period != null && _obj.Period.IsIncremental.GetValueOrDefault();
       
-      if (string.IsNullOrEmpty(_obj.ReportName))
+      if (_obj.ReportSetting == null)
         e.Instruction = string.Format(Starkov.ScheduledReports.ScheduleSettings.Resources.SheduleSettingInstruction,
                                       Environment.NewLine,
                                       _obj.Info.Actions.SetReport.LocalizedName,

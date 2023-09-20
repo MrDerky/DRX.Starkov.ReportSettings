@@ -176,7 +176,7 @@ namespace Starkov.ScheduledReports.Client
     {
       try
       {
-        var report = PublicFunctions.Module.GetModuleReportByGuid(Guid.Parse(_obj.ModuleGuid), Guid.Parse(_obj.ReportGuid));
+        var report = PublicFunctions.Module.GetModuleReportByGuid(Guid.Parse(_obj.ReportSetting.ModuleGuid), Guid.Parse(_obj.ReportSetting.ReportGuid));
         if (report == null)
           return;
         
@@ -191,14 +191,14 @@ namespace Starkov.ScheduledReports.Client
 
     public virtual bool CanStartReportWithParameters(Sungero.Domain.Client.CanExecuteActionArgs e)
     {
-      return !string.IsNullOrEmpty(_obj.ReportGuid) && Functions.ScheduleSetting.IsFillReportParamsAny(_obj);
+      return _obj.ReportSetting != null && !string.IsNullOrEmpty(_obj.ReportSetting.ReportGuid) && Functions.ScheduleSetting.IsFillReportParamsAny(_obj);
     }
 
     public virtual void StartReport(Sungero.Domain.Client.ExecuteActionArgs e)
     {
       try
       {
-        var report = PublicFunctions.Module.GetModuleReportByGuid(Guid.Parse(_obj.ModuleGuid), Guid.Parse(_obj.ReportGuid));
+        var report = PublicFunctions.Module.GetModuleReportByGuid(Guid.Parse(_obj.ReportSetting.ModuleGuid), Guid.Parse(_obj.ReportSetting.ReportGuid));
         if (report == null)
           return;
         
@@ -214,7 +214,7 @@ namespace Starkov.ScheduledReports.Client
 
     public virtual bool CanStartReport(Sungero.Domain.Client.CanExecuteActionArgs e)
     {
-      return !string.IsNullOrEmpty(_obj.ReportGuid);
+      return _obj.ReportSetting != null && !string.IsNullOrEmpty(_obj.ReportSetting.ReportGuid);
     }
 
     public virtual bool CanEnableSchedule(Sungero.Domain.Client.CanExecuteActionArgs e)

@@ -115,4 +115,13 @@
   <data name="Action_EditParameterValueDescription" xml:space="preserve">
     <value>Редактировать значение</value>
   </data>
+  <data name="Action_StartReportWithParameters" xml:space="preserve">
+    <value>Запуск с параметрами</value>
+  </data>
+  <data name="Action_StartReportWithParametersHint" xml:space="preserve">
+    <value>Запустить отчет с параметрами</value>
+  </data>
+  <data name="Action_StartReportWithParametersDescription" xml:space="preserve">
+    <value>Запустить отчет с параметрами</value>
+  </data>
 </root>

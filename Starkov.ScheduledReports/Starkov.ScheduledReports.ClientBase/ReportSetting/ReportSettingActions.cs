@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -17,7 +17,7 @@ namespace Starkov.ScheduledReports.Client
 
     public virtual void EditParameterValue(Sungero.Domain.Client.ExecuteChildCollectionActionArgs e)
     {
-       // TODO Возмно следует перенести код
+      // TODO Возмно следует перенести код
       if (!string.IsNullOrEmpty(_obj.EntityGuid))
       {
         #region Типы сущностей системы
@@ -155,6 +155,28 @@ namespace Starkov.ScheduledReports.Client
 
   partial class ReportSettingActions
   {
+    public virtual void StartReportWithParameters(Sungero.Domain.Client.ExecuteActionArgs e)
+    {
+      try
+      {
+        var report = PublicFunctions.Module.GetModuleReportByGuid(Guid.Parse(_obj.ModuleGuid), Guid.Parse(_obj.ReportGuid));
+        if (report == null)
+          return;
+        
+        PublicFunctions.ReportSetting.FillReportParams(report, _obj);
+        report.Open();
+      }
+      catch (Exception ex)
+      {
+        e.AddError(Starkov.ScheduledReports.ScheduleSettings.Resources.FillRequiredParametersError);
+      }
+    }
+
+    public virtual bool CanStartReportWithParameters(Sungero.Domain.Client.CanExecuteActionArgs e)
+    {
+      return !string.IsNullOrEmpty(_obj.ReportGuid) && Functions.ScheduleSetting.IsFillReportParamsAny(_obj);
+    }
+
 
     public virtual void StartReport(Sungero.Domain.Client.ExecuteActionArgs e)
     {
@@ -168,13 +190,13 @@ namespace Starkov.ScheduledReports.Client
         
         PublicFunctions.ReportSetting.SaveReportParams(_obj, report);
         
-//        if (_obj.ShowParams != true && Functions.ScheduleSetting.IsFillReportParamsAny(_obj))
-//          _obj.ShowParams = _obj.State.Properties.ReportParams.IsVisible = true;
+        //        if (_obj.ShowParams != true && Functions.ScheduleSetting.IsFillReportParamsAny(_obj))
+        //          _obj.ShowParams = _obj.State.Properties.ReportParams.IsVisible = true;
       }
       catch (Exception ex)
       {
-//        if (_obj.ShowParams != true)
-//          _obj.ShowParams = _obj.State.Properties.ReportParams.IsVisible = true;
+        //        if (_obj.ShowParams != true)
+        //          _obj.ShowParams = _obj.State.Properties.ReportParams.IsVisible = true;
         
         e.AddError(Starkov.ScheduledReports.ScheduleSettings.Resources.FillRequiredParametersError);
       }

@@ -60,5 +60,16 @@ namespace Starkov.ScheduledReports.Shared
       }
     }
     
+    /// <summary>
+    /// Заполнить параметры отчета из настроек.
+    /// </summary>
+    /// <param name="report">Отчет.</param>
+    public void FillReportParams(Sungero.Reporting.Shared.ReportBase report)
+    {
+      var reportParams = _obj.Parameters.Where(p => !string.IsNullOrEmpty(p.ViewValue));
+      Logger.DebugFormat("FillReportParams. setting={0}, reportParam={1}", _obj.Id, string.Join(", ", reportParams.Select(p => string.Format("{0}: ViewValue={1}, Id={2}", p.ParameterName, p.ViewValue, p.Id))));
+      foreach (var parameter in reportParams)
+        report.SetParameterValue(parameter.ParameterName, Functions.ScheduleSetting.GetObjectFromReportParam(parameter));
+    }
   }
 }

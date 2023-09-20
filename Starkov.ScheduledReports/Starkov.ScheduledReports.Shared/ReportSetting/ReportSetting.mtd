@@ -30,6 +30,15 @@
       "LargeIconName": "Action_EditParameter_large_a3255cc0a9164b508f25d9e2fe025a74.png",
       "SmallIconName": "Action_EditParameter_small_a3255cc0a9164b508f25d9e2fe025a74.png",
       "Versions": []
+    },
+    {
+      "NameGuid": "bcb2723c-afee-4cc5-8e07-c65199e52484",
+      "Name": "StartReportWithParameters",
+      "ActionArea": "Card",
+      "GenerateHandler": true,
+      "LargeIconName": "Action_StartReportWithParameters_large_bcb2723cafee4cc58e07c65199e52484.png",
+      "SmallIconName": "Action_StartReportWithParameters_small_bcb2723cafee4cc58e07c65199e52484.png",
+      "Versions": []
     }
   ],
   "BaseGuid": "04581d26-0780-4cfd-b3cd-c2cafc5798b0",
@@ -239,6 +248,15 @@
         "ActionGuid": "2c60c04b-d783-48e7-a0de-ad1ff23ec614",
         "ButtonSize": "Large",
         "Index": 0,
+        "ParentGuid": "654707e3-e014-4917-a109-ddd7c5c19995"
+      },
+      {
+        "$type": "Sungero.Metadata.RibbonActionButtonMetadata, Sungero.Metadata",
+        "NameGuid": "97bb84d1-928b-4f64-9c86-d2acdd91100e",
+        "Name": "StartReportWithParameters",
+        "ActionGuid": "bcb2723c-afee-4cc5-8e07-c65199e52484",
+        "ButtonSize": "Large",
+        "Index": 1,
         "ParentGuid": "654707e3-e014-4917-a109-ddd7c5c19995"
       }
     ],

@@ -133,4 +133,19 @@
   <data name="Action_EditParameterValueConfirmationDescription" xml:space="preserve">
     <value />
   </data>
+  <data name="Action_StartReportWithParameters" xml:space="preserve">
+    <value>Run with parameters</value>
+  </data>
+  <data name="Action_StartReportWithParametersDescription" xml:space="preserve">
+    <value>Run with parameters</value>
+  </data>
+  <data name="Action_StartReportWithParametersHint" xml:space="preserve">
+    <value>Run with parameters</value>
+  </data>
+  <data name="Action_StartReportWithParametersConfirmationMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Action_StartReportWithParametersConfirmationDescription" xml:space="preserve">
+    <value />
+  </data>
 </root>

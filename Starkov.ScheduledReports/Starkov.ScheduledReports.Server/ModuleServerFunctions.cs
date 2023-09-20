@@ -280,6 +280,9 @@ namespace Starkov.ScheduledReports.Server
     /// <param name="scheduleLog">Журнал расписания.</param>
     private void StartSheduleReport(Starkov.ScheduledReports.IScheduleSetting setting, IScheduleLog scheduleLog)
     {
+      if (setting == null || setting.ReportSetting == null)
+        return;
+      
       var observers = setting.Observers.Select(o => o.Recipient).Distinct().AsEnumerable();
       if (Sungero.Company.Employees.Is(setting.Author) && !observers.Contains(setting.Author))
         observers = observers.Append(setting.Author);
@@ -295,7 +298,7 @@ namespace Starkov.ScheduledReports.Server
       
       Logger.Debug("StartSheduleReport. Get report");
       
-      var report = GetModuleReportByGuid(Guid.Parse(setting.ModuleGuid), Guid.Parse(setting.ReportGuid));
+      var report = GetModuleReportByGuid(Guid.Parse(setting.ReportSetting.ModuleGuid), Guid.Parse(setting.ReportSetting.ReportGuid));
       if (report == null)
         return;
       
