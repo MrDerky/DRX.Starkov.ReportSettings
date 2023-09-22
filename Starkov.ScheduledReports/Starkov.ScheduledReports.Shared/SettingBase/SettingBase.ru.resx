@@ -58,22 +58,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Property_ParameterName" xml:space="preserve">
-    <value>Имя параметра</value>
-  </data>
-  <data name="Property_DisplayName" xml:space="preserve">
-    <value>Отображаемое имя</value>
-  </data>
-  <data name="Property_EntityGuid" xml:space="preserve">
-    <value>Тип сущности</value>
-  </data>
-  <data name="Property_EntityId" xml:space="preserve">
-    <value>ИД</value>
-  </data>
-  <data name="Property_ViewValue" xml:space="preserve">
-    <value>Значение</value>
-  </data>
-  <data name="Property_ParameterDisplay" xml:space="preserve">
-    <value>Параметр</value>
+  <data name="FillRequiredParametersError" xml:space="preserve">
+    <value>Не удалось запустить отчет. Заполните необходимые параметры.</value>
   </data>
 </root>

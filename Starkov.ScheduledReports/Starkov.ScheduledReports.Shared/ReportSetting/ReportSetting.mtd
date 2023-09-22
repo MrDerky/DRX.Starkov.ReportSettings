@@ -25,7 +25,7 @@
       "NameGuid": "a3255cc0-a916-4b50-8f25-d9e2fe025a74",
       "Name": "EditParameterValue",
       "ActionArea": "ChildCollection",
-      "CollectionPropertyGuid": "26fcca67-6f30-4628-8197-b0e82b7a17fa",
+      "CollectionPropertyGuid": "5a7c6aa0-ec8d-4737-b8f1-78db411555dd",
       "GenerateHandler": true,
       "LargeIconName": "Action_EditParameter_large_a3255cc0a9164b508f25d9e2fe025a74.png",
       "SmallIconName": "Action_EditParameter_small_a3255cc0a9164b508f25d9e2fe025a74.png",
@@ -101,7 +101,7 @@
           "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.GridControlToChildCollectionBinder",
           "HeaderLocation": "None",
           "ParentGuid": "cceb7ba6-da63-41b3-af19-4b1e3c46126c",
-          "PropertyGuid": "26fcca67-6f30-4628-8197-b0e82b7a17fa",
+          "PropertyGuid": "5a7c6aa0-ec8d-4737-b8f1-78db411555dd",
           "RowNumber": 0,
           "RowSpan": 1,
           "Settings": []
@@ -184,45 +184,14 @@
     },
     {
       "$type": "Sungero.Metadata.CollectionPropertyMetadata, Sungero.Metadata",
-      "NameGuid": "26fcca67-6f30-4628-8197-b0e82b7a17fa",
+      "NameGuid": "5a7c6aa0-ec8d-4737-b8f1-78db411555dd",
       "Name": "Parameters",
       "Code": "ReportSettingP",
-      "EntityGuid": "5203be09-76e8-49d8-a282-9a79a9037d02",
+      "EntityGuid": "331171d6-8b1b-4abb-a648-de22579f04c8",
+      "IsEnabled": false,
       "IsShowedInList": false,
       "PreviousPropertyGuid": "a84dd5a5-9225-4168-838f-1c3e63f7c536",
       "Versions": []
-    }
-  ],
-  "PublicFunctions": [
-    {
-      "Name": "SaveReportParams",
-      "Parameters": [
-        {
-          "Name": "reportSetting",
-          "ParameterType": "global::Starkov.ScheduledReports.IReportSetting",
-          "ParameterTypeFullName": "Starkov.ScheduledReports.IReportSetting, Sungero.Domain.Interfaces"
-        }
-      ],
-      "Placement": "Shared",
-      "ReturnType": "void",
-      "ReturnTypeFullName": "System.Void"
-    },
-    {
-      "Name": "SaveReportParams",
-      "Parameters": [
-        {
-          "Name": "reportSetting",
-          "ParameterType": "global::Starkov.ScheduledReports.IReportSetting",
-          "ParameterTypeFullName": "Starkov.ScheduledReports.IReportSetting, Sungero.Domain.Interfaces"
-        },
-        {
-          "Name": "report",
-          "ParameterType": "Sungero.Reporting.Shared.ReportBase"
-        }
-      ],
-      "Placement": "Shared",
-      "ReturnType": "void",
-      "ReturnTypeFullName": "System.Void"
     }
   ],
   "PublicStructures": [],

@@ -1,0 +1,60 @@
+{
+  "$type": "Sungero.Metadata.EntityMetadata, Sungero.Metadata",
+  "NameGuid": "b3c8cc64-0940-46c8-a6c0-411161e7313d",
+  "Name": "SettingScheduleObservers",
+  "AccessRightsMode": "NoRight",
+  "BaseGuid": "a3d38bf5-0414-41f6-bb33-a4621d2e5a60",
+  "CanBeNavigationPropertyType": true,
+  "Code": "SettingSchedul",
+  "ExtraSearchProperties": [],
+  "IsChildEntity": true,
+  "Properties": [
+    {
+      "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "7e61a88f-a81a-45dd-a443-ceac43ea878b",
+      "Name": "SettingSchedule",
+      "CanBeSearch": false,
+      "Code": "SettingBase",
+      "EntityGuid": "f756ae44-e160-4ae3-b306-0854ccb9ffc4",
+      "IsReferenceToRootEntity": true,
+      "IsShowedInList": false
+    },
+    {
+      "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "8ee38efb-69cb-4258-9bdf-554fe41f7d83",
+      "Name": "Recipient",
+      "CanBeSearch": false,
+      "Code": "Recipient",
+      "EntityGuid": "c612fc41-44a3-428b-a97c-433c333d78e9",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
+      "PreviousPropertyGuid": "7e61a88f-a81a-45dd-a443-ceac43ea878b",
+      "Versions": []
+    }
+  ],
+  "PublicStructures": [],
+  "RibbonCardMetadata": {
+    "NameGuid": "10f82876-c754-4e15-a42e-bddb8b15d0a6",
+    "Name": "RibbonCard",
+    "Categories": [],
+    "Elements": [],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": [],
+    "RibbonKind": "Card"
+  },
+  "RibbonCollectionMetadata": {
+    "NameGuid": "7c2ab1b2-3b12-4071-8cf6-1cd1b0ae6f17",
+    "Name": "RibbonCollection",
+    "Categories": [],
+    "Elements": [],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": []
+  },
+  "Versions": [
+    {
+      "Type": "EntityMetadata",
+      "Number": 11
+    }
+  ]
+}

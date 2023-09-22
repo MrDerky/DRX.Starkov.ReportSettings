@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Property_ParameterName" xml:space="preserve">
-    <value>ParameterName</value>
+    <value>Parameter name</value>
   </data>
   <data name="Property_DisplayName" xml:space="preserve">
     <value>DisplayName</value>
@@ -74,6 +74,9 @@
     <value>EntityId</value>
   </data>
   <data name="Property_ViewValue" xml:space="preserve">
-    <value>Value</value>
+    <value>ViewValue</value>
+  </data>
+  <data name="Property_ParameterDisplay" xml:space="preserve">
+    <value>Parameter</value>
   </data>
 </root>

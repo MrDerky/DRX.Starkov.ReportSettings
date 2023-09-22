@@ -62,7 +62,7 @@
     <value>Имя параметра</value>
   </data>
   <data name="Property_DisplayName" xml:space="preserve">
-    <value>Отображаемое имя</value>
+    <value>Параметр</value>
   </data>
   <data name="Property_EntityGuid" xml:space="preserve">
     <value>Тип сущности</value>
@@ -73,7 +73,7 @@
   <data name="Property_ViewValue" xml:space="preserve">
     <value>Значение</value>
   </data>
-  <data name="Property_ParameterDisplay" xml:space="preserve">
-    <value>Параметр</value>
+  <data name="Property_InternalDataTypeName" xml:space="preserve">
+    <value>Тип</value>
   </data>
 </root>
