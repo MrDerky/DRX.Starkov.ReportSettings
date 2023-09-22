@@ -200,8 +200,8 @@
       "Parameters": [
         {
           "Name": "setting",
-          "ParameterType": "global::Starkov.ScheduledReports.ISettingSchedule",
-          "ParameterTypeFullName": "Starkov.ScheduledReports.ISettingSchedule, Sungero.Domain.Interfaces"
+          "ParameterType": "global::Starkov.ScheduledReports.IScheduleSetting",
+          "ParameterTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
         }
       ],
       "ReturnType": "void",
@@ -212,8 +212,8 @@
       "Parameters": [
         {
           "Name": "setting",
-          "ParameterType": "global::Starkov.ScheduledReports.ISettingSchedule",
-          "ParameterTypeFullName": "Starkov.ScheduledReports.ISettingSchedule, Sungero.Domain.Interfaces"
+          "ParameterType": "global::Starkov.ScheduledReports.IScheduleSetting",
+          "ParameterTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
         }
       ],
       "ReturnType": "void",
@@ -240,8 +240,8 @@
         },
         {
           "Name": "setting",
-          "ParameterType": "global::Starkov.ScheduledReports.ISettingSchedule",
-          "ParameterTypeFullName": "Starkov.ScheduledReports.ISettingSchedule, Sungero.Domain.Interfaces"
+          "ParameterType": "global::Starkov.ScheduledReports.IScheduleSetting",
+          "ParameterTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
         }
       ],
       "ReturnType": "void",
@@ -343,8 +343,7 @@
       "Parameters": [
         {
           "Name": "setting",
-          "ParameterType": "global::Starkov.ScheduledReports.ISettingSchedule",
-          "ParameterTypeFullName": "Starkov.ScheduledReports.ISettingSchedule, Sungero.Domain.Interfaces"
+          "ParameterType": "Starkov.ScheduledReports.ISettingSchedule"
         }
       ],
       "Placement": "Shared",
