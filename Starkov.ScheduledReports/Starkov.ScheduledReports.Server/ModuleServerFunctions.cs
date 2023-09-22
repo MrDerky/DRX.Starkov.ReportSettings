@@ -20,7 +20,7 @@ namespace Starkov.ScheduledReports.Server
     /// <summary>
     /// Получить состояние из журнала расписаний.
     /// </summary>
-    public StateView GetScheduleState(IScheduleSetting setting)
+    public StateView GetScheduleState(ISettingSchedule setting)
     {
       var stateView = StateView.Create();
       stateView.IsPrintable = true;
@@ -65,7 +65,7 @@ namespace Starkov.ScheduledReports.Server
     /// <param name="setting">Запись настроек расписания.</param>
     /// <param name="log">Запись журнала расписания.</param>
     /// <param name="nextJobExecuteTime">Следующий запуск фонового процесса.</param>
-    private void FillBlock(Sungero.Core.StateBlock block, IScheduleSetting setting, IScheduleLog log, DateTime? nextJobExecuteTime, bool IsChildBlock)
+    private void FillBlock(Sungero.Core.StateBlock block, ISettingSchedule setting, IScheduleLog log, DateTime? nextJobExecuteTime, bool IsChildBlock)
     {
       #region Стили
       var iconSize = StateBlockIconSize.Large;
@@ -205,7 +205,7 @@ namespace Starkov.ScheduledReports.Server
     /// </summary>
     /// <param name="setting">Настройка расписания.</param>
     [Public]
-    public void EnableSchedule(Starkov.ScheduledReports.IScheduleSetting setting)
+    public void EnableSchedule(Starkov.ScheduledReports.ISettingSchedule setting)
     {
       CreateScheduleLog(setting, null);
       if (setting.IsAsyncExecute == true)
@@ -231,7 +231,7 @@ namespace Starkov.ScheduledReports.Server
     /// <param name="scheduleLog">Запись журнала расписания.</param>
     /// <param name="logInfo">Информация для логирования.</param>
     /// <returns>Признак успешного выполнения.</returns>
-    public bool ScheduleLogExecute(IScheduleSetting setting, IScheduleLog scheduleLog, string logInfo)
+    public bool ScheduleLogExecute(ISettingSchedule setting, IScheduleLog scheduleLog, string logInfo)
     {
       try
       {
@@ -278,7 +278,7 @@ namespace Starkov.ScheduledReports.Server
     /// </summary>
     /// <param name="setting">Настройки расписания.</param>
     /// <param name="scheduleLog">Журнал расписания.</param>
-    private void StartSheduleReport(Starkov.ScheduledReports.IScheduleSetting setting, IScheduleLog scheduleLog)
+    private void StartSheduleReport(Starkov.ScheduledReports.ISettingSchedule setting, IScheduleLog scheduleLog)
     {
       if (setting == null || setting.ReportSetting == null)
         return;
@@ -346,7 +346,7 @@ namespace Starkov.ScheduledReports.Server
     /// <param name="report">Отчет.</param>
     /// <param name="setting">Настройки отчета.</param>
     [Public]
-    public void FillReportParams(Sungero.Reporting.Shared.ReportBase report, Starkov.ScheduledReports.IScheduleSetting setting)
+    public void FillReportParams(Sungero.Reporting.Shared.ReportBase report, Starkov.ScheduledReports.ISettingSchedule setting)
     {
       var reportParams = setting.ReportParams.Where(p => !string.IsNullOrEmpty(p.ViewValue));
       Logger.DebugFormat("FillReportParams. setting={0}, reportParam={1}", setting.Id, string.Join(", ", reportParams.Select(p => string.Format("{0}: ViewValue={1}, Id={2}", p.ParameterName, p.ViewValue, p.Id))));
@@ -374,7 +374,7 @@ namespace Starkov.ScheduledReports.Server
     /// <param name="setting">Настройка расписания.</param>
     /// <returns>Список записей журнала.</returns>
     [Public, Remote(IsPure = true)]
-    public IQueryable<IScheduleLog> GetScheduleLogs(Starkov.ScheduledReports.IScheduleSetting setting)
+    public IQueryable<IScheduleLog> GetScheduleLogs(Starkov.ScheduledReports.ISettingSchedule setting)
     {
       var scheduleLogs = ScheduleLogs.GetAll()
         .Where(s => s.Status != ScheduledReports.ScheduleLog.Status.Preview);
@@ -401,7 +401,7 @@ namespace Starkov.ScheduledReports.Server
     /// <summary>
     /// Создать запись Журнала расписаний
     /// </summary>
-    private void CreateScheduleLog(Starkov.ScheduledReports.IScheduleSetting setting, DateTime? startDate)
+    private void CreateScheduleLog(Starkov.ScheduledReports.ISettingSchedule setting, DateTime? startDate)
     {
       if (setting == null)
         return;
@@ -442,7 +442,7 @@ namespace Starkov.ScheduledReports.Server
     /// </summary>
     /// <param name="setting">Настройка расписания.</param>
     [Public]
-    public void CloseScheduleLog(Starkov.ScheduledReports.IScheduleSetting setting)
+    public void CloseScheduleLog(Starkov.ScheduledReports.ISettingSchedule setting)
     {
       var scheduleLogs = ScheduleLogs.GetAll(s => s.ScheduleSettingId == setting.Id)
         .Where(s => s.Status == ScheduledReports.ScheduleLog.Status.Waiting || s.Status == ScheduledReports.ScheduleLog.Status.Error)

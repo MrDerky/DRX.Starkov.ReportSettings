@@ -378,8 +378,8 @@
       "Name": "CreateScheduleSetting",
       "IsRemote": true,
       "Placement": "Shared",
-      "ReturnType": "global::Starkov.ScheduledReports.IScheduleSetting",
-      "ReturnTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
+      "ReturnType": "global::Starkov.ScheduledReports.ISettingSchedule",
+      "ReturnTypeFullName": "Starkov.ScheduledReports.ISettingSchedule, Sungero.Domain.Interfaces"
     },
     {
       "Name": "GetNextPeriod",
@@ -449,8 +449,8 @@
         }
       ],
       "Placement": "Shared",
-      "ReturnType": "global::Starkov.ScheduledReports.IScheduleSetting",
-      "ReturnTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
+      "ReturnType": "global::Starkov.ScheduledReports.ISettingSchedule",
+      "ReturnTypeFullName": "Starkov.ScheduledReports.ISettingSchedule, Sungero.Domain.Interfaces"
     },
     {
       "Name": "SaveReportParams",

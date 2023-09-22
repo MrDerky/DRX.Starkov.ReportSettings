@@ -39,7 +39,7 @@ namespace Starkov.ScheduledReports
       if (string.IsNullOrEmpty(_obj.Name) || e.OldValue != null && e.OldValue.ReportName == _obj.Name)
         Functions.SettingSchedule.FillName(_obj);
       
-      PublicFunctions.ScheduleSetting.SaveReportParams(_obj);
+      PublicFunctions.SettingBase.SaveReportParams(_obj);
     }
 
   }

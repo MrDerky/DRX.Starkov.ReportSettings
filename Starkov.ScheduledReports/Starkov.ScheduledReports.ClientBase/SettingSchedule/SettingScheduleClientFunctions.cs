@@ -9,12 +9,6 @@ namespace Starkov.ScheduledReports.Client
 {
   partial class SettingScheduleFunctions
   {
-    /// <summary>
-    /// Выбрать отчет.
-    /// </summary>
-    public override void SelectReport()
-    {
-      // TODO
-    }
+
   }
 }

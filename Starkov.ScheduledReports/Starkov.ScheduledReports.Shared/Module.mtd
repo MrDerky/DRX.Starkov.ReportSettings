@@ -38,7 +38,7 @@
         "$type": "Sungero.Metadata.CoverEntityListActionMetadata, Sungero.Metadata",
         "NameGuid": "043d5ecf-61a9-4bc3-9bf4-fd072dd5c380",
         "Name": "ScheduleSettings",
-        "EntityTypeId": "f7180f6a-b987-4a28-a072-d26377fb3912",
+        "EntityTypeId": "f756ae44-e160-4ae3-b306-0854ccb9ffc4",
         "GroupId": "f0de7443-fc90-4356-a432-2bb40eb11f8b",
         "PreviousItemGuid": "12267a64-53ea-4d76-9fda-f84e91945060"
       },
@@ -76,7 +76,7 @@
         "$type": "Sungero.Metadata.CoverEntityListActionMetadata, Sungero.Metadata",
         "NameGuid": "9f5e6348-f544-4ec7-8ca5-8381dd44d6fe",
         "Name": "ReportList",
-        "EntityTypeId": "1a5e10f7-94af-4743-8f32-23e7082cad39",
+        "EntityTypeId": "e1169af2-dc2a-4c37-8441-f3af6ddc21c6",
         "GroupId": "bbc9ca63-c0d5-4c9b-9090-1e04a42f3253",
         "PreviousItemGuid": "5669231a-5c28-4b3d-9f7d-6319bc4129bf"
       }
@@ -132,9 +132,6 @@
   ],
   "ExplorerTreeOrder": [
     {
-      "ItemId": "f7180f6a-b987-4a28-a072-d26377fb3912"
-    },
-    {
       "ItemId": "26553e87-531b-4953-980d-ab3e60bcebee",
       "PreviousItemId": "f7180f6a-b987-4a28-a072-d26377fb3912"
     },
@@ -143,12 +140,8 @@
       "PreviousItemId": "26553e87-531b-4953-980d-ab3e60bcebee"
     },
     {
-      "ItemId": "1a5e10f7-94af-4743-8f32-23e7082cad39",
-      "PreviousItemId": "14ecf32c-4688-4751-a90f-835f5b0d8698"
-    },
-    {
       "ItemId": "8a007d27-5f5c-47e0-83fb-bf71a1eb9626",
-      "PreviousItemId": "1a5e10f7-94af-4743-8f32-23e7082cad39"
+      "PreviousItemId": "14ecf32c-4688-4751-a90f-835f5b0d8698"
     },
     {
       "ItemId": "e1169af2-dc2a-4c37-8441-f3af6ddc21c6",
@@ -207,8 +200,8 @@
       "Parameters": [
         {
           "Name": "setting",
-          "ParameterType": "global::Starkov.ScheduledReports.IScheduleSetting",
-          "ParameterTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
+          "ParameterType": "global::Starkov.ScheduledReports.ISettingSchedule",
+          "ParameterTypeFullName": "Starkov.ScheduledReports.ISettingSchedule, Sungero.Domain.Interfaces"
         }
       ],
       "ReturnType": "void",
@@ -219,8 +212,8 @@
       "Parameters": [
         {
           "Name": "setting",
-          "ParameterType": "global::Starkov.ScheduledReports.IScheduleSetting",
-          "ParameterTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
+          "ParameterType": "global::Starkov.ScheduledReports.ISettingSchedule",
+          "ParameterTypeFullName": "Starkov.ScheduledReports.ISettingSchedule, Sungero.Domain.Interfaces"
         }
       ],
       "ReturnType": "void",
@@ -247,8 +240,8 @@
         },
         {
           "Name": "setting",
-          "ParameterType": "global::Starkov.ScheduledReports.IScheduleSetting",
-          "ParameterTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
+          "ParameterType": "global::Starkov.ScheduledReports.ISettingSchedule",
+          "ParameterTypeFullName": "Starkov.ScheduledReports.ISettingSchedule, Sungero.Domain.Interfaces"
         }
       ],
       "ReturnType": "void",
@@ -350,8 +343,8 @@
       "Parameters": [
         {
           "Name": "setting",
-          "ParameterType": "global::Starkov.ScheduledReports.IScheduleSetting",
-          "ParameterTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
+          "ParameterType": "global::Starkov.ScheduledReports.ISettingSchedule",
+          "ParameterTypeFullName": "Starkov.ScheduledReports.ISettingSchedule, Sungero.Domain.Interfaces"
         }
       ],
       "Placement": "Shared",

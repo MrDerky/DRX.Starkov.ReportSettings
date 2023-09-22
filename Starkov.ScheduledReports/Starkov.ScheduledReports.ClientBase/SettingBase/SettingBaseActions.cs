@@ -116,7 +116,7 @@ namespace Starkov.ScheduledReports.Client
             {
               isRelative.Value = true;
               relative.Value = PublicFunctions.RelativeDate.Remote.GetRelativeDate(_obj.EntityId.GetValueOrDefault());
-              increment.Value = Functions.ScheduleSetting.GetIncrementForRelativeDateFromViewValue(_obj.ViewValue);
+              increment.Value = Functions.SettingBase.GetIncrementForRelativeDateFromViewValue(_obj.ViewValue);
             }
             else
             {
@@ -129,7 +129,7 @@ namespace Starkov.ScheduledReports.Client
             {
               if (isRelative.Value.GetValueOrDefault() && relative.Value != null)
               {
-                _obj.ViewValue = Functions.ScheduleSetting.BuildViewValueForRelativeDate(relative.Value, increment.Value);
+                _obj.ViewValue = Functions.SettingBase.BuildViewValueForRelativeDate(relative.Value, increment.Value);
                 _obj.EntityId = relative.Value.Id;
               }
               else

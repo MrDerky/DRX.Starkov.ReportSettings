@@ -4,6 +4,8 @@ using System.Linq;
 using Sungero.Core;
 using Sungero.CoreEntities;
 using Starkov.ScheduledReports.SettingBase;
+using Sungero.Metadata;
+using Sungero.Domain.Shared;
 
 namespace Starkov.ScheduledReports.Shared
 {
@@ -76,7 +78,7 @@ namespace Starkov.ScheduledReports.Shared
       var reportParams = _obj.Parameters.Where(p => !string.IsNullOrEmpty(p.ViewValue));
       Logger.DebugFormat("FillReportParams. setting={0}, reportParam={1}", _obj.Id, string.Join(", ", reportParams.Select(p => string.Format("{0}: ViewValue={1}, Id={2}", p.ParameterName, p.ViewValue, p.Id))));
       foreach (var parameter in reportParams)
-        report.SetParameterValue(parameter.ParameterName, Functions.ScheduleSetting.GetObjectFromReportParam(parameter));
+        report.SetParameterValue(parameter.ParameterName, Functions.SettingBase.GetObjectFromReportParam(parameter));
     }
     
     /// <summary>
@@ -84,7 +86,7 @@ namespace Starkov.ScheduledReports.Shared
     /// </summary>
     public bool IsFillReportParamsAny()
     {
-      return _obj.ReportParams.Any(r => !string.IsNullOrEmpty(r.ViewValue));
+      return _obj.Parameters.Any(r => !string.IsNullOrEmpty(r.ViewValue));
     }
 
     /// <summary>
@@ -92,7 +94,7 @@ namespace Starkov.ScheduledReports.Shared
     /// </summary>
     /// <param name="reportParam">Строка коллекции параметров отчета.</param>
     /// <returns>Объект.</returns>
-    public static object GetObjectFromReportParam(Starkov.ScheduledReports.IScheduleSettingReportParams reportParam)
+    public static object GetObjectFromReportParam(Starkov.ScheduledReports.ISettingBaseParameters reportParam)
     {
       try
       {
@@ -123,7 +125,7 @@ namespace Starkov.ScheduledReports.Shared
     /// </summary>
     /// <param name="reportParam">Строка коллекции параметров отчета.</param>
     /// <returns>Дата, или текущая дата и время, если получить из настроек не удалось.</returns>
-    private static DateTime? GetDateFromReportParam(Starkov.ScheduledReports.IScheduleSettingReportParams reportParam)
+    private static DateTime? GetDateFromReportParam(Starkov.ScheduledReports.ISettingBaseParameters reportParam)
     {
       DateTime date = Calendar.Now;
       
@@ -131,7 +133,7 @@ namespace Starkov.ScheduledReports.Shared
       {
         var relativeDate = PublicFunctions.RelativeDate.Remote.GetRelativeDate(reportParam.EntityId.Value);
         if (relativeDate != null)
-          date = PublicFunctions.RelativeDate.CalculateDate(relativeDate, null, Functions.ScheduleSetting.GetIncrementForRelativeDateFromViewValue(reportParam.ViewValue));
+          date = PublicFunctions.RelativeDate.CalculateDate(relativeDate, null, Functions.SettingBase.GetIncrementForRelativeDateFromViewValue(reportParam.ViewValue));
       }
       else if (!string.IsNullOrEmpty(reportParam.ViewValue))
         Calendar.TryParseDateTime(reportParam.ViewValue, out date);
