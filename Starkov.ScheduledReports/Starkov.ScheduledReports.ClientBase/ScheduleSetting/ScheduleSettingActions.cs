@@ -71,7 +71,7 @@ namespace Starkov.ScheduledReports.Client
 
     public virtual bool CanEnableSchedule(Sungero.Domain.Client.CanExecuteActionArgs e)
     {
-      return _obj.Status == Status.Active;
+      return _obj.Status == Status.Closed;
     }
 
   }
