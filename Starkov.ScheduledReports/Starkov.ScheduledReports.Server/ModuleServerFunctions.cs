@@ -171,7 +171,21 @@ namespace Starkov.ScheduledReports.Server
     public void SendNotice(IRole role, string subject, string body, IEntity attachment)
     {
       var performers = role.RecipientLinks.Select(r => r.Member).OfType<IRecipient>().ToArray();
-      SendNotice(performers, subject, body, attachment);
+      SendNotice(performers, subject, body, attachment, null);
+    }
+    
+        /// <summary>
+    /// Отправить уведомление.
+    /// </summary>
+    /// <param name="role">Роль.</param>
+    /// <param name="subject">Тема.</param>
+    /// <param name="body">Текст.</param>
+    /// <param name="attachment">Приложение.</param>
+    /// <param name="author">Инициатор.</param>
+    public void SendNotice(IRole role, string subject, string body, IEntity attachment, IUser author)
+    {
+      var performers = role.RecipientLinks.Select(r => r.Member).OfType<IRecipient>().ToArray();
+      SendNotice(performers, subject, body, attachment, author);
     }
     
     /// <summary>
@@ -181,7 +195,8 @@ namespace Starkov.ScheduledReports.Server
     /// <param name="subject">Тема.</param>
     /// <param name="body">Текст.</param>
     /// <param name="attachment">Приложение.</param>
-    public void SendNotice(IRecipient[] performers, string subject, string body, IEntity attachment)
+    /// <param name="author">Инициатор.</param>
+    public void SendNotice(IRecipient[] performers, string subject, string body, IEntity attachment, IUser author)
     {
       var task = Sungero.Workflow.SimpleTasks.CreateWithNotices(subject, performers.Where(p => p.IsSystem != true).ToArray());
       if (!string.IsNullOrEmpty(body))
@@ -192,6 +207,9 @@ namespace Starkov.ScheduledReports.Server
       
       if (attachment != null)
         task.Attachments.Add(attachment);
+      
+      if (author != null)
+        task.Author = author;
       
       task.Start();
     }
@@ -331,7 +349,7 @@ namespace Starkov.ScheduledReports.Server
       }
       
       Logger.Debug("StartSheduleReport. task start");
-      SendNotice(observers.ToArray(), setting.Name, null, document);
+      SendNotice(observers.ToArray(), setting.Name, null, document, setting.Author);
       
       scheduleLog.DocumentId = document.Id;
       scheduleLog.Status = ScheduledReports.ScheduleLog.Status.Complete;
