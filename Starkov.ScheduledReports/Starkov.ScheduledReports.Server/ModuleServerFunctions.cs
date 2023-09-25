@@ -174,7 +174,7 @@ namespace Starkov.ScheduledReports.Server
       SendNotice(performers, subject, body, attachment, null);
     }
     
-        /// <summary>
+    /// <summary>
     /// Отправить уведомление.
     /// </summary>
     /// <param name="role">Роль.</param>
@@ -268,9 +268,10 @@ namespace Starkov.ScheduledReports.Server
       {
         Logger.ErrorFormat("{0} Ошибка при отправке отчета.", ex, logInfo);
         
-        SendNotice(Roles.Administrators, "Ошибка при отправке отчета по расписанию",
-                   string.Join(Environment.NewLine, ex.Message, ex.StackTrace),
-                   setting);
+        if (scheduleLog.Status != ScheduledReports.ScheduleLog.Status.Error)
+          SendNotice(Roles.Administrators, "Ошибка при отправке отчета по расписанию",
+                     string.Join(Environment.NewLine, ex.Message, ex.StackTrace),
+                     setting);
         
         scheduleLog.Comment = ex.Message.Length > 250 ? ex.Message.Substring(250) : ex.Message;
         scheduleLog.Status = ScheduledReports.ScheduleLog.Status.Error;
@@ -344,7 +345,7 @@ namespace Starkov.ScheduledReports.Server
         Logger.Debug("StartSheduleReport. document save");
         document.Save();
         
-        if (!Locks.GetLockInfo(document).IsLockedByMe)
+        if (Locks.GetLockInfo(document).IsLockedByMe)
           Locks.Unlock(document);
       }
       
