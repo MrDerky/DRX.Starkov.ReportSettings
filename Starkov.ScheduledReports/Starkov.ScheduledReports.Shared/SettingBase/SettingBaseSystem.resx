@@ -142,4 +142,19 @@
   <data name="Property_ModuleGuid" xml:space="preserve">
     <value>Module Guid</value>
   </data>
+  <data name="Action_ClearParameterValue" xml:space="preserve">
+    <value>Clear parameter value</value>
+  </data>
+  <data name="Action_ClearParameterValueDescription" xml:space="preserve">
+    <value>Clear parameter value</value>
+  </data>
+  <data name="Action_ClearParameterValueHint" xml:space="preserve">
+    <value>Clear parameter value</value>
+  </data>
+  <data name="Action_ClearParameterValueConfirmationMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Action_ClearParameterValueConfirmationDescription" xml:space="preserve">
+    <value />
+  </data>
 </root>

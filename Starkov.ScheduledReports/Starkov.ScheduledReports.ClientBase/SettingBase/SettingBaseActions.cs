@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -151,10 +151,22 @@ namespace Starkov.ScheduledReports.Client
         #endregion
       }
     }
+
+    public virtual bool CanClearParameterValue(Sungero.Domain.Client.CanExecuteChildCollectionActionArgs e)
+    {
+      return !string.IsNullOrEmpty(_obj.ViewValue);
+    }
+
+    public virtual void ClearParameterValue(Sungero.Domain.Client.ExecuteChildCollectionActionArgs e)
+    {
+      _obj.ViewValue = null;
+      _obj.EntityId = null;
+    }
   }
 
   partial class SettingBaseActions
   {
+
 
     public virtual void StartReportWithParameters(Sungero.Domain.Client.ExecuteActionArgs e)
     {
@@ -188,7 +200,7 @@ namespace Starkov.ScheduledReports.Client
         
         report.Open();
         
-        Functions.SettingBase.SaveReportParams(_obj, report);
+        Functions.SettingBase.WriteParamsToReport(_obj, report);
       }
       catch (Exception ex)
       {

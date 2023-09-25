@@ -31,6 +31,15 @@
       "LargeIconName": "Action_EditParameterValue_large_5dd9ac1e8d844003ad06c351dbc58d97.png",
       "SmallIconName": "Action_EditParameterValue_small_5dd9ac1e8d844003ad06c351dbc58d97.png",
       "Versions": []
+    },
+    {
+      "NameGuid": "a0089aa5-5a03-465c-b58d-7f040284ab1e",
+      "Name": "ClearParameterValue",
+      "ActionArea": "ChildCollection",
+      "CollectionPropertyGuid": "e74d4457-994d-4e70-a8c2-c4061f490cd3",
+      "GenerateHandler": true,
+      "LargeIconName": "Action_ClearParameterValue_large_a0089aa55a03465cb58d7f040284ab1e.png",
+      "SmallIconName": "Action_ClearParameterValue_small_a0089aa55a03465cb58d7f040284ab1e.png"
     }
   ],
   "BaseGuid": "04581d26-0780-4cfd-b3cd-c2cafc5798b0",
@@ -171,6 +180,17 @@
   ],
   "Properties": [
     {
+      "$type": "Sungero.Metadata.EnumPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "1dcedc29-5140-4770-ac92-eabc212326a1",
+      "Name": "Status",
+      "IsAncestorMetadata": true,
+      "Overridden": [
+        "IsVisibility",
+        "IsShowedInList",
+        "CanBeSearch"
+      ]
+    },
+    {
       "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
       "NameGuid": "c28c3f2d-af9a-4aad-bf4d-520a3797edc1",
       "Name": "Name",
@@ -185,6 +205,9 @@
       "NameGuid": "f2ab9a78-cf91-4ef6-a5f1-5c065cea1e4d",
       "Name": "ReportName",
       "Code": "ReportName",
+      "HandledEvents": [
+        "ChangedShared"
+      ],
       "IsEnabled": false,
       "IsQuickSearchAllowed": true,
       "IsRequired": true,
@@ -230,20 +253,7 @@
   ],
   "PublicFunctions": [
     {
-      "Name": "SaveReportParams",
-      "Parameters": [
-        {
-          "Name": "settingBase",
-          "ParameterType": "global::Starkov.ScheduledReports.ISettingBase",
-          "ParameterTypeFullName": "Starkov.ScheduledReports.ISettingBase, Sungero.Domain.Interfaces"
-        }
-      ],
-      "Placement": "Shared",
-      "ReturnType": "void",
-      "ReturnTypeFullName": "System.Void"
-    },
-    {
-      "Name": "SaveReportParams",
+      "Name": "WriteParamsToReport",
       "Parameters": [
         {
           "Name": "settingBase",

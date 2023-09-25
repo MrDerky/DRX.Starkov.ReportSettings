@@ -41,6 +41,9 @@
       ]
     }
   ],
+  "HandledEvents": [
+    "RefreshClient"
+  ],
   "IconResourcesKeys": [],
   "IntegrationServiceName": "ScheduledReportsSettingReport",
   "OperationsClass": "",

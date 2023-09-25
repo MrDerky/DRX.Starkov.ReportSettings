@@ -118,4 +118,13 @@
   <data name="Property_ModuleGuid" xml:space="preserve">
     <value>Идентификатор модуля</value>
   </data>
+  <data name="Action_ClearParameterValue" xml:space="preserve">
+    <value>Очистить значение</value>
+  </data>
+  <data name="Action_ClearParameterValueHint" xml:space="preserve">
+    <value>Очистить значение</value>
+  </data>
+  <data name="Action_ClearParameterValueDescription" xml:space="preserve">
+    <value>Очистить значение</value>
+  </data>
 </root>

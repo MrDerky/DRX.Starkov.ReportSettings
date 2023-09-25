@@ -297,6 +297,9 @@
   "IconResourcesKeys": [],
   "IntegrationServiceName": "ScheduledReportsSettingSchedule",
   "OperationsClass": "",
+  "Overridden": [
+    "IsVisible"
+  ],
   "Properties": [
     {
       "$type": "Sungero.Metadata.CollectionPropertyMetadata, Sungero.Metadata",
@@ -477,34 +480,6 @@
       "Placement": "Shared",
       "ReturnType": "global::Starkov.ScheduledReports.IScheduleSetting",
       "ReturnTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
-    },
-    {
-      "Name": "SaveReportParams",
-      "Parameters": [
-        {
-          "Name": "scheduleSetting",
-          "ParameterType": "global::Starkov.ScheduledReports.IScheduleSetting",
-          "ParameterTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
-        }
-      ],
-      "ReturnType": "void",
-      "ReturnTypeFullName": "System.Void"
-    },
-    {
-      "Name": "SaveReportParams",
-      "Parameters": [
-        {
-          "Name": "scheduleSetting",
-          "ParameterType": "global::Starkov.ScheduledReports.IScheduleSetting",
-          "ParameterTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
-        },
-        {
-          "Name": "report",
-          "ParameterType": "Sungero.Reporting.Shared.ReportBase"
-        }
-      ],
-      "ReturnType": "void",
-      "ReturnTypeFullName": "System.Void"
     }
   ],
   "PublicStructures": [],

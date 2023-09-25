@@ -17,13 +17,15 @@ namespace Starkov.ScheduledReports.Shared
     /// </summary>
     public virtual void FillName()
     {
-      _obj.Name = _obj.ReportName;
+      if (string.IsNullOrEmpty(_obj.Name) || _obj.State.Properties.ReportName.PreviousValue == _obj.Name)
+        _obj.Name = _obj.ReportName;
+      else if (!string.IsNullOrEmpty(_obj.State.Properties.ReportName.PreviousValue) && _obj.Name.Contains(_obj.State.Properties.ReportName.PreviousValue))
+        _obj.Name = _obj.Name.Replace(_obj.State.Properties.ReportName.PreviousValue, _obj.ReportName);
     }
     
     /// <summary>
     /// Загрузить параметры отчета.
     /// </summary>
-    [Public]
     public virtual void SaveReportParams()
     {
       Guid reportGuid;
@@ -50,10 +52,10 @@ namespace Starkov.ScheduledReports.Shared
     }
     
     /// <summary>
-    /// Загрузить параметры отчета.
+    /// Загрузить параметры из карточки в отчет.
     /// </summary>
     [Public]
-    public void SaveReportParams(Sungero.Reporting.Shared.ReportBase report)
+    public void WriteParamsToReport(Sungero.Reporting.Shared.ReportBase report)
     {
       foreach (var parameter in report.Parameters)
       {

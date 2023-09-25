@@ -7,8 +7,4 @@ using Starkov.ScheduledReports.ReportSetting;
 
 namespace Starkov.ScheduledReports
 {
-  partial class ReportSettingSharedHandlers
-  {
-
-  }
 }
