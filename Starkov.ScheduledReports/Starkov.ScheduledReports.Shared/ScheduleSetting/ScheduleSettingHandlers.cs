@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -37,7 +37,7 @@ namespace Starkov.ScheduledReports
       }
       
       if (string.IsNullOrEmpty(_obj.Name) || e.OldValue != null && e.OldValue.ReportName == _obj.Name)
-        Functions.SettingSchedule.FillName(_obj);
+        Functions.ScheduleSetting.FillName(_obj);
       
       PublicFunctions.SettingBase.SaveReportParams(_obj);
     }

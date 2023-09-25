@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -11,7 +11,7 @@ namespace Starkov.ScheduledReports.Client
   {
     public override void SetReport(Sungero.Domain.Client.ExecuteActionArgs e)
     {
-      Functions.SettingReport.SelectReport(_obj);
+      Functions.ReportSetting.SelectReport(_obj);
     }
 
     public override bool CanSetReport(Sungero.Domain.Client.CanExecuteActionArgs e)

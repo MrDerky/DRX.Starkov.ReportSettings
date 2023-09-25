@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -37,7 +37,7 @@ namespace Starkov.ScheduledReports
       
       if (_obj.ReportSetting == null)
       {
-        e.AddError(Starkov.ScheduledReports.SettingSchedules.Resources.NeedSelectReportError);
+        e.AddError(Starkov.ScheduledReports.ScheduleSettings.Resources.NeedSelectReportError);
         return;
       }
     }

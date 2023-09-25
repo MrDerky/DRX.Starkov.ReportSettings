@@ -145,4 +145,7 @@
   <data name="ControlGroup_450962b1e9cf457cb1429182322e69ea" xml:space="preserve">
     <value>Расписание</value>
   </data>
+  <data name="Form_f9e6d71f5ca3415e8a6c03e842590747" xml:space="preserve">
+    <value>Состояние задач</value>
+  </data>
 </root>

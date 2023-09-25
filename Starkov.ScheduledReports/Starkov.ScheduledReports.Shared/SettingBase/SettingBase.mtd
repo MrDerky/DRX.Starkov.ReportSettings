@@ -168,9 +168,11 @@
   "IconResourcesKeys": [],
   "IntegrationServiceName": "ScheduledReportsSettingBase",
   "IsAbstract": true,
+  "IsVisible": false,
   "OperationsClass": "",
   "Overridden": [
-    "AccessRightsMode"
+    "AccessRightsMode",
+    "IsVisible"
   ],
   "Properties": [
     {
@@ -211,7 +213,6 @@
       "NameGuid": "f2ab9a78-cf91-4ef6-a5f1-5c065cea1e4d",
       "Name": "ReportName",
       "Code": "ReportName",
-      "IsDisplayValue": true,
       "IsEnabled": false,
       "IsQuickSearchAllowed": true,
       "IsRequired": true,

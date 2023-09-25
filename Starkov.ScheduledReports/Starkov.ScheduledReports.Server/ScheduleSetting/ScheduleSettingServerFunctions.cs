@@ -14,7 +14,7 @@ namespace Starkov.ScheduledReports.Server
     /// Создать запись настройки расписания для отчета.
     /// </summary>
     [Public, Remote]
-    public static Starkov.ScheduledReports.ISettingSchedule CreateScheduleSetting()
+    public static Starkov.ScheduledReports.IScheduleSetting CreateScheduleSetting()
     {
       return ScheduleSettings.Create();
     }
@@ -23,7 +23,7 @@ namespace Starkov.ScheduledReports.Server
     /// Получить запись настройки расписания для отчета по ИД.
     /// </summary>
     [Public, Remote(IsPure = true)]
-    public static Starkov.ScheduledReports.ISettingSchedule GetScheduleSetting(int? id)
+    public static Starkov.ScheduledReports.IScheduleSetting GetScheduleSetting(int? id)
     {
       return ScheduleSettings.GetAll(s => s.Id == id).FirstOrDefault(s => s.Status != ScheduledReports.ScheduleSetting.Status.Closed);
     }
@@ -96,16 +96,16 @@ namespace Starkov.ScheduledReports.Server
     public void SaveReportParams()
     {
       //var reportGuid = Guid.Parse(_obj.ReportGuid);
-      _obj.ReportParams.Clear();
+      _obj.Parameters.Clear();
       var report = _obj.ReportSetting;// Starkov.ScheduledReports.PublicFunctions.Module.GetReportMetaData(reportGuid);
       if (report == null)
         return;
       
       foreach (var parameter in report.Parameters.Where(p => !string.IsNullOrEmpty(p.DisplayName)))
       {
-        var reportParam = _obj.ReportParams.AddNew();
+        var reportParam = _obj.Parameters.AddNew();
         reportParam.ParameterName = parameter.ParameterName;
-        reportParam.ParameterDisplay = parameter.DisplayName;
+        reportParam.DisplayName = parameter.DisplayName;
         
         if (!string.IsNullOrEmpty(parameter.DisplayValue))
           reportParam.DisplayValue = parameter.DisplayValue;
@@ -132,7 +132,7 @@ namespace Starkov.ScheduledReports.Server
     {
       foreach (var parameter in report.Parameters)
       {
-        var reportParam = _obj.ReportParams.FirstOrDefault(p => p.ParameterName == parameter.Key);
+        var reportParam = _obj.Parameters.FirstOrDefault(p => p.ParameterName == parameter.Key);
         if (reportParam != null)
         {
           var entityParameter = parameter.Value as Sungero.Reporting.Shared.EntityParameter;

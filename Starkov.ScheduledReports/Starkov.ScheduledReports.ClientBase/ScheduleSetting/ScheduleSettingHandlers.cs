@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -15,12 +15,12 @@ namespace Starkov.ScheduledReports
       base.Showing(e);
       
       if (_obj.ReportSetting == null)
-        e.Instruction = string.Format(Starkov.ScheduledReports.SettingSchedules.Resources.SheduleSettingInstruction,
+        e.Instruction = string.Format(Starkov.ScheduledReports.ScheduleSettings.Resources.SheduleSettingInstruction,
                                       Environment.NewLine,
                                       _obj.Info.Actions.SetReport.LocalizedName,
                                       _obj.Info.Actions.StartReport.LocalizedName);
       
-      Functions.SettingSchedule.SetPropertyStates(_obj);
+      Functions.ScheduleSetting.SetPropertyStates(_obj);
       
       var scheduleSettingManagerRole = Roles.GetAll(r => r.Sid == Constants.Module.ScheduleSettingManagerRole).FirstOrDefault();
       if (scheduleSettingManagerRole == null || !Users.Current.IncludedIn(scheduleSettingManagerRole))

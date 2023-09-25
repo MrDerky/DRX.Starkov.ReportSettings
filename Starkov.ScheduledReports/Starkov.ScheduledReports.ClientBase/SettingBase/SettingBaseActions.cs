@@ -164,7 +164,7 @@ namespace Starkov.ScheduledReports.Client
         if (report == null)
           return;
         
-        Functions.SettingBase.FillReportParams(report, _obj);
+        Functions.SettingBase.FillReportParams(_obj, report);
         report.Open();
       }
       catch (Exception ex)

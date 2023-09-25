@@ -260,6 +260,33 @@
       "Overridden": [
         "SettingsResourceKey"
       ]
+    },
+    {
+      "$type": "Sungero.Metadata.InplaceFormMetadata, Sungero.Metadata",
+      "NameGuid": "f9e6d71f-5ca3-415e-8a6c-03e842590747",
+      "Name": "SheduleState",
+      "Controls": [
+        {
+          "$type": "Sungero.Metadata.ControlGroupMetadata, Sungero.Metadata",
+          "NameGuid": "7f53fab7-ce4f-4365-a7a7-81eaacdb9b80",
+          "Name": "State"
+        },
+        {
+          "$type": "Sungero.Metadata.FunctionControlMetadata, Sungero.Metadata",
+          "NameGuid": "588bfd4f-1a5d-4015-915e-b7873adaf61b",
+          "Name": "ScheduleReportState",
+          "ColumnNumber": 0,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StateViewToFunctionBinder",
+          "FunctionName": "GetScheduleSettingState",
+          "HeaderLocation": "None",
+          "ParentGuid": "7f53fab7-ce4f-4365-a7a7-81eaacdb9b80",
+          "RowNumber": 0,
+          "RowSpan": 1,
+          "Settings": []
+        }
+      ],
+      "ParentFormGuid": "a31340c6-fc96-4511-b9d9-55353669fa73"
     }
   ],
   "HandledEvents": [
@@ -378,7 +405,8 @@
       "Name": "CreateScheduleSetting",
       "IsRemote": true,
       "Placement": "Shared",
-      "ReturnType": "Starkov.ScheduledReports.ISettingSchedule"
+      "ReturnType": "global::Starkov.ScheduledReports.IScheduleSetting",
+      "ReturnTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
     },
     {
       "Name": "GetNextPeriod",
@@ -448,7 +476,8 @@
         }
       ],
       "Placement": "Shared",
-      "ReturnType": "Starkov.ScheduledReports.ISettingSchedule"
+      "ReturnType": "global::Starkov.ScheduledReports.IScheduleSetting",
+      "ReturnTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
     },
     {
       "Name": "SaveReportParams",

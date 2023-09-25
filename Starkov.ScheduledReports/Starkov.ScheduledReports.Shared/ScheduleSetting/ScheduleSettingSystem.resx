@@ -157,4 +157,10 @@
   <data name="ControlGroup_450962b1e9cf457cb1429182322e69ea" xml:space="preserve">
     <value>Schedule</value>
   </data>
+  <data name="Form_f9e6d71f5ca3415e8a6c03e842590747" xml:space="preserve">
+    <value>Shedule report state</value>
+  </data>
+  <data name="ControlGroup_7f53fab7ce4f4365a7a781eaacdb9b80" xml:space="preserve">
+    <value />
+  </data>
 </root>
