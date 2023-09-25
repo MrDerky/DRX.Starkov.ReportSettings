@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
 using Sungero.CoreEntities;
-using Starkov.ScheduledReports.ReportSetting;
+using Starkov.ScheduledReports.SettingBase;
 
-namespace Starkov.ScheduledReports.Shared
+namespace Starkov.ScheduledReports.Client
 {
-  partial class ReportSettingFunctions
+  partial class SettingBaseFunctions
   {
 
   }

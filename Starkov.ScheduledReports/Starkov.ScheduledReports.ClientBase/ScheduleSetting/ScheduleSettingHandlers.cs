@@ -12,14 +12,8 @@ namespace Starkov.ScheduledReports
 
     public override void Showing(Sungero.Presentation.FormShowingEventArgs e)
     {
-      _obj.State.Properties.PeriodNumber.IsVisible = _obj.Period != null && _obj.Period.IsIncremental.GetValueOrDefault();
-      
-      if (_obj.ReportSetting == null)
-        e.Instruction = string.Format(Starkov.ScheduledReports.ScheduleSettings.Resources.SheduleSettingInstruction,
-                                      Environment.NewLine,
-                                      _obj.Info.Actions.SetReport.LocalizedName,
-                                      _obj.Info.Actions.StartReport.LocalizedName);
-      
+      base.Showing(e);
+     
       Functions.ScheduleSetting.SetPropertyStates(_obj);
       
       var scheduleSettingManagerRole = Roles.GetAll(r => r.Sid == Constants.Module.ScheduleSettingManagerRole).FirstOrDefault();
@@ -29,12 +23,13 @@ namespace Starkov.ScheduledReports
         e.HideAction(_obj.Info.Actions.DisableSchedule);
       }
       
+      //TODO Временный костыль, подумать на переход на e.Params
       if (_obj.Status == Status.Active && !Functions.Module.Remote.GetScheduleLogs(_obj)
           .Any(l => l.Status == ScheduleLog.Status.Waiting || l.Status == ScheduleLog.Status.Error))
       {
         _obj.Status = Status.Closed;
       }
     }
-    
+
   }
 }

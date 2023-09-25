@@ -346,12 +346,12 @@ namespace Starkov.ScheduledReports.Server
     /// <param name="report">Отчет.</param>
     /// <param name="setting">Настройки отчета.</param>
     [Public]
-    public void FillReportParams(Sungero.Reporting.Shared.ReportBase report, Starkov.ScheduledReports.IScheduleSetting setting)
+    public void FillReportParams(Sungero.Reporting.Shared.ReportBase report, Starkov.ScheduledReports.ISettingBase setting)
     {
-      var reportParams = setting.ReportParams.Where(p => !string.IsNullOrEmpty(p.ViewValue));
+      var reportParams = setting.Parameters.Where(p => !string.IsNullOrEmpty(p.ViewValue));
       Logger.DebugFormat("FillReportParams. setting={0}, reportParam={1}", setting.Id, string.Join(", ", reportParams.Select(p => string.Format("{0}: ViewValue={1}, Id={2}", p.ParameterName, p.ViewValue, p.Id))));
       foreach (var parameter in reportParams)
-        report.SetParameterValue(parameter.ParameterName, Functions.ScheduleSetting.GetObjectFromReportParam(parameter));
+        report.SetParameterValue(parameter.ParameterName, Functions.SettingBase.GetObjectFromReportParam(parameter));
     }
 
     #endregion
@@ -599,7 +599,7 @@ namespace Starkov.ScheduledReports.Server
     [Public, Remote]
     public Sungero.Domain.Shared.IEntity GetEntitiesByGuid(Guid entityGuid, int? id)
     {
-      return GetEntitiesByGuid(entityGuid).FirstOrDefault(e => e.Id == id);
+      return GetEntitiesByGuid(entityGuid)?.FirstOrDefault(e => e.Id == id);
     }
     
     /// <summary>

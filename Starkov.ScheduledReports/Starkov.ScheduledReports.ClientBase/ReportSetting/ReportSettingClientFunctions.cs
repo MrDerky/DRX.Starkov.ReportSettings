@@ -35,13 +35,12 @@ namespace Starkov.ScheduledReports.Client
       
       if (dialog.Show() == DialogButtons.Ok)
       {
-        _obj.ModuleName = module.Value; // TODO Пока вопрос нужно ли хранить модуль
+//        _obj.ModuleName = module.Value; // TODO Пока вопрос нужно ли хранить модуль
         _obj.ModuleGuid = modulesInfo.FirstOrDefault(m => m.Value == module.Value).Key.ToString();
         _obj.ReportName = report.Value;
         _obj.ReportGuid = reports.FirstOrDefault(r => r.LocalizedName == report.Value).NameGuid.ToString();
         
-        Functions.ReportSetting.SaveReportParams(_obj);
-//        Functions.ScheduleSetting.SetPropertyStates(_obj);
+        Functions.SettingBase.SaveReportParams(_obj);
       }
     }
 
