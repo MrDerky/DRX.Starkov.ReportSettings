@@ -490,8 +490,36 @@
     "NameGuid": "437b9def-84b1-4c4b-ad64-28b09cef5f76",
     "Name": "RibbonCard",
     "Categories": [],
-    "Elements": [],
-    "Groups": [],
+    "Elements": [
+      {
+        "$type": "Sungero.Metadata.RibbonActionButtonMetadata, Sungero.Metadata",
+        "NameGuid": "e9c42de4-1d47-489b-a415-1b6b71f58c7b",
+        "Name": "EnableSchedule",
+        "ActionGuid": "d26b5e7f-be5a-4da3-940b-5d4485456517",
+        "ButtonSize": "Large",
+        "Index": -1,
+        "ParentGuid": "532352e4-edc2-4897-b7c6-d04633d75aea"
+      },
+      {
+        "$type": "Sungero.Metadata.RibbonActionButtonMetadata, Sungero.Metadata",
+        "NameGuid": "7a2c41ba-176a-4ca3-ba27-f3b2672a1fb9",
+        "Name": "DisableSchedule",
+        "ActionGuid": "c1f981b5-8198-4019-a540-da8206f82e35",
+        "ButtonSize": "Large",
+        "Index": 0,
+        "ParentGuid": "532352e4-edc2-4897-b7c6-d04633d75aea"
+      }
+    ],
+    "Groups": [
+      {
+        "NameGuid": "532352e4-edc2-4897-b7c6-d04633d75aea",
+        "Name": "Schedule",
+        "IconName": null,
+        "Index": 22,
+        "ParentGuid": "21a31627-5f58-4416-8c4a-90f538ee2e57",
+        "SmallIconName": null
+      }
+    ],
     "IsAncestorMetadata": true,
     "Pages": [],
     "RibbonKind": "Card"
