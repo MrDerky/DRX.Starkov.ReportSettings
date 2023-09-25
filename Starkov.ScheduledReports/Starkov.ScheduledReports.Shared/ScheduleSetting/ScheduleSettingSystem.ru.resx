@@ -68,7 +68,7 @@
     <value>Настройку расписания</value>
   </data>
   <data name="Instruction" xml:space="preserve">
-    <value>Выполните действие "Запустить отчет" для того, чтобы параметры автоматически подтянулись из диалога.</value>
+    <value />
   </data>
   <data name="Property_ReportSetting" xml:space="preserve">
     <value>Отчет</value>

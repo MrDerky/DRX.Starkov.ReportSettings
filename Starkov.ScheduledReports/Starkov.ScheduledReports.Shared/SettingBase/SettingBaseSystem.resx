@@ -70,12 +70,6 @@
   <data name="CollectionDisplayName" xml:space="preserve">
     <value>Settings</value>
   </data>
-  <data name="Property_ModuleName" xml:space="preserve">
-    <value>ModuleName</value>
-  </data>
-  <data name="Property_ModuleGuid" xml:space="preserve">
-    <value>ModuleGuid</value>
-  </data>
   <data name="Property_ReportName" xml:space="preserve">
     <value>Report</value>
   </data>
@@ -84,21 +78,6 @@
   </data>
   <data name="Property_Parameters" xml:space="preserve">
     <value>Report params</value>
-  </data>
-  <data name="Action_SetReportConfirmationDescription" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Action_SetReportHint" xml:space="preserve">
-    <value>Set report</value>
-  </data>
-  <data name="Action_SetReportConfirmationMessage" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Action_SetReportDescription" xml:space="preserve">
-    <value>Set report</value>
-  </data>
-  <data name="Action_SetReport" xml:space="preserve">
-    <value>Set report</value>
   </data>
   <data name="Action_StartReport" xml:space="preserve">
     <value>StartReport</value>
@@ -148,13 +127,19 @@
   <data name="ControlGroup_9c2f313a10b648bf8fda5064381b18bd" xml:space="preserve">
     <value>Report parameters</value>
   </data>
-  <data name="Ribbon_Settings_1587550744bf4316add12d9ae4253521" xml:space="preserve">
-    <value>Settings</value>
+  <data name="Ribbon_Actions_1587550744bf4316add12d9ae4253521" xml:space="preserve">
+    <value>Actions</value>
   </data>
   <data name="ControlGroup_21a234fb7a494bb7a360bacd27f24960" xml:space="preserve">
     <value />
   </data>
   <data name="ControlGroup_933f94bf7651410fa686bcd51c9b6e8a" xml:space="preserve">
     <value />
+  </data>
+  <data name="Instruction" xml:space="preserve">
+    <value>Perform the "Run Report" action so that the parameters are automatically pulled up from the dialog.</value>
+  </data>
+  <data name="Property_ModuleGuid" xml:space="preserve">
+    <value>Module Guid</value>
   </data>
 </root>

@@ -59,15 +59,24 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DisplayName" xml:space="preserve">
-    <value>Отчет</value>
+    <value>Настройка отчета</value>
   </data>
   <data name="AccusativeDisplayName" xml:space="preserve">
-    <value>Отчет</value>
+    <value>Настройку отчета</value>
   </data>
   <data name="CollectionDisplayName" xml:space="preserve">
-    <value>Отчеты</value>
+    <value>Настройки отчетов</value>
   </data>
   <data name="Property_Name" xml:space="preserve">
     <value>Имя</value>
+  </data>
+  <data name="Action_SetReportDescription" xml:space="preserve">
+    <value>Выбрать отчет</value>
+  </data>
+  <data name="Action_SetReportHint" xml:space="preserve">
+    <value>Выбрать отчет</value>
+  </data>
+  <data name="Action_SetReport" xml:space="preserve">
+    <value>Выбрать отчет</value>
   </data>
 </root>

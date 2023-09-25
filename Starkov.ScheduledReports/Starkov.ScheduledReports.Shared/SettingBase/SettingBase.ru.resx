@@ -61,4 +61,10 @@
   <data name="FillRequiredParametersError" xml:space="preserve">
     <value>Не удалось запустить отчет. Заполните необходимые параметры.</value>
   </data>
+  <data name="NeedSelectReportError" xml:space="preserve">
+    <value>Не выбран отчет</value>
+  </data>
+  <data name="SheduleSettingInstruction" xml:space="preserve">
+    <value>Выберите отчет для начала настройки.</value>
+  </data>
 </root>

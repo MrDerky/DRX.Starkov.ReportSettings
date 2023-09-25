@@ -65,7 +65,7 @@
     <value>Параметр</value>
   </data>
   <data name="Property_EntityGuid" xml:space="preserve">
-    <value>Тип сущности</value>
+    <value>Идентификатор типа</value>
   </data>
   <data name="Property_EntityId" xml:space="preserve">
     <value>ИД</value>

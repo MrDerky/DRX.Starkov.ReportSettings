@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -199,16 +199,6 @@ namespace Starkov.ScheduledReports.Client
     public virtual bool CanStartReport(Sungero.Domain.Client.CanExecuteActionArgs e)
     {
       return !string.IsNullOrEmpty(_obj.ReportGuid);
-    }
-
-    public virtual void SetReport(Sungero.Domain.Client.ExecuteActionArgs e)
-    {
-      
-    }
-
-    public virtual bool CanSetReport(Sungero.Domain.Client.CanExecuteActionArgs e)
-    {
-      return true;
     }
 
   }

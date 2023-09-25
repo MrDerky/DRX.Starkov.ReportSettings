@@ -61,10 +61,4 @@
   <data name="IncrementDelimeter" xml:space="preserve">
     <value>X</value>
   </data>
-  <data name="SheduleSettingInstruction" xml:space="preserve">
-    <value>Perform the action "{1}" to start the setup. {0}Perform the action "{2}" in order for the parameters to be automatically pulled up from the dialog.</value>
-  </data>
-  <data name="NeedSelectReportError" xml:space="preserve">
-    <value>You need to select a report</value>
-  </data>
 </root>

@@ -31,7 +31,6 @@ namespace Starkov.ScheduledReports
       if (e.NewValue != null)
       {
         _obj.ModuleGuid = e.NewValue.ModuleGuid;
-        _obj.ModuleName = e.NewValue.ModuleName;
         _obj.ReportGuid = e.NewValue.ReportGuid;
         _obj.ReportName = e.NewValue.ReportName;
       }

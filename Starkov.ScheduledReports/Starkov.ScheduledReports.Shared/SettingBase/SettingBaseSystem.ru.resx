@@ -70,12 +70,6 @@
   <data name="CollectionDisplayName" xml:space="preserve">
     <value>Настройки</value>
   </data>
-  <data name="Property_ModuleName" xml:space="preserve">
-    <value>Модуль</value>
-  </data>
-  <data name="Property_ModuleGuid" xml:space="preserve">
-    <value>ИД Модуля</value>
-  </data>
   <data name="Property_ReportName" xml:space="preserve">
     <value>Отчет</value>
   </data>
@@ -84,15 +78,6 @@
   </data>
   <data name="Property_Parameters" xml:space="preserve">
     <value>Параметры отчета</value>
-  </data>
-  <data name="Action_SetReportDescription" xml:space="preserve">
-    <value>Выбрать отчет</value>
-  </data>
-  <data name="Action_SetReportHint" xml:space="preserve">
-    <value>Выбрать отчет</value>
-  </data>
-  <data name="Action_SetReport" xml:space="preserve">
-    <value>Выбрать отчет</value>
   </data>
   <data name="Action_StartReport" xml:space="preserve">
     <value>Запустить отчет</value>
@@ -124,7 +109,13 @@
   <data name="ControlGroup_9c2f313a10b648bf8fda5064381b18bd" xml:space="preserve">
     <value>Параметры отчета</value>
   </data>
-  <data name="Ribbon_Settings_1587550744bf4316add12d9ae4253521" xml:space="preserve">
-    <value>Параметры</value>
+  <data name="Ribbon_Actions_1587550744bf4316add12d9ae4253521" xml:space="preserve">
+    <value>Действия</value>
+  </data>
+  <data name="Instruction" xml:space="preserve">
+    <value>Выполните действие "Запустить отчет" для того, чтобы параметры автоматически подтянулись из диалога.</value>
+  </data>
+  <data name="Property_ModuleGuid" xml:space="preserve">
+    <value>Идентификатор модуля</value>
   </data>
 </root>

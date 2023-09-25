@@ -5,13 +5,12 @@
   "AccessRightsMode": "Both",
   "Actions": [
     {
-      "NameGuid": "251d7f2a-c533-4083-a136-03e9c54ddabd",
+      "NameGuid": "a5eb6890-0502-47af-9af9-b06ff1ba0e1f",
       "Name": "SetReport",
+      "ActionArea": "Card",
       "GenerateHandler": true,
-      "IsAncestorMetadata": true,
-      "Overridden": [
-        "GenerateHandler"
-      ],
+      "LargeIconName": "Action_SetReport_large_a5eb6890050247af9af9b06ff1ba0e1f.png",
+      "SmallIconName": "Action_SetReport_small_a5eb6890050247af9af9b06ff1ba0e1f.png",
       "Versions": []
     }
   ],
@@ -64,7 +63,17 @@
     "NameGuid": "8318be8b-c65e-4547-b5d4-d5293bea87de",
     "Name": "RibbonCard",
     "Categories": [],
-    "Elements": [],
+    "Elements": [
+      {
+        "$type": "Sungero.Metadata.RibbonActionButtonMetadata, Sungero.Metadata",
+        "NameGuid": "73bc71ba-9c4c-4bc6-943d-ae33ad4eec23",
+        "Name": "SetReport",
+        "ActionGuid": "a5eb6890-0502-47af-9af9-b06ff1ba0e1f",
+        "ButtonSize": "Large",
+        "Index": -1,
+        "ParentGuid": "15875507-44bf-4316-add1-2d9ae4253521"
+      }
+    ],
     "Groups": [],
     "IsAncestorMetadata": true,
     "Pages": [],

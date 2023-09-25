@@ -26,7 +26,10 @@ namespace Starkov.ScheduledReports.Shared
     [Public]
     public virtual void SaveReportParams()
     {
-      var reportGuid = Guid.Parse(_obj.ReportGuid);
+      Guid reportGuid;
+      if (!Guid.TryParse(_obj.ReportGuid, out reportGuid))
+        return;
+      
       var report = Starkov.ScheduledReports.PublicFunctions.Module.GetReportMetaData(reportGuid);
       
       _obj.Parameters.Clear();

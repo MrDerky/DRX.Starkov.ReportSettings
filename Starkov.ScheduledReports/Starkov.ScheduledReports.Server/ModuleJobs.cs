@@ -25,10 +25,9 @@ namespace Starkov.ScheduledReports.Server
       
       // Если есть асинхронные варианты, но с ошибками - подхватить их фоновым процессом
       var scheduleLogs = Functions.Module.GetScheduleLogs()
+        .Where(s => s.StartDate.HasValue)
         .Where(s => (s.IsAsyncExecute != true || s.StartDate < Calendar.Now) && s.Status == ScheduledReports.ScheduleLog.Status.Waiting || s.Status == ScheduledReports.ScheduleLog.Status.Error)
-        .Where(s => s.StartDate.HasValue &&
-               //!lastJobExecuteTime.HasValue || lastJobExecuteTime < s.StartDate.Value &&
-               !nextJobExecuteTime.HasValue || s.StartDate.Value <= nextJobExecuteTime)
+        .Where(s =>  !nextJobExecuteTime.HasValue || s.StartDate.Value <= nextJobExecuteTime)
         .OrderByDescending(s => s.Id);
       
       foreach (var scheduleBySetting in scheduleLogs.GroupBy(s => s.ScheduleSettingId))

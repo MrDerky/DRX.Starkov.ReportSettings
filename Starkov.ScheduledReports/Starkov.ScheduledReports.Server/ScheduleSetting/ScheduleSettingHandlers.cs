@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -29,17 +29,6 @@ namespace Starkov.ScheduledReports
       _obj.Author = Users.Current;
       _obj.Status = Status.Closed;
       _obj.IsAsyncExecute = Functions.Module.GetNextJobExecuteTime(Constants.Module.SendSheduleReportsJobId) == null;
-    }
-
-    public override void BeforeSave(Sungero.Domain.BeforeSaveEventArgs e)
-    {
-      base.BeforeSave(e);
-      
-      if (_obj.ReportSetting == null)
-      {
-        e.AddError(Starkov.ScheduledReports.ScheduleSettings.Resources.NeedSelectReportError);
-        return;
-      }
     }
   }
 

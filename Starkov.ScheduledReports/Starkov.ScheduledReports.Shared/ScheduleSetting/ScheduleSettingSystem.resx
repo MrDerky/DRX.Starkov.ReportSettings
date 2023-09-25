@@ -68,7 +68,7 @@
     <value>Schedule Settings</value>
   </data>
   <data name="Instruction" xml:space="preserve">
-    <value>Perform the "Run Report" action so that the parameters are automatically pulled up from the dialog.</value>
+    <value />
   </data>
   <data name="Property_ReportSetting" xml:space="preserve">
     <value>Report</value>

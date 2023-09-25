@@ -61,10 +61,4 @@
   <data name="IncrementDelimeter" xml:space="preserve">
     <value>X</value>
   </data>
-  <data name="SheduleSettingInstruction" xml:space="preserve">
-    <value>Выполните действие "{1}" для начала настройки. {0}Выполните действие "{2}" для того, чтобы параметры автоматически подтянулись из диалога.</value>
-  </data>
-  <data name="NeedSelectReportError" xml:space="preserve">
-    <value>Необходимо выбрать отчет</value>
-  </data>
 </root>

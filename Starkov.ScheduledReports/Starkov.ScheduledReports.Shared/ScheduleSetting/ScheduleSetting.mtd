@@ -291,7 +291,6 @@
   ],
   "HandledEvents": [
     "ShowingClient",
-    "BeforeSaveServer",
     "CreatingFromServer",
     "CreatedServer"
   ],
@@ -510,9 +509,7 @@
   ],
   "PublicStructures": [],
   "ResourcesKeys": [
-    "IncrementDelimeter",
-    "SheduleSettingInstruction",
-    "NeedSelectReportError"
+    "IncrementDelimeter"
   ],
   "RibbonCardMetadata": {
     "NameGuid": "437b9def-84b1-4c4b-ad64-28b09cef5f76",

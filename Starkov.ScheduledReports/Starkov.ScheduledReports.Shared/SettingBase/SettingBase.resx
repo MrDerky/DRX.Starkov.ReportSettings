@@ -61,4 +61,10 @@
   <data name="FillRequiredParametersError" xml:space="preserve">
     <value>The report could not be started. Fill in the required parameters.</value>
   </data>
+  <data name="NeedSelectReportError" xml:space="preserve">
+    <value>Need to select a report</value>
+  </data>
+  <data name="SheduleSettingInstruction" xml:space="preserve">
+    <value>Choose to start the setup.</value>
+  </data>
 </root>

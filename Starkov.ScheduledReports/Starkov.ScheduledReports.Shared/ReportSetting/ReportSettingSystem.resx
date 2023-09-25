@@ -59,15 +59,30 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DisplayName" xml:space="preserve">
-    <value>Report</value>
+    <value>Report setting</value>
   </data>
   <data name="AccusativeDisplayName" xml:space="preserve">
-    <value>Report</value>
+    <value>Report setting</value>
   </data>
   <data name="CollectionDisplayName" xml:space="preserve">
-    <value>Reports</value>
+    <value>Report settings</value>
   </data>
   <data name="Property_Name" xml:space="preserve">
     <value>Name</value>
+  </data>
+  <data name="Action_SetReport" xml:space="preserve">
+    <value>Set report</value>
+  </data>
+  <data name="Action_SetReportDescription" xml:space="preserve">
+    <value>Set report</value>
+  </data>
+  <data name="Action_SetReportHint" xml:space="preserve">
+    <value>Set report</value>
+  </data>
+  <data name="Action_SetReportConfirmationMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Action_SetReportConfirmationDescription" xml:space="preserve">
+    <value />
   </data>
 </root>

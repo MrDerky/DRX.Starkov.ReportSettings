@@ -599,7 +599,7 @@ namespace Starkov.ScheduledReports.Server
     [Public, Remote]
     public Sungero.Domain.Shared.IEntity GetEntitiesByGuid(Guid entityGuid, int? id)
     {
-      return GetEntitiesByGuid(entityGuid).FirstOrDefault(e => e.Id == id);
+      return GetEntitiesByGuid(entityGuid)?.FirstOrDefault(e => e.Id == id);
     }
     
     /// <summary>

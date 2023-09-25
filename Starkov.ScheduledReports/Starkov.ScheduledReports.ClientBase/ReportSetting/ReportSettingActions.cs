@@ -9,16 +9,15 @@ namespace Starkov.ScheduledReports.Client
 {
   partial class ReportSettingActions
   {
-    public override void SetReport(Sungero.Domain.Client.ExecuteActionArgs e)
+    public virtual void SetReport(Sungero.Domain.Client.ExecuteActionArgs e)
     {
       Functions.ReportSetting.SelectReport(_obj);
     }
 
-    public override bool CanSetReport(Sungero.Domain.Client.CanExecuteActionArgs e)
+    public virtual bool CanSetReport(Sungero.Domain.Client.CanExecuteActionArgs e)
     {
-      return base.CanSetReport(e);
+      return true;
     }
-
   }
 
 }
