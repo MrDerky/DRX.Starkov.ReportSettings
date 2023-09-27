@@ -265,7 +265,11 @@ namespace Starkov.ScheduledReports.Server
       {
         if (!Locks.GetLockInfo(scheduleLog).IsLockedByMe && !Locks.TryLock(scheduleLog))
         {
-          Logger.DebugFormat("{0} Запись справочника scheduleLog={1} заблокирована пользователем {2}.", logInfo, scheduleLog.Id, Locks.GetLockInfo(scheduleLog).OwnerName);
+          Logger.DebugFormat("{0} Запись справочника scheduleLog={1} заблокирована пользователем {2} LoginId={3}, CurrentUserLoginId={4}.", logInfo,
+                             scheduleLog.Id,
+                             Locks.GetLockInfo(scheduleLog).OwnerName,
+                             Locks.GetLockInfo(scheduleLog).LoginId,
+                             Users.Current.Login.Id);
           return false;
         }
         

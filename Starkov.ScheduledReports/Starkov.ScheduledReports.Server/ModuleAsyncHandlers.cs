@@ -61,13 +61,14 @@ namespace Starkov.ScheduledReports.Server
       
       if (!Functions.Module.ScheduleLogExecute(setting, scheduleLog, logInfo))
       {
+        args.Retry = args.RetryIteration < 100;
         // HACK Обход платформенного бага при генерации отчетов
         if (scheduleLog.Comment.Contains("Object reference not set to an instance of an object."))
         {
           args.NextRetryTime = Calendar.Now.AddMinutes(1);
-          Logger.DebugFormat("{0} scheduleLog={1}. Обработка ошибки Object reference not set to an instance of an object. Следующий запуск {2}", logInfo, scheduleLog.Id, args.NextRetryTime);
+          Logger.DebugFormat("{0} scheduleLog={1}. Обработка ошибки Object reference not set to an instance of an object. Следующий запуск {2}", logInfo, scheduleLog.Id, 
+                             args.Retry == true ? args.NextRetryTime : "отменен из-за превышения количества попыток");
         }
-        args.Retry = args.RetryIteration < 100;
         return;
       }
       
