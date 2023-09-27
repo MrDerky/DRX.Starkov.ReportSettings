@@ -33,7 +33,7 @@ namespace Starkov.ScheduledReports.Server
       
       if (scheduleLog == null)
       {
-        Logger.DebugFormat("{0} Не найдено записей справочника ScheduleLog со статусом Waiting.", logInfo);
+        Logger.DebugFormat("{0} Не найдено записей справочника ScheduleLog со статусом Waiting или Error.", logInfo);
         if (!Locks.TryLock(setting))
         {
           Logger.DebugFormat("{0} Запись справочника ScheduleSetting заблокирована пользователем {1}.", logInfo, Locks.GetLockInfo(setting).OwnerName);
@@ -61,12 +61,12 @@ namespace Starkov.ScheduledReports.Server
       
       if (!Functions.Module.ScheduleLogExecute(setting, scheduleLog, logInfo))
       {
-        Logger.DebugFormat("{0}. scheduleLog={1}. Ошибка при обработке.", logInfo, scheduleLog.Id);
-        
         // HACK Обход платформенного бага при генерации отчетов
         if (scheduleLog.Comment.Contains("Object reference not set to an instance of an object."))
+        {
           args.NextRetryTime = Calendar.Now.AddMinutes(1);
-        
+          Logger.DebugFormat("{0} scheduleLog={1}. Обработка ошибки Object reference not set to an instance of an object. Следующий запуск {2}", logInfo, scheduleLog.Id, args.NextRetryTime);
+        }
         args.Retry = args.RetryIteration < 100;
         return;
       }

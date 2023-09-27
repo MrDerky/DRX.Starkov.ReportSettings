@@ -214,6 +214,11 @@
           "Name": "setting",
           "ParameterType": "global::Starkov.ScheduledReports.IScheduleSetting",
           "ParameterTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "baseDate",
+          "ParameterType": "global::System.Nullable<global::System.DateTime>",
+          "ParameterTypeFullName": "System.Nullable"
         }
       ],
       "ReturnType": "void",

@@ -264,7 +264,7 @@
     {
       "$type": "Sungero.Metadata.InplaceFormMetadata, Sungero.Metadata",
       "NameGuid": "f9e6d71f-5ca3-415e-8a6c-03e842590747",
-      "Name": "SheduleState",
+      "Name": "SheduleLog",
       "Controls": [
         {
           "$type": "Sungero.Metadata.ControlGroupMetadata, Sungero.Metadata",
@@ -301,6 +301,16 @@
     "IsVisible"
   ],
   "Properties": [
+    {
+      "$type": "Sungero.Metadata.EnumPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "1dcedc29-5140-4770-ac92-eabc212326a1",
+      "Name": "Status",
+      "IsAncestorMetadata": true,
+      "IsVisibility": false,
+      "Overridden": [
+        "IsVisibility"
+      ]
+    },
     {
       "$type": "Sungero.Metadata.CollectionPropertyMetadata, Sungero.Metadata",
       "NameGuid": "e74d4457-994d-4e70-a8c2-c4061f490cd3",

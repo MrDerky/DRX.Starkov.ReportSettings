@@ -13,8 +13,6 @@ namespace Starkov.ScheduledReports
     public override void Showing(Sungero.Presentation.FormShowingEventArgs e)
     {
       base.Showing(e);
-     
-      Functions.ScheduleSetting.SetPropertyStates(_obj);
       
       var scheduleSettingManagerRole = Roles.GetAll(r => r.Sid == Constants.Module.ScheduleSettingManagerRole).FirstOrDefault();
       if (scheduleSettingManagerRole == null || !Users.Current.IncludedIn(scheduleSettingManagerRole))
@@ -29,6 +27,8 @@ namespace Starkov.ScheduledReports
       {
         _obj.Status = Status.Closed;
       }
+      
+      Functions.ScheduleSetting.SetPropertyStates(_obj);
     }
 
   }

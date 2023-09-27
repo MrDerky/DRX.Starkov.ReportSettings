@@ -49,7 +49,7 @@ namespace Starkov.ScheduledReports.Client
       
       try
       {
-        PublicFunctions.Module.EnableSchedule(_obj);
+        PublicFunctions.Module.EnableSchedule(_obj, null);
         var message = _obj.IsAsyncExecute.GetValueOrDefault()
           ? string.Format("Запланирована отправка отчета по расписанию.{0}Время следующего запуска {1}", Environment.NewLine, nextDate)
           : string.Format("Запланирована отправка отчета по расписанию.{0}Время запуска зависит от настроек фонового процесса", Environment.NewLine);

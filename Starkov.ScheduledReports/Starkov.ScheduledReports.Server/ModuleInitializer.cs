@@ -110,5 +110,6 @@ namespace Starkov.ScheduledReports.Server
       previewLog.Save();
       InitializationLogger.DebugFormat("Init: Created new previewLog id={0}", previewLog.Id);
     }
+
   }
 }

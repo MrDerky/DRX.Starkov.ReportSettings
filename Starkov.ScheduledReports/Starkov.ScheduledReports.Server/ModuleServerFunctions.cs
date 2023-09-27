@@ -35,6 +35,7 @@ namespace Starkov.ScheduledReports.Server
       
       var block = stateView.AddBlock();
       // TODO Подумать как лучше реализовать возможность просмотра всех записей (Листание или отчет)
+      // TODO Доработать порядок вывода (Запись статуса "В ожидании" выводить всегда первой)
       if (Users.Current.IncludedIn(Roles.Administrators))
         block.AddHyperlink("Показать все записи", Hyperlinks.Get(ScheduleLogs.Info));
       else
@@ -121,7 +122,15 @@ namespace Starkov.ScheduledReports.Server
       if (log.DocumentId.HasValue)
         // Ссылка на документ с отчетом
         block.AddHyperlink("Просмотр", Hyperlinks.Get(Sungero.Docflow.OfficialDocuments.Info, log.DocumentId.Value));
-      else if (log.IsAsyncExecute != true)
+      //      //IHyperlinksImplementer uri = new IHyperlinksImplementer();
+      //      //uri.BaseUri.Host
+      //      //   http://10.19.3.132/Client/#/sat/preview/guid/id/ver
+      //      {
+      //        var clientLink = new Sungero.Domain.HyperlinksImplementer().HyperlinkServer.AbsoluteUri.Replace("Sungero", "Client");
+      //        var path = string.Format("{0}/#/sat/preview/{1}/{2}/ver ", clientLink, "58cca102-1e97-4f07-b6ac-fd866a8b7cb1", log.DocumentId.Value);
+      //        block.AddLabel(path);
+      //      }
+      else if (log.IsAsyncExecute != true && (log.Status == ScheduledReports.ScheduleLog.Status.Waiting || log.Status == ScheduledReports.ScheduleLog.Status.Error))
       {
         // Информация о фоновом обработчике
         if (nextJobExecuteTime.HasValue)
@@ -222,10 +231,11 @@ namespace Starkov.ScheduledReports.Server
     /// Создать запись расписания и асинхронный обработчик для выполнения.
     /// </summary>
     /// <param name="setting">Настройка расписания.</param>
+    /// <param name="baseDate">Дата отсчета.</param>
     [Public]
-    public void EnableSchedule(Starkov.ScheduledReports.IScheduleSetting setting)
+    public void EnableSchedule(Starkov.ScheduledReports.IScheduleSetting setting, DateTime? baseDate)
     {
-      CreateScheduleLog(setting, null);
+      CreateScheduleLog(setting, baseDate);
       if (setting.IsAsyncExecute == true)
         ExecuteSheduleReportAsync(setting.Id);
     }
@@ -262,7 +272,7 @@ namespace Starkov.ScheduledReports.Server
         scheduleLog.LastStart = Calendar.Now;
         
         StartSheduleReport(setting, scheduleLog);
-        EnableSchedule(setting);
+        EnableSchedule(setting, scheduleLog.StartDate);
       }
       catch (Exception ex)
       {
@@ -420,14 +430,12 @@ namespace Starkov.ScheduledReports.Server
     /// <summary>
     /// Создать запись Журнала расписаний
     /// </summary>
-    private void CreateScheduleLog(Starkov.ScheduledReports.IScheduleSetting setting, DateTime? startDate)
+    private void CreateScheduleLog(Starkov.ScheduledReports.IScheduleSetting setting, DateTime? baseDate)
     {
       if (setting == null)
         return;
       
-      if (startDate == null)
-        startDate = Functions.ScheduleSetting.GetNextPeriod(setting, startDate);
-      
+      var startDate = Functions.ScheduleSetting.GetNextPeriod(setting, baseDate);
       if (startDate == null)
       {
         Logger.ErrorFormat("CreateScheduleLog. setting={0}. Не удалось вычислить дату следующего выполнения.", setting.Id);
