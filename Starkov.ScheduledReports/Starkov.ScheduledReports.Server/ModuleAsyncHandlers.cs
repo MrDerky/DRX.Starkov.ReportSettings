@@ -66,8 +66,8 @@ namespace Starkov.ScheduledReports.Server
         if (scheduleLog.Comment.Contains("Object reference not set to an instance of an object."))
         {
           args.NextRetryTime = Calendar.Now.AddMinutes(1);
-          Logger.DebugFormat("{0} scheduleLog={1}. Обработка ошибки Object reference not set to an instance of an object. Следующий запуск {2}", logInfo, scheduleLog.Id, 
-                             args.Retry == true ? args.NextRetryTime : "отменен из-за превышения количества попыток");
+          Logger.DebugFormat("{0} scheduleLog={1}. Обработка ошибки Object reference not set to an instance of an object. Следующий запуск {2}", logInfo, scheduleLog.Id,
+                             args.Retry == true ? args.NextRetryTime.ToString() : "отменен из-за превышения количества попыток");
         }
         return;
       }

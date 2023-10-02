@@ -270,6 +270,7 @@ namespace Starkov.ScheduledReports.Server
                              Locks.GetLockInfo(scheduleLog).OwnerName,
                              Locks.GetLockInfo(scheduleLog).LoginId,
                              Users.Current.Login.Id);
+          //Запись справочника scheduleLog=1564 заблокирована пользователем Система LoginId=-1, CurrentUserLoginId=4 TODO решить как обойти
           return false;
         }
         
@@ -295,12 +296,14 @@ namespace Starkov.ScheduledReports.Server
       }
       finally
       {
-        Logger.ErrorFormat("{0} Разблокировка scheduleLog={1}, setting={2}.", logInfo, scheduleLog.Id, setting.Id);
+        Logger.ErrorFormat("{0} Статус блокировки scheduleLog={1} isLocked={2}, setting={3} isLocked={4}.", logInfo, scheduleLog.Id, Locks.GetLockInfo(scheduleLog).IsLocked, setting.Id, Locks.GetLockInfo(setting).IsLocked);
         if (Locks.GetLockInfo(scheduleLog).IsLockedByMe)
           Locks.Unlock(scheduleLog);
         
         if (Locks.GetLockInfo(setting).IsLockedByMe)
           Locks.Unlock(setting);
+        
+        Logger.ErrorFormat("{0} Статус после разблокировки scheduleLog={1} isLocked={2}, setting={3} isLocked={4}.", logInfo, scheduleLog.Id, Locks.GetLockInfo(scheduleLog).IsLocked, setting.Id, Locks.GetLockInfo(setting).IsLocked);
       }
       
       return true;
@@ -339,8 +342,8 @@ namespace Starkov.ScheduledReports.Server
       FillReportParams(report, setting);
 
       var document = Sungero.Docflow.SimpleDocuments.Create();
-      if (!Locks.GetLockInfo(document).IsLocked)
-        Locks.Lock(document);
+//      if (!Locks.GetLockInfo(document).IsLocked)
+//        Locks.Lock(document);
       
       document.Name = setting.Name;
       
@@ -350,6 +353,7 @@ namespace Starkov.ScheduledReports.Server
       
       using(var stream = new System.IO.MemoryStream())
       {
+        Logger.DebugFormat("StartSheduleReport. try export report to stream. scheduleLog={0}, Lock LoginId={1} currentLoginId={2}", scheduleLog.Id, Locks.GetLockInfo(scheduleLog).LoginId, Users.Current.Login.Id);
         using (var reportStream = report.Export())
           reportStream.CopyTo(stream);
         
@@ -463,6 +467,9 @@ namespace Starkov.ScheduledReports.Server
         scheduleLog.AccessRights.Grant(observer, DefaultAccessRightsTypes.Read);
       
       scheduleLog.Save();
+      
+      Logger.DebugFormat("CreateScheduleLog. setting={0} scheduleLog={1}. Users.Current.Id={2}, Users.Current.Login.Id={3}, IsLocked={4}.", 
+                         setting.Id, scheduleLog.Id, Users.Current.Id, Users.Current.Login.Id, Locks.GetLockInfo(scheduleLog).IsLocked);
       
       if (Locks.GetLockInfo(scheduleLog).IsLockedByMe)
         Locks.Unlock(scheduleLog);

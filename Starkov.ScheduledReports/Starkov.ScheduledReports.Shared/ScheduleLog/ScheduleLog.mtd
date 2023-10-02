@@ -109,6 +109,7 @@
   "IntegrationServiceName": "ScheduledReportsScheduleLog",
   "IsAutoCreated": true,
   "IsVisible": false,
+  "NeedWriteHistory": true,
   "OperationsClass": "",
   "Overridden": [
     "IsVisible",
