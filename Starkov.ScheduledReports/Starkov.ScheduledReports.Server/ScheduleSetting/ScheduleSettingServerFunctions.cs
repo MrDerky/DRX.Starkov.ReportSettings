@@ -78,7 +78,7 @@ namespace Starkov.ScheduledReports.Server
       var resultDate =  PublicFunctions.RelativeDate.CalculateDate(_obj.Period, baseDate, number);
       
       if (resultDate < Calendar.Now)
-        resultDate = PublicFunctions.RelativeDate.CalculateDate(_obj.Period, Calendar.Now, number);
+        resultDate = GetNextPeriod(number, resultDate).GetValueOrDefault(); //TODO страшная рекурсия... подумать как оптимизировать
       
       if (_obj.DateBegin.HasValue && resultDate < _obj.DateBegin.Value)
         return _obj.DateBegin.Value;

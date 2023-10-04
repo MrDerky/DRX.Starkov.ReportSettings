@@ -14,6 +14,11 @@
           "NameGuid": "114542c3-3756-4b4c-a2d7-2e96cbe43237",
           "Name": "SheduleSettingId",
           "ParameterType": "Integer"
+        },
+        {
+          "NameGuid": "da100af2-aa06-48f4-88a2-1c1a96d7f36f",
+          "Name": "ScheduleLogId",
+          "ParameterType": "Integer"
         }
       ]
     }

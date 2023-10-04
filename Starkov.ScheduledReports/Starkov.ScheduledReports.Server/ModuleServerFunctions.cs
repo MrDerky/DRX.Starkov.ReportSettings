@@ -261,6 +261,8 @@ namespace Starkov.ScheduledReports.Server
     /// <returns>Признак успешного выполнения.</returns>
     public bool ScheduleLogExecute(IScheduleSetting setting, IScheduleLog scheduleLog, string logInfo)
     {
+      var result = true;
+      
       try
       {
         if (!Locks.GetLockInfo(scheduleLog).IsLockedByMe && !Locks.TryLock(scheduleLog))
@@ -292,7 +294,7 @@ namespace Starkov.ScheduledReports.Server
         scheduleLog.Status = ScheduledReports.ScheduleLog.Status.Error;
         scheduleLog.Save();
         
-        return false;
+        result = false;
       }
       finally
       {
@@ -306,7 +308,7 @@ namespace Starkov.ScheduledReports.Server
         Logger.ErrorFormat("{0} Статус после разблокировки scheduleLog={1} isLocked={2}, setting={3} isLocked={4}.", logInfo, scheduleLog.Id, Locks.GetLockInfo(scheduleLog).IsLocked, setting.Id, Locks.GetLockInfo(setting).IsLocked);
       }
       
-      return true;
+      return result;
     }
     
     /// <summary>
@@ -342,8 +344,6 @@ namespace Starkov.ScheduledReports.Server
       FillReportParams(report, setting);
 
       var document = Sungero.Docflow.SimpleDocuments.Create();
-//      if (!Locks.GetLockInfo(document).IsLocked)
-//        Locks.Lock(document);
       
       document.Name = setting.Name;
       
@@ -468,7 +468,7 @@ namespace Starkov.ScheduledReports.Server
       
       scheduleLog.Save();
       
-      Logger.DebugFormat("CreateScheduleLog. setting={0} scheduleLog={1}. Users.Current.Id={2}, Users.Current.Login.Id={3}, IsLocked={4}.", 
+      Logger.DebugFormat("CreateScheduleLog. setting={0} scheduleLog={1}. Users.Current.Id={2}, Users.Current.Login.Id={3}, IsLocked={4}.",
                          setting.Id, scheduleLog.Id, Users.Current.Id, Users.Current.Login.Id, Locks.GetLockInfo(scheduleLog).IsLocked);
       
       if (Locks.GetLockInfo(scheduleLog).IsLockedByMe)
