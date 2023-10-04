@@ -15,6 +15,7 @@ namespace Starkov.ScheduledReports.Server
     /// <param name="args"></param>
     public virtual void SendSheduleReport(Starkov.ScheduledReports.Server.AsyncHandlerInvokeArgs.SendSheduleReportInvokeArgs args)
     {
+      args.Retry = false;
       var logInfo = string.Format("SendSheduleReport. SheduleSettingId = {0}.", args.SheduleSettingId);
       Logger.DebugFormat("{0} Start. RetryIteration={1}", logInfo, args.RetryIteration);
       
@@ -22,7 +23,6 @@ namespace Starkov.ScheduledReports.Server
       if (setting == null)
       {
         Logger.DebugFormat("{0} Не удалось получить действующую запись справочника SheduleSetting.", logInfo);
-        args.Retry = false;
         return;
       }
       
@@ -47,7 +47,12 @@ namespace Starkov.ScheduledReports.Server
         if (Locks.GetLockInfo(setting).IsLockedByMe)
           Locks.Unlock(setting);
         
-        args.Retry = false;
+        return;
+      }
+      
+      if (scheduleLog.Id != args.ScheduleLogId)
+      {
+        Logger.DebugFormat("{0} Последнняя запись журнала расписания {1} не соответствует переданной в асинхронный обработчик {1}.", logInfo, scheduleLog.Id, args.ScheduleLogId);
         return;
       }
       
