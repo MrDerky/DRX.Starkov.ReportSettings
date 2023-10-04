@@ -16,44 +16,57 @@ namespace Starkov.ScheduledReports.Server
     public virtual void SendSheduleReport(Starkov.ScheduledReports.Server.AsyncHandlerInvokeArgs.SendSheduleReportInvokeArgs args)
     {
       args.Retry = false;
-      var logInfo = string.Format("SendSheduleReport. SheduleSettingId = {0}.", args.SheduleSettingId);
+      var logInfo = string.Format("SendSheduleReport. ScheduleLogId = {0}.", args.ScheduleLogId);
       Logger.DebugFormat("{0} Start. RetryIteration={1}", logInfo, args.RetryIteration);
       
-      var setting = PublicFunctions.ScheduleSetting.Remote.GetScheduleSetting(args.SheduleSettingId);
-      if (setting == null)
-      {
-        Logger.DebugFormat("{0} Не удалось получить действующую запись справочника SheduleSetting.", logInfo);
-        return;
-      }
+      var scheduleLog = ScheduleLogs.GetAll(s => s.Id == args.ScheduleLogId).FirstOrDefault();
+      if (scheduleLog != null)
+        logInfo = string.Format("{0} SheduleSetting = {1}.", scheduleLog.ScheduleSettingId);
       
-      var scheduleLog = ScheduleLogs.GetAll(s => s.ScheduleSettingId == setting.Id)
-        .Where(s => s.Status == ScheduledReports.ScheduleLog.Status.Waiting || s.Status == ScheduledReports.ScheduleLog.Status.Error)
-        .OrderByDescending(s => s.Id)
-        .FirstOrDefault();
-      
-      if (scheduleLog == null)
+      if (scheduleLog != null && scheduleLog.Status != ScheduledReports.ScheduleLog.Status.Waiting && scheduleLog.Status != ScheduledReports.ScheduleLog.Status.Error)
       {
-        Logger.DebugFormat("{0} Не найдено записей справочника ScheduleLog со статусом Waiting или Error.", logInfo);
-        if (!Locks.TryLock(setting))
+        Logger.DebugFormat("{0} Запись справочника ScheduleLog в статусе {1}", logInfo, scheduleLog.Status);
+        
+        var setting = PublicFunctions.ScheduleSetting.Remote.GetScheduleSetting(scheduleLog.ScheduleSettingId);
+        if (setting == null)
         {
-          Logger.DebugFormat("{0} Запись справочника ScheduleSetting заблокирована пользователем {1}.", logInfo, Locks.GetLockInfo(setting).OwnerName);
-          args.Retry = true;
-          return;
+          Logger.DebugFormat("{0} Не удалось получить действующую запись справочника SheduleSetting.", logInfo);
+          if (Locks.TryLock(scheduleLog))
+          {
+            scheduleLog.Status = ScheduledReports.ScheduleLog.Status.Closed;
+            scheduleLog.Save();
+            
+            if (Locks.GetLockInfo(scheduleLog).IsLockedByMe)
+              Locks.Unlock(scheduleLog);
+            
+            return;
+          }
+          else
+          {
+            args.Retry = args.RetryIteration < 100;
+            return;
+          }
         }
         
-        setting.Status = ScheduledReports.ScheduleSetting.Status.Closed;
-        setting.Save();
-        
-        if (Locks.GetLockInfo(setting).IsLockedByMe)
-          Locks.Unlock(setting);
-        
-        return;
-      }
-      
-      if (scheduleLog.Id != args.ScheduleLogId)
-      {
-        Logger.DebugFormat("{0} Последнняя запись журнала расписания {1} не соответствует переданной в асинхронный обработчик {1}.", logInfo, scheduleLog.Id, args.ScheduleLogId);
-        return;
+        if (!ScheduleLogs.GetAll(s => s.ScheduleSettingId == setting.Id)
+            .Any(s => s.Status == ScheduledReports.ScheduleLog.Status.Waiting || s.Status == ScheduledReports.ScheduleLog.Status.Error))
+        {
+          Logger.DebugFormat("{0} Не найдено записей справочника ScheduleLog со статусом Waiting или Error.", logInfo);
+          if (!Locks.TryLock(setting))
+          {
+            Logger.DebugFormat("{0} Запись справочника ScheduleSetting заблокирована пользователем {1}.", logInfo, Locks.GetLockInfo(setting).OwnerName);
+            args.Retry = true;
+            return;
+          }
+          
+          setting.Status = ScheduledReports.ScheduleSetting.Status.Closed;
+          setting.Save();
+          
+          if (Locks.GetLockInfo(setting).IsLockedByMe)
+            Locks.Unlock(setting);
+          
+          return;
+        }
       }
       
       if (Calendar.Now < scheduleLog.StartDate.Value)
@@ -64,7 +77,7 @@ namespace Starkov.ScheduledReports.Server
         return;
       }
       
-      if (!Functions.Module.ScheduleLogExecute(setting, scheduleLog, logInfo))
+      if (!Functions.Module.ScheduleLogExecute(scheduleLog, logInfo))
       {
         args.Retry = args.RetryIteration < 100;
         // HACK Обход платформенного бага при генерации отчетов

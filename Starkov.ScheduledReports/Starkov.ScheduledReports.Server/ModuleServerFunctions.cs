@@ -235,33 +235,38 @@ namespace Starkov.ScheduledReports.Server
     [Public]
     public void EnableSchedule(Starkov.ScheduledReports.IScheduleSetting setting, DateTime? baseDate)
     {
-      CreateScheduleLog(setting, baseDate);
+      var sheduleLog = CreateScheduleLog(setting, baseDate);
       if (setting.IsAsyncExecute == true)
-        ExecuteSheduleReportAsync(setting.Id);
+        ExecuteSheduleReportAsync(sheduleLog.Id);
     }
     
     /// <summary>
     /// Создать асинхронный обработчик для отправки отчета.
     /// </summary>
-    /// <param name="scheduleSettingId"></param>
+    /// <param name="scheduleLogId">ИД записи журнала расписаний.</param>
     [Public]
-    public void ExecuteSheduleReportAsync (int scheduleSettingId)
+    public void ExecuteSheduleReportAsync (int scheduleLogId)
     {
       var asyncHandler = Starkov.ScheduledReports.AsyncHandlers.SendSheduleReport.Create();
-      asyncHandler.SheduleSettingId = scheduleSettingId;
+      asyncHandler.ScheduleLogId = scheduleLogId;
       asyncHandler.ExecuteAsync();
     }
     
     /// <summary>
     /// Обработать запись журнала расписания и отправить отчет.
     /// </summary>
-    /// <param name="setting">Настройка расписания.</param>
     /// <param name="scheduleLog">Запись журнала расписания.</param>
     /// <param name="logInfo">Информация для логирования.</param>
     /// <returns>Признак успешного выполнения.</returns>
-    public bool ScheduleLogExecute(IScheduleSetting setting, IScheduleLog scheduleLog, string logInfo)
+    public bool ScheduleLogExecute(IScheduleLog scheduleLog, string logInfo)
     {
       var result = true;
+      var setting = PublicFunctions.ScheduleSetting.Remote.GetScheduleSetting(scheduleLog.ScheduleSettingId);
+      if (setting == null)
+      {
+        Logger.DebugFormat("{0} Не удалось получить действующую запись справочника SheduleSetting {1}.", logInfo, scheduleLog.ScheduleSettingId);
+        return result;
+      }
       
       try
       {
@@ -438,10 +443,11 @@ namespace Starkov.ScheduledReports.Server
     /// <summary>
     /// Создать запись Журнала расписаний
     /// </summary>
-    private void CreateScheduleLog(Starkov.ScheduledReports.IScheduleSetting setting, DateTime? baseDate)
+    /// <returns>Новая запись журнала расписаний.</returns>
+    private Starkov.ScheduledReports.IScheduleLog CreateScheduleLog(Starkov.ScheduledReports.IScheduleSetting setting, DateTime? baseDate)
     {
       if (setting == null)
-        return;
+        return Starkov.ScheduledReports.ScheduleLogs.Null;
       
       var startDate = Functions.ScheduleSetting.GetNextPeriod(setting, baseDate);
       if (startDate == null)
@@ -451,7 +457,7 @@ namespace Starkov.ScheduledReports.Server
       }
       
       if (setting.DateEnd.HasValue && setting.DateEnd.Value < startDate.Value)
-        return;
+        return Starkov.ScheduledReports.ScheduleLogs.Null;
       
       var scheduleLog = ScheduleLogs.Create();
       scheduleLog.ScheduleSettingId = setting.Id;
@@ -473,6 +479,8 @@ namespace Starkov.ScheduledReports.Server
       
       if (Locks.GetLockInfo(scheduleLog).IsLockedByMe)
         Locks.Unlock(scheduleLog);
+      
+      return scheduleLog;
     }
     
     /// <summary>
