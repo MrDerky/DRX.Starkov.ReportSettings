@@ -21,7 +21,7 @@ namespace Starkov.ScheduledReports.Server
       
       var scheduleLog = ScheduleLogs.GetAll(s => s.Id == args.ScheduleLogId).FirstOrDefault();
       if (scheduleLog != null)
-        logInfo = string.Format("{0} SheduleSetting = {1}.", scheduleLog.ScheduleSettingId);
+        logInfo = string.Format("{0} SheduleSetting = {1}.", logInfo, scheduleLog.ScheduleSettingId);
       
       if (scheduleLog != null && scheduleLog.Status != ScheduledReports.ScheduleLog.Status.Waiting && scheduleLog.Status != ScheduledReports.ScheduleLog.Status.Error)
       {
