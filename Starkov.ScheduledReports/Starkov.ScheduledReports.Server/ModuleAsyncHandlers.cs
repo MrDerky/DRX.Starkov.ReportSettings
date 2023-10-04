@@ -69,7 +69,7 @@ namespace Starkov.ScheduledReports.Server
         }
       }
       
-      if (Calendar.Now < scheduleLog.StartDate.Value)
+      if (scheduleLog.StartDate.HasValue && Calendar.Now < scheduleLog.StartDate.Value)
       {
         args.NextRetryTime = scheduleLog.StartDate.Value;
         args.Retry = true;
@@ -81,7 +81,7 @@ namespace Starkov.ScheduledReports.Server
       {
         args.Retry = args.RetryIteration < 100;
         // HACK Обход платформенного бага при генерации отчетов
-        if (!string.IsNullOrEmpty(scheduleLog.Comment) && scheduleLog.Comment.Contains("Object reference not set to an instance of an object."))
+        if (scheduleLog.Status == ScheduledReports.ScheduleLog.Status.Error && !string.IsNullOrEmpty(scheduleLog.Comment) && scheduleLog.Comment.Contains("Object reference not set to an instance of an object."))
         {
           args.NextRetryTime = Calendar.Now.AddMinutes(1);
           Logger.DebugFormat("{0} scheduleLog={1}. Обработка ошибки Object reference not set to an instance of an object. Следующий запуск {2}", logInfo, scheduleLog.Id,

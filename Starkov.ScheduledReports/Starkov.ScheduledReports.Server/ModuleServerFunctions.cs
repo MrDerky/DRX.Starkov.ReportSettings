@@ -115,7 +115,7 @@ namespace Starkov.ScheduledReports.Server
       if (log.LastStart.HasValue && log.Status != ScheduledReports.ScheduleLog.Status.Closed)
       {
         content.AddLineBreak();
-        content.AddLabel("Запуск " + GetStringDate(log.LastStart));
+        content.AddLabel("Выполнено " + GetStringDate(log.LastStart));
       }
       
       block.AddLineBreak();
@@ -236,7 +236,7 @@ namespace Starkov.ScheduledReports.Server
     public void EnableSchedule(Starkov.ScheduledReports.IScheduleSetting setting, DateTime? baseDate)
     {
       var sheduleLog = CreateScheduleLog(setting, baseDate);
-      if (setting.IsAsyncExecute == true)
+      if (sheduleLog != null && setting.IsAsyncExecute == true)
         ExecuteSheduleReportAsync(sheduleLog.Id);
     }
     
