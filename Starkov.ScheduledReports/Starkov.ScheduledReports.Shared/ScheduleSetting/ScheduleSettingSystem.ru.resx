@@ -58,77 +58,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Property_Name" xml:space="preserve">
-    <value>Имя</value>
-  </data>
   <data name="DisplayName" xml:space="preserve">
     <value>Настройка расписания</value>
-  </data>
-  <data name="AccusativeDisplayName" xml:space="preserve">
-    <value>Настройку расписания</value>
   </data>
   <data name="CollectionDisplayName" xml:space="preserve">
     <value>Настройки расписания</value>
   </data>
-  <data name="Property_ModuleName" xml:space="preserve">
-    <value>Модуль</value>
-  </data>
-  <data name="Property_ReportName" xml:space="preserve">
-    <value>Отчет</value>
-  </data>
-  <data name="Property_ReportParams" xml:space="preserve">
-    <value>Параметры отчета</value>
-  </data>
-  <data name="Property_ReportGuid" xml:space="preserve">
-    <value>Идентификатор отчета</value>
-  </data>
-  <data name="Action_SetReport" xml:space="preserve">
-    <value>Выбрать отчет</value>
-  </data>
-  <data name="Action_SetReportHint" xml:space="preserve">
-    <value>Выбрать отчет</value>
-  </data>
-  <data name="Action_SetReportDescription" xml:space="preserve">
-    <value>Выбрать отчет</value>
-  </data>
-  <data name="Action_StartReport" xml:space="preserve">
-    <value>Запустить отчет</value>
-  </data>
-  <data name="Action_StartReportHint" xml:space="preserve">
-    <value>Запустить отчет</value>
-  </data>
-  <data name="Action_StartReportDescription" xml:space="preserve">
-    <value>Запустить отчет</value>
-  </data>
-  <data name="Property_ModuleGuid" xml:space="preserve">
-    <value>ИД Модуля</value>
+  <data name="AccusativeDisplayName" xml:space="preserve">
+    <value>Настройку расписания</value>
   </data>
   <data name="Instruction" xml:space="preserve">
-    <value>Выполните действие "Запустить отчет" для того, чтобы параметры автоматически подтянулись из диалога.</value>
+    <value />
+  </data>
+  <data name="Property_ReportSetting" xml:space="preserve">
+    <value>Отчет</value>
   </data>
   <data name="Property_Observers" xml:space="preserve">
     <value>Получатели</value>
-  </data>
-  <data name="Action_EditParameter" xml:space="preserve">
-    <value>Редактировать параметр</value>
-  </data>
-  <data name="Action_EditParameterHint" xml:space="preserve">
-    <value>Редактировать параметр</value>
-  </data>
-  <data name="Action_EditParameterDescription" xml:space="preserve">
-    <value>Редактировать параметр</value>
-  </data>
-  <data name="Property_ShowParams" xml:space="preserve">
-    <value>Показать параметры</value>
-  </data>
-  <data name="ControlGroup_1b8735c1caf34bc4bcce4d89ee2535aa" xml:space="preserve">
-    <value>Расписание</value>
   </data>
   <data name="Property_PeriodNumber" xml:space="preserve">
     <value>Количество</value>
   </data>
   <data name="Property_Author" xml:space="preserve">
     <value>Автор</value>
+  </data>
+  <data name="Property_IsAsyncExecute" xml:space="preserve">
+    <value>Использовать асинхронное выполнение вместо фонового процесса</value>
   </data>
   <data name="Action_EnableSchedule" xml:space="preserve">
     <value>Запустить</value>
@@ -139,6 +94,12 @@
   <data name="Action_EnableScheduleDescription" xml:space="preserve">
     <value>Запустить расписание</value>
   </data>
+  <data name="Action_EnableScheduleConfirmationMessage" xml:space="preserve">
+    <value>Запланировать расписание с заданными настройками?</value>
+  </data>
+  <data name="Action_EnableScheduleConfirmationDescription" xml:space="preserve">
+    <value />
+  </data>
   <data name="Action_DisableSchedule" xml:space="preserve">
     <value>Остановить</value>
   </data>
@@ -148,37 +109,46 @@
   <data name="Action_DisableScheduleDescription" xml:space="preserve">
     <value>Остановить расписание</value>
   </data>
-  <data name="Ribbon_Settings_3eaef5a67bcc41a7a47a693133e5a63b" xml:space="preserve">
-    <value>Параметры</value>
-  </data>
-  <data name="Form_be2058865d184da0b5e6b425e553d368" xml:space="preserve">
-    <value>Журнал</value>
-  </data>
-  <data name="Action_StartReportWithParameters" xml:space="preserve">
-    <value>Запуск с параметрами</value>
-  </data>
-  <data name="Action_StartReportWithParametersHint" xml:space="preserve">
-    <value>Запустить отчет с параметрами</value>
-  </data>
-  <data name="Action_StartReportWithParametersDescription" xml:space="preserve">
-    <value>Запустить отчет с параметрами</value>
-  </data>
   <data name="Action_DisableScheduleConfirmationMessage" xml:space="preserve">
     <value>Вы действительно хотите отменить расписание?</value>
   </data>
   <data name="Action_DisableScheduleConfirmationDescription" xml:space="preserve">
     <value />
   </data>
-  <data name="Action_EnableScheduleConfirmationMessage" xml:space="preserve">
-    <value>Запланировать расписание с заданными настройками?</value>
-  </data>
-  <data name="Action_EnableScheduleConfirmationDescription" xml:space="preserve">
+  <data name="Resource_f17fc30e7bfc444cb81aa9e91f6eb6f3" xml:space="preserve">
     <value />
   </data>
-  <data name="Ribbon_Schedule_7e8a6724437d40fc90b558f6e2bf58ef" xml:space="preserve">
+  <data name="Resource_7a5a875842c447e6b733e51b9a58d5f8" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_7a5a875842c447e6b733e51b9a58d5f8_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlGroup_9c2f313a10b648bf8fda5064381b18bd" xml:space="preserve">
+    <value>Параметры отчета</value>
+  </data>
+  <data name="ControlGroup_933f94bf7651410fa686bcd51c9b6e8a" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_0e491e55b48a4335b15e2931affb1873" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlGroup_21a234fb7a494bb7a360bacd27f24960" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_3079ca94b8a3458cae194a2d369fc971" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_3079ca94b8a3458cae194a2d369fc971_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlGroup_450962b1e9cf457cb1429182322e69ea" xml:space="preserve">
     <value>Расписание</value>
   </data>
-  <data name="Property_IsAsyncExecute" xml:space="preserve">
-    <value>Использовать асинхронное выполнение вместо фонового процесса</value>
+  <data name="Form_f9e6d71f5ca3415e8a6c03e842590747" xml:space="preserve">
+    <value>Журнал</value>
+  </data>
+  <data name="Ribbon_Schedule_532352e4edc24897b7c6d04633d75aea" xml:space="preserve">
+    <value>Расписание</value>
   </data>
 </root>

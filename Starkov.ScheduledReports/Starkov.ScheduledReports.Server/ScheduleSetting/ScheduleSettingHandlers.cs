@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -12,6 +12,8 @@ namespace Starkov.ScheduledReports
 
     public override void CreatingFrom(Sungero.Domain.CreatingFromEventArgs e)
     {
+      base.CreatingFrom(e);
+      
       e.Without(_info.Properties.Author);
       e.Without(_info.Properties.Status);
     }
@@ -20,20 +22,12 @@ namespace Starkov.ScheduledReports
   partial class ScheduleSettingServerHandlers
   {
 
-    public override void BeforeSave(Sungero.Domain.BeforeSaveEventArgs e)
-    {
-      if (string.IsNullOrEmpty(_obj.ReportGuid))
-      {
-        e.AddError(Starkov.ScheduledReports.ScheduleSettings.Resources.NeedSelectReportError);
-        return;
-      }
-    }
-
     public override void Created(Sungero.Domain.CreatedEventArgs e)
     {
+      base.Created(e);
+      
       _obj.Author = Users.Current;
       _obj.Status = Status.Closed;
-      _obj.ShowParams = false;
       _obj.IsAsyncExecute = Functions.Module.GetNextJobExecuteTime(Constants.Module.SendSheduleReportsJobId) == null;
     }
   }

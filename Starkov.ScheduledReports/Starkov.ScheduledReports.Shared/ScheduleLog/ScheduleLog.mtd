@@ -2,6 +2,7 @@
   "$type": "Sungero.Metadata.EntityMetadata, Sungero.Metadata",
   "NameGuid": "14ecf32c-4688-4751-a90f-835f5b0d8698",
   "Name": "ScheduleLog",
+  "AccessRightsMode": "Both",
   "Actions": [
     {
       "NameGuid": "00fae4b6-935a-4047-831d-312fd3c02faf",
@@ -95,8 +96,11 @@
     }
   ],
   "HandledEvents": [
-    "ShowingClient"
+    "ShowingClient",
+    "BeforeSaveServer"
   ],
+  "HideFromCreationArea": true,
+  "HideFromNavigationEditorCreationArea": true,
   "IconResourcesKeys": [
     "Waiting",
     "Complete",
@@ -105,11 +109,15 @@
   "IntegrationServiceName": "ScheduledReportsScheduleLog",
   "IsAutoCreated": true,
   "IsVisible": false,
+  "NeedWriteHistory": true,
   "OperationsClass": "",
   "Overridden": [
     "IsVisible",
     "NeedWriteHistory",
-    "IsAutoCreated"
+    "IsAutoCreated",
+    "AccessRightsMode",
+    "HideFromNavigationEditorCreationArea",
+    "HideFromCreationArea"
   ],
   "Properties": [
     {
@@ -208,15 +216,73 @@
     }
   ],
   "PublicStructures": [],
-  "ResourcesKeys": [],
+  "ResourcesKeys": [
+    "CancelByUser"
+  ],
   "RibbonCardMetadata": {
     "NameGuid": "10e121f3-67b9-4b60-b093-b874656009cb",
     "Name": "RibbonCard",
     "Categories": [],
     "Elements": [],
-    "Groups": [],
+    "Groups": [
+      {
+        "NameGuid": "daac2128-cfd0-4188-93c3-5700bacab726",
+        "Name": "NavigationCommands",
+        "Index": 5,
+        "IsAncestorMetadata": true,
+        "Overridden": [
+          "IsVisible"
+        ],
+        "ParentGuid": "21a31627-5f58-4416-8c4a-90f538ee2e57"
+      },
+      {
+        "NameGuid": "f3b0ddcd-9d1e-4ca3-8780-695ae25a9e8b",
+        "Name": "ChangesCommands",
+        "Index": 20,
+        "IsAncestorMetadata": true,
+        "IsVisible": false,
+        "Overridden": [
+          "IsVisible"
+        ],
+        "ParentGuid": "21a31627-5f58-4416-8c4a-90f538ee2e57"
+      }
+    ],
     "IsAncestorMetadata": true,
-    "Pages": [],
+    "Pages": [
+      {
+        "NameGuid": "21a31627-5f58-4416-8c4a-90f538ee2e57",
+        "Name": "MainPage",
+        "Index": 10,
+        "IsAncestorMetadata": true,
+        "IsVisible": false,
+        "Overridden": [
+          "IsVisible"
+        ],
+        "ParentGuid": "ab56c73d-5e95-4014-b359-86c97643f13c"
+      },
+      {
+        "NameGuid": "ce274de5-0251-4b0c-8f8d-0c61cedf5611",
+        "Name": "Send",
+        "Index": 20,
+        "IsAncestorMetadata": true,
+        "IsVisible": false,
+        "Overridden": [
+          "IsVisible"
+        ],
+        "ParentGuid": "ab56c73d-5e95-4014-b359-86c97643f13c"
+      },
+      {
+        "NameGuid": "1f08362f-6a13-44cb-9590-5a5b51c85c30",
+        "Name": "Search",
+        "Index": 30,
+        "IsAncestorMetadata": true,
+        "IsVisible": false,
+        "Overridden": [
+          "IsVisible"
+        ],
+        "ParentGuid": "ab56c73d-5e95-4014-b359-86c97643f13c"
+      }
+    ],
     "RibbonKind": "Card"
   },
   "RibbonCollectionMetadata": {

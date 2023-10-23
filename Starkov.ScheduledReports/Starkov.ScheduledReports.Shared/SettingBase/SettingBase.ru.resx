@@ -58,22 +58,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Property_Parameter" xml:space="preserve">
-    <value>Parameter</value>
+  <data name="FillRequiredParametersError" xml:space="preserve">
+    <value>Не удалось запустить отчет. Заполните необходимые параметры.</value>
   </data>
-  <data name="Property_ViewValue" xml:space="preserve">
-    <value>ViewValue</value>
+  <data name="NeedSelectReportError" xml:space="preserve">
+    <value>Не выбран отчет</value>
   </data>
-  <data name="Property_InternalDataTypeName" xml:space="preserve">
-    <value>Тип</value>
-  </data>
-  <data name="Property_EntityGuid" xml:space="preserve">
-    <value>Entity Guid</value>
-  </data>
-  <data name="Property_EntityId" xml:space="preserve">
-    <value>EntityId</value>
-  </data>
-  <data name="Property_IsRelativeDate" xml:space="preserve">
-    <value>relative date</value>
+  <data name="SheduleSettingInstruction" xml:space="preserve">
+    <value>Выберите отчет для начала настройки.</value>
   </data>
 </root>

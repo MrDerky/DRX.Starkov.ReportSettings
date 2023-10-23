@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -15,60 +15,78 @@ namespace Starkov.ScheduledReports.Server
     /// <param name="args"></param>
     public virtual void SendSheduleReport(Starkov.ScheduledReports.Server.AsyncHandlerInvokeArgs.SendSheduleReportInvokeArgs args)
     {
-      var logInfo = string.Format("SendSheduleReport. SheduleReportId = {0}.", args.SheduleSettingId);
-      Logger.DebugFormat("{0} Start.", logInfo);
+      args.Retry = false;
+      var logInfo = string.Format("SendSheduleReport. ScheduleLogId = {0}.", args.ScheduleLogId);
+      Logger.DebugFormat("{0} Start. RetryIteration={1}", logInfo, args.RetryIteration);
       
-      var setting = PublicFunctions.Module.Remote.GetScheduleSetting(args.SheduleSettingId);
-      if (setting == null)
+      var scheduleLog = ScheduleLogs.GetAll(s => s.Id == args.ScheduleLogId).FirstOrDefault();
+      if (scheduleLog != null)
+        logInfo = string.Format("{0} SheduleSetting = {1}.", logInfo, scheduleLog.ScheduleSettingId);
+      
+      if (scheduleLog != null && scheduleLog.Status != ScheduledReports.ScheduleLog.Status.Waiting && scheduleLog.Status != ScheduledReports.ScheduleLog.Status.Error)
       {
-        Logger.DebugFormat("{0}. Не удалось получить действующую запись справочника SheduleSetting.", logInfo);
-        args.Retry = false;
-        return;
-      }
-      
-      var scheduleLog = ScheduleLogs.GetAll(s => s.ScheduleSettingId == setting.Id)
-        .Where(s => s.Status == ScheduledReports.ScheduleLog.Status.Waiting || s.Status == ScheduledReports.ScheduleLog.Status.Error)
-        .OrderByDescending(s => s.StartDate)
-        .FirstOrDefault();
-      
-      if (scheduleLog == null)
-      {
-        Logger.DebugFormat("{0}. Не найдено записей справочника ScheduleLog со статусом Waiting.", logInfo);
-        if (!Locks.TryLock(setting))
+        Logger.DebugFormat("{0} Запись справочника ScheduleLog в статусе {1}", logInfo, scheduleLog.Status);
+        
+        var setting = PublicFunctions.ScheduleSetting.Remote.GetScheduleSetting(scheduleLog.ScheduleSettingId);
+        if (setting == null)
         {
-          Logger.DebugFormat("{0}. Запись справочника ScheduleSetting заблокирована пользователем {1}.", logInfo, Locks.GetLockInfo(setting).OwnerName);
-          args.Retry = true;
-          return;
+          Logger.DebugFormat("{0} Не удалось получить действующую запись справочника SheduleSetting.", logInfo);
+          if (Locks.TryLock(scheduleLog))
+          {
+            scheduleLog.Status = ScheduledReports.ScheduleLog.Status.Closed;
+            scheduleLog.Save();
+            
+            if (Locks.GetLockInfo(scheduleLog).IsLockedByMe)
+              Locks.Unlock(scheduleLog);
+            
+            return;
+          }
+          else
+          {
+            args.Retry = args.RetryIteration < 100;
+            return;
+          }
         }
         
-        setting.Status = ScheduledReports.ScheduleSetting.Status.Closed;
-        setting.Save();
-        
-        if (Locks.GetLockInfo(setting).IsLockedByMe)
-          Locks.Unlock(setting);
-        
-        args.Retry = false;
-        return;
+        if (!ScheduleLogs.GetAll(s => s.ScheduleSettingId == setting.Id)
+            .Any(s => s.Status == ScheduledReports.ScheduleLog.Status.Waiting || s.Status == ScheduledReports.ScheduleLog.Status.Error))
+        {
+          Logger.DebugFormat("{0} Не найдено записей справочника ScheduleLog со статусом Waiting или Error.", logInfo);
+          if (!Locks.TryLock(setting))
+          {
+            Logger.DebugFormat("{0} Запись справочника ScheduleSetting заблокирована пользователем {1}.", logInfo, Locks.GetLockInfo(setting).OwnerName);
+            args.Retry = true;
+            return;
+          }
+          
+          setting.Status = ScheduledReports.ScheduleSetting.Status.Closed;
+          setting.Save();
+          
+          if (Locks.GetLockInfo(setting).IsLockedByMe)
+            Locks.Unlock(setting);
+          
+          return;
+        }
       }
       
-      if (Calendar.Now < scheduleLog.StartDate.Value)
+      if (scheduleLog.StartDate.HasValue && Calendar.Now < scheduleLog.StartDate.Value)
       {
         args.NextRetryTime = scheduleLog.StartDate.Value;
         args.Retry = true;
-        Logger.DebugFormat("{0}. Запуск отложен до {1}.", logInfo, scheduleLog.StartDate.Value);
+        Logger.DebugFormat("{0} Запуск отложен до {1}.", logInfo, scheduleLog.StartDate.Value);
         return;
       }
       
-      if (!Locks.TryLock(scheduleLog))
-      {
-        Logger.DebugFormat("{0}. Запись справочника scheduleLog заблокирована пользователем {1}.", logInfo, Locks.GetLockInfo(scheduleLog).OwnerName);
-        args.Retry = true;
-        return;
-      }
-      
-      if (!Functions.Module.ScheduleLogExecute(setting, scheduleLog, logInfo))
+      if (!Functions.Module.ScheduleLogExecute(scheduleLog, logInfo))
       {
         args.Retry = args.RetryIteration < 100;
+        // HACK Обход платформенного бага при генерации отчетов
+        if (scheduleLog.Status == ScheduledReports.ScheduleLog.Status.Error && !string.IsNullOrEmpty(scheduleLog.Comment) && scheduleLog.Comment.Contains("Object reference not set to an instance of an object."))
+        {
+          args.NextRetryTime = Calendar.Now.AddMinutes(1);
+          Logger.DebugFormat("{0} scheduleLog={1}. Обработка ошибки Object reference not set to an instance of an object. Следующий запуск {2}", logInfo, scheduleLog.Id,
+                             args.Retry == true ? args.NextRetryTime.ToString() : "отменен из-за превышения количества попыток");
+        }
         return;
       }
       

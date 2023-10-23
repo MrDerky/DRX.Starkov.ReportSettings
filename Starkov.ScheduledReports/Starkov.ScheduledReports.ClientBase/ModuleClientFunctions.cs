@@ -23,10 +23,20 @@ namespace Starkov.ScheduledReports.Client
         previewLog.Show();
     }
     
+    /// <summary>
+    /// Создать настройку расписания для отчета.
+    /// </summary>
     public virtual void CreateScheduleSetting()
     {
-      var scheduleSetting = PublicFunctions.Module.Remote.CreateScheduleSetting();
-      scheduleSetting.Show();
+      var dialog = Dialogs.CreateInputDialog("Выбор отчета для настройки");
+      var report = dialog.AddSelect("Отчет", true, ReportSettings.Null);
+      
+      if (dialog.Show() == DialogButtons.Ok)
+      {
+        var sheduleSetting = PublicFunctions.ScheduleSetting.Remote.CreateScheduleSetting();
+        sheduleSetting.ReportSetting = report.Value;
+        sheduleSetting.Show();
+      }
     }
 
     /// <summary>
@@ -48,6 +58,6 @@ namespace Starkov.ScheduledReports.Client
       if (scheduleSettingManagerRole != null)
         scheduleSettingManagerRole.Show();
     }
-      
+    
   }
 }

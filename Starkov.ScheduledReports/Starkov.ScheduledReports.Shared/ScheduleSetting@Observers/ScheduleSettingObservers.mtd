@@ -1,38 +1,40 @@
 {
   "$type": "Sungero.Metadata.EntityMetadata, Sungero.Metadata",
-  "NameGuid": "ae5c2e4d-d5f8-4e0c-91c0-8b9253975151",
+  "NameGuid": "b3c8cc64-0940-46c8-a6c0-411161e7313d",
   "Name": "ScheduleSettingObservers",
   "AccessRightsMode": "NoRight",
   "BaseGuid": "a3d38bf5-0414-41f6-bb33-a4621d2e5a60",
   "CanBeNavigationPropertyType": true,
-  "Code": "ScheduleSetti2",
+  "Code": "ScheduleSettin",
   "ExtraSearchProperties": [],
+  "IntegrationServiceName": "SettingScheduleObservers",
   "IsChildEntity": true,
   "Properties": [
     {
       "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
-      "NameGuid": "d38165e8-bf01-4fa6-a977-1087159d295d",
+      "NameGuid": "7e61a88f-a81a-45dd-a443-ceac43ea878b",
       "Name": "ScheduleSetting",
       "CanBeSearch": false,
-      "Code": "ScheduleSettin",
-      "EntityGuid": "f7180f6a-b987-4a28-a072-d26377fb3912",
+      "Code": "SettingBase",
+      "EntityGuid": "f756ae44-e160-4ae3-b306-0854ccb9ffc4",
       "IsReferenceToRootEntity": true,
       "IsShowedInList": false
     },
     {
       "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
-      "NameGuid": "8f353f3f-7296-43b5-9ed1-48a86ab6468e",
+      "NameGuid": "8ee38efb-69cb-4258-9bdf-554fe41f7d83",
       "Name": "Recipient",
       "CanBeSearch": false,
       "Code": "Recipient",
       "EntityGuid": "c612fc41-44a3-428b-a97c-433c333d78e9",
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
-      "PreviousPropertyGuid": "d38165e8-bf01-4fa6-a977-1087159d295d"
+      "PreviousPropertyGuid": "7e61a88f-a81a-45dd-a443-ceac43ea878b",
+      "Versions": []
     }
   ],
   "PublicStructures": [],
   "RibbonCardMetadata": {
-    "NameGuid": "1d399b70-3b47-483e-ad0c-b0bdd523d090",
+    "NameGuid": "10f82876-c754-4e15-a42e-bddb8b15d0a6",
     "Name": "RibbonCard",
     "Categories": [],
     "Elements": [],
@@ -42,7 +44,7 @@
     "RibbonKind": "Card"
   },
   "RibbonCollectionMetadata": {
-    "NameGuid": "74e81ad4-7443-4227-ba84-6560d3f718c9",
+    "NameGuid": "7c2ab1b2-3b12-4071-8cf6-1cd1b0ae6f17",
     "Name": "RibbonCollection",
     "Categories": [],
     "Elements": [],

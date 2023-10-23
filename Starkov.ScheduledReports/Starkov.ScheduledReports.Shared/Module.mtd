@@ -6,13 +6,13 @@
     {
       "NameGuid": "b396d5a4-3524-4af1-9b1d-29963e1bdae1",
       "Name": "SendSheduleReport",
-      "DelayPeriod": 15,
+      "DelayPeriod": 1,
       "DelayStrategy": "RegularDelayStrategy",
       "IsHandlerGenerated": true,
       "Parameters": [
         {
-          "NameGuid": "114542c3-3756-4b4c-a2d7-2e96cbe43237",
-          "Name": "SheduleSettingId",
+          "NameGuid": "da100af2-aa06-48f4-88a2-1c1a96d7f36f",
+          "Name": "ScheduleLogId",
           "ParameterType": "Integer"
         }
       ]
@@ -38,7 +38,7 @@
         "$type": "Sungero.Metadata.CoverEntityListActionMetadata, Sungero.Metadata",
         "NameGuid": "043d5ecf-61a9-4bc3-9bf4-fd072dd5c380",
         "Name": "ScheduleSettings",
-        "EntityTypeId": "f7180f6a-b987-4a28-a072-d26377fb3912",
+        "EntityTypeId": "f756ae44-e160-4ae3-b306-0854ccb9ffc4",
         "GroupId": "f0de7443-fc90-4356-a432-2bb40eb11f8b",
         "PreviousItemGuid": "12267a64-53ea-4d76-9fda-f84e91945060"
       },
@@ -71,6 +71,14 @@
         "EntityTypeId": "26553e87-531b-4953-980d-ab3e60bcebee",
         "GroupId": "bbc9ca63-c0d5-4c9b-9090-1e04a42f3253",
         "PreviousItemGuid": "3ee49337-d241-45fd-9809-5e50a39c9e17"
+      },
+      {
+        "$type": "Sungero.Metadata.CoverEntityListActionMetadata, Sungero.Metadata",
+        "NameGuid": "9f5e6348-f544-4ec7-8ca5-8381dd44d6fe",
+        "Name": "ReportList",
+        "EntityTypeId": "e1169af2-dc2a-4c37-8441-f3af6ddc21c6",
+        "GroupId": "bbc9ca63-c0d5-4c9b-9090-1e04a42f3253",
+        "PreviousItemGuid": "5669231a-5c28-4b3d-9f7d-6319bc4129bf"
       }
     ],
     "Background": null,
@@ -124,15 +132,24 @@
   ],
   "ExplorerTreeOrder": [
     {
-      "ItemId": "f7180f6a-b987-4a28-a072-d26377fb3912"
-    },
-    {
       "ItemId": "26553e87-531b-4953-980d-ab3e60bcebee",
       "PreviousItemId": "f7180f6a-b987-4a28-a072-d26377fb3912"
     },
     {
       "ItemId": "14ecf32c-4688-4751-a90f-835f5b0d8698",
       "PreviousItemId": "26553e87-531b-4953-980d-ab3e60bcebee"
+    },
+    {
+      "ItemId": "8a007d27-5f5c-47e0-83fb-bf71a1eb9626",
+      "PreviousItemId": "14ecf32c-4688-4751-a90f-835f5b0d8698"
+    },
+    {
+      "ItemId": "e1169af2-dc2a-4c37-8441-f3af6ddc21c6",
+      "PreviousItemId": "8a007d27-5f5c-47e0-83fb-bf71a1eb9626"
+    },
+    {
+      "ItemId": "f756ae44-e160-4ae3-b306-0854ccb9ffc4",
+      "PreviousItemId": "e1169af2-dc2a-4c37-8441-f3af6ddc21c6"
     }
   ],
   "HandledEvents": [
@@ -191,7 +208,7 @@
       "ReturnTypeFullName": "System.Void"
     },
     {
-      "Name": "CreateScheduleLog",
+      "Name": "EnableSchedule",
       "Parameters": [
         {
           "Name": "setting",
@@ -199,28 +216,9 @@
           "ParameterTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
         },
         {
-          "Name": "startDate",
+          "Name": "baseDate",
           "ParameterType": "global::System.Nullable<global::System.DateTime>",
           "ParameterTypeFullName": "System.Nullable"
-        }
-      ],
-      "ReturnType": "global::Starkov.ScheduledReports.IScheduleLog",
-      "ReturnTypeFullName": "Starkov.ScheduledReports.IScheduleLog, Sungero.Domain.Interfaces"
-    },
-    {
-      "Name": "CreateScheduleSetting",
-      "IsRemote": true,
-      "Placement": "Shared",
-      "ReturnType": "global::Starkov.ScheduledReports.IScheduleSetting",
-      "ReturnTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
-    },
-    {
-      "Name": "EnableSchedule",
-      "Parameters": [
-        {
-          "Name": "setting",
-          "ParameterType": "global::Starkov.ScheduledReports.IScheduleSetting",
-          "ParameterTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
         }
       ],
       "ReturnType": "void",
@@ -230,7 +228,7 @@
       "Name": "ExecuteSheduleReportAsync",
       "Parameters": [
         {
-          "Name": "scheduleSettingId",
+          "Name": "scheduleLogId",
           "ParameterType": "global::System.Int32",
           "ParameterTypeFullName": "System.Int32"
         }
@@ -247,8 +245,8 @@
         },
         {
           "Name": "setting",
-          "ParameterType": "global::Starkov.ScheduledReports.IScheduleSetting",
-          "ParameterTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
+          "ParameterType": "global::Starkov.ScheduledReports.ISettingBase",
+          "ParameterTypeFullName": "Starkov.ScheduledReports.ISettingBase, Sungero.Domain.Interfaces"
         }
       ],
       "ReturnType": "void",
@@ -323,20 +321,6 @@
       "ReturnTypeFullName": "Starkov.ScheduledReports.IScheduleLog, Sungero.Domain.Interfaces"
     },
     {
-      "Name": "GetRelativeDate",
-      "IsRemote": true,
-      "Parameters": [
-        {
-          "Name": "id",
-          "ParameterType": "global::System.Int32",
-          "ParameterTypeFullName": "System.Int32"
-        }
-      ],
-      "Placement": "Shared",
-      "ReturnType": "global::Starkov.ScheduledReports.IRelativeDate",
-      "ReturnTypeFullName": "Starkov.ScheduledReports.IRelativeDate, Sungero.Domain.Interfaces"
-    },
-    {
       "Name": "GetReportMetaData",
       "Parameters": [
         {
@@ -371,20 +355,6 @@
       "Placement": "Shared",
       "ReturnType": "global::System.Linq.IQueryable<global::Starkov.ScheduledReports.IScheduleLog>",
       "ReturnTypeFullName": "System.Linq.IQueryable"
-    },
-    {
-      "Name": "GetScheduleSetting",
-      "IsRemote": true,
-      "Parameters": [
-        {
-          "Name": "id",
-          "ParameterType": "global::System.Nullable<global::System.Int32>",
-          "ParameterTypeFullName": "System.Nullable"
-        }
-      ],
-      "Placement": "Shared",
-      "ReturnType": "global::Starkov.ScheduledReports.IScheduleSetting",
-      "ReturnTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
     }
   ],
   "PublicStructures": [

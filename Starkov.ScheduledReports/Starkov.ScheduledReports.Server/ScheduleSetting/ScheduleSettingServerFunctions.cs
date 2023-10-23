@@ -10,6 +10,23 @@ namespace Starkov.ScheduledReports.Server
 {
   partial class ScheduleSettingFunctions
   {
+    /// <summary>
+    /// Создать запись настройки расписания для отчета.
+    /// </summary>
+    [Public, Remote]
+    public static Starkov.ScheduledReports.IScheduleSetting CreateScheduleSetting()
+    {
+      return ScheduleSettings.Create();
+    }
+    
+    /// <summary>
+    /// Получить запись настройки расписания для отчета по ИД.
+    /// </summary>
+    [Public, Remote(IsPure = true)]
+    public static Starkov.ScheduledReports.IScheduleSetting GetScheduleSetting(int? id)
+    {
+      return ScheduleSettings.GetAll(s => s.Id == id).FirstOrDefault(s => s.Status != ScheduledReports.ScheduleSetting.Status.Closed);
+    }
 
     /// <summary>
     /// Получить состояние из журнала расписаний.
@@ -61,90 +78,16 @@ namespace Starkov.ScheduledReports.Server
       var resultDate =  PublicFunctions.RelativeDate.CalculateDate(_obj.Period, baseDate, number);
       
       if (resultDate < Calendar.Now)
-        resultDate = PublicFunctions.RelativeDate.CalculateDate(_obj.Period, Calendar.Now, number);
+        resultDate = GetNextPeriod(number, resultDate).GetValueOrDefault(); //TODO страшная рекурсия... подумать как оптимизировать
       
       if (_obj.DateBegin.HasValue && resultDate < _obj.DateBegin.Value)
         return _obj.DateBegin.Value;
       
+      if (resultDate < Calendar.Now)
+        return GetNextPeriod(number, resultDate);
+      
       return resultDate;
     }
 
-    /// <summary>
-    /// Загрузить параметры отчета.
-    /// </summary>
-    [Public]
-    public void SaveReportParams()
-    {
-      var reportGuid = Guid.Parse(_obj.ReportGuid);
-      var report = Starkov.ScheduledReports.PublicFunctions.Module.GetReportMetaData(reportGuid);
-      
-      _obj.ReportParams.Clear();
-      foreach (var parameter in report.Parameters)
-      {
-        if (parameter.NameResourceKey == "ReportSessionId")
-          continue;
-        
-        var reportParam = _obj.ReportParams.AddNew();
-        reportParam.Parameter = parameter.NameResourceKey;
-        reportParam.InternalDataTypeName = parameter.InternalDataTypeName;
-        if (parameter.EntityMetadata != null)
-          reportParam.EntityGuid = parameter.EntityType.ToString();
-      }
-    }
-    
-    /// <summary>
-    /// Загрузить параметры отчета.
-    /// </summary>
-    [Public]
-    public void SaveReportParamsClear(Sungero.Reporting.Shared.ReportBase report)
-    {
-      _obj.ReportParams.Clear();
-      var reportMetaData = Starkov.ScheduledReports.PublicFunctions.Module.GetReportMetaData(report.Info.ReportTypeId);
-      
-      foreach (var parameter in report.Parameters)
-      {
-        if (parameter.Key == "ReportSessionId")
-          continue;
-        
-        var reportParam = _obj.ReportParams.AddNew();
-
-        reportParam.Parameter = parameter.Key;
-
-        var entityParameter = parameter.Value as Sungero.Reporting.Shared.EntityParameter;
-        if (entityParameter != null)
-        {
-          reportParam.EntityId = entityParameter.Entity.Id;
-          reportParam.ViewValue = entityParameter.Entity.DisplayValue;
-          reportParam.EntityGuid = entityParameter.EntityType.ToString();
-          reportParam.InternalDataTypeName = entityParameter.GetType().ToString();
-        }
-        else
-          reportParam.ViewValue = parameter.Value.ToString();
-      }
-    }
-    
-    /// <summary>
-    /// Загрузить параметры отчета.
-    /// </summary>
-    [Public]
-    public void SaveReportParams(Sungero.Reporting.Shared.ReportBase report)
-    {
-      foreach (var parameter in report.Parameters)
-      {
-        var reportParam = _obj.ReportParams.FirstOrDefault(p => p.Parameter == parameter.Key);
-        if (reportParam != null)
-        {
-          var entityParameter = parameter.Value as Sungero.Reporting.Shared.EntityParameter;
-          if (entityParameter != null)
-          {
-            reportParam.EntityId = entityParameter.Entity.Id;
-            reportParam.ViewValue = entityParameter.Entity.DisplayValue;
-          }
-          else
-            reportParam.ViewValue = parameter.Value.ToString();
-        }
-      }
-    }
-    
   }
 }

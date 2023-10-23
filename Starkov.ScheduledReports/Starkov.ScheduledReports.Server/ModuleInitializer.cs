@@ -50,7 +50,7 @@ namespace Starkov.ScheduledReports.Server
         ScheduleSettings.AccessRights.Grant(scheduleSettingManagerRole, DefaultAccessRightsTypes.Create);
       
       if (!ScheduleLogs.AccessRights.IsGrantedDirectly(DefaultAccessRightsTypes.Read, scheduleSettingManagerRole))
-        ScheduleLogs.AccessRights.Grant(scheduleSettingManagerRole, DefaultAccessRightsTypes.Read);
+        ScheduleLogs.AccessRights.Grant(scheduleSettingManagerRole, DefaultAccessRightsTypes.Create);
       
       RelativeDates.AccessRights.Save();
       ScheduleSettings.AccessRights.Save();
@@ -106,8 +106,10 @@ namespace Starkov.ScheduledReports.Server
       
       previewLog = ScheduleLogs.Create();
       previewLog.Status = ScheduledReports.ScheduleLog.Status.Preview;
+      previewLog.AccessRights.Grant(Roles.AllUsers, DefaultAccessRightsTypes.Read);
       previewLog.Save();
       InitializationLogger.DebugFormat("Init: Created new previewLog id={0}", previewLog.Id);
     }
+
   }
 }

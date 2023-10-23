@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Property_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="DisplayName" xml:space="preserve">
+    <value>Setting</value>
+  </data>
+  <data name="AccusativeDisplayName" xml:space="preserve">
+    <value>Setting</value>
+  </data>
+  <data name="CollectionDisplayName" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Property_ReportName" xml:space="preserve">
+    <value>Report</value>
+  </data>
+  <data name="Property_ReportGuid" xml:space="preserve">
+    <value>Report Guid</value>
+  </data>
+  <data name="Property_Parameters" xml:space="preserve">
+    <value>Report params</value>
+  </data>
+  <data name="Action_StartReport" xml:space="preserve">
+    <value>StartReport</value>
+  </data>
+  <data name="Action_StartReportDescription" xml:space="preserve">
+    <value>StartReport</value>
+  </data>
+  <data name="Action_StartReportHint" xml:space="preserve">
+    <value>StartReport</value>
+  </data>
+  <data name="Action_StartReportConfirmationMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Action_StartReportConfirmationDescription" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Action_StartReportWithParameters" xml:space="preserve">
+    <value>Run with parameters</value>
+  </data>
+  <data name="Action_StartReportWithParametersDescription" xml:space="preserve">
+    <value>Run with parameters</value>
+  </data>
+  <data name="Action_StartReportWithParametersHint" xml:space="preserve">
+    <value>Run with parameters</value>
+  </data>
+  <data name="Action_StartReportWithParametersConfirmationMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Action_StartReportWithParametersConfirmationDescription" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Action_EditParameterValue" xml:space="preserve">
+    <value>Edit Parameter Value</value>
+  </data>
+  <data name="Action_EditParameterValueDescription" xml:space="preserve">
+    <value>Edit Parameter Value</value>
+  </data>
+  <data name="Action_EditParameterValueHint" xml:space="preserve">
+    <value>Edit Parameter Value</value>
+  </data>
+  <data name="Action_EditParameterValueConfirmationMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Action_EditParameterValueConfirmationDescription" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlGroup_9c2f313a10b648bf8fda5064381b18bd" xml:space="preserve">
+    <value>Report parameters</value>
+  </data>
+  <data name="Ribbon_Actions_1587550744bf4316add12d9ae4253521" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="ControlGroup_21a234fb7a494bb7a360bacd27f24960" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlGroup_933f94bf7651410fa686bcd51c9b6e8a" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Instruction" xml:space="preserve">
+    <value>Perform the "Run Report" action so that the parameters are automatically pulled up from the dialog.</value>
+  </data>
+  <data name="Property_ModuleGuid" xml:space="preserve">
+    <value>Module Guid</value>
+  </data>
+  <data name="Action_ClearParameterValue" xml:space="preserve">
+    <value>Clear parameter value</value>
+  </data>
+  <data name="Action_ClearParameterValueDescription" xml:space="preserve">
+    <value>Clear parameter value</value>
+  </data>
+  <data name="Action_ClearParameterValueHint" xml:space="preserve">
+    <value>Clear parameter value</value>
+  </data>
+  <data name="Action_ClearParameterValueConfirmationMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Action_ClearParameterValueConfirmationDescription" xml:space="preserve">
+    <value />
+  </data>
+</root>

@@ -387,6 +387,20 @@
       "ReturnTypeFullName": "System.DateTime"
     },
     {
+      "Name": "GetRelativeDate",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "id",
+          "ParameterType": "global::System.Int32",
+          "ParameterTypeFullName": "System.Int32"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::Starkov.ScheduledReports.IRelativeDate",
+      "ReturnTypeFullName": "Starkov.ScheduledReports.IRelativeDate, Sungero.Domain.Interfaces"
+    },
+    {
       "Name": "IsInitialized",
       "Parameters": [
         {
