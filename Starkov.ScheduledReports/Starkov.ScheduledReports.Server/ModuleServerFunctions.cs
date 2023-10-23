@@ -270,7 +270,7 @@ namespace Starkov.ScheduledReports.Server
       
       try
       {
-        if (!Locks.GetLockInfo(scheduleLog).IsLockedByMe && !Locks.TryLock(scheduleLog))
+        if (!Locks.GetLockInfo(scheduleLog).IsLockedByMe)// && !Locks.TryLock(scheduleLog))
         {
           Logger.DebugFormat("{0} Запись справочника scheduleLog={1} заблокирована пользователем {2} LoginId={3}, CurrentUserLoginId={4}.", logInfo,
                              scheduleLog.Id,
