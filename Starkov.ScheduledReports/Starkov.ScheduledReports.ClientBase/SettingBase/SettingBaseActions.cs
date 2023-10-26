@@ -24,12 +24,9 @@ namespace Starkov.ScheduledReports.Client
         #region Типы сущностей системы
         
         var entities = PublicFunctions.Module.Remote.GetEntitiesByGuid(Guid.Parse(_obj.EntityGuid));
-        
-        var entitiesNames = entities.ToList().Select(x => x.DisplayValue).OfType<string>().ToArray();
-        var dialog = Dialogs.CreateInputDialog("Выбор сущности");
-        
+
+        var dialog = Dialogs.CreateInputDialog("Выбор записи");
         var itemMetadata = Sungero.Metadata.Services.MetadataSearcher.FindModuleItemMetadata(Guid.Parse(_obj.EntityGuid));
-        
         var dialogMethod = typeof(Sungero.Core.ExtensionInputDialog)
           .GetMethod("AddSelect")
           .MakeGenericMethod(itemMetadata.InterfaceType);
@@ -39,7 +36,7 @@ namespace Starkov.ScheduledReports.Client
         
         if (dialog.Show() == DialogButtons.Ok)
         {
-          var entity = selectResult.GetType().GetProperty("Value").GetValue(selectResult) as Sungero.Domain.Shared.IEntity;
+          var entity = selectResult.GetType().GetProperty("Value")?.GetValue(selectResult) as Sungero.Domain.Shared.IEntity;
           
           if (entity != null)
           {
