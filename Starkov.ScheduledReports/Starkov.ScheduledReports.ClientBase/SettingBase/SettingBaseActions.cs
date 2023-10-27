@@ -4,6 +4,7 @@ using System.Linq;
 using Sungero.Core;
 using Sungero.CoreEntities;
 using Starkov.ScheduledReports.SettingBase;
+using Sungero.Domain.Shared;
 
 namespace Starkov.ScheduledReports.Client
 {
@@ -17,19 +18,30 @@ namespace Starkov.ScheduledReports.Client
 
     public virtual void EditParameterValue(Sungero.Domain.Client.ExecuteChildCollectionActionArgs e)
     {
-      // TODO Возмно следует перенести код
+      // TODO Возможно следует перенести код
       if (!string.IsNullOrEmpty(_obj.EntityGuid))
       {
         #region Типы сущностей системы
         
         var entities = PublicFunctions.Module.Remote.GetEntitiesByGuid(Guid.Parse(_obj.EntityGuid));
-        if (entities.Any())
+
+        var dialog = Dialogs.CreateInputDialog("Выбор записи");
+        var itemMetadata = Sungero.Metadata.Services.MetadataSearcher.FindModuleItemMetadata(Guid.Parse(_obj.EntityGuid));
+        var dialogMethod = typeof(Sungero.Core.ExtensionInputDialog)
+          .GetMethod("AddSelect")
+          .MakeGenericMethod(itemMetadata.InterfaceType);
+        
+        object[] args = new object[] { dialog, _obj.DisplayName, true, null };
+        var selectResult = dialogMethod.Invoke(null, args);
+        
+        if (dialog.Show() == DialogButtons.Ok)
         {
-          var selected = entities.ShowSelect();
-          if (selected != null)
+          var entity = selectResult.GetType().GetProperty("Value")?.GetValue(selectResult) as Sungero.Domain.Shared.IEntity;
+          
+          if (entity != null)
           {
-            _obj.ViewValue = selected.DisplayValue;
-            _obj.EntityId = selected.Id;
+            _obj.ViewValue = entity.DisplayValue;
+            _obj.EntityId = entity.Id;
           }
         }
         
