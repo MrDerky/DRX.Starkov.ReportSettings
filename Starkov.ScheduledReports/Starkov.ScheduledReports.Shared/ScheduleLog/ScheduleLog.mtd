@@ -164,7 +164,7 @@
       "PreviousPropertyGuid": "1dcedc29-5140-4770-ac92-eabc212326a1"
     },
     {
-      "$type": "Sungero.Metadata.IntegerPropertyMetadata, Sungero.Metadata",
+      "$type": "Sungero.Metadata.LongIntegerPropertyMetadata, Sungero.Metadata",
       "NameGuid": "23baf00a-f6d4-4434-81d1-05ae78138c9b",
       "Name": "ScheduleSettingId",
       "Code": "ScheduleSettin",
@@ -189,7 +189,7 @@
       "PreviousPropertyGuid": "533fe26d-e450-495b-8d36-8d996f765944"
     },
     {
-      "$type": "Sungero.Metadata.IntegerPropertyMetadata, Sungero.Metadata",
+      "$type": "Sungero.Metadata.LongIntegerPropertyMetadata, Sungero.Metadata",
       "NameGuid": "260b5d62-c312-45df-b9d0-9a4387164e1e",
       "Name": "DocumentId",
       "Code": "DocumentId",
@@ -297,7 +297,7 @@
   "Versions": [
     {
       "Type": "EntityMetadata",
-      "Number": 11
+      "Number": 12
     }
   ]
 }

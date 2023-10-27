@@ -61,19 +61,6 @@
         "IsShowedInList"
       ],
       "Versions": []
-    },
-    {
-      "$type": "Sungero.Metadata.IntegerPropertyMetadata, Sungero.Metadata",
-      "NameGuid": "13ae1a4a-dc2d-4ea2-95bb-b7a6a0dd7200",
-      "Name": "EntityId",
-      "IsAncestorMetadata": true,
-      "IsShowedInList": false,
-      "IsVisibility": false,
-      "Overridden": [
-        "IsVisibility",
-        "IsShowedInList"
-      ],
-      "Versions": []
     }
   ],
   "PublicStructures": [],
@@ -99,7 +86,7 @@
   "Versions": [
     {
       "Type": "EntityMetadata",
-      "Number": 11
+      "Number": 12
     }
   ]
 }

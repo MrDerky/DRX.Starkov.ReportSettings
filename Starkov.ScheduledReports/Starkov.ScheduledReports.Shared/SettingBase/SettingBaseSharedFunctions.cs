@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -26,6 +26,7 @@ namespace Starkov.ScheduledReports.Shared
     /// <summary>
     /// Загрузить параметры отчета.
     /// </summary>
+    [Public]
     public virtual void SaveReportParams()
     {
       Guid reportGuid;

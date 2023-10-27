@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -16,6 +16,7 @@ namespace Starkov.ScheduledReports.Server
       GrandRights();
       CreateBaseRelativeDates();
       CreatePreviewScheduleLog();
+      CreateReportSettings();
     }
     
     /// <summary>
@@ -110,6 +111,53 @@ namespace Starkov.ScheduledReports.Server
       previewLog.Save();
       InitializationLogger.DebugFormat("Init: Created new previewLog id={0}", previewLog.Id);
     }
-
+    
+    /// <summary>
+    /// Создать записи с настройками отчетов.
+    /// </summary>
+    private void CreateReportSettings()
+    {
+      // Отчет "Исполнительская дисциплина по подразделениям".
+      var reportSetting = CreateReportSetting(Guid.Parse("23fc035e-72bf-4bd9-9659-a21ad2378f43"));
+      if (reportSetting != null)
+      {
+        SetReportParameterDisplayName(reportSetting, "PeriodBegin", Starkov.ScheduledReports.Resources.PeriodFrom);
+        SetReportParameterDisplayName(reportSetting, "PeriodEnd", Starkov.ScheduledReports.Resources.PeriodTo);
+        if (reportSetting.State.IsChanged)
+          reportSetting.Save();
+      }
+    }
+    
+    /// <summary>
+    /// Создать запись с настройкой отчета.
+    /// </summary>
+    /// <param name="reportGuid">Идентификатор отчета.</param>
+    private IReportSetting CreateReportSetting(Guid reportGuid)
+    {
+      InitializationLogger.DebugFormat("Init: Create Report Setting For report guid={0}", reportGuid);
+      
+      var reportSetting = ReportSettings.GetAll(r => r.ReportGuid == reportGuid.ToString()).FirstOrDefault();
+      if (reportSetting == null)
+        reportSetting = ReportSettings.Create();
+      
+      var reportMetaData = Starkov.ScheduledReports.PublicFunctions.Module.GetReportMetaData(reportGuid);
+      if (reportMetaData == null)
+        return reportSetting;
+      
+      reportSetting.ReportGuid = reportGuid.ToString();
+      reportSetting.ReportName = reportMetaData.LocalizedName;
+      reportSetting.ModuleGuid = reportMetaData.ModuleMetadata.NameGuid.ToString();
+      
+      Starkov.ScheduledReports.PublicFunctions.SettingBase.SaveReportParams(reportSetting);
+      InitializationLogger.DebugFormat("Init: Created Report Setting For report {0}", reportSetting.ReportName);
+      return reportSetting;
+    }
+    
+    private void SetReportParameterDisplayName(IReportSetting reportSetting, string parameterName, string displayName)
+    {
+      var parameter = reportSetting.Parameters.FirstOrDefault(p => p.ParameterName == parameterName);
+      if (parameter != null && string.IsNullOrEmpty(parameter.DisplayName))
+        parameter.DisplayName = displayName;
+    }
   }
 }

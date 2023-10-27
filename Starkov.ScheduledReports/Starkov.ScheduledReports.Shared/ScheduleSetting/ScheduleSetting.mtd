@@ -483,7 +483,7 @@
       "Parameters": [
         {
           "Name": "id",
-          "ParameterType": "global::System.Nullable<global::System.Int32>",
+          "ParameterType": "global::System.Nullable<global::System.Int64>",
           "ParameterTypeFullName": "System.Nullable"
         }
       ],
@@ -546,7 +546,7 @@
   "Versions": [
     {
       "Type": "EntityMetadata",
-      "Number": 11
+      "Number": 12
     }
   ]
 }

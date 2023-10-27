@@ -130,4 +130,10 @@
   <data name="AddMinutesDescr" xml:space="preserve">
     <value>Добавить n минут</value>
   </data>
+  <data name="PeriodFrom" xml:space="preserve">
+    <value>Период с</value>
+  </data>
+  <data name="PeriodTo" xml:space="preserve">
+    <value>Период до</value>
+  </data>
 </root>

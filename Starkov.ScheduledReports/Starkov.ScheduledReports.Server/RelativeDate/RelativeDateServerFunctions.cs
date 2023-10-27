@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -15,7 +15,7 @@ namespace Starkov.ScheduledReports.Server
     /// <param name="id">ИД</param>
     /// <returns>Относительная дата</returns>
     [Public, Remote(IsPure = true)]
-    public static IRelativeDate GetRelativeDate(int id)
+    public static IRelativeDate GetRelativeDate(long id)
     {
       return RelativeDates.GetAllCached(r => r.Id == id).FirstOrDefault(r => r.Status != Status.Closed);
     }
