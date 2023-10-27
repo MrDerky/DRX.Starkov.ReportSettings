@@ -54,7 +54,7 @@ namespace Starkov.ScheduledReports.Server
           Logger.DebugFormat("{0}. scheduleLog={1}. Ошибка при обработке.", logInfo, schedule.Id);
           
           // HACK Обход платформенного бага при генерации отчетов
-          if (schedule.Comment.Contains("Object reference not set to an instance of an object."))
+          if (!string.IsNullOrEmpty(schedule.Comment) && schedule.Comment.Contains("Object reference not set to an instance of an object."))
           {
             Logger.DebugFormat("{0}. scheduleLog={1}. Передача обработки в асинхронный обработчик.", logInfo, schedule.Id);
             Functions.Module.ExecuteSheduleReportAsync(setting.Id);
