@@ -409,7 +409,9 @@
     "AddDaysDescr",
     "AddMonthsDescr",
     "AddHoursDescr",
-    "AddMinutesDescr"
+    "AddMinutesDescr",
+    "PeriodFrom",
+    "PeriodTo"
   ],
   "ServerAssemblyName": "Starkov.ScheduledReports.Server",
   "ServerNamespace": "Starkov.ScheduledReports.Server",

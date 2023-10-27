@@ -253,6 +253,19 @@
   ],
   "PublicFunctions": [
     {
+      "Name": "SaveReportParams",
+      "Parameters": [
+        {
+          "Name": "settingBase",
+          "ParameterType": "global::Starkov.ScheduledReports.ISettingBase",
+          "ParameterTypeFullName": "Starkov.ScheduledReports.ISettingBase, Sungero.Domain.Interfaces"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    },
+    {
       "Name": "WriteParamsToReport",
       "Parameters": [
         {

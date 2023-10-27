@@ -130,4 +130,10 @@
   <data name="AddMinutesDescr" xml:space="preserve">
     <value>Add n minutes</value>
   </data>
+  <data name="PeriodFrom" xml:space="preserve">
+    <value>Period from</value>
+  </data>
+  <data name="PeriodTo" xml:space="preserve">
+    <value>Period to</value>
+  </data>
 </root>
