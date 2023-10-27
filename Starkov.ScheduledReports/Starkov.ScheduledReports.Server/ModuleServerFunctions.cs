@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -245,7 +245,7 @@ namespace Starkov.ScheduledReports.Server
     /// </summary>
     /// <param name="scheduleLogId">ИД записи журнала расписаний.</param>
     [Public]
-    public void ExecuteSheduleReportAsync (int scheduleLogId)
+    public void ExecuteSheduleReportAsync (long scheduleLogId)
     {
       var asyncHandler = Starkov.ScheduledReports.AsyncHandlers.SendSheduleReport.Create();
       asyncHandler.ScheduleLogId = scheduleLogId;
@@ -643,7 +643,7 @@ namespace Starkov.ScheduledReports.Server
     /// <param name="id">ИД объекта.</param>
     /// <returns>Экземпляр сущности.</returns>
     [Public, Remote]
-    public Sungero.Domain.Shared.IEntity GetEntitiesByGuid(Guid entityGuid, int? id)
+    public Sungero.Domain.Shared.IEntity GetEntitiesByGuid(Guid entityGuid, long? id)
     {
       return GetEntitiesByGuid(entityGuid)?.FirstOrDefault(e => e.Id == id);
     }
