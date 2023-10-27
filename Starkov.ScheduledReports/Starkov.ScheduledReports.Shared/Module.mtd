@@ -159,6 +159,8 @@
   "Importance": "Medium",
   "InterfaceAssemblyName": "Sungero.Domain.Interfaces",
   "InterfaceNamespace": "Starkov.ScheduledReports",
+  "IsolatedAssemblyName": "Starkov.ScheduledReports.Isolated",
+  "IsolatedNamespace": "Starkov.ScheduledReports.Isolated",
   "Jobs": [
     {
       "NameGuid": "6862cdbe-45d6-47c1-9e73-10687664a758",
