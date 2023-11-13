@@ -349,8 +349,11 @@ namespace Starkov.ScheduledReports.Server
       FillReportParams(report, setting);
 
       var document = Sungero.Docflow.SimpleDocuments.Create();
+      document.DocumentKind = setting.DocumentKind;
       
       document.Name = setting.Name;
+      if (Sungero.Company.Employees.Is(setting.Author))
+        document.PreparedBy = Sungero.Company.Employees.As(setting.Author);
       
       Logger.Debug("StartSheduleReport. document.AccessRights.Grant");
       foreach (var recipient in observers)

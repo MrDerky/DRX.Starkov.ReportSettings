@@ -166,4 +166,7 @@
   <data name="Ribbon_Schedule_532352e4edc24897b7c6d04633d75aea" xml:space="preserve">
     <value>Schedule</value>
   </data>
+  <data name="Property_DocumentKind" xml:space="preserve">
+    <value>Document kind</value>
+  </data>
 </root>
