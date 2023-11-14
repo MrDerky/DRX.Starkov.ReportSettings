@@ -136,4 +136,10 @@
   <data name="PeriodTo" xml:space="preserve">
     <value>Period to</value>
   </data>
+  <data name="DocumentFlow" xml:space="preserve">
+    <value>Document flow</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
 </root>

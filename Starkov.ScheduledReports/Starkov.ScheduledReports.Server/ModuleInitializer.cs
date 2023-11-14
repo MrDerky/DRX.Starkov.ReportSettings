@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -112,20 +112,48 @@ namespace Starkov.ScheduledReports.Server
       InitializationLogger.DebugFormat("Init: Created new previewLog id={0}", previewLog.Id);
     }
     
+    #region Инициализация записей справочника настройки отчета.
+    
     /// <summary>
     /// Создать записи с настройками отчетов.
     /// </summary>
     private void CreateReportSettings()
     {
       // Отчет "Исполнительская дисциплина по подразделениям".
-      var reportSetting = CreateReportSetting(Guid.Parse("23fc035e-72bf-4bd9-9659-a21ad2378f43"));
-      if (reportSetting != null)
-      {
-        SetReportParameterDisplayName(reportSetting, "PeriodBegin", Starkov.ScheduledReports.Resources.PeriodFrom);
-        SetReportParameterDisplayName(reportSetting, "PeriodEnd", Starkov.ScheduledReports.Resources.PeriodTo);
-        if (reportSetting.State.IsChanged)
-          reportSetting.Save();
-      }
+      CreateAndFillReportSetting(Guid.Parse("23fc035e-72bf-4bd9-9659-a21ad2378f43"),
+                                 new Dictionary<string, string>()
+                                 {
+                                   { "PeriodBegin", Starkov.ScheduledReports.Resources.PeriodFrom },
+                                   { "PeriodEnd", Starkov.ScheduledReports.Resources.PeriodTo }
+                                 });
+
+      
+      // Отчет "Сводный отчет по правилам согласования".
+      CreateAndFillReportSetting(Guid.Parse("65a79eb2-8bae-4640-b817-e033c8ba9589"),
+                                 new Dictionary<string, string>()
+                                 {
+                                   { "DocumentFlow", Starkov.ScheduledReports.Resources.DocumentFlow },
+                                   { "Category", Starkov.ScheduledReports.Resources.Category }
+                                 });
+
+    }
+    
+    /// <summary>
+    /// Создать запись с настройкой отчета и заполнить параметры.
+    /// </summary>
+    /// <param name="reportGuid">Идентификатор отчета.</param>
+    /// <param name="parameters">Словарь с параметрами: ключ - имя параметра отчета, значение - отображаемое значение.</param>
+    private void CreateAndFillReportSetting(Guid reportGuid, Dictionary<string, string> parameters)
+    {
+      var reportSetting = CreateReportSetting(reportGuid);
+      if (reportSetting == null)
+        return;
+
+      foreach (var parameter in parameters)
+        SetReportParameterDisplayName(reportSetting, parameter.Key, parameter.Value);
+      
+      if (reportSetting.State.IsChanged)
+        reportSetting.Save();
     }
     
     /// <summary>
@@ -156,8 +184,11 @@ namespace Starkov.ScheduledReports.Server
     private void SetReportParameterDisplayName(IReportSetting reportSetting, string parameterName, string displayName)
     {
       var parameter = reportSetting.Parameters.FirstOrDefault(p => p.ParameterName == parameterName);
-      if (parameter != null && string.IsNullOrEmpty(parameter.DisplayName))
+      if (parameter != null && reportSetting.State.IsInserted)
         parameter.DisplayName = displayName;
     }
+    
+    #endregion
+    
   }
 }
