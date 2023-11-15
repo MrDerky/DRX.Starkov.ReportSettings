@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -137,7 +137,7 @@ namespace Starkov.ScheduledReports.Shared
       
       if (reportParam.EntityId.HasValue)
       {
-        var relativeDate = PublicFunctions.RelativeDate.Remote.GetRelativeDate(reportParam.EntityId.Value);
+        var relativeDate = PublicFunctions.RelativeDate.Remote.GetRelativeDate(reportParam.EntityId.Value, false);
         if (relativeDate != null)
           date = PublicFunctions.RelativeDate.CalculateDate(relativeDate, null, Functions.SettingBase.GetIncrementForRelativeDateFromViewValue(reportParam.ViewValue));
       }

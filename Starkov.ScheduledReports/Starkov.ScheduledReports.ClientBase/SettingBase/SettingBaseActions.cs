@@ -127,7 +127,7 @@ namespace Starkov.ScheduledReports.Client
             if (_obj.EntityId.HasValue)
             {
               isRelative.Value = true;
-              relative.Value = PublicFunctions.RelativeDate.Remote.GetRelativeDate(_obj.EntityId.GetValueOrDefault());
+              relative.Value = PublicFunctions.RelativeDate.Remote.GetRelativeDate(_obj.EntityId.GetValueOrDefault(), false);
               increment.Value = Functions.SettingBase.GetIncrementForRelativeDateFromViewValue(_obj.ViewValue);
             }
             else

@@ -394,6 +394,11 @@
           "Name": "id",
           "ParameterType": "global::System.Int32",
           "ParameterTypeFullName": "System.Int32"
+        },
+        {
+          "Name": "isActiveOnly",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
         }
       ],
       "Placement": "Shared",

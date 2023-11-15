@@ -18,6 +18,51 @@ namespace Starkov.ScheduledReports.Shared
       return !string.IsNullOrEmpty(_obj.FunctionGuid);
     }
     
+//    public static string GetExpressionFromRelativeDates(List<IRelativeDate> relativeDates)
+//    {
+//      var result = string.Empty;
+//      foreach (var relativeDate in relativeDates)
+//      {
+//        result = GetExpressionFromRelativeDate(relativeDate, 
+//      }
+//    }
+    
+    public virtual string GetExpressionFromRelativeDate(int? number)
+    {
+      if (number == null)
+        number = 1;
+      
+      return string.Format("{0}*{1}", _obj.Id, number);
+    }
+    
+    /// <summary>
+    /// Получить дату из строкового выражения.
+    /// </summary>
+    /// <param name="expression">Строка с выражением.</param>
+    /// <returns>Дата.</returns>
+    public static DateTime? GetDateFromExpression(string expression)
+    {
+      DateTime? result = null;
+      
+      var pattern = @"(\d*)\*(-*\d*)";
+      var rg = new System.Text.RegularExpressions.Regex(pattern);
+      
+      
+      foreach (var match in rg.Matches(expression))
+      {
+        int id = 0;
+        int number = 1;
+        int.TryParse(match?.ToString()?.Split('*')?[0], out id);
+        int.TryParse(match?.ToString()?.Split('*')?[1], out number);
+        
+        var relativeDate = Functions.RelativeDate.Remote.GetRelativeDate(id, false);
+        if (relativeDate != null)
+          result = CalculateDate(relativeDate, result, number);
+      }
+      
+      return result;
+    }
+    
     /// <summary>
     /// Вычислить дату.
     /// </summary>
@@ -82,34 +127,34 @@ namespace Starkov.ScheduledReports.Shared
       
       try
       {
-      if (functionGuid == Constants.RelativeDate.FunctionGuids.Base.Today)
-        resultDate = Calendar.Today;
-      else if (functionGuid == Constants.RelativeDate.FunctionGuids.Base.Now)
-        resultDate = Calendar.Now;
-      else if (functionGuid == Constants.RelativeDate.FunctionGuids.Base.BeginningOfWeek)
-        resultDate = Calendar.BeginningOfWeek(resultDate);
-      else if (functionGuid == Constants.RelativeDate.FunctionGuids.Base.EndOfWeek)
-        resultDate = Calendar.EndOfWeek(resultDate);
-      else if (functionGuid == Constants.RelativeDate.FunctionGuids.Base.BeginningOfMonth)
-        resultDate = Calendar.BeginningOfMonth(resultDate);
-      else if (functionGuid == Constants.RelativeDate.FunctionGuids.Base.EndOfMonth)
-        resultDate = Calendar.EndOfMonth(resultDate);
-      else if (functionGuid == Constants.RelativeDate.FunctionGuids.Base.BeginningOfYear)
-        resultDate = Calendar.BeginningOfYear(resultDate);
-      else if (functionGuid == Constants.RelativeDate.FunctionGuids.Base.EndOfYear)
-        resultDate = Calendar.EndOfYear(resultDate);
-      else if (functionGuid == Constants.RelativeDate.FunctionGuids.Base.Date)
-        resultDate = resultDate.Date;
-      
-      else if (functionGuid == Constants.RelativeDate.FunctionGuids.Incremental.AddDays)
-        resultDate = resultDate.AddDays(number);
-      else if (functionGuid == Constants.RelativeDate.FunctionGuids.Incremental.AddMonths)
-        resultDate = resultDate.AddMonths(number);
-      else if (functionGuid == Constants.RelativeDate.FunctionGuids.Incremental.AddHours)
-        resultDate = resultDate.AddHours(number);
-      else if (functionGuid == Constants.RelativeDate.FunctionGuids.Incremental.AddMinutes)
-        resultDate = resultDate.AddMinutes(number);
-            }
+        if (functionGuid == Constants.RelativeDate.FunctionGuids.Base.Today)
+          resultDate = Calendar.Today;
+        else if (functionGuid == Constants.RelativeDate.FunctionGuids.Base.Now)
+          resultDate = Calendar.Now;
+        else if (functionGuid == Constants.RelativeDate.FunctionGuids.Base.BeginningOfWeek)
+          resultDate = Calendar.BeginningOfWeek(resultDate);
+        else if (functionGuid == Constants.RelativeDate.FunctionGuids.Base.EndOfWeek)
+          resultDate = Calendar.EndOfWeek(resultDate);
+        else if (functionGuid == Constants.RelativeDate.FunctionGuids.Base.BeginningOfMonth)
+          resultDate = Calendar.BeginningOfMonth(resultDate);
+        else if (functionGuid == Constants.RelativeDate.FunctionGuids.Base.EndOfMonth)
+          resultDate = Calendar.EndOfMonth(resultDate);
+        else if (functionGuid == Constants.RelativeDate.FunctionGuids.Base.BeginningOfYear)
+          resultDate = Calendar.BeginningOfYear(resultDate);
+        else if (functionGuid == Constants.RelativeDate.FunctionGuids.Base.EndOfYear)
+          resultDate = Calendar.EndOfYear(resultDate);
+        else if (functionGuid == Constants.RelativeDate.FunctionGuids.Base.Date)
+          resultDate = resultDate.Date;
+        
+        else if (functionGuid == Constants.RelativeDate.FunctionGuids.Incremental.AddDays)
+          resultDate = resultDate.AddDays(number);
+        else if (functionGuid == Constants.RelativeDate.FunctionGuids.Incremental.AddMonths)
+          resultDate = resultDate.AddMonths(number);
+        else if (functionGuid == Constants.RelativeDate.FunctionGuids.Incremental.AddHours)
+          resultDate = resultDate.AddHours(number);
+        else if (functionGuid == Constants.RelativeDate.FunctionGuids.Incremental.AddMinutes)
+          resultDate = resultDate.AddMinutes(number);
+      }
       catch (Exception ex)
       {
         Logger.ErrorFormat("CalculateDateByFunctionGuid. functionGuid={0}, date={1}, number={2}", ex, functionGuid, date, number);

@@ -9,6 +9,48 @@ namespace Starkov.ScheduledReports.Client
 {
   partial class ScheduleSettingActions
   {
+    public virtual void TestRelative(Sungero.Domain.Client.ExecuteActionArgs e)
+    {
+      var dialog = Dialogs.CreateInputDialog("Тест относительных дат");
+      var result = dialog.AddDate("Результат", false);
+      var expression = dialog.AddString("Выражение", false);
+      var expressionUI = dialog.AddString("Выражение", false);
+      expression.IsEnabled = false;
+      
+      var relativeDate = dialog.AddSelect("Относительная дата", false, RelativeDates.Null);
+      var number = dialog.AddInteger("Количество", false);
+      var addRelative = dialog.AddHyperlink("Добавить");
+      var clear = dialog.AddHyperlink("Очистить");
+      
+      addRelative.SetOnExecute(
+        ()=>
+        {
+          if (relativeDate.Value == null)
+            return;
+          
+          expression.Value += Functions.RelativeDate.GetExpressionFromRelativeDate(relativeDate.Value, number.Value.GetValueOrDefault()) + ";";
+          result.Value = Functions.RelativeDate.GetDateFromExpression(expression.Value);
+          
+          expressionUI.Value = Functions.RelativeDate.GetDateFromExpression(expression.Value).ToString();
+          relativeDate.Value = null;
+          number.Value = null;
+        });
+      
+      clear.SetOnExecute(
+        ()=>
+        {
+          expression.Value = string.Empty;
+          result.Value = Functions.RelativeDate.GetDateFromExpression(expression.Value);
+        });
+      
+      dialog.Show();
+    }
+
+    public virtual bool CanTestRelative(Sungero.Domain.Client.CanExecuteActionArgs e)
+    {
+      return true;
+    }
+
 
     public virtual void DisableSchedule(Sungero.Domain.Client.ExecuteActionArgs e)
     {

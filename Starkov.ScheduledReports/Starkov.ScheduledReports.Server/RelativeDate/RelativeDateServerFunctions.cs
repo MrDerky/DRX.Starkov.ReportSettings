@@ -13,11 +13,14 @@ namespace Starkov.ScheduledReports.Server
     /// Получить запись "Относительная дата" по ИД.
     /// </summary>
     /// <param name="id">ИД</param>
+    /// <param name="isActiveOnly">Только активная запись</param>
     /// <returns>Относительная дата</returns>
     [Public, Remote(IsPure = true)]
-    public static IRelativeDate GetRelativeDate(int id)
+    public static IRelativeDate GetRelativeDate(int id, bool isActiveOnly)
     {
-      return RelativeDates.GetAllCached(r => r.Id == id).FirstOrDefault(r => r.Status != Status.Closed);
+      return RelativeDates.GetAllCached(r => r.Id == id)
+        .FirstOrDefault(r => !isActiveOnly || r.Status != Status.Closed);
     }
+
   }
 }

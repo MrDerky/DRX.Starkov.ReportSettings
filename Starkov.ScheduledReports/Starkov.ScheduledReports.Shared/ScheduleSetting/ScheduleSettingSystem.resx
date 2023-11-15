@@ -169,4 +169,19 @@
   <data name="Property_DocumentKind" xml:space="preserve">
     <value>Document kind</value>
   </data>
+  <data name="Action_TestRelative" xml:space="preserve">
+    <value>TestRelative</value>
+  </data>
+  <data name="Action_TestRelativeDescription" xml:space="preserve">
+    <value>TestRelative</value>
+  </data>
+  <data name="Action_TestRelativeHint" xml:space="preserve">
+    <value>TestRelative</value>
+  </data>
+  <data name="Action_TestRelativeConfirmationMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Action_TestRelativeConfirmationDescription" xml:space="preserve">
+    <value />
+  </data>
 </root>
