@@ -18,14 +18,14 @@ namespace Starkov.ScheduledReports.Shared
       return !string.IsNullOrEmpty(_obj.FunctionGuid);
     }
     
-//    public static string GetExpressionFromRelativeDates(List<IRelativeDate> relativeDates)
-//    {
-//      var result = string.Empty;
-//      foreach (var relativeDate in relativeDates)
-//      {
-//        result = GetExpressionFromRelativeDate(relativeDate, 
-//      }
-//    }
+    //    public static string GetExpressionFromRelativeDates(List<IRelativeDate> relativeDates)
+    //    {
+    //      var result = string.Empty;
+    //      foreach (var relativeDate in relativeDates)
+    //      {
+    //        result = GetExpressionFromRelativeDate(relativeDate,
+    //      }
+    //    }
     
     public virtual string GetExpressionFromRelativeDate(int? number)
     {
@@ -33,6 +33,21 @@ namespace Starkov.ScheduledReports.Shared
         number = 1;
       
       return string.Format("{0}*{1}", _obj.Id, number);
+    }
+    
+    public virtual string GetUIExpressionFromRelativeDate(int? number)
+    {
+      if (number == 0)
+        number = 1;
+      
+      var operation = _obj.IsIncremental.GetValueOrDefault()
+        ? number.GetValueOrDefault() < 0 ? "-" : "+"
+        : "->";
+      
+      if (number == 1 || number == -1 || !_obj.IsIncremental.GetValueOrDefault())
+        number = null;
+      
+      return string.Format("{0}{1}{2}", operation, number, _obj.Name);
     }
     
     /// <summary>
