@@ -152,6 +152,7 @@
       "IsDisplayValue": true,
       "IsQuickSearchAllowed": true,
       "IsRequired": true,
+      "IsUnique": true,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
       "PreviousPropertyGuid": "1dcedc29-5140-4770-ac92-eabc212326a1"
     },
@@ -406,6 +407,25 @@
       "ReturnTypeFullName": "Starkov.ScheduledReports.IRelativeDate, Sungero.Domain.Interfaces"
     },
     {
+      "Name": "GetRelativeDate",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "name",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "isActiveOnly",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::Starkov.ScheduledReports.IRelativeDate",
+      "ReturnTypeFullName": "Starkov.ScheduledReports.IRelativeDate, Sungero.Domain.Interfaces"
+    },
+    {
       "Name": "IsInitialized",
       "Parameters": [
         {
@@ -417,6 +437,12 @@
       "Placement": "Shared",
       "ReturnType": "global::System.Boolean",
       "ReturnTypeFullName": "System.Boolean"
+    },
+    {
+      "Name": "ShowRelativeDateDialog",
+      "Placement": "Client",
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
     }
   ],
   "PublicStructures": [],

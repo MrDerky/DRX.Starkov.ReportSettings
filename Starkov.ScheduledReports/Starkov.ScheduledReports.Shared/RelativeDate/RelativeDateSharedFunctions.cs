@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -37,7 +37,7 @@ namespace Starkov.ScheduledReports.Shared
     
     public virtual string GetUIExpressionFromRelativeDate(int? number)
     {
-      if (number == 0)
+      if (number == 0 || !number.HasValue)
         number = 1;
       
       var operation = _obj.IsIncremental.GetValueOrDefault()
@@ -46,8 +46,10 @@ namespace Starkov.ScheduledReports.Shared
       
       if (number == 1 || number == -1 || !_obj.IsIncremental.GetValueOrDefault())
         number = null;
+      else if (number.GetValueOrDefault() < 0)
+        number = Math.Abs(number.Value);
       
-      return string.Format("{0}{1}{2}", operation, number, _obj.Name);
+      return string.Format("{0}{1}[{2}]", operation, number, _obj.Name);
     }
     
     /// <summary>
@@ -61,7 +63,6 @@ namespace Starkov.ScheduledReports.Shared
       
       var pattern = @"(\d*)\*(-*\d*)";
       var rg = new System.Text.RegularExpressions.Regex(pattern);
-      
       
       foreach (var match in rg.Matches(expression))
       {
@@ -77,6 +78,42 @@ namespace Starkov.ScheduledReports.Shared
       
       return result;
     }
+    
+//    /// <summary>
+//    /// Получить дату из выражения для пользователя.
+//    /// </summary>
+//    /// <param name="expression">Строка с выражением.</param>
+//    /// <returns>Дата и отформатированное выражение.</returns>
+//    public static DateTime? GetDateFromUIExpression(string expression)
+//    {
+//      DateTime? result = null;
+//      
+//      var newExpression = string.Empty;
+//      var pattern = @"([+,-]|)([+d,-d]|)\[(.*?)\]";
+//      var rg = new System.Text.RegularExpressions.Regex(pattern);
+//
+//      foreach (System.Text.RegularExpressions.Match match in rg.Matches(expression))
+//      {
+//        var operation = match?.Groups[1]?.ToString();
+//        var number = 1;
+//        if (!String.IsNullOrEmpty(match?.Groups[2]?.ToString()))
+//          int.TryParse(match?.Groups[2]?.ToString(), out number);
+//        
+//        if (operation == "-")
+//          number = 0 - number;
+//        
+//        var relativeDateName = match?.Groups[3]?.ToString();
+//        var relativeDate = PublicFunctions.RelativeDate.Remote.GetRelativeDate(relativeDateName, false);
+//        
+//        if (relativeDate == null)
+//          throw new Exception(string.Format("Не найдена относительная дата с именем «{0}»", relativeDateName));
+//        
+//        result = CalculateDate(relativeDate, result, number);
+//        newExpression += Functions.RelativeDate.GetUIExpressionFromRelativeDate(relativeDate, number);
+//      }
+//      
+//      return result;
+//    }
     
     /// <summary>
     /// Вычислить дату.

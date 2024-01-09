@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -11,48 +11,7 @@ namespace Starkov.ScheduledReports.Client
   {
     public virtual void TestRelative(Sungero.Domain.Client.ExecuteActionArgs e)
     {
-      var dialog = Dialogs.CreateInputDialog("Тест относительных дат");
-      var result = dialog.AddDate("Результат", false);
-      var resultUI = dialog.AddString("Результат", false);
-      resultUI.IsEnabled = false;
-      var expression = dialog.AddString("Выражение", false);
-      var expressionUI = dialog.AddString("Выражение", false);
-      expression.IsEnabled = false;
-      
-      var relativeDate = dialog.AddSelect("Относительная дата", false, RelativeDates.Null);
-      var number = dialog.AddInteger("Количество", false);
-      number.IsVisible = false;
-      var addRelative = dialog.AddHyperlink("Добавить");
-      var clear = dialog.AddHyperlink("Очистить");
-      
-      relativeDate.SetOnValueChanged(
-        (r)=>
-        {
-          number.IsVisible = r.NewValue != null && r.NewValue.IsIncremental.GetValueOrDefault();
-        });
-      
-      addRelative.SetOnExecute(
-        ()=>
-        {
-          if (relativeDate.Value == null)
-            return;
-          
-          expression.Value += Functions.RelativeDate.GetExpressionFromRelativeDate(relativeDate.Value, number.Value.GetValueOrDefault()) + ";";
-          result.Value = Functions.RelativeDate.GetDateFromExpression(expression.Value);
-          resultUI.Value = Functions.RelativeDate.GetDateFromExpression(expression.Value).ToString();
-          expressionUI.Value += Functions.RelativeDate.GetUIExpressionFromRelativeDate(relativeDate.Value, number.Value.GetValueOrDefault());
-          relativeDate.Value = null;
-          number.Value = null;
-        });
-      
-      clear.SetOnExecute(
-        ()=>
-        {
-          expression.Value = string.Empty;
-          result.Value = Functions.RelativeDate.GetDateFromExpression(expression.Value);
-        });
-      
-      dialog.Show();
+      PublicFunctions.RelativeDate.ShowRelativeDateDialog();
     }
 
     public virtual bool CanTestRelative(Sungero.Domain.Client.CanExecuteActionArgs e)
