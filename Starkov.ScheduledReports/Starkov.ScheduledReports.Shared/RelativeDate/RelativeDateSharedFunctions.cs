@@ -49,15 +49,25 @@ namespace Starkov.ScheduledReports.Shared
       else if (number.GetValueOrDefault() < 0)
         number = Math.Abs(number.Value);
       
+      return string.Format("{0}{1}[{2}]", operation, number, GetFormatedNameByNumber(number));
+    }
+    
+    /// <summary>
+    /// Получить имя относительной даты во множественном числе.
+    /// </summary>
+    /// <returns>Имя относительной даты во множественном числе.</returns>
+    private string GetFormatedNameByNumber(int? number)
+    {
       var name = _obj.Name;
       var lastNumber = number.GetValueOrDefault() % 10;
+      var last2Numbers= number.GetValueOrDefault() % 100;
       
-      if (2 <= lastNumber && lastNumber <= 4)
-        name = _obj.PluralName2;
-      else if (5 <= lastNumber && lastNumber <= 9)
+      if (!string.IsNullOrEmpty(_obj.PluralName5) && (5 <= lastNumber && lastNumber <= 9 || 10 <= last2Numbers && (last2Numbers <= 19 || lastNumber == 0)))
         name = _obj.PluralName5;
+      else if (!string.IsNullOrEmpty(_obj.PluralName2) && 2 <= lastNumber && lastNumber <= 4)
+        name = _obj.PluralName2;
       
-      return string.Format("{0}{1}[{2}]", operation, number, name);
+      return name;
     }
     
     /// <summary>

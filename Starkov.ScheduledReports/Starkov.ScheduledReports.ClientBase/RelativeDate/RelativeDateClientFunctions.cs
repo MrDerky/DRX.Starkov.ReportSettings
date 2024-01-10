@@ -114,7 +114,7 @@ namespace Starkov.ScheduledReports.Client
     public static System.Collections.Generic.KeyValuePair<DateTime?, string> GetDateFromUIExpression(string expression)
     {
       var newExpression = string.Empty;
-      var pattern = @"([+,-]|)([+d,-d]|)\[(.*?)\]";
+      var pattern = @"([+,-]|)(\d*|)(\[(.*?)\]|[^+->].[^+-]*)";
       var rg = new System.Text.RegularExpressions.Regex(pattern);
 
       DateTime? resultDate = null;
@@ -128,7 +128,10 @@ namespace Starkov.ScheduledReports.Client
         if (operation == "-")
           number = 0 - number;
         
-        var relativeDateName = match?.Groups[3]?.ToString();
+        var relativeDateName = !String.IsNullOrEmpty(match?.Groups[4]?.ToString())
+          ? match?.Groups[4]?.ToString()
+          : match?.Groups[3]?.ToString();
+        
         var relativeDate = PublicFunctions.RelativeDate.Remote.GetRelativeDate(relativeDateName, false);
         
         if (relativeDate == null)
