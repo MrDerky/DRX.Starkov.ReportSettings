@@ -49,7 +49,15 @@ namespace Starkov.ScheduledReports.Shared
       else if (number.GetValueOrDefault() < 0)
         number = Math.Abs(number.Value);
       
-      return string.Format("{0}{1}[{2}]", operation, number, _obj.Name);
+      var name = _obj.Name;
+      var lastNumber = number.GetValueOrDefault() % 10;
+      
+      if (2 <= lastNumber && lastNumber <= 4)
+        name = _obj.PluralName2;
+      else if (5 <= lastNumber && lastNumber <= 9)
+        name = _obj.PluralName5;
+      
+      return string.Format("{0}{1}[{2}]", operation, number, name);
     }
     
     /// <summary>
@@ -79,41 +87,41 @@ namespace Starkov.ScheduledReports.Shared
       return result;
     }
     
-//    /// <summary>
-//    /// Получить дату из выражения для пользователя.
-//    /// </summary>
-//    /// <param name="expression">Строка с выражением.</param>
-//    /// <returns>Дата и отформатированное выражение.</returns>
-//    public static DateTime? GetDateFromUIExpression(string expression)
-//    {
-//      DateTime? result = null;
-//      
-//      var newExpression = string.Empty;
-//      var pattern = @"([+,-]|)([+d,-d]|)\[(.*?)\]";
-//      var rg = new System.Text.RegularExpressions.Regex(pattern);
+    //    /// <summary>
+    //    /// Получить дату из выражения для пользователя.
+    //    /// </summary>
+    //    /// <param name="expression">Строка с выражением.</param>
+    //    /// <returns>Дата и отформатированное выражение.</returns>
+    //    public static DateTime? GetDateFromUIExpression(string expression)
+    //    {
+    //      DateTime? result = null;
 //
-//      foreach (System.Text.RegularExpressions.Match match in rg.Matches(expression))
-//      {
-//        var operation = match?.Groups[1]?.ToString();
-//        var number = 1;
-//        if (!String.IsNullOrEmpty(match?.Groups[2]?.ToString()))
-//          int.TryParse(match?.Groups[2]?.ToString(), out number);
-//        
-//        if (operation == "-")
-//          number = 0 - number;
-//        
-//        var relativeDateName = match?.Groups[3]?.ToString();
-//        var relativeDate = PublicFunctions.RelativeDate.Remote.GetRelativeDate(relativeDateName, false);
-//        
-//        if (relativeDate == null)
-//          throw new Exception(string.Format("Не найдена относительная дата с именем «{0}»", relativeDateName));
-//        
-//        result = CalculateDate(relativeDate, result, number);
-//        newExpression += Functions.RelativeDate.GetUIExpressionFromRelativeDate(relativeDate, number);
-//      }
-//      
-//      return result;
-//    }
+    //      var newExpression = string.Empty;
+    //      var pattern = @"([+,-]|)([+d,-d]|)\[(.*?)\]";
+    //      var rg = new System.Text.RegularExpressions.Regex(pattern);
+//
+    //      foreach (System.Text.RegularExpressions.Match match in rg.Matches(expression))
+    //      {
+    //        var operation = match?.Groups[1]?.ToString();
+    //        var number = 1;
+    //        if (!String.IsNullOrEmpty(match?.Groups[2]?.ToString()))
+    //          int.TryParse(match?.Groups[2]?.ToString(), out number);
+//
+    //        if (operation == "-")
+    //          number = 0 - number;
+//
+    //        var relativeDateName = match?.Groups[3]?.ToString();
+    //        var relativeDate = PublicFunctions.RelativeDate.Remote.GetRelativeDate(relativeDateName, false);
+//
+    //        if (relativeDate == null)
+    //          throw new Exception(string.Format("Не найдена относительная дата с именем «{0}»", relativeDateName));
+//
+    //        result = CalculateDate(relativeDate, result, number);
+    //        newExpression += Functions.RelativeDate.GetUIExpressionFromRelativeDate(relativeDate, number);
+    //      }
+//
+    //      return result;
+    //    }
     
     /// <summary>
     /// Вычислить дату.

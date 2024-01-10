@@ -31,7 +31,7 @@ namespace Starkov.ScheduledReports.Server
     [Public, Remote(IsPure = true)]
     public static IRelativeDate GetRelativeDate(string name, bool isActiveOnly)
     {
-      return RelativeDates.GetAllCached(r => r.Name == name)
+      return RelativeDates.GetAllCached(r => r.Name == name || r.PluralName2 == name || r.PluralName5 == name)
         .FirstOrDefault(r => !isActiveOnly || r.Status != Status.Closed);
     }
   }
