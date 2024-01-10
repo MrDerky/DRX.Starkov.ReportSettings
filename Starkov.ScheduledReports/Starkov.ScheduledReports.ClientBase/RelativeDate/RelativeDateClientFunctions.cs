@@ -113,12 +113,12 @@ namespace Starkov.ScheduledReports.Client
     /// <returns>Дата и отформатированное выражение.</returns>
     public static System.Collections.Generic.KeyValuePair<DateTime?, string> GetDateFromUIExpression(string expression)
     {
+      expression = expression.Trim().Replace(" ", "");
       var newExpression = string.Empty;
       var pattern = @"([+,-]|)(\d*|)(\[(.*?)\]|[^+->].[^+-]*|(\d[\d|]:\d{2}))";
-      var rg = new System.Text.RegularExpressions.Regex(pattern);
 
       DateTime? resultDate = null;
-      foreach (System.Text.RegularExpressions.Match match in rg.Matches(expression))
+      foreach (System.Text.RegularExpressions.Match match in System.Text.RegularExpressions.Regex.Matches(expression, pattern, System.Text.RegularExpressions.RegexOptions.IgnorePatternWhitespace))
       {
         var operation = match?.Groups[1]?.ToString();
         var number = 1;
