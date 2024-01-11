@@ -25,6 +25,15 @@
       "NeedConfirmation": true,
       "SmallIconName": "Action_DisableSchedule_small_c1f981b581984019a540da8206f82e35.png",
       "Versions": []
+    },
+    {
+      "NameGuid": "22a367c8-84d0-4b35-9ee7-ef570ea24b83",
+      "Name": "SetPeriod",
+      "ActionArea": "Card",
+      "GenerateHandler": true,
+      "LargeIconName": "Action_SetPeriod_large_22a367c884d04b359ee7ef570ea24b83.png",
+      "SmallIconName": "Action_SetPeriod_small_22a367c884d04b359ee7ef570ea24b83.png",
+      "Versions": []
     }
   ],
   "BaseGuid": "8a007d27-5f5c-47e0-83fb-bf71a1eb9626",
@@ -207,7 +216,7 @@
           "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
           "ParentGuid": "450962b1-e9cf-457c-b142-9182322e69ea",
           "PropertyGuid": "e4af3455-d958-41e0-8289-9991356ce93f",
-          "RowNumber": 1,
+          "RowNumber": 2,
           "RowSpan": 1,
           "Settings": []
         },
@@ -220,7 +229,7 @@
           "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
           "ParentGuid": "450962b1-e9cf-457c-b142-9182322e69ea",
           "PropertyGuid": "56d65f38-48d4-4506-a5ce-6e1558502941",
-          "RowNumber": 1,
+          "RowNumber": 2,
           "RowSpan": 1,
           "Settings": []
         },
@@ -233,7 +242,7 @@
           "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.MultiLikeEditorToCollectionBinder",
           "ParentGuid": "450962b1-e9cf-457c-b142-9182322e69ea",
           "PropertyGuid": "a8171a6b-078c-49cd-87b9-e49fc3075fe0",
-          "RowNumber": 2,
+          "RowNumber": 3,
           "RowSpan": 1,
           "Settings": [
             {
@@ -251,7 +260,7 @@
           "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.BooleanEditorToBooleanBinder",
           "ParentGuid": "450962b1-e9cf-457c-b142-9182322e69ea",
           "PropertyGuid": "9fb5c7d5-c7a8-43e4-a01f-368953e7eb36",
-          "RowNumber": 4,
+          "RowNumber": 5,
           "RowSpan": 1,
           "Settings": []
         },
@@ -264,7 +273,20 @@
           "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
           "ParentGuid": "450962b1-e9cf-457c-b142-9182322e69ea",
           "PropertyGuid": "7e6e27df-03f6-4272-8d3f-ade6eaf9d5d8",
-          "RowNumber": 3,
+          "RowNumber": 4,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "fd7a2f8d-f4c6-45b0-88c6-7c5d8fd9549d",
+          "Name": "Control1",
+          "ColumnNumber": 0,
+          "ColumnSpan": 2,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+          "ParentGuid": "450962b1-e9cf-457c-b142-9182322e69ea",
+          "PropertyGuid": "ce6b794d-156a-43ef-b296-6ade95b4900b",
+          "RowNumber": 1,
           "RowSpan": 1,
           "Settings": []
         }
@@ -383,12 +405,15 @@
       "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
       "NameGuid": "ad1ff129-4920-470f-a962-f26fb9ed66c8",
       "Name": "Period",
+      "CanBeSearch": false,
       "Code": "Period",
       "EntityGuid": "26553e87-531b-4953-980d-ab3e60bcebee",
       "FlatListInStandaloneLookup": true,
       "HandledEvents": [
         "LookupServer"
       ],
+      "IsShowedInList": false,
+      "IsVisibility": false,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
       "PreviousPropertyGuid": "56d65f38-48d4-4506-a5ce-6e1558502941",
       "Versions": []
@@ -397,10 +422,13 @@
       "$type": "Sungero.Metadata.IntegerPropertyMetadata, Sungero.Metadata",
       "NameGuid": "37e534a6-68f1-43f2-9b72-c586d1330426",
       "Name": "PeriodNumber",
+      "CanBeSearch": false,
       "Code": "PeriodNumber",
       "HandledEvents": [
         "ChangedShared"
       ],
+      "IsShowedInList": false,
+      "IsVisibility": false,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.NumericEditorToIntAndDoubleBinder",
       "PreviousPropertyGuid": "ad1ff129-4920-470f-a962-f26fb9ed66c8",
       "Versions": []
@@ -431,8 +459,21 @@
       "Code": "DocumentKind",
       "EntityGuid": "14a59623-89a2-4ea8-b6e9-2ad4365f358c",
       "FlatListInStandaloneLookup": true,
+      "IsRequired": true,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
       "PreviousPropertyGuid": "9fb5c7d5-c7a8-43e4-a01f-368953e7eb36"
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "ce6b794d-156a-43ef-b296-6ade95b4900b",
+      "Name": "PeriodExpression",
+      "Code": "PeriodExpressi",
+      "HandledEvents": [
+        "ValueInputClient"
+      ],
+      "IsRequired": true,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "7e6e27df-03f6-4272-8d3f-ade6eaf9d5d8"
     }
   ],
   "PublicFunctions": [
@@ -540,6 +581,15 @@
         "ActionGuid": "c1f981b5-8198-4019-a540-da8206f82e35",
         "ButtonSize": "Large",
         "Index": 0,
+        "ParentGuid": "532352e4-edc2-4897-b7c6-d04633d75aea"
+      },
+      {
+        "$type": "Sungero.Metadata.RibbonActionButtonMetadata, Sungero.Metadata",
+        "NameGuid": "e2f59fea-c4dd-4d0f-8a5c-326e9bb2dee8",
+        "Name": "SetPeriod",
+        "ActionGuid": "22a367c8-84d0-4b35-9ee7-ef570ea24b83",
+        "ButtonSize": "Large",
+        "Index": -2,
         "ParentGuid": "532352e4-edc2-4897-b7c6-d04633d75aea"
       }
     ],

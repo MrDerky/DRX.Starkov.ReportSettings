@@ -169,4 +169,22 @@
   <data name="Property_DocumentKind" xml:space="preserve">
     <value>Document kind</value>
   </data>
+  <data name="Action_SetPeriodHint" xml:space="preserve">
+    <value>Set the periodicity</value>
+  </data>
+  <data name="Action_SetPeriod" xml:space="preserve">
+    <value>Set the periodicity</value>
+  </data>
+  <data name="Action_SetPeriodDescription" xml:space="preserve">
+    <value>Set the periodicity</value>
+  </data>
+  <data name="Property_PeriodExpression" xml:space="preserve">
+    <value>Период</value>
+  </data>
+  <data name="Action_SetPeriodConfirmationMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Action_SetPeriodConfirmationDescription" xml:space="preserve">
+    <value />
+  </data>
 </root>

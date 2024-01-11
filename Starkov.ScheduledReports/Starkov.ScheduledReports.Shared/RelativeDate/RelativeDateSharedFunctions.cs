@@ -31,6 +31,7 @@ namespace Starkov.ScheduledReports.Shared
       var pattern = @"([+,-]|)(\d*|)(\[(.*?)\]|[^+->].[^+-]*|(\d[\d|]:\d{2}))";
 
       DateTime? resultDate = null;
+      var isLineBegin = true;
       foreach (System.Text.RegularExpressions.Match match in System.Text.RegularExpressions.Regex.Matches(expression, pattern, System.Text.RegularExpressions.RegexOptions.IgnorePatternWhitespace))
       {
         var operation = match?.Groups[1]?.ToString();
@@ -69,8 +70,10 @@ namespace Starkov.ScheduledReports.Shared
             throw new Exception(string.Format("Не найдена относительная дата «{0}»", relativeDateName));
 
           resultDate = Functions.RelativeDate.CalculateDate(relativeDate, resultDate, number);
-          newExpression += Functions.RelativeDate.GetUIExpressionFromRelativeDate(relativeDate, number);
+          newExpression += Functions.RelativeDate.GetUIExpressionFromRelativeDate(relativeDate, number, isLineBegin);
         }
+        
+        isLineBegin = false;
       }
       
       return new System.Collections.Generic.KeyValuePair<DateTime?, string> (resultDate, newExpression);
@@ -110,8 +113,9 @@ namespace Starkov.ScheduledReports.Shared
     /// Генерация строкового выражения для относительной даты.
     /// </summary>
     /// <param name="number">Множитель.</param>
+    /// <param name="isLineBegin">Признак начала строки.</param>
     /// <returns>Строковое выражение.</returns>
-    public virtual string GetUIExpressionFromRelativeDate(int? number)
+    public virtual string GetUIExpressionFromRelativeDate(int? number, bool isLineBegin)
     {
       if (number == 0 || !number.HasValue)
         number = 1;
@@ -119,6 +123,9 @@ namespace Starkov.ScheduledReports.Shared
       var operation = _obj.IsIncremental.GetValueOrDefault()
         ? number.GetValueOrDefault() < 0 ? "-" : "+"
         : "->";
+      
+      if (isLineBegin && operation != "-")
+        operation = string.Empty;
       
       if (number == 1 || number == -1 || !_obj.IsIncremental.GetValueOrDefault())
         number = null;

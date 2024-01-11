@@ -86,7 +86,8 @@ namespace Starkov.ScheduledReports.Client
           if (relativeDate.Value == null)
             return;
           
-          expressionUI.Value += Functions.RelativeDate.GetUIExpressionFromRelativeDate(relativeDate.Value, number.Value.GetValueOrDefault());
+          var isLineBegin = string.IsNullOrEmpty(expressionUI.Value?.Trim());
+          expressionUI.Value += Functions.RelativeDate.GetUIExpressionFromRelativeDate(relativeDate.Value, number.Value.GetValueOrDefault(), isLineBegin);
           relativeDate.Value = null;
           number.Value = null;
         });

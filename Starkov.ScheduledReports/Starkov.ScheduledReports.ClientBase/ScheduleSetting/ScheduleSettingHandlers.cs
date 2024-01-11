@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -9,6 +9,30 @@ namespace Starkov.ScheduledReports
 {
   partial class ScheduleSettingClientHandlers
   {
+
+    public virtual void PeriodExpressionValueInput(Sungero.Presentation.StringValueInputEventArgs e)
+    {
+      if (e.NewValue == e.OldValue || string.IsNullOrEmpty(e.NewValue))
+        return;
+      
+      KeyValuePair<DateTime?, string> dateAndExpression;
+      try
+      {
+        dateAndExpression = PublicFunctions.RelativeDate.GetDateFromUIExpression(e.NewValue);
+        if (!dateAndExpression.Key.HasValue)
+          //              resultUI.Value = dateAndExpression.Key.Value.ToString();
+//        else
+          throw new Exception("Не удалось вычислить выражение");
+      }
+      catch (Exception ex)
+      {
+        e.AddWarning(ex.Message, e.Property);
+        return;
+      }
+      
+      if (!string.IsNullOrEmpty(dateAndExpression.Value) && e.NewValue != dateAndExpression.Value)
+        e.NewValue = dateAndExpression.Value;
+    }
 
     public override void Showing(Sungero.Presentation.FormShowingEventArgs e)
     {

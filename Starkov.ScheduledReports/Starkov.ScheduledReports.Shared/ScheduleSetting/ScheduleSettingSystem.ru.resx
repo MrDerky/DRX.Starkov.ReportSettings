@@ -154,4 +154,13 @@
   <data name="Property_DocumentKind" xml:space="preserve">
     <value>Вид документа</value>
   </data>
+  <data name="Action_SetPeriod" xml:space="preserve">
+    <value>Задать периодичность</value>
+  </data>
+  <data name="Action_SetPeriodHint" xml:space="preserve">
+    <value>Задать периодичность</value>
+  </data>
+  <data name="Action_SetPeriodDescription" xml:space="preserve">
+    <value>Задать периодичность</value>
+  </data>
 </root>

@@ -9,7 +9,21 @@ namespace Starkov.ScheduledReports.Client
 {
   partial class ScheduleSettingActions
   {
+    public virtual void SetPeriod(Sungero.Domain.Client.ExecuteActionArgs e)
+    {
+      var relatedInfo = Structures.RelativeDate.RelatedDateInfo.Create();
+      relatedInfo.IsRelated = true;
+      if (!string.IsNullOrEmpty(_obj.PeriodExpression))
+        relatedInfo.Expression = _obj.PeriodExpression;
+      
+      if (Functions.SettingBase.ShowRelativeDateDialog(relatedInfo))
+        _obj.PeriodExpression = relatedInfo.Expression;
+    }
 
+    public virtual bool CanSetPeriod(Sungero.Domain.Client.CanExecuteActionArgs e)
+    {
+      return _obj.AccessRights.CanUpdate();
+    }
 
     public virtual void DisableSchedule(Sungero.Domain.Client.ExecuteActionArgs e)
     {
