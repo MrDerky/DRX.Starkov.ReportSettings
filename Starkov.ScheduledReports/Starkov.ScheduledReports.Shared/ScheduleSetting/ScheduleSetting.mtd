@@ -25,14 +25,6 @@
       "NeedConfirmation": true,
       "SmallIconName": "Action_DisableSchedule_small_c1f981b581984019a540da8206f82e35.png",
       "Versions": []
-    },
-    {
-      "NameGuid": "b90cde95-c4e2-4a5e-af46-b750a82515d8",
-      "Name": "TestRelative",
-      "ActionArea": "Card",
-      "GenerateHandler": true,
-      "LargeIconName": null,
-      "SmallIconName": null
     }
   ],
   "BaseGuid": "8a007d27-5f5c-47e0-83fb-bf71a1eb9626",
@@ -549,15 +541,6 @@
         "ButtonSize": "Large",
         "Index": 0,
         "ParentGuid": "532352e4-edc2-4897-b7c6-d04633d75aea"
-      },
-      {
-        "$type": "Sungero.Metadata.RibbonActionButtonMetadata, Sungero.Metadata",
-        "NameGuid": "1f3da481-82e8-4eb4-b593-04910191a5bd",
-        "Name": "TestRelative",
-        "ActionGuid": "b90cde95-c4e2-4a5e-af46-b750a82515d8",
-        "ButtonSize": "Large",
-        "Index": 2,
-        "ParentGuid": "15875507-44bf-4316-add1-2d9ae4253521"
       }
     ],
     "Groups": [

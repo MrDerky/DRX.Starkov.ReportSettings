@@ -18,23 +18,99 @@ namespace Starkov.ScheduledReports.Shared
       return !string.IsNullOrEmpty(_obj.FunctionGuid);
     }
     
-    //    public static string GetExpressionFromRelativeDates(List<IRelativeDate> relativeDates)
-    //    {
-    //      var result = string.Empty;
-    //      foreach (var relativeDate in relativeDates)
-    //      {
-    //        result = GetExpressionFromRelativeDate(relativeDate,
-    //      }
-    //    }
-    
-    public virtual string GetExpressionFromRelativeDate(int? number)
+    /// <summary>
+    /// Получить дату из строкового выражения.
+    /// </summary>
+    /// <param name="expression">Строка с выражением.</param>
+    /// <returns>Дата и отформатированное выражение.</returns>
+    [Public]
+    public static System.Collections.Generic.KeyValuePair<DateTime?, string> GetDateFromUIExpression(string expression)
     {
-      if (number == null)
-        number = 1;
+      expression = expression.Trim().Replace(" ", "");
+      var newExpression = string.Empty;
+      var pattern = @"([+,-]|)(\d*|)(\[(.*?)\]|[^+->].[^+-]*|(\d[\d|]:\d{2}))";
+
+      DateTime? resultDate = null;
+      foreach (System.Text.RegularExpressions.Match match in System.Text.RegularExpressions.Regex.Matches(expression, pattern, System.Text.RegularExpressions.RegexOptions.IgnorePatternWhitespace))
+      {
+        var operation = match?.Groups[1]?.ToString();
+        var number = 1;
+        if (!String.IsNullOrEmpty(match?.Groups[2]?.ToString()))
+          int.TryParse(match?.Groups[2]?.ToString(), out number);
+        
+        if (operation == "-")
+          number = 0 - number;
+        
+        var relativeDateName = !String.IsNullOrEmpty(match?.Groups[4]?.ToString())
+          ? match?.Groups[4]?.ToString()
+          : match?.Groups[3]?.ToString();
+        
+        if (IsTime(relativeDateName))
+        {
+          var time = relativeDateName;
+          if (time.Trim().Length < 5)
+            time = time = "0" + time;
+
+          int hour = 0;
+          int minutes = 0;
+
+          int.TryParse(time.Substring(0, 2), out hour);
+          int.TryParse(time.Substring(3, 2), out minutes);
+          
+          var timeSpan = new TimeSpan(hour, minutes, 0);
+          resultDate = SetTime(resultDate, timeSpan);
+          newExpression += string.Format("->[{0}]", time);
+        }
+        else
+        {
+          var relativeDate = PublicFunctions.RelativeDate.Remote.GetRelativeDate(relativeDateName, false);
+          
+          if (relativeDate == null)
+            throw new Exception(string.Format("Не найдена относительная дата «{0}»", relativeDateName));
+
+          resultDate = Functions.RelativeDate.CalculateDate(relativeDate, resultDate, number);
+          newExpression += Functions.RelativeDate.GetUIExpressionFromRelativeDate(relativeDate, number);
+        }
+      }
       
-      return string.Format("{0}*{1}", _obj.Id, number);
+      return new System.Collections.Generic.KeyValuePair<DateTime?, string> (resultDate, newExpression);
     }
     
+    /// <summary>
+    /// Проверка что в строке передано время в формате чч:мм.
+    /// </summary>
+    /// <param name="text">Строка.</param>
+    /// <returns>true при соответствии формату.</returns>
+    private static bool IsTime(string text)
+    {
+      var rgTime = new System.Text.RegularExpressions.Regex(@"^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$");
+      return rgTime.IsMatch(text);
+    }
+    
+    /// <summary>
+    /// Установить время.
+    /// </summary>
+    /// <param name="date">Дата для вычислений.</param>
+    /// <param name="timespan">Время в формате TimeSpan.</param>
+    private static DateTime SetTime(DateTime? date, System.TimeSpan timespan)
+    {
+      var resultDate = date.HasValue ? date.Value : Calendar.Now;
+      return resultDate.Date.Add(timespan);
+    }
+    
+    //    public virtual string GetExpressionFromRelativeDate(int? number)
+    //    {
+    //      if (number == null)
+    //        number = 1;
+//
+    //      return string.Format("{0}*{1}", _obj.Id, number);
+    //    }
+    
+    /// <summary>
+    /// Генерация строкового выражения для относительной даты.
+    /// </summary>
+    /// <param name="number">Множитель.</param>
+    /// <returns>Строковое выражение.</returns>
     public virtual string GetUIExpressionFromRelativeDate(int? number)
     {
       if (number == 0 || !number.HasValue)
@@ -70,68 +146,32 @@ namespace Starkov.ScheduledReports.Shared
       return name;
     }
     
-    /// <summary>
-    /// Получить дату из строкового выражения.
-    /// </summary>
-    /// <param name="expression">Строка с выражением.</param>
-    /// <returns>Дата.</returns>
-    public static DateTime? GetDateFromExpression(string expression)
-    {
-      DateTime? result = null;
-      
-      var pattern = @"(\d*)\*(-*\d*)";
-      var rg = new System.Text.RegularExpressions.Regex(pattern);
-      
-      foreach (var match in rg.Matches(expression))
-      {
-        int id = 0;
-        int number = 1;
-        int.TryParse(match?.ToString()?.Split('*')?[0], out id);
-        int.TryParse(match?.ToString()?.Split('*')?[1], out number);
-        
-        var relativeDate = Functions.RelativeDate.Remote.GetRelativeDate(id, false);
-        if (relativeDate != null)
-          result = CalculateDate(relativeDate, result, number);
-      }
-      
-      return result;
-    }
-    
-    //    /// <summary>
-    //    /// Получить дату из выражения для пользователя.
-    //    /// </summary>
-    //    /// <param name="expression">Строка с выражением.</param>
-    //    /// <returns>Дата и отформатированное выражение.</returns>
-    //    public static DateTime? GetDateFromUIExpression(string expression)
-    //    {
-    //      DateTime? result = null;
-//
-    //      var newExpression = string.Empty;
-    //      var pattern = @"([+,-]|)([+d,-d]|)\[(.*?)\]";
-    //      var rg = new System.Text.RegularExpressions.Regex(pattern);
-//
-    //      foreach (System.Text.RegularExpressions.Match match in rg.Matches(expression))
-    //      {
-    //        var operation = match?.Groups[1]?.ToString();
-    //        var number = 1;
-    //        if (!String.IsNullOrEmpty(match?.Groups[2]?.ToString()))
-    //          int.TryParse(match?.Groups[2]?.ToString(), out number);
-//
-    //        if (operation == "-")
-    //          number = 0 - number;
-//
-    //        var relativeDateName = match?.Groups[3]?.ToString();
-    //        var relativeDate = PublicFunctions.RelativeDate.Remote.GetRelativeDate(relativeDateName, false);
-//
-    //        if (relativeDate == null)
-    //          throw new Exception(string.Format("Не найдена относительная дата с именем «{0}»", relativeDateName));
-//
-    //        result = CalculateDate(relativeDate, result, number);
-    //        newExpression += Functions.RelativeDate.GetUIExpressionFromRelativeDate(relativeDate, number);
-    //      }
-//
-    //      return result;
-    //    }
+//    /// <summary>
+//    /// Получить дату из строкового выражения.
+//    /// </summary>
+//    /// <param name="expression">Строка с выражением.</param>
+//    /// <returns>Дата.</returns>
+//    public static DateTime? GetDateFromExpression(string expression)
+//    {
+//      DateTime? result = null;
+//      
+//      var pattern = @"(\d*)\*(-*\d*)";
+//      var rg = new System.Text.RegularExpressions.Regex(pattern);
+//      
+//      foreach (var match in rg.Matches(expression))
+//      {
+//        int id = 0;
+//        int number = 1;
+//        int.TryParse(match?.ToString()?.Split('*')?[0], out id);
+//        int.TryParse(match?.ToString()?.Split('*')?[1], out number);
+//        
+//        var relativeDate = Functions.RelativeDate.Remote.GetRelativeDate(id, false);
+//        if (relativeDate != null)
+//          result = CalculateDate(relativeDate, result, number);
+//      }
+//      
+//      return result;
+//    }
     
     /// <summary>
     /// Вычислить дату.
@@ -233,5 +273,6 @@ namespace Starkov.ScheduledReports.Shared
       
       return resultDate;
     }
+
   }
 }

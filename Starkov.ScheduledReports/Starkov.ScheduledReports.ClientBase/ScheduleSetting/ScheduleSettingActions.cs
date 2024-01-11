@@ -9,15 +9,6 @@ namespace Starkov.ScheduledReports.Client
 {
   partial class ScheduleSettingActions
   {
-    public virtual void TestRelative(Sungero.Domain.Client.ExecuteActionArgs e)
-    {
-      PublicFunctions.RelativeDate.ShowRelativeDateDialog();
-    }
-
-    public virtual bool CanTestRelative(Sungero.Domain.Client.CanExecuteActionArgs e)
-    {
-      return true;
-    }
 
 
     public virtual void DisableSchedule(Sungero.Domain.Client.ExecuteActionArgs e)

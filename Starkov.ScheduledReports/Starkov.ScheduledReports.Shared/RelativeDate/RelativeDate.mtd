@@ -160,17 +160,6 @@
   ],
   "Properties": [
     {
-      "$type": "Sungero.Metadata.EnumPropertyMetadata, Sungero.Metadata",
-      "NameGuid": "1dcedc29-5140-4770-ac92-eabc212326a1",
-      "Name": "Status",
-      "IsAncestorMetadata": true,
-      "Overridden": [
-        "IsShowedInList",
-        "IsVisibility",
-        "CanBeSearch"
-      ]
-    },
-    {
       "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
       "NameGuid": "c4408352-8bb0-4b55-86b3-9572c0cfa97a",
       "Name": "Name",
@@ -220,8 +209,11 @@
       "$type": "Sungero.Metadata.BooleanPropertyMetadata, Sungero.Metadata",
       "NameGuid": "191ae85a-741d-4a63-be51-2736edf6e4ad",
       "Name": "IsIncremental",
+      "CanBeSearch": false,
       "Code": "IsIncremental",
       "IsEnabled": false,
+      "IsShowedInList": false,
+      "IsVisibility": false,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.BooleanEditorToBooleanBinder",
       "PreviousPropertyGuid": "4d669121-bacf-4470-a138-c9391456e738"
     },
@@ -431,6 +423,18 @@
       "ReturnTypeFullName": "System.DateTime"
     },
     {
+      "Name": "GetDateFromUIExpression",
+      "Parameters": [
+        {
+          "Name": "expression",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "System.Collections.Generic.KeyValuePair<global::System.Nullable<global::System.DateTime>, global::System.String>"
+    },
+    {
       "Name": "GetRelativeDate",
       "IsRemote": true,
       "Parameters": [
@@ -480,15 +484,31 @@
       "Placement": "Shared",
       "ReturnType": "global::System.Boolean",
       "ReturnTypeFullName": "System.Boolean"
-    },
-    {
-      "Name": "ShowRelativeDateDialog",
-      "Placement": "Client",
-      "ReturnType": "void",
-      "ReturnTypeFullName": "System.Void"
     }
   ],
-  "PublicStructures": [],
+  "PublicStructures": [
+    {
+      "Name": "RelatedDateInfo",
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "IsRelated",
+          "TypeFullName": "global::System.Boolean"
+        },
+        {
+          "Name": "Expression",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "Date",
+          "IsNullable": true,
+          "TypeFullName": "global::System.Nullable<global::System.DateTime>"
+        }
+      ],
+      "StructureNamespace": "Starkov.ScheduledReports.Structures.RelativeDate"
+    }
+  ],
   "ResourcesKeys": [
     "RelativeCalculatedError"
   ],

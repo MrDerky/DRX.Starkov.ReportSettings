@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -86,66 +86,24 @@ namespace Starkov.ScheduledReports.Client
           case "System.DateTime":
             #region Правка даты
             
-            var isRelative = dialog.AddBoolean("Относительная дата");
-            var date = dialog.AddDate("Дата", false);
-            
-            var relative = dialog.AddSelect("Период", false, Starkov.ScheduledReports.RelativeDates.Null).Where(r => r.Status != RelativeDate.Status.Closed);
-            var increment = dialog.AddInteger("Количество", false);
-            
-            increment.IsVisible = false;
-            relative.IsVisible = false;
-            
-            isRelative.SetOnValueChanged((x) =>
-                                         {
-                                           date.IsEnabled = !x.NewValue.GetValueOrDefault();
-                                           relative.IsVisible = x.NewValue.GetValueOrDefault();
-                                           increment.IsVisible = x.NewValue.GetValueOrDefault() && relative.Value != null && relative.Value.IsIncremental.GetValueOrDefault();
-                                         });
-            
-            relative.SetOnValueChanged((r) =>
-                                       {
-                                         var isIncremental = r.NewValue != null && r.NewValue.IsIncremental.GetValueOrDefault();
-                                         increment.IsVisible = isIncremental;
-                                         if (!isIncremental)
-                                           increment.Value = null;
-                                       });
-            
-            dialog.SetOnRefresh((d) =>
-                                {
-                                  try
-                                  {
-                                    if (isRelative.Value.GetValueOrDefault() && relative.Value != null)
-                                      date.Value = PublicFunctions.RelativeDate.CalculateDate(relative.Value, null, increment.Value);
-                                  }
-                                  catch (Exception ex)
-                                  {
-                                    d.AddError("Не корректное значение");
-                                  }
-                                });
-            
-            // Заполнить значения из карточки.
-            if (_obj.EntityId.HasValue)
+            var relatedInfo = Structures.RelativeDate.RelatedDateInfo.Create();
+            relatedInfo.IsRelated = _obj.EntityId == 1;
+            if (!string.IsNullOrEmpty(_obj.ViewValue))
             {
-              isRelative.Value = true;
-              relative.Value = PublicFunctions.RelativeDate.Remote.GetRelativeDate(_obj.EntityId.GetValueOrDefault(), false);
-              increment.Value = Functions.SettingBase.GetIncrementForRelativeDateFromViewValue(_obj.ViewValue);
-            }
-            else
-            {
-              DateTime dateValue;
-              if (!string.IsNullOrEmpty(_obj.ViewValue) && Calendar.TryParseDateTime(_obj.ViewValue, out dateValue))
-                date.Value = dateValue;
-            }
-            
-            if (dialog.Show() == DialogButtons.Ok)
-            {
-              if (isRelative.Value.GetValueOrDefault() && relative.Value != null)
-              {
-                _obj.ViewValue = Functions.SettingBase.BuildViewValueForRelativeDate(relative.Value, increment.Value);
-                _obj.EntityId = relative.Value.Id;
-              }
+              if (relatedInfo.IsRelated)
+                relatedInfo.Expression = _obj.ViewValue;
               else
-                _obj.ViewValue = date.Value.GetValueOrDefault().ToString();
+              {
+                DateTime date;
+                if (Calendar.TryParseDateTime(_obj.ViewValue, out date))
+                  relatedInfo.Date = date;
+              }
+            }
+            
+            if (Functions.SettingBase.ShowRelativeDateDialog(relatedInfo))
+            {
+              _obj.ViewValue = relatedInfo.Expression;
+              _obj.EntityId = relatedInfo.IsRelated ? 1 : 0;
             }
             
             break;
