@@ -26,7 +26,7 @@ namespace Starkov.ScheduledReports.Shared
     [Public]
     public static System.Collections.Generic.KeyValuePair<DateTime?, string> GetDateFromUIExpression(string expression)
     {
-      expression = expression.Trim().Replace(" ", "");
+      expression = expression.Trim().Replace("+ ", "+").Replace("- ", "-");
       var newExpression = string.Empty;
       var pattern = @"([+,-]|)(\d*|)(\[(.*?)\]|[^+->].[^+-]*|(\d[\d|]:\d{2}))";
 
@@ -43,8 +43,8 @@ namespace Starkov.ScheduledReports.Shared
           number = 0 - number;
         
         var relativeDateName = !String.IsNullOrEmpty(match?.Groups[4]?.ToString())
-          ? match?.Groups[4]?.ToString()
-          : match?.Groups[3]?.ToString();
+          ? match?.Groups[4]?.ToString().Trim()
+          : match?.Groups[3]?.ToString().Trim();
         
         if (IsTime(relativeDateName))
         {

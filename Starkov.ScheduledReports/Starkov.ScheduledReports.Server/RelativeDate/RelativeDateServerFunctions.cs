@@ -31,6 +31,7 @@ namespace Starkov.ScheduledReports.Server
     [Public, Remote(IsPure = true)]
     public static IRelativeDate GetRelativeDate(string name, bool isActiveOnly)
     {
+      name = name.Trim().Replace(" ", "");
       return RelativeDates.GetAllCached(r => r.Name.Trim().Replace(" ", "") == name ||
                                         r.PluralName2.Trim().Replace(" ", "") == name ||
                                         r.PluralName5.Trim().Replace(" ", "") == name)
