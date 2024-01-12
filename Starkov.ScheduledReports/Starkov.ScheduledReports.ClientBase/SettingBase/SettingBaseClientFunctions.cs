@@ -20,7 +20,7 @@ namespace Starkov.ScheduledReports.Client
       
       var isRelative = dialog.AddBoolean("Относительная дата", relatedDateInfo.IsRelated);
       var date = dialog.AddDate("Дата", false, relatedDateInfo.Date);
-      var resultUI = dialog.AddString("Дата", false);
+      var resultUI = dialog.AddString("Результат", false);
       var expressionUI = dialog.AddMultilineString("Выражение", false, relatedDateInfo.Expression);
       var relativeDate = dialog.AddSelect("Относительная дата", false, RelativeDates.Null);
       var number = dialog.AddInteger("Количество", false);

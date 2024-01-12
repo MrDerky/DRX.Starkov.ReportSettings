@@ -28,11 +28,11 @@ namespace Starkov.ScheduledReports.Shared
     {
       expression = expression.Trim().Replace("+ ", "+").Replace("- ", "-");
       var newExpression = string.Empty;
-      var pattern = @"([+,-]|)(\d*|)(\[(.*?)\]|[^+->].[^+-]*|(\d[\d|]:\d{2}))";
+      var pattern = @"([+->]|^)(\d*|)(\[(.*?)\]|[^+->].[^+-]*|([0-9]?[0-9]:[0-5][0-9]))";
 
       DateTime? resultDate = null;
       var isLineBegin = true;
-      foreach (System.Text.RegularExpressions.Match match in System.Text.RegularExpressions.Regex.Matches(expression, pattern, System.Text.RegularExpressions.RegexOptions.IgnorePatternWhitespace))
+      foreach (System.Text.RegularExpressions.Match match in System.Text.RegularExpressions.Regex.Matches(expression, pattern))
       {
         var operation = match?.Groups[1]?.ToString();
         var number = 1;
@@ -86,7 +86,7 @@ namespace Starkov.ScheduledReports.Shared
     /// <returns>true при соответствии формату.</returns>
     private static bool IsTime(string text)
     {
-      var rgTime = new System.Text.RegularExpressions.Regex(@"^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$");
+      var rgTime = new System.Text.RegularExpressions.Regex(@"^([0-1]?[0-9]|2[0-3]):([0-5][0-9])$");
       return rgTime.IsMatch(text);
     }
     
