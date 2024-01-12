@@ -26,9 +26,9 @@ namespace Starkov.ScheduledReports.Shared
     [Public]
     public static System.Collections.Generic.KeyValuePair<DateTime?, string> GetDateFromUIExpression(string expression)
     {
-      expression = expression.Trim().Replace("+ ", "+").Replace("- ", "-");
+      expression = expression.Trim().Replace("+ ", "+").Replace("- ", "-").Replace("> ", ">");
       var newExpression = string.Empty;
-      var pattern = @"([+->]|^)(\d*|)(\[(.*?)\]|[^+->].[^+-]*|([0-9]?[0-9]:[0-5][0-9]))";
+      var pattern = @"([+->]|^)(\d*^:|)(\[(.*?)\]|[^+->].[^+-]*|[0-9]?[0-9]:[0-5][0-9])";
 
       DateTime? resultDate = null;
       var isLineBegin = true;
