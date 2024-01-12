@@ -28,7 +28,7 @@ namespace Starkov.ScheduledReports.Shared
     {
       expression = expression.Trim().Replace("+ ", "+").Replace("- ", "-").Replace("> ", ">");
       var newExpression = string.Empty;
-      var pattern = @"([+->]|^)(\d*^:|)(\[(.*?)\]|[^+->].[^+-]*|[0-9]?[0-9]:[0-5][0-9])";
+      var pattern = @"([+->]|^)(\d*|)(\[(.*?)\]|[^+->].[^+-]*|[0-2][0-9]:[0-5][0-9])";
 
       DateTime? resultDate = null;
       var isLineBegin = true;
@@ -38,6 +38,8 @@ namespace Starkov.ScheduledReports.Shared
         var number = 1;
         if (!String.IsNullOrEmpty(match?.Groups[2]?.ToString()))
           int.TryParse(match?.Groups[2]?.ToString(), out number);
+        else if (!String.IsNullOrEmpty(match?.Groups[1]?.ToString()))
+          int.TryParse(match?.Groups[1]?.ToString(), out number);
         
         if (operation == "-")
           number = 0 - number;
@@ -122,10 +124,10 @@ namespace Starkov.ScheduledReports.Shared
       
       var operation = _obj.IsIncremental.GetValueOrDefault()
         ? number.GetValueOrDefault() < 0 ? "-" : "+"
-        : "->";
+        : isLineBegin ? string.Empty : "->";
       
-      if (isLineBegin && operation != "-")
-        operation = string.Empty;
+//      if (isLineBegin && operation != "-")
+//        operation = string.Empty;
       
       if (number == 1 || number == -1 || !_obj.IsIncremental.GetValueOrDefault())
         number = null;
