@@ -527,9 +527,9 @@
           "ParameterTypeFullName": "Starkov.ScheduledReports.IScheduleSetting, Sungero.Domain.Interfaces"
         },
         {
-          "Name": "number",
-          "ParameterType": "global::System.Nullable<global::System.Int32>",
-          "ParameterTypeFullName": "System.Nullable"
+          "Name": "periodExpression",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
         },
         {
           "Name": "baseDate",

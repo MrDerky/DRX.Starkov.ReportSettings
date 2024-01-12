@@ -18,7 +18,7 @@ namespace Starkov.ScheduledReports
       KeyValuePair<DateTime?, string> dateAndExpression;
       try
       {
-        dateAndExpression = PublicFunctions.RelativeDate.GetDateFromUIExpression(e.NewValue);
+        dateAndExpression = PublicFunctions.RelativeDate.GetDateFromUIExpression(e.NewValue, _obj.DateBegin);
         if (!dateAndExpression.Key.HasValue)
           //              resultUI.Value = dateAndExpression.Key.Value.ToString();
 //        else
@@ -30,8 +30,11 @@ namespace Starkov.ScheduledReports
         return;
       }
       
-      if (!string.IsNullOrEmpty(dateAndExpression.Value) && e.NewValue != dateAndExpression.Value)
+      if (!string.IsNullOrEmpty(dateAndExpression.Value))
+      {
         e.NewValue = dateAndExpression.Value;
+        e.AddInformation(string.Format("Следующий запуск {0}", Functions.ScheduleSetting.Remote.GetNextPeriod(_obj, dateAndExpression.Value, null)));// dateAndExpression.Key)); //TODO отображать запуск учитывая дату начала
+      }
     }
 
     public override void Showing(Sungero.Presentation.FormShowingEventArgs e)

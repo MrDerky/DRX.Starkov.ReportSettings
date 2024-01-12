@@ -18,7 +18,7 @@ namespace Starkov.ScheduledReports.Shared
       return !string.IsNullOrEmpty(_obj.FunctionGuid);
     }
     
-    /// <summary>
+        /// <summary>
     /// Получить дату из строкового выражения.
     /// </summary>
     /// <param name="expression">Строка с выражением.</param>
@@ -26,11 +26,23 @@ namespace Starkov.ScheduledReports.Shared
     [Public]
     public static System.Collections.Generic.KeyValuePair<DateTime?, string> GetDateFromUIExpression(string expression)
     {
+      return GetDateFromUIExpression(expression, null);
+    }
+    
+    /// <summary>
+    /// Получить дату из строкового выражения.
+    /// </summary>
+    /// <param name="expression">Строка с выражением.</param>
+    /// <param name="baseDate">Дата отсчета.</param>
+    /// <returns>Дата и отформатированное выражение.</returns>
+    [Public]
+    public static System.Collections.Generic.KeyValuePair<DateTime?, string> GetDateFromUIExpression(string expression, DateTime? baseDate)
+    {
       expression = expression.Trim().Replace("+ ", "+").Replace("- ", "-").Replace("> ", ">");
       var newExpression = string.Empty;
       var pattern = @"([+->]|^)(\d*|)(\[(.*?)\]|[^+->].[^+-]*|[0-2][0-9]:[0-5][0-9])";
 
-      DateTime? resultDate = null;
+      var resultDate = baseDate;
       var isLineBegin = true;
       foreach (System.Text.RegularExpressions.Match match in System.Text.RegularExpressions.Regex.Matches(expression, pattern))
       {
@@ -145,9 +157,8 @@ namespace Starkov.ScheduledReports.Shared
     {
       var name = _obj.Name;
       var lastNumber = number.GetValueOrDefault() % 10;
-      var last2Numbers= number.GetValueOrDefault() % 100;
       
-      if (!string.IsNullOrEmpty(_obj.PluralName5) && (5 <= lastNumber && lastNumber <= 9 || 10 <= last2Numbers && (last2Numbers <= 19 || lastNumber == 0)))
+      if (!string.IsNullOrEmpty(_obj.PluralName5) && (5 <= lastNumber && lastNumber <= 9 || 10 <= number && lastNumber == 0))
         name = _obj.PluralName5;
       else if (!string.IsNullOrEmpty(_obj.PluralName2) && 2 <= lastNumber && lastNumber <= 4)
         name = _obj.PluralName2;
@@ -227,7 +238,7 @@ namespace Starkov.ScheduledReports.Shared
       if (relative == null)
         return resultDate;
       
-      if (!number.HasValue)
+      if (!number.HasValue || number == 0)
         number = 1;
       
       if (Functions.RelativeDate.IsInitialized(relative))
