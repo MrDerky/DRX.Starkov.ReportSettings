@@ -180,7 +180,7 @@
       "Value": "new System.Guid(\"F4EA8EF4-A03E-489F-BBF5-9691405EFFBC\")"
     },
     {
-      "Name": "ReportDocumentTypeGuid",
+      "Name": "ReportDocumentKindGuid",
       "ParentClasses": [
         "Module"
       ],

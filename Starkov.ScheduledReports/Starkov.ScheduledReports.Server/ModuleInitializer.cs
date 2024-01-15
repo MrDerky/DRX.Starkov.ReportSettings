@@ -47,7 +47,7 @@ namespace Starkov.ScheduledReports.Server
                                                                               autoNumerable: false,
                                                                               typeGuid: PublicConstants.Module.SimpleDocumentTypeGuid,
                                                                               actions: null,
-                                                                              entityId: PublicConstants.Module.ReportDocumentTypeGuid,
+                                                                              entityId: PublicConstants.Module.ReportDocumentKindGuid,
                                                                               isDefault: false);
     }
     

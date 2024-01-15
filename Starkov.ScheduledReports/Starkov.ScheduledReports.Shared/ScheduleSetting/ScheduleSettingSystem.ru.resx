@@ -151,9 +151,6 @@
   <data name="Ribbon_Schedule_532352e4edc24897b7c6d04633d75aea" xml:space="preserve">
     <value>Расписание</value>
   </data>
-  <data name="Property_DocumentKind" xml:space="preserve">
-    <value>Вид документа</value>
-  </data>
   <data name="Action_SetPeriod" xml:space="preserve">
     <value>Задать периодичность</value>
   </data>

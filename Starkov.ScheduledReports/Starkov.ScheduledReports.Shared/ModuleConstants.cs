@@ -16,7 +16,7 @@ namespace Starkov.ScheduledReports.Constants
     /// Идентификатор вида документа "Отчет".
     /// </summary>
     [Public]
-    public static readonly Guid ReportDocumentTypeGuid = Guid.Parse("8BFF5B18-E565-49C7-AFFA-A1AD618F692C");
+    public static readonly Guid ReportDocumentKindGuid = Guid.Parse("8BFF5B18-E565-49C7-AFFA-A1AD618F692C");
     
     /// <summary>
     /// Идентификатор фонового процесса "Отправка отчетов по расписанию".

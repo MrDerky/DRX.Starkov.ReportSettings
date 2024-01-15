@@ -260,19 +260,6 @@
           "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.BooleanEditorToBooleanBinder",
           "ParentGuid": "450962b1-e9cf-457c-b142-9182322e69ea",
           "PropertyGuid": "9fb5c7d5-c7a8-43e4-a01f-368953e7eb36",
-          "RowNumber": 5,
-          "RowSpan": 1,
-          "Settings": []
-        },
-        {
-          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
-          "NameGuid": "933c1d89-ff2d-4fd3-b061-98682746fd1b",
-          "Name": "DocumentKind",
-          "ColumnNumber": 0,
-          "ColumnSpan": 2,
-          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
-          "ParentGuid": "450962b1-e9cf-457c-b142-9182322e69ea",
-          "PropertyGuid": "7e6e27df-03f6-4272-8d3f-ade6eaf9d5d8",
           "RowNumber": 4,
           "RowSpan": 1,
           "Settings": []
@@ -453,17 +440,6 @@
       "Versions": []
     },
     {
-      "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
-      "NameGuid": "7e6e27df-03f6-4272-8d3f-ade6eaf9d5d8",
-      "Name": "DocumentKind",
-      "Code": "DocumentKind",
-      "EntityGuid": "14a59623-89a2-4ea8-b6e9-2ad4365f358c",
-      "FlatListInStandaloneLookup": true,
-      "IsRequired": true,
-      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
-      "PreviousPropertyGuid": "9fb5c7d5-c7a8-43e4-a01f-368953e7eb36"
-    },
-    {
       "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
       "NameGuid": "ce6b794d-156a-43ef-b296-6ade95b4900b",
       "Name": "PeriodExpression",
@@ -473,7 +449,7 @@
       ],
       "IsRequired": true,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
-      "PreviousPropertyGuid": "7e6e27df-03f6-4272-8d3f-ade6eaf9d5d8"
+      "PreviousPropertyGuid": "9fb5c7d5-c7a8-43e4-a01f-368953e7eb36"
     }
   ],
   "PublicFunctions": [

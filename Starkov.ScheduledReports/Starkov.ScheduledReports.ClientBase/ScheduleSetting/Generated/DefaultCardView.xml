@@ -30,6 +30,7 @@
             <property name="Name">ScheduleSetting_Parameters_DisplayName</property>
             <property name="FieldName">DisplayName</property>
             <property name="VisibleIndex">0</property>
+            <property name="Width">87</property>
             <property name="ActualWidth">5*</property>
           </property>
           <property name="Item2" isnull="true" iskey="true">
@@ -37,6 +38,7 @@
             <property name="Name">ScheduleSetting_Parameters_ViewValue</property>
             <property name="FieldName">ViewValue</property>
             <property name="VisibleIndex">1</property>
+            <property name="Width">87</property>
             <property name="ActualWidth">5*</property>
           </property>
         </property>
