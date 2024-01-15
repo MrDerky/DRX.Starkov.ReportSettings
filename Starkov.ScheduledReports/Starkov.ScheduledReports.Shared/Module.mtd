@@ -180,6 +180,14 @@
       "Value": "new System.Guid(\"F4EA8EF4-A03E-489F-BBF5-9691405EFFBC\")"
     },
     {
+      "Name": "ReportDocumentTypeGuid",
+      "ParentClasses": [
+        "Module"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"8BFF5B18-E565-49C7-AFFA-A1AD618F692C\")"
+    },
+    {
       "Name": "ScheduleSettingManagerRole",
       "ParentClasses": [
         "Module"
@@ -194,6 +202,14 @@
       ],
       "TypeName": "System.Guid",
       "Value": "new System.Guid(\"6862cdbe-45d6-47c1-9e73-10687664a758\")"
+    },
+    {
+      "Name": "SimpleDocumentTypeGuid",
+      "ParentClasses": [
+        "Module"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"09584896-81e2-4c83-8f6c-70eb8321e1d0\")"
     }
   ],
   "PublicFunctions": [

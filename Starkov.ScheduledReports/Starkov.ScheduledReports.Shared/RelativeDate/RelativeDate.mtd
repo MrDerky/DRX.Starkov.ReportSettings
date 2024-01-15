@@ -435,6 +435,23 @@
       "ReturnType": "System.Collections.Generic.KeyValuePair<global::System.Nullable<global::System.DateTime>, global::System.String>"
     },
     {
+      "Name": "GetDateFromUIExpression",
+      "Parameters": [
+        {
+          "Name": "expression",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "baseDate",
+          "ParameterType": "global::System.Nullable<global::System.DateTime>",
+          "ParameterTypeFullName": "System.Nullable"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "System.Collections.Generic.KeyValuePair<global::System.Nullable<global::System.DateTime>, global::System.String>"
+    },
+    {
       "Name": "GetRelativeDate",
       "IsRemote": true,
       "Parameters": [

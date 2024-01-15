@@ -13,6 +13,7 @@ namespace Starkov.ScheduledReports.Server
     public override void Initializing(Sungero.Domain.ModuleInitializingEventArgs e)
     {
       CreateRoles();
+      CreateDocumentKinds();
       GrandRights();
       CreateBaseRelativeDates();
       CreatePreviewScheduleLog();
@@ -31,6 +32,23 @@ namespace Starkov.ScheduledReports.Server
       Sungero.Docflow.PublicInitializationFunctions.Module.CreateRole(Starkov.ScheduledReports.Resources.ScheduledReportsAccessRoleName,
                                                                       Starkov.ScheduledReports.Resources.ScheduledReportsAccessRoleDescription,
                                                                       Constants.Module.ScheduleSettingManagerRole);
+    }
+    
+    /// <summary>
+    /// Создать виды документов для документооборота.
+    /// </summary>
+    public static void CreateDocumentKinds()
+    {
+      Sungero.Docflow.PublicInitializationFunctions.Module.CreateDocumentKind(name: "Отчет",
+                                                                              shortName: "Отчет",
+                                                                              numerationType: Sungero.Docflow.DocumentKind.NumberingType.NotNumerable,
+                                                                              direction: Sungero.Docflow.DocumentKind.DocumentFlow.Inner,
+                                                                              autoFormattedName: true,
+                                                                              autoNumerable: false,
+                                                                              typeGuid: PublicConstants.Module.SimpleDocumentTypeGuid,
+                                                                              actions: null,
+                                                                              entityId: PublicConstants.Module.ReportDocumentTypeGuid,
+                                                                              isDefault: false);
     }
     
     /// <summary>
