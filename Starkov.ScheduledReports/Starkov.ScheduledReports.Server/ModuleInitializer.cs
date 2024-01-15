@@ -35,7 +35,7 @@ namespace Starkov.ScheduledReports.Server
     }
     
     /// <summary>
-    /// Создать виды документов для документооборота.
+    /// Создать виды документов для модуля.
     /// </summary>
     public static void CreateDocumentKinds()
     {

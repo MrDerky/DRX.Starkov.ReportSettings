@@ -374,6 +374,9 @@
       "Name": "DateBegin",
       "Code": "DateBegin",
       "DateTimeFormat": "DateTime",
+      "HandledEvents": [
+        "ValueInputClient"
+      ],
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
       "PreviousPropertyGuid": "a8171a6b-078c-49cd-87b9-e49fc3075fe0",
       "Versions": []
