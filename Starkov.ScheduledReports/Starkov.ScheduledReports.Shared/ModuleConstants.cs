@@ -5,7 +5,10 @@ namespace Starkov.ScheduledReports.Constants
 {
   public static class Module
   {
-
+    
+    // Guid справочника видов документов.
+    public static readonly Guid DocumentKindTypeGuid = Guid.Parse("14a59623-89a2-4ea8-b6e9-2ad4365f358c");
+    
     /// <summary>
     /// Идентификатор типа документа "Простой документ".
     /// </summary>

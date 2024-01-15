@@ -138,8 +138,8 @@ namespace Starkov.ScheduledReports.Shared
         ? number.GetValueOrDefault() < 0 ? "-" : "+"
         : isLineBegin ? string.Empty : "->";
       
-//      if (isLineBegin && operation != "-")
-//        operation = string.Empty;
+      if (isLineBegin && operation != "-")
+        operation = string.Empty;
       
       if (number == 1 || number == -1 || !_obj.IsIncremental.GetValueOrDefault())
         number = null;

@@ -271,6 +271,20 @@
       "ReturnTypeFullName": "System.Void"
     },
     {
+      "Name": "GetDocumentKind",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "documentKindGuid",
+          "ParameterType": "global::System.Guid",
+          "ParameterTypeFullName": "System.Guid"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::Sungero.Docflow.IDocumentKind",
+      "ReturnTypeFullName": "Sungero.Docflow.IDocumentKind, Sungero.Domain.Interfaces"
+    },
+    {
       "Name": "GetEntitiesByGuid",
       "IsRemote": true,
       "Parameters": [

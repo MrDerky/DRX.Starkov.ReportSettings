@@ -348,7 +348,7 @@ namespace Starkov.ScheduledReports.Server
       Logger.Debug("StartSheduleReport. FillReportParams");
       FillReportParams(report, setting);
       
-      var documentKind = GetDefaultDocumentKind(Constants.Module.SimpleDocumentTypeGuid, Constants.Module.ReportDocumentKindGuid);
+      var documentKind = GetDocumentKind(Constants.Module.ReportDocumentKindGuid);
       if (documentKind == null)
       {
         Logger.Debug("StartSheduleReport. Init DocumentKind not found.");
@@ -650,12 +650,14 @@ namespace Starkov.ScheduledReports.Server
         /// <summary>
     /// Получить вид документа, созданный при инициализации.
     /// </summary>
-    /// <param name="documentTypeGuid">ИД типа документа.</param>
-    /// <param name="documentKindEntityGuid">ИД экземпляра, созданного при инициализации.</param>
+    /// <param name="documentKindEntityGuid">ИД вида документа, созданного при инициализации.</param>
     /// <returns>Вид документа.</returns>
-    public static Sungero.Docflow.IDocumentKind GetDefaultDocumentKind(Guid documentTypeGuid, Guid documentKindGuid)
+    [Public, Remote]
+    public static Sungero.Docflow.IDocumentKind GetDocumentKind(Guid documentKindGuid)
     {
-      var externalLink = Sungero.Docflow.PublicFunctions.Module.GetExternalLink(documentTypeGuid, documentKindGuid);
+      var externalLink = Sungero.Docflow.PublicFunctions.Module.GetExternalLink(Constants.Module.DocumentKindTypeGuid, documentKindGuid);
+      if (externalLink == null)
+        return Sungero.Docflow.DocumentKinds.Null;
       
       return Sungero.Docflow.DocumentKinds.GetAll().Where(x => x.Id == externalLink.EntityId).FirstOrDefault();
     }
