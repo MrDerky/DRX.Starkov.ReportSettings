@@ -18,7 +18,7 @@ namespace Starkov.ScheduledReports.Shared
       return !string.IsNullOrEmpty(_obj.FunctionGuid);
     }
     
-        /// <summary>
+    /// <summary>
     /// Получить дату из строкового выражения.
     /// </summary>
     /// <param name="expression">Строка с выражением.</param>
@@ -40,7 +40,7 @@ namespace Starkov.ScheduledReports.Shared
     {
       expression = expression.Trim().Replace("+ ", "+").Replace("- ", "-").Replace("> ", ">");
       var newExpression = string.Empty;
-      var pattern = @"([+->]|^)(\d*|)(\[(.*?)\]|[^+->].[^+-]*|[0-2][0-9]:[0-5][0-9])";
+      var pattern = @"([+->][^\d]|^)(\d*|)(\[(.*?)\]|[^+->].[^+-]*|[0-2][0-9]:[0-5][0-9])";
 
       var resultDate = baseDate;
       var isLineBegin = true;
@@ -115,14 +115,6 @@ namespace Starkov.ScheduledReports.Shared
       return resultDate.Date.Add(timespan);
     }
     
-    //    public virtual string GetExpressionFromRelativeDate(int? number)
-    //    {
-    //      if (number == null)
-    //        number = 1;
-//
-    //      return string.Format("{0}*{1}", _obj.Id, number);
-    //    }
-    
     /// <summary>
     /// Генерация строкового выражения для относительной даты.
     /// </summary>
@@ -165,33 +157,6 @@ namespace Starkov.ScheduledReports.Shared
       
       return name;
     }
-    
-//    /// <summary>
-//    /// Получить дату из строкового выражения.
-//    /// </summary>
-//    /// <param name="expression">Строка с выражением.</param>
-//    /// <returns>Дата.</returns>
-//    public static DateTime? GetDateFromExpression(string expression)
-//    {
-//      DateTime? result = null;
-//      
-//      var pattern = @"(\d*)\*(-*\d*)";
-//      var rg = new System.Text.RegularExpressions.Regex(pattern);
-//      
-//      foreach (var match in rg.Matches(expression))
-//      {
-//        int id = 0;
-//        int number = 1;
-//        int.TryParse(match?.ToString()?.Split('*')?[0], out id);
-//        int.TryParse(match?.ToString()?.Split('*')?[1], out number);
-//        
-//        var relativeDate = Functions.RelativeDate.Remote.GetRelativeDate(id, false);
-//        if (relativeDate != null)
-//          result = CalculateDate(relativeDate, result, number);
-//      }
-//      
-//      return result;
-//    }
     
     /// <summary>
     /// Вычислить дату.
