@@ -40,7 +40,7 @@ namespace Starkov.ScheduledReports.Shared
     {
       expression = expression.Trim().Replace("+ ", "+").Replace("- ", "-").Replace("> ", ">");
       var newExpression = string.Empty;
-      var pattern = @"([+->][^\d]|^)(\d*|)(\[(.*?)\]|[^+->].[^+-]*|[0-2][0-9]:[0-5][0-9])";
+      var pattern = @"([>+-][^\d]|^)(\d*|)(\[(.*?)\]|[^+->].[^+-]*|[0-2][0-9]:[0-5][0-9])";
 
       var resultDate = baseDate;
       var isLineBegin = true;
