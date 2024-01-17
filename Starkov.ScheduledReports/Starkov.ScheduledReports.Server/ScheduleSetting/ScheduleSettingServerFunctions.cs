@@ -74,22 +74,33 @@ namespace Starkov.ScheduledReports.Server
       if (!baseDate.HasValue)
         baseDate = Calendar.Now;
       
-      var resultDate =  PublicFunctions.RelativeDate.GetDateFromUIExpression(periodExpression, baseDate).Key;   //CalculateDate(_obj.Period, baseDate, number);
+      return GetNextPeriod(periodExpression, baseDate, 1);
+    }
+
+    /// <summary>
+    /// Получить следующую дату выполнения рекурсивно.
+    /// </summary>
+    /// <param name="periodExpression">Выражение относительной даты.</param>
+    /// <param name="baseDate">Дата, от которой идет вычисление.</param>
+    /// <param name="recursionLevel">Уровень рекурсии.</param>
+    /// <remarks>Если baseDate = null, берется Calendar.Now.</remarks>
+    private DateTime? GetNextPeriod(string periodExpression, DateTime? baseDate, int recursionLevel)
+    {
+      if (recursionLevel > 20)
+        throw new Exception("Не удается вычислить следующий период. Слишком большая цепочка выражений или цикл."); // TODO доделать обработку ошибки
+      
+      var resultDate =  PublicFunctions.RelativeDate.GetDateFromUIExpression(periodExpression, baseDate).Key;
       
       if (!resultDate.HasValue)
         return resultDate;
       
       if (resultDate < Calendar.Now)
-        resultDate = GetNextPeriod(resultDate); //TODO страшная рекурсия... подумать как оптимизировать
+        resultDate = GetNextPeriod(periodExpression, resultDate, ++recursionLevel);
       
       if (_obj.DateBegin.HasValue && resultDate < _obj.DateBegin.Value)
         return _obj.DateBegin.Value;
       
-      //      if (resultDate < Calendar.Now)
-      //        return GetNextPeriod(resultDate);
-      
       return resultDate;
     }
-
   }
 }

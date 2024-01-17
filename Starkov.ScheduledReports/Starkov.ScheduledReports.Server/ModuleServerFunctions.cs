@@ -252,6 +252,16 @@ namespace Starkov.ScheduledReports.Server
       asyncHandler.ExecuteAsync();
     }
     
+    [Public(WebApiRequestType = RequestType.Post)]
+    public bool ScheduleLogInterationExecute(int scheduleLogId, string logInfo)
+    {
+      var scheduleLog = ScheduleLogs.GetAll(s => s.Id == scheduleLogId).FirstOrDefault();
+      if (scheduleLog == null)
+      return false;
+        
+      return ScheduleLogExecute(scheduleLog, logInfo);
+    }
+    
     /// <summary>
     /// Обработать запись журнала расписания и отправить отчет.
     /// </summary>
@@ -321,7 +331,7 @@ namespace Starkov.ScheduledReports.Server
     /// </summary>
     /// <param name="setting">Настройки расписания.</param>
     /// <param name="scheduleLog">Журнал расписания.</param>
-    private void StartSheduleReport(Starkov.ScheduledReports.IScheduleSetting setting, IScheduleLog scheduleLog)
+    public void StartSheduleReport(Starkov.ScheduledReports.IScheduleSetting setting, IScheduleLog scheduleLog)
     {
       if (setting == null || setting.ReportSetting == null)
         return;
@@ -458,6 +468,9 @@ namespace Starkov.ScheduledReports.Server
     private Starkov.ScheduledReports.IScheduleLog CreateScheduleLog(Starkov.ScheduledReports.IScheduleSetting setting, DateTime? baseDate)
     {
       if (setting == null)
+        return Starkov.ScheduledReports.ScheduleLogs.Null;
+      
+      if (ScheduleLogs.GetAll(s => s.ScheduleSettingId == setting.Id).Any(s => s.Status == ScheduledReports.ScheduleLog.Status.Waiting))
         return Starkov.ScheduledReports.ScheduleLogs.Null;
       
       var startDate = Functions.ScheduleSetting.GetNextPeriod(setting, baseDate);
@@ -647,7 +660,7 @@ namespace Starkov.ScheduledReports.Server
     
     #region Получение сущностей по Guid
     
-        /// <summary>
+    /// <summary>
     /// Получить вид документа, созданный при инициализации.
     /// </summary>
     /// <param name="documentKindEntityGuid">ИД вида документа, созданного при инициализации.</param>

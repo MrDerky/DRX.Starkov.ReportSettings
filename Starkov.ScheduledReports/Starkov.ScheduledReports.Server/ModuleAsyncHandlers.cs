@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -77,7 +77,7 @@ namespace Starkov.ScheduledReports.Server
         return;
       }
       
-      if (!Functions.Module.ScheduleLogExecute(scheduleLog, logInfo))
+      if (!Functions.Module.ScheduleLogInterationExecute(scheduleLog.Id, logInfo))
       {
         args.Retry = args.RetryIteration < 100;
         // HACK Обход платформенного бага при генерации отчетов
