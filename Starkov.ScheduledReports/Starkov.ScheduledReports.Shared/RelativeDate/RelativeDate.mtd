@@ -423,6 +423,19 @@
       "ReturnTypeFullName": "System.DateTime"
     },
     {
+      "Name": "GetDateFromExpression",
+      "Parameters": [
+        {
+          "Name": "expression",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.Nullable<global::System.DateTime>",
+      "ReturnTypeFullName": "System.Nullable"
+    },
+    {
       "Name": "GetDateFromUIExpression",
       "Parameters": [
         {

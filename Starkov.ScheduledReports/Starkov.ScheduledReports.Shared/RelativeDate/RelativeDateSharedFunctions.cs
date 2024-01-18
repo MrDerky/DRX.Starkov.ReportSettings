@@ -22,6 +22,17 @@ namespace Starkov.ScheduledReports.Shared
     /// Получить дату из строкового выражения.
     /// </summary>
     /// <param name="expression">Строка с выражением.</param>
+    /// <returns>Дата.</returns>
+    [Public]
+    public static DateTime? GetDateFromExpression(string expression)
+    {
+      return GetDateFromUIExpression(expression, null).Key;
+    }
+    
+    /// <summary>
+    /// Получить дату из строкового выражения.
+    /// </summary>
+    /// <param name="expression">Строка с выражением.</param>
     /// <returns>Дата и отформатированное выражение.</returns>
     [Public]
     public static System.Collections.Generic.KeyValuePair<DateTime?, string> GetDateFromUIExpression(string expression)

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -9,19 +9,6 @@ namespace Starkov.ScheduledReports
 {
   partial class ScheduleSettingSharedHandlers
   {
-
-    public virtual void PeriodNumberChanged(Sungero.Domain.Shared.IntegerPropertyChangedEventArgs e)
-    {
-      if (e.OldValue == e.NewValue )
-        return;
-      
-      var number = e.NewValue;
-      
-      if (e.NewValue < 1) //TODO вынести в настройку
-        number =_obj.PeriodNumber = 1;
-      else if (e.NewValue > 100)
-        number = _obj.PeriodNumber = 100;
-    }
 
     public virtual void ReportSettingChanged(Starkov.ScheduledReports.Shared.ScheduleSettingReportSettingChangedEventArgs e)
     {

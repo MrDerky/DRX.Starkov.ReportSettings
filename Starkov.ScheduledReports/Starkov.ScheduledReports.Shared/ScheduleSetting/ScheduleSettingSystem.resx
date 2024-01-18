@@ -82,12 +82,6 @@
   <data name="Property_DateEnd" xml:space="preserve">
     <value>Завершение</value>
   </data>
-  <data name="Property_Period" xml:space="preserve">
-    <value>Период</value>
-  </data>
-  <data name="Property_PeriodNumber" xml:space="preserve">
-    <value>Number</value>
-  </data>
   <data name="Property_Author" xml:space="preserve">
     <value>Author</value>
   </data>

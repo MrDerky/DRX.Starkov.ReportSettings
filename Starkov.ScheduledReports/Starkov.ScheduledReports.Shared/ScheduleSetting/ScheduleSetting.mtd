@@ -183,32 +183,6 @@
         },
         {
           "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
-          "NameGuid": "46c4a1ba-19b0-4b5a-9293-eef280e56865",
-          "Name": "Control",
-          "ColumnNumber": 0,
-          "ColumnSpan": 1,
-          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
-          "ParentGuid": "450962b1-e9cf-457c-b142-9182322e69ea",
-          "PropertyGuid": "ad1ff129-4920-470f-a962-f26fb9ed66c8",
-          "RowNumber": 0,
-          "RowSpan": 1,
-          "Settings": []
-        },
-        {
-          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
-          "NameGuid": "cc27d0c5-d4eb-4fae-b314-684dcc1b423e",
-          "Name": "PeriodNumber",
-          "ColumnNumber": 1,
-          "ColumnSpan": 1,
-          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.NumericEditorToIntAndDoubleBinder",
-          "ParentGuid": "450962b1-e9cf-457c-b142-9182322e69ea",
-          "PropertyGuid": "37e534a6-68f1-43f2-9b72-c586d1330426",
-          "RowNumber": 0,
-          "RowSpan": 1,
-          "Settings": []
-        },
-        {
-          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
           "NameGuid": "278bc319-d1a2-4499-a5a9-f8f0fad55feb",
           "Name": "DateBegin",
           "ColumnNumber": 0,
@@ -216,7 +190,7 @@
           "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
           "ParentGuid": "450962b1-e9cf-457c-b142-9182322e69ea",
           "PropertyGuid": "e4af3455-d958-41e0-8289-9991356ce93f",
-          "RowNumber": 2,
+          "RowNumber": 1,
           "RowSpan": 1,
           "Settings": []
         },
@@ -229,7 +203,7 @@
           "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
           "ParentGuid": "450962b1-e9cf-457c-b142-9182322e69ea",
           "PropertyGuid": "56d65f38-48d4-4506-a5ce-6e1558502941",
-          "RowNumber": 2,
+          "RowNumber": 1,
           "RowSpan": 1,
           "Settings": []
         },
@@ -242,7 +216,7 @@
           "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.MultiLikeEditorToCollectionBinder",
           "ParentGuid": "450962b1-e9cf-457c-b142-9182322e69ea",
           "PropertyGuid": "a8171a6b-078c-49cd-87b9-e49fc3075fe0",
-          "RowNumber": 3,
+          "RowNumber": 2,
           "RowSpan": 1,
           "Settings": [
             {
@@ -260,7 +234,7 @@
           "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.BooleanEditorToBooleanBinder",
           "ParentGuid": "450962b1-e9cf-457c-b142-9182322e69ea",
           "PropertyGuid": "9fb5c7d5-c7a8-43e4-a01f-368953e7eb36",
-          "RowNumber": 4,
+          "RowNumber": 3,
           "RowSpan": 1,
           "Settings": []
         },
@@ -273,7 +247,7 @@
           "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
           "ParentGuid": "450962b1-e9cf-457c-b142-9182322e69ea",
           "PropertyGuid": "ce6b794d-156a-43ef-b296-6ade95b4900b",
-          "RowNumber": 1,
+          "RowNumber": 0,
           "RowSpan": 1,
           "Settings": []
         }
@@ -393,44 +367,12 @@
     },
     {
       "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
-      "NameGuid": "ad1ff129-4920-470f-a962-f26fb9ed66c8",
-      "Name": "Period",
-      "CanBeSearch": false,
-      "Code": "Period",
-      "EntityGuid": "26553e87-531b-4953-980d-ab3e60bcebee",
-      "FlatListInStandaloneLookup": true,
-      "HandledEvents": [
-        "LookupServer"
-      ],
-      "IsShowedInList": false,
-      "IsVisibility": false,
-      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
-      "PreviousPropertyGuid": "56d65f38-48d4-4506-a5ce-6e1558502941",
-      "Versions": []
-    },
-    {
-      "$type": "Sungero.Metadata.IntegerPropertyMetadata, Sungero.Metadata",
-      "NameGuid": "37e534a6-68f1-43f2-9b72-c586d1330426",
-      "Name": "PeriodNumber",
-      "CanBeSearch": false,
-      "Code": "PeriodNumber",
-      "HandledEvents": [
-        "ChangedShared"
-      ],
-      "IsShowedInList": false,
-      "IsVisibility": false,
-      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.NumericEditorToIntAndDoubleBinder",
-      "PreviousPropertyGuid": "ad1ff129-4920-470f-a962-f26fb9ed66c8",
-      "Versions": []
-    },
-    {
-      "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
       "NameGuid": "1b56a643-b388-4099-9ac0-1f28865e0637",
       "Name": "Author",
       "Code": "Author",
       "EntityGuid": "243c2d26-f5f7-495f-9faf-951d91215c77",
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
-      "PreviousPropertyGuid": "37e534a6-68f1-43f2-9b72-c586d1330426",
+      "PreviousPropertyGuid": "56d65f38-48d4-4506-a5ce-6e1558502941",
       "Versions": []
     },
     {

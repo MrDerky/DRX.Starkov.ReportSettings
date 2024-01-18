@@ -77,9 +77,10 @@ namespace Starkov.ScheduledReports.Server
         return;
       }
       
-      if (!Functions.Module.ScheduleLogInterationExecute(scheduleLog.Id, logInfo))
+      if (!Functions.Module.ScheduleLogExecute(scheduleLog, logInfo))
       {
         args.Retry = args.RetryIteration < 100;
+        Logger.DebugFormat("{0} Retry = {1}, NextRetryTime = {2}.", logInfo, args.Retry, args.NextRetryTime);
         // HACK Обход платформенного бага при генерации отчетов
         if (scheduleLog.Status == ScheduledReports.ScheduleLog.Status.Error && !string.IsNullOrEmpty(scheduleLog.Comment) && scheduleLog.Comment.Contains("Object reference not set to an instance of an object."))
         {

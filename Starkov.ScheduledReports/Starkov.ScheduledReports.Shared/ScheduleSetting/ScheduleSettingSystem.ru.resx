@@ -76,9 +76,6 @@
   <data name="Property_Observers" xml:space="preserve">
     <value>Получатели</value>
   </data>
-  <data name="Property_PeriodNumber" xml:space="preserve">
-    <value>Количество</value>
-  </data>
   <data name="Property_Author" xml:space="preserve">
     <value>Автор</value>
   </data>
