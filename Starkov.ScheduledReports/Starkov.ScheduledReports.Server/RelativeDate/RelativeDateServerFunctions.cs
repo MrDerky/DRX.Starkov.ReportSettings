@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -31,10 +31,11 @@ namespace Starkov.ScheduledReports.Server
     [Public, Remote(IsPure = true)]
     public static IRelativeDate GetRelativeDate(string name, bool isActiveOnly)
     {
-      name = name.Trim().Replace(" ", "");
-      return RelativeDates.GetAllCached(r => r.Name.Trim().Replace(" ", "") == name ||
-                                        r.PluralName2.Trim().Replace(" ", "") == name ||
-                                        r.PluralName5.Trim().Replace(" ", "") == name)
+      name = name.ToLower().Trim().Replace(" ", "");
+      
+      return RelativeDates.GetAllCached(r => r.Name.ToLower().Trim().Replace(" ", "") == name ||
+                                        r.PluralName2.ToLower().Trim().Replace(" ", "") == name ||
+                                        r.PluralName5.ToLower().Trim().Replace(" ", "") == name)
         .FirstOrDefault(r => !isActiveOnly || r.Status != Status.Closed);
     }
   }
