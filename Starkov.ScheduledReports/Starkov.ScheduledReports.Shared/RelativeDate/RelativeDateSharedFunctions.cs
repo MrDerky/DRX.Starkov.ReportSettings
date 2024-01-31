@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -51,7 +51,7 @@ namespace Starkov.ScheduledReports.Shared
     {
       expression = expression.Trim().Replace("+ ", "+").Replace("- ", "-").Replace("> ", ">");
       var newExpression = string.Empty;
-      var pattern = @"([>+-][^\d]|^)(\d*|)(\[(.*?)\]|[^+->].[^+-]*|[0-2][0-9]:[0-5][0-9])";
+      var pattern = @"([>+-]|^)(\d*|)(\[(.*?)\]|[^+->].[^+-]*|[0-2][0-9]:[0-5][0-9])";
 
       var resultDate = baseDate;
       var isLineBegin = true;
@@ -63,6 +63,9 @@ namespace Starkov.ScheduledReports.Shared
           int.TryParse(match?.Groups[2]?.ToString(), out number);
         else if (!String.IsNullOrEmpty(match?.Groups[1]?.ToString()))
           int.TryParse(match?.Groups[1]?.ToString(), out number);
+        
+        if (number == 0)
+          number = 1;
         
         if (operation == "-")
           number = 0 - number;

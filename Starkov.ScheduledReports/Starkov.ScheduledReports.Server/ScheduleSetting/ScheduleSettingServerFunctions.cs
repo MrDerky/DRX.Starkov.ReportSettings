@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -87,14 +87,14 @@ namespace Starkov.ScheduledReports.Server
     private DateTime? GetNextPeriod(string periodExpression, DateTime? baseDate, int recursionLevel)
     {
       if (recursionLevel > 20)
-        throw new Exception("Не удается вычислить следующий период. Слишком большая цепочка выражений или цикл."); // TODO доделать обработку ошибки
+        throw new ArgumentException("Не удается вычислить следующий период. Слишком большая цепочка выражений или цикл."); // TODO доделать обработку ошибки
       
       var resultDate =  PublicFunctions.RelativeDate.GetDateFromUIExpression(periodExpression, baseDate).Key;
       
       if (!resultDate.HasValue)
         return resultDate;
       
-      if (resultDate < Calendar.Now)
+      if (resultDate <= Calendar.Now)
         resultDate = GetNextPeriod(periodExpression, resultDate, ++recursionLevel);
       
       if (_obj.DateBegin.HasValue && resultDate < _obj.DateBegin.Value)
