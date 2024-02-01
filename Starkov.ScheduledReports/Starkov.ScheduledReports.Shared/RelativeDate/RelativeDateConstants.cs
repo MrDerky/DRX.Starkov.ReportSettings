@@ -1,10 +1,12 @@
-﻿using System;
+using System;
 using Sungero.Core;
 
 namespace Starkov.ScheduledReports.Constants
 {
   public static class RelativeDate
   {
+    
+    public const string RightArrow = "→";
     
     public static class FunctionGuids
     {

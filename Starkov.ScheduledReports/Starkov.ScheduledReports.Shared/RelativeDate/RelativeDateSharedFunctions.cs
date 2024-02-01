@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -49,9 +49,10 @@ namespace Starkov.ScheduledReports.Shared
     [Public]
     public static System.Collections.Generic.KeyValuePair<DateTime?, string> GetDateFromUIExpression(string expression, DateTime? baseDate)
     {
-      expression = expression.Trim().Replace("+ ", "+").Replace("- ", "-").Replace("> ", ">");
+      var rightArrow = Constants.RelativeDate.RightArrow;
+      expression = expression.Trim().Replace("+ ", "+").Replace("- ", "-").Replace(rightArrow + " ", rightArrow);
       var newExpression = string.Empty;
-      var pattern = @"([>+-]|^)(\d*|)(\[(.*?)\]|[^+->].[^+-]*|[0-2][0-9]:[0-5][0-9])";
+      var pattern = string.Format("([{0}+-]|^)(\\d*|)(\\[(.*?)\\]|[^{0}+-:].[^{0}+-]*|[0-2][0-9]:[0-5][0-9])", rightArrow);
 
       var resultDate = baseDate;
       var isLineBegin = true;
@@ -88,7 +89,7 @@ namespace Starkov.ScheduledReports.Shared
           
           var timeSpan = new TimeSpan(hour, minutes, 0);
           resultDate = SetTime(resultDate, timeSpan);
-          newExpression += string.Format("->[{0}]", time);
+          newExpression += string.Format("{0}[{1}]", rightArrow, time);
         }
         else
         {
@@ -137,12 +138,14 @@ namespace Starkov.ScheduledReports.Shared
     /// <returns>Строковое выражение.</returns>
     public virtual string GetUIExpressionFromRelativeDate(int? number, bool isLineBegin)
     {
+      var rightArrow = Constants.RelativeDate.RightArrow;
+      
       if (number == 0 || !number.HasValue)
         number = 1;
       
       var operation = _obj.IsIncremental.GetValueOrDefault()
         ? number.GetValueOrDefault() < 0 ? "-" : "+"
-        : isLineBegin ? string.Empty : "->";
+        : isLineBegin ? string.Empty : rightArrow;
       
       if (isLineBegin && operation != "-")
         operation = string.Empty;
