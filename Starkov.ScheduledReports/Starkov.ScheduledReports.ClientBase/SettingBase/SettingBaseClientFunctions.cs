@@ -16,7 +16,7 @@ namespace Starkov.ScheduledReports.Client
     {
       var result = false;
       
-      var dialog = Dialogs.CreateInputDialog("Тест относительных дат");
+      var dialog = Dialogs.CreateInputDialog("Ввод даты");
       
       var isRelative = dialog.AddBoolean("Относительная дата", relatedDateInfo.IsRelated);
       var date = dialog.AddDate("Дата", false, relatedDateInfo.Date);

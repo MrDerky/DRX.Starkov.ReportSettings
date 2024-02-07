@@ -192,7 +192,6 @@
       "Code": "FunctionGuid",
       "IsEnabled": false,
       "IsShowedInList": false,
-      "IsUnique": true,
       "IsVisibility": false,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
       "PreviousPropertyGuid": "8c840b13-9b57-4e50-bb5e-61aded8d22b6"
