@@ -28,8 +28,9 @@ namespace Starkov.ScheduledReports
         return;
       }
       
-      if (!string.IsNullOrEmpty(dateAndExpression.Value))
-        e.AddInformation(string.Format("Следующий запуск {0}", Functions.ScheduleSetting.Remote.GetNextPeriod(_obj, dateAndExpression.Value, null)));
+      //TODO сделать вывод для карточки, а не контрола
+//      if (!string.IsNullOrEmpty(dateAndExpression.Value))
+//        e.AddInformation(string.Format("Следующий запуск {0}", Functions.ScheduleSetting.Remote.GetNextPeriod(_obj, dateAndExpression.Value, null)));
     }
 
     public virtual void PeriodExpressionValueInput(Sungero.Presentation.StringValueInputEventArgs e)

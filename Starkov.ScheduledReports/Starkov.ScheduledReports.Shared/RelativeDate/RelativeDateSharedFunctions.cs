@@ -47,6 +47,7 @@ namespace Starkov.ScheduledReports.Shared
     /// <param name="baseDate">Дата отсчета.</param>
     /// <returns>Дата и отформатированное выражение.</returns>
     [Public]
+    //TODO Передалть на структуру
     public static System.Collections.Generic.KeyValuePair<DateTime?, string> GetDateFromUIExpression(string expression, DateTime? baseDate)
     {
       var rightArrow = Constants.RelativeDate.RightArrow;
