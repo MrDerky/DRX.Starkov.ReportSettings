@@ -19,12 +19,12 @@ namespace Starkov.ScheduledReports
       try
       {
         dateAndExpression = PublicFunctions.RelativeDate.GetDateFromUIExpression(_obj.PeriodExpression, e.NewValue);
-        if (!dateAndExpression.Key.HasValue)
+        if (!dateAndExpression.Key.HasValue || dateAndExpression.Key.Value <= Calendar.Now)
           throw new Exception("Не удалось вычислить выражение");
       }
       catch (Exception ex)
       {
-        e.AddWarning(ex.Message, e.Property);
+        e.AddError(ex.Message, e.Property); // TODO Сделать вывод ошибки не через окно
         return;
       }
       
@@ -42,12 +42,12 @@ namespace Starkov.ScheduledReports
       try
       {
         dateAndExpression = PublicFunctions.RelativeDate.GetDateFromUIExpression(e.NewValue, _obj.DateBegin);
-        if (!dateAndExpression.Key.HasValue)
+        if (!dateAndExpression.Key.HasValue || dateAndExpression.Key.Value <= Calendar.Now)
           throw new Exception("Не удалось вычислить выражение");
       }
       catch (Exception ex)
       {
-        e.AddWarning(ex.Message, e.Property);
+        e.AddError(ex.Message, e.Property);
         return;
       }
       
