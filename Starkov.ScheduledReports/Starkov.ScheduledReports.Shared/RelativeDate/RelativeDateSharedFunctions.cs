@@ -51,7 +51,8 @@ namespace Starkov.ScheduledReports.Shared
     public static System.Collections.Generic.KeyValuePair<DateTime?, string> GetDateFromUIExpression(string expression, DateTime? baseDate)
     {
       var rightArrow = Constants.RelativeDate.RightArrow;
-      expression = expression.Trim().Replace("+ ", "+").Replace("- ", "-").Replace(rightArrow + " ", rightArrow);
+      if (!string.IsNullOrEmpty(expression))
+        expression = expression.Trim().Replace("+ ", "+").Replace("- ", "-").Replace(rightArrow + " ", rightArrow);
       var newExpression = string.Empty;
       var pattern = string.Format("([{0}+-]|^)(\\d*|)(\\[(.*?)\\]|[^{0}+-:].[^{0}+-]*|[0-2][0-9]:[0-5][0-9])", rightArrow);
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -65,7 +65,7 @@ namespace Starkov.ScheduledReports.Server
     [Remote, Public]
     public DateTime? GetNextPeriod(string periodExpression, DateTime? baseDate)
     {
-      if (string.IsNullOrEmpty(_obj.PeriodExpression))
+      if (string.IsNullOrEmpty(periodExpression))
         return null;
       
       if (_obj.DateBegin.HasValue && Calendar.Now < _obj.DateBegin.Value)

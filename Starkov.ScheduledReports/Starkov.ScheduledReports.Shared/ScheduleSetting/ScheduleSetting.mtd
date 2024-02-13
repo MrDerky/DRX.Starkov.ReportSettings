@@ -241,7 +241,7 @@
         {
           "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
           "NameGuid": "fd7a2f8d-f4c6-45b0-88c6-7c5d8fd9549d",
-          "Name": "Control1",
+          "Name": "Period",
           "ColumnNumber": 0,
           "ColumnSpan": 2,
           "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
