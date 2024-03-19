@@ -36,8 +36,6 @@
   "Importance": "Medium",
   "InterfaceAssemblyName": "Sungero.Domain.Interfaces",
   "InterfaceNamespace": "Starkov.ReportSettings",
-  "IsolatedAssemblyName": "Starkov.ReportSettings.Isolated",
-  "IsolatedNamespace": "Starkov.ReportSettings.Isolated",
   "OrderedSpecialFolders": [],
   "PublicStructures": [],
   "ResourceInterfaceAssemblyName": "Sungero.Domain.Interfaces",
