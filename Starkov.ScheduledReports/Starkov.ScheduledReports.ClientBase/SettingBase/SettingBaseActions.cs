@@ -49,6 +49,7 @@ namespace Starkov.ScheduledReports.Client
       }
       else
       {
+        // TODO Доработать Перечисления
         // TODO Доработать Простые типы
         #region Простые типы
         
