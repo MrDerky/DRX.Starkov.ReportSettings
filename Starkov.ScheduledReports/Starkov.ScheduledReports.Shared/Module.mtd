@@ -115,6 +115,7 @@
       "NameGuid": "bcea6b75-4fcd-436a-aa18-32693f286424",
       "BackgroundPosition": "Stretch"
     },
+    "RemoteControls": [],
     "Tabs": [
       {
         "NameGuid": "cb489d3d-c67e-4346-b462-a7292e057c1d",
@@ -155,7 +156,6 @@
   "HandledEvents": [
     "InitializingServer"
   ],
-  "IconResourcesKeys": [],
   "Importance": "Medium",
   "InterfaceAssemblyName": "Sungero.Domain.Interfaces",
   "InterfaceNamespace": "Starkov.ScheduledReports",
@@ -423,7 +423,7 @@
   "Versions": [
     {
       "Type": "ModuleMetadata",
-      "Number": 8
+      "Number": 11
     },
     {
       "Type": "DomainApi",

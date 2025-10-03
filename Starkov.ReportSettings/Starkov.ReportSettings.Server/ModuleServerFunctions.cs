@@ -6,7 +6,7 @@ using Sungero.CoreEntities;
 
 namespace Starkov.ReportSettings.Server
 {
-  public class ModuleFunctions
+  public partial class ModuleFunctions
   {
 
   }

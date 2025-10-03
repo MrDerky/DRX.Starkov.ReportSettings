@@ -6,7 +6,7 @@ using Sungero.CoreEntities;
 
 namespace Starkov.ScheduledReports.Server
 {
-  public class ModuleJobs
+  public partial class ModuleJobs
   {
 
     /// <summary>

@@ -4,10 +4,6 @@ using System.Linq;
 using Sungero.Core;
 using Sungero.CoreEntities;
 
-namespace Starkov.ReportSettings.Server
+namespace Starkov.ReportSettings.Client.ReportSettingsBlocks
 {
-  public partial class ModuleAsyncHandlers
-  {
-
-  }
 }
