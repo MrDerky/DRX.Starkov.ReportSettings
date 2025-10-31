@@ -11,9 +11,9 @@
       "IsHandlerGenerated": true,
       "Parameters": [
         {
-          "NameGuid": "da100af2-aa06-48f4-88a2-1c1a96d7f36f",
+          "NameGuid": "852a8141-fa9c-4e46-bec9-8e3f6c22d8e1",
           "Name": "ScheduleLogId",
-          "ParameterType": "Integer"
+          "ParameterType": "LongInteger"
         }
       ]
     }
@@ -115,6 +115,7 @@
       "NameGuid": "bcea6b75-4fcd-436a-aa18-32693f286424",
       "BackgroundPosition": "Stretch"
     },
+    "RemoteControls": [],
     "Tabs": [
       {
         "NameGuid": "cb489d3d-c67e-4346-b462-a7292e057c1d",
@@ -155,7 +156,6 @@
   "HandledEvents": [
     "InitializingServer"
   ],
-  "IconResourcesKeys": [],
   "Importance": "Medium",
   "InterfaceAssemblyName": "Sungero.Domain.Interfaces",
   "InterfaceNamespace": "Starkov.ScheduledReports",
@@ -247,8 +247,8 @@
       "Parameters": [
         {
           "Name": "scheduleLogId",
-          "ParameterType": "global::System.Int32",
-          "ParameterTypeFullName": "System.Int32"
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
         }
       ],
       "ReturnType": "void",
@@ -295,7 +295,7 @@
         },
         {
           "Name": "id",
-          "ParameterType": "global::System.Nullable<global::System.Int32>",
+          "ParameterType": "global::System.Nullable<global::System.Int64>",
           "ParameterTypeFullName": "System.Nullable"
         }
       ],
@@ -473,7 +473,7 @@
   "Versions": [
     {
       "Type": "ModuleMetadata",
-      "Number": 8
+      "Number": 11
     },
     {
       "Type": "DomainApi",

@@ -2,12 +2,16 @@
   "$type": "Sungero.Metadata.EntityMetadata, Sungero.Metadata",
   "NameGuid": "df946f69-0338-4f70-83b3-b265b641f6ca",
   "Name": "RelativeDateCompoundExpression",
-  "AccessRightsMode": "NoRight",
   "BaseGuid": "a3d38bf5-0414-41f6-bb33-a4621d2e5a60",
   "CanBeNavigationPropertyType": true,
   "Code": "RelativeDateCo",
   "ExtraSearchProperties": [],
   "IsChildEntity": true,
+  "NonVisualAuthorizationMode": "FullAccess",
+  "Overridden": [
+    "AccessRightsMode",
+    "NonVisualAuthorizationMode"
+  ],
   "Properties": [
     {
       "$type": "Sungero.Metadata.IntegerPropertyMetadata, Sungero.Metadata",
@@ -79,7 +83,7 @@
   "Versions": [
     {
       "Type": "EntityMetadata",
-      "Number": 11
+      "Number": 13
     }
   ]
 }

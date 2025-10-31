@@ -145,6 +145,7 @@
       ]
     }
   ],
+  "FormViewUuid": "d2e771d6-9e84-43e6-9b2b-a840a0e321c0",
   "HandledEvents": [
     "ShowingClient",
     "CreatedServer",
@@ -469,8 +470,8 @@
       "Parameters": [
         {
           "Name": "id",
-          "ParameterType": "global::System.Int32",
-          "ParameterTypeFullName": "System.Int32"
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
         },
         {
           "Name": "isActiveOnly",
@@ -582,7 +583,7 @@
   "Versions": [
     {
       "Type": "EntityMetadata",
-      "Number": 11
+      "Number": 13
     }
   ]
 }

@@ -41,6 +41,7 @@
       ]
     }
   ],
+  "FormViewUuid": "78d7b130-951d-4418-9fcb-3c8999e54f64",
   "HandledEvents": [
     "RefreshClient"
   ],
@@ -94,7 +95,7 @@
   "Versions": [
     {
       "Type": "EntityMetadata",
-      "Number": 11
+      "Number": 13
     }
   ]
 }

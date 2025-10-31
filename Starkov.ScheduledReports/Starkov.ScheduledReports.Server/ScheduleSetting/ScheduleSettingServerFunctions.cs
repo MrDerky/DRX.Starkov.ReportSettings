@@ -23,7 +23,7 @@ namespace Starkov.ScheduledReports.Server
     /// Получить запись настройки расписания для отчета по ИД.
     /// </summary>
     [Public, Remote(IsPure = true)]
-    public static Starkov.ScheduledReports.IScheduleSetting GetScheduleSetting(int? id)
+    public static Starkov.ScheduledReports.IScheduleSetting GetScheduleSetting(long? id)
     {
       return ScheduleSettings.GetAll(s => s.Id == id).FirstOrDefault(s => s.Status != ScheduledReports.ScheduleSetting.Status.Closed);
     }

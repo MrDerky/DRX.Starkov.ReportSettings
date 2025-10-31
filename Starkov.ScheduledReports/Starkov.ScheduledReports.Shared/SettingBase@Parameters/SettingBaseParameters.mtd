@@ -2,12 +2,16 @@
   "$type": "Sungero.Metadata.EntityMetadata, Sungero.Metadata",
   "NameGuid": "333d27b8-69e0-4122-af2f-ae8fa69415ff",
   "Name": "SettingBaseParameters",
-  "AccessRightsMode": "NoRight",
   "BaseGuid": "a3d38bf5-0414-41f6-bb33-a4621d2e5a60",
   "CanBeNavigationPropertyType": true,
   "Code": "SettingBasePar",
   "ExtraSearchProperties": [],
   "IsChildEntity": true,
+  "NonVisualAuthorizationMode": "FullAccess",
+  "Overridden": [
+    "AccessRightsMode",
+    "NonVisualAuthorizationMode"
+  ],
   "Properties": [
     {
       "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
@@ -63,14 +67,13 @@
       "Versions": []
     },
     {
-      "$type": "Sungero.Metadata.IntegerPropertyMetadata, Sungero.Metadata",
+      "$type": "Sungero.Metadata.LongIntegerPropertyMetadata, Sungero.Metadata",
       "NameGuid": "13ae1a4a-dc2d-4ea2-95bb-b7a6a0dd7200",
       "Name": "EntityId",
       "CanBeSearch": false,
       "Code": "EntityId",
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.NumericEditorToIntAndDoubleBinder",
-      "PreviousPropertyGuid": "6cfccb73-e5c3-425a-8d3c-ef9415027b40",
-      "Versions": []
+      "PreviousPropertyGuid": "6cfccb73-e5c3-425a-8d3c-ef9415027b40"
     },
     {
       "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
@@ -107,7 +110,7 @@
   "Versions": [
     {
       "Type": "EntityMetadata",
-      "Number": 11
+      "Number": 13
     }
   ]
 }

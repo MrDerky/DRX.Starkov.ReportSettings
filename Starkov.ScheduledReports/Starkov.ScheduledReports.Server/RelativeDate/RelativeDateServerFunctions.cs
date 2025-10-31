@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -16,7 +16,7 @@ namespace Starkov.ScheduledReports.Server
     /// <param name="isActiveOnly">Только активная запись.</param>
     /// <returns>Относительная дата.</returns>
     [Public, Remote(IsPure = true)]
-    public static IRelativeDate GetRelativeDate(int id, bool isActiveOnly)
+    public static IRelativeDate GetRelativeDate(long id, bool isActiveOnly)
     {
       return RelativeDates.GetAllCached(r => r.Id == id)
         .FirstOrDefault(r => !isActiveOnly || r.Status != Status.Closed);

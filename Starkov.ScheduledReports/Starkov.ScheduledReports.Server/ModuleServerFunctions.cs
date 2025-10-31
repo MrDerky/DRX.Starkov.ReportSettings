@@ -12,7 +12,7 @@ using Sungero.Metadata.Attributes;
 
 namespace Starkov.ScheduledReports.Server
 {
-  public class ModuleFunctions
+  public partial class ModuleFunctions
   {
     
     #region StateView расписаний
@@ -245,7 +245,7 @@ namespace Starkov.ScheduledReports.Server
     /// </summary>
     /// <param name="scheduleLogId">ИД записи журнала расписаний.</param>
     [Public]
-    public void ExecuteSheduleReportAsync (int scheduleLogId)
+    public void ExecuteSheduleReportAsync (long scheduleLogId)
     {
       var asyncHandler = Starkov.ScheduledReports.AsyncHandlers.SendSheduleReport.Create();
       asyncHandler.ScheduleLogId = scheduleLogId;
@@ -280,7 +280,7 @@ namespace Starkov.ScheduledReports.Server
       
       try
       {
-        if (Locks.GetLockInfo(scheduleLog).IsLocked)// && !Locks.TryLock(scheduleLog))
+        if (!Locks.GetLockInfo(scheduleLog).IsLockedByMe && !Locks.TryLock(scheduleLog))
         {
           Logger.DebugFormat("{0} Запись справочника scheduleLog={1} заблокирована пользователем {2} LoginId={3}, CurrentUserLoginId={4}.", logInfo,
                              scheduleLog.Id,
@@ -682,7 +682,7 @@ namespace Starkov.ScheduledReports.Server
     /// <param name="id">ИД объекта.</param>
     /// <returns>Экземпляр сущности.</returns>
     [Public, Remote]
-    public Sungero.Domain.Shared.IEntity GetEntitiesByGuid(Guid entityGuid, int? id)
+    public Sungero.Domain.Shared.IEntity GetEntitiesByGuid(Guid entityGuid, long? id)
     {
       return GetEntitiesByGuid(entityGuid)?.FirstOrDefault(e => e.Id == id);
     }

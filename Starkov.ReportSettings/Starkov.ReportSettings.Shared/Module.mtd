@@ -22,6 +22,7 @@
       "NameGuid": "c95ea9c4-cad6-41c4-b2b7-4379b19d7364",
       "BackgroundPosition": "Stretch"
     },
+    "RemoteControls": [],
     "Tabs": []
   },
   "Dependencies": [
@@ -32,7 +33,6 @@
     }
   ],
   "DesktopViews": [],
-  "IconResourcesKeys": [],
   "Importance": "Medium",
   "InterfaceAssemblyName": "Sungero.Domain.Interfaces",
   "InterfaceNamespace": "Starkov.ReportSettings",
@@ -42,7 +42,6 @@
   "PublicStructures": [],
   "ResourceInterfaceAssemblyName": "Sungero.Domain.Interfaces",
   "ResourceInterfaceNamespace": "Starkov.ReportSettings",
-  "ResourcesKeys": [],
   "ServerAssemblyName": "Starkov.ReportSettings.Server",
   "ServerNamespace": "Starkov.ReportSettings.Server",
   "SharedAssemblyName": "Starkov.ReportSettings.Shared",
@@ -53,11 +52,11 @@
   "Versions": [
     {
       "Type": "SolutionMetadata",
-      "Number": 8
+      "Number": 11
     },
     {
       "Type": "ModuleMetadata",
-      "Number": 8
+      "Number": 11
     },
     {
       "Type": "DomainApi",

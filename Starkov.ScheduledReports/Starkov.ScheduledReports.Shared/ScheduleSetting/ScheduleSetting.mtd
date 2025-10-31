@@ -285,6 +285,7 @@
       "ParentFormGuid": "a31340c6-fc96-4511-b9d9-55353669fa73"
     }
   ],
+  "FormViewUuid": "f32d6a15-817d-4477-b9c8-976d8cfeeb0e",
   "HandledEvents": [
     "ShowingClient",
     "CreatingFromServer",
@@ -468,7 +469,7 @@
       "Parameters": [
         {
           "Name": "id",
-          "ParameterType": "global::System.Nullable<global::System.Int32>",
+          "ParameterType": "global::System.Nullable<global::System.Int64>",
           "ParameterTypeFullName": "System.Nullable"
         }
       ],
@@ -540,7 +541,7 @@
   "Versions": [
     {
       "Type": "EntityMetadata",
-      "Number": 11
+      "Number": 13
     }
   ]
 }

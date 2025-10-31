@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -8,7 +8,7 @@ using Sungero.Metadata;
 
 namespace Starkov.ScheduledReports.Shared
 {
-  public class ModuleFunctions
+  public partial class ModuleFunctions
   {
 
   }
