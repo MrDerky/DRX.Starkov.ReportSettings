@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -9,6 +9,22 @@ namespace Starkov.ScheduledReports.Client
 {
   partial class ScheduleSettingActions
   {
+
+    public virtual void SetPeriod(Sungero.Domain.Client.ExecuteActionArgs e)
+    {
+      var relatedInfo = Structures.RelativeDate.RelatedDateInfo.Create();
+      relatedInfo.IsRelated = true;
+      if (!string.IsNullOrEmpty(_obj.PeriodExpression))
+        relatedInfo.Expression = _obj.PeriodExpression;
+      
+      if (Functions.SettingBase.ShowRelativeDateDialog(relatedInfo))
+        _obj.PeriodExpression = relatedInfo.Expression;
+    }
+
+    public virtual bool CanSetPeriod(Sungero.Domain.Client.CanExecuteActionArgs e)
+    {
+      return _obj.AccessRights.CanUpdate() && _obj.State.Properties.PeriodExpression.IsEnabled;
+    }
 
     public virtual void DisableSchedule(Sungero.Domain.Client.ExecuteActionArgs e)
     {
@@ -55,6 +71,7 @@ namespace Starkov.ScheduledReports.Client
           : string.Format("Запланирована отправка отчета по расписанию.{0}Время запуска зависит от настроек фонового процесса", Environment.NewLine);
         Dialogs.NotifyMessage(message);
       }
+      
       catch (Exception ex)
       {
         // TODO Доработать обработку ошибок в EnableSchedule

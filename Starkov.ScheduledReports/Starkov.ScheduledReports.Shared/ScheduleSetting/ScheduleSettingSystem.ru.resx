@@ -76,9 +76,6 @@
   <data name="Property_Observers" xml:space="preserve">
     <value>Получатели</value>
   </data>
-  <data name="Property_PeriodNumber" xml:space="preserve">
-    <value>Количество</value>
-  </data>
   <data name="Property_Author" xml:space="preserve">
     <value>Автор</value>
   </data>
@@ -150,5 +147,14 @@
   </data>
   <data name="Ribbon_Schedule_532352e4edc24897b7c6d04633d75aea" xml:space="preserve">
     <value>Расписание</value>
+  </data>
+  <data name="Action_SetPeriod" xml:space="preserve">
+    <value>Задать периодичность</value>
+  </data>
+  <data name="Action_SetPeriodHint" xml:space="preserve">
+    <value>Задать периодичность</value>
+  </data>
+  <data name="Action_SetPeriodDescription" xml:space="preserve">
+    <value>Задать периодичность</value>
   </data>
 </root>

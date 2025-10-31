@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -20,8 +20,7 @@ namespace Starkov.ScheduledReports.Shared
       
       properties.Name.IsEnabled = canChangeSchedule;
       properties.DateBegin.IsEnabled = canChangeSchedule;
-      properties.Period.IsEnabled = canChangeSchedule;
-      properties.PeriodNumber.IsEnabled = canChangeSchedule;
+      properties.PeriodExpression.IsEnabled = canChangeSchedule;
       properties.IsAsyncExecute.IsEnabled = canChangeSchedule;
       properties.Observers.IsEnabled = canChangeSchedule;
     }

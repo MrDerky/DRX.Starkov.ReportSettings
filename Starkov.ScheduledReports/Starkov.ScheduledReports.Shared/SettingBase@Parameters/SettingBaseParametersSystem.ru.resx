@@ -68,7 +68,7 @@
     <value>Идентификатор типа</value>
   </data>
   <data name="Property_EntityId" xml:space="preserve">
-    <value>ИД</value>
+    <value>ИД / Признак</value>
   </data>
   <data name="Property_ViewValue" xml:space="preserve">
     <value>Значение</value>

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -14,9 +14,6 @@ namespace Starkov.ScheduledReports
     public override void BeforeSave(Sungero.Domain.BeforeSaveEventArgs e)
     {
       var testCalculate = Functions.RelativeDate.CalculateDate(_obj);
-//      if (_obj.IsIncremental == true && testCalculate == Functions.RelativeDate.CalculateDate(_obj, testCalculate))
-//        e.AddError("Данный набор выражений не может принимать множитель"); // TODO локализация
-      
       _obj.IsIncremental = testCalculate != Functions.RelativeDate.CalculateDate(_obj, testCalculate);
     }
 

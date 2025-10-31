@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -252,6 +252,16 @@ namespace Starkov.ScheduledReports.Server
       asyncHandler.ExecuteAsync();
     }
     
+    [Public(WebApiRequestType = RequestType.Post)]
+    public bool ScheduleLogInterationExecute(int scheduleLogId, string logInfo)
+    {
+      var scheduleLog = ScheduleLogs.GetAll(s => s.Id == scheduleLogId).FirstOrDefault();
+      if (scheduleLog == null)
+      return false;
+        
+      return ScheduleLogExecute(scheduleLog, logInfo);
+    }
+    
     /// <summary>
     /// Обработать запись журнала расписания и отправить отчет.
     /// </summary>
@@ -270,7 +280,7 @@ namespace Starkov.ScheduledReports.Server
       
       try
       {
-        if (!Locks.GetLockInfo(scheduleLog).IsLockedByMe)// && !Locks.TryLock(scheduleLog))
+        if (Locks.GetLockInfo(scheduleLog).IsLocked)// && !Locks.TryLock(scheduleLog))
         {
           Logger.DebugFormat("{0} Запись справочника scheduleLog={1} заблокирована пользователем {2} LoginId={3}, CurrentUserLoginId={4}.", logInfo,
                              scheduleLog.Id,
@@ -321,7 +331,7 @@ namespace Starkov.ScheduledReports.Server
     /// </summary>
     /// <param name="setting">Настройки расписания.</param>
     /// <param name="scheduleLog">Журнал расписания.</param>
-    private void StartSheduleReport(Starkov.ScheduledReports.IScheduleSetting setting, IScheduleLog scheduleLog)
+    public void StartSheduleReport(Starkov.ScheduledReports.IScheduleSetting setting, IScheduleLog scheduleLog)
     {
       if (setting == null || setting.ReportSetting == null)
         return;
@@ -347,10 +357,21 @@ namespace Starkov.ScheduledReports.Server
       
       Logger.Debug("StartSheduleReport. FillReportParams");
       FillReportParams(report, setting);
+      
+      var documentKind = GetDocumentKind(Constants.Module.ReportDocumentKindGuid);
+      if (documentKind == null)
+      {
+        Logger.Debug("StartSheduleReport. Init DocumentKind not found.");
+        SendNotice(Roles.Administrators, string.Format("ScheduleSetting={0}. Не удалось получить вид документа", setting.Id), null, setting);
+        return;
+      }
 
       var document = Sungero.Docflow.SimpleDocuments.Create();
+      document.DocumentKind = documentKind;
       
       document.Name = setting.Name;
+      if (Sungero.Company.Employees.Is(setting.Author))
+        document.PreparedBy = Sungero.Company.Employees.As(setting.Author);
       
       Logger.Debug("StartSheduleReport. document.AccessRights.Grant");
       foreach (var recipient in observers)
@@ -447,6 +468,9 @@ namespace Starkov.ScheduledReports.Server
     private Starkov.ScheduledReports.IScheduleLog CreateScheduleLog(Starkov.ScheduledReports.IScheduleSetting setting, DateTime? baseDate)
     {
       if (setting == null)
+        return Starkov.ScheduledReports.ScheduleLogs.Null;
+      
+      if (ScheduleLogs.GetAll(s => s.ScheduleSettingId == setting.Id).Any(s => s.Status == ScheduledReports.ScheduleLog.Status.Waiting))
         return Starkov.ScheduledReports.ScheduleLogs.Null;
       
       var startDate = Functions.ScheduleSetting.GetNextPeriod(setting, baseDate);
@@ -635,6 +659,21 @@ namespace Starkov.ScheduledReports.Server
     #endregion
     
     #region Получение сущностей по Guid
+    
+    /// <summary>
+    /// Получить вид документа, созданный при инициализации.
+    /// </summary>
+    /// <param name="documentKindEntityGuid">ИД вида документа, созданного при инициализации.</param>
+    /// <returns>Вид документа.</returns>
+    [Public, Remote]
+    public static Sungero.Docflow.IDocumentKind GetDocumentKind(Guid documentKindGuid)
+    {
+      var externalLink = Sungero.Docflow.PublicFunctions.Module.GetExternalLink(Constants.Module.DocumentKindTypeGuid, documentKindGuid);
+      if (externalLink == null)
+        return Sungero.Docflow.DocumentKinds.Null;
+      
+      return Sungero.Docflow.DocumentKinds.GetAll().Where(x => x.Id == externalLink.EntityId).FirstOrDefault();
+    }
     
     /// <summary>
     /// Получить экземпляр сущности по Guid типа объекта и ИД.

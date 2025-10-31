@@ -159,6 +159,8 @@
   "Importance": "Medium",
   "InterfaceAssemblyName": "Sungero.Domain.Interfaces",
   "InterfaceNamespace": "Starkov.ScheduledReports",
+  "IsolatedAssemblyName": "Starkov.ScheduledReports.Isolated",
+  "IsolatedNamespace": "Starkov.ScheduledReports.Isolated",
   "Jobs": [
     {
       "NameGuid": "6862cdbe-45d6-47c1-9e73-10687664a758",
@@ -178,6 +180,14 @@
       "Value": "new System.Guid(\"F4EA8EF4-A03E-489F-BBF5-9691405EFFBC\")"
     },
     {
+      "Name": "ReportDocumentKindGuid",
+      "ParentClasses": [
+        "Module"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"8BFF5B18-E565-49C7-AFFA-A1AD618F692C\")"
+    },
+    {
       "Name": "ScheduleSettingManagerRole",
       "ParentClasses": [
         "Module"
@@ -192,6 +202,14 @@
       ],
       "TypeName": "System.Guid",
       "Value": "new System.Guid(\"6862cdbe-45d6-47c1-9e73-10687664a758\")"
+    },
+    {
+      "Name": "SimpleDocumentTypeGuid",
+      "ParentClasses": [
+        "Module"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"09584896-81e2-4c83-8f6c-70eb8321e1d0\")"
     }
   ],
   "PublicFunctions": [
@@ -251,6 +269,20 @@
       ],
       "ReturnType": "void",
       "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "GetDocumentKind",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "documentKindGuid",
+          "ParameterType": "global::System.Guid",
+          "ParameterTypeFullName": "System.Guid"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::Sungero.Docflow.IDocumentKind",
+      "ReturnTypeFullName": "Sungero.Docflow.IDocumentKind, Sungero.Domain.Interfaces"
     },
     {
       "Name": "GetEntitiesByGuid",
@@ -355,6 +387,24 @@
       "Placement": "Shared",
       "ReturnType": "global::System.Linq.IQueryable<global::Starkov.ScheduledReports.IScheduleLog>",
       "ReturnTypeFullName": "System.Linq.IQueryable"
+    },
+    {
+      "Name": "ScheduleLogInterationExecute",
+      "Parameters": [
+        {
+          "Name": "scheduleLogId",
+          "ParameterType": "global::System.Int32",
+          "ParameterTypeFullName": "System.Int32"
+        },
+        {
+          "Name": "logInfo",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::System.Boolean",
+      "ReturnTypeFullName": "System.Boolean",
+      "WebApiRequestType": "Post"
     }
   ],
   "PublicStructures": [
@@ -407,7 +457,11 @@
     "AddDaysDescr",
     "AddMonthsDescr",
     "AddHoursDescr",
-    "AddMinutesDescr"
+    "AddMinutesDescr",
+    "PeriodFrom",
+    "PeriodTo",
+    "DocumentFlow",
+    "Category"
   ],
   "ServerAssemblyName": "Starkov.ScheduledReports.Server",
   "ServerNamespace": "Starkov.ScheduledReports.Server",

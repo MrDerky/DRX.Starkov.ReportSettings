@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Property_Name" xml:space="preserve">
-    <value>Имя</value>
+    <value>Имя (в единственном числе)</value>
   </data>
   <data name="DisplayName" xml:space="preserve">
     <value>Относительная дата</value>

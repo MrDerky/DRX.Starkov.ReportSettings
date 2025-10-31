@@ -130,4 +130,16 @@
   <data name="AddMinutesDescr" xml:space="preserve">
     <value>Добавить n минут</value>
   </data>
+  <data name="PeriodFrom" xml:space="preserve">
+    <value>Период с</value>
+  </data>
+  <data name="PeriodTo" xml:space="preserve">
+    <value>Период до</value>
+  </data>
+  <data name="DocumentFlow" xml:space="preserve">
+    <value>Документопоток</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Категория</value>
+  </data>
 </root>

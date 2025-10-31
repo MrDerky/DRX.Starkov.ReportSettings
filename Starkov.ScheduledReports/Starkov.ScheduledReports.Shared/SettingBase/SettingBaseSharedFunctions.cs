@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -26,6 +26,7 @@ namespace Starkov.ScheduledReports.Shared
     /// <summary>
     /// Загрузить параметры отчета.
     /// </summary>
+    [Public]
     public virtual void SaveReportParams()
     {
       Guid reportGuid;
@@ -130,55 +131,16 @@ namespace Starkov.ScheduledReports.Shared
     /// </summary>
     /// <param name="reportParam">Строка коллекции параметров отчета.</param>
     /// <returns>Дата, или текущая дата и время, если получить из настроек не удалось.</returns>
-    private static DateTime? GetDateFromReportParam(Starkov.ScheduledReports.ISettingBaseParameters reportParam)
+    private static DateTime GetDateFromReportParam(Starkov.ScheduledReports.ISettingBaseParameters reportParam)
     {
       DateTime date = Calendar.Now;
       
-      if (reportParam.EntityId.HasValue)
-      {
-        var relativeDate = PublicFunctions.RelativeDate.Remote.GetRelativeDate(reportParam.EntityId.Value);
-        if (relativeDate != null)
-          date = PublicFunctions.RelativeDate.CalculateDate(relativeDate, null, Functions.SettingBase.GetIncrementForRelativeDateFromViewValue(reportParam.ViewValue));
-      }
+      if (reportParam.EntityId.HasValue && reportParam.EntityId.Value == 1)
+        date = PublicFunctions.RelativeDate.GetDateFromExpression(reportParam.ViewValue).GetValueOrDefault();
       else if (!string.IsNullOrEmpty(reportParam.ViewValue))
         Calendar.TryParseDateTime(reportParam.ViewValue, out date);
       
       return date;
     }
-    
-    /// <summary>
-    /// Получить представление относительной даты.
-    /// </summary>
-    /// <param name="relativeDate">Относительная дата.</param>
-    /// <param name="increment">Множитель.</param>
-    public static string BuildViewValueForRelativeDate(IRelativeDate relativeDate, int? increment)
-    {
-      return string.Join(GetDelimeter().ToString(), increment, relativeDate.Name);
-    }
-    
-    /// <summary>
-    /// Получить множитель из представления относительной даты.
-    /// </summary>
-    /// <param name="viewValue">Строка представления.</param>
-    /// <returns>Число.</returns>
-    public static int? GetIncrementForRelativeDateFromViewValue(string viewValue)
-    {
-      var delimeter = GetDelimeter();
-      var viewValueParts = viewValue.Split(delimeter);
-      if (viewValueParts.Count() < 2)
-        return null;
-      
-      int increment;
-      if (int.TryParse(viewValueParts[0], out increment))
-        return increment;
-      
-      return null;
-    }
-    
-    private static char GetDelimeter()
-    {
-      return ' ';
-    }
-
   }
 }
