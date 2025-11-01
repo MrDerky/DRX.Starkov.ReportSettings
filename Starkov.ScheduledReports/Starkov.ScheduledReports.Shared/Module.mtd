@@ -159,7 +159,43 @@
   "Importance": "Medium",
   "InterfaceAssemblyName": "Sungero.Domain.Interfaces",
   "InterfaceNamespace": "Starkov.ScheduledReports",
+  "IsolatedAreas": [
+    {
+      "NameGuid": "d6e39be5-c2b2-44e8-aaa1-66131eaefd83",
+      "Name": "JsonParser"
+    }
+  ],
   "IsolatedAssemblyName": "Starkov.ScheduledReports.Isolated",
+  "IsolatedFunctions": [
+    {
+      "NameGuid": "fc5527f0-05f4-4920-a19c-915f608d1550",
+      "Name": "GetReportParameterInfoStruct",
+      "IsolatedAreaId": "d6e39be5-c2b2-44e8-aaa1-66131eaefd83",
+      "Parameters": [
+        {
+          "Name": "parameterInfo",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::Starkov.ScheduledReports.Structures.Module.IReportParameterInfo",
+      "ReturnTypeFullName": "Starkov.ScheduledReports.Structures.Module.IReportParameterInfo, Sungero.Domain.Interfaces"
+    },
+    {
+      "NameGuid": "0c21bb6b-24ef-46ca-a2fa-30ff4808a9aa",
+      "Name": "GetReportParameterInfoText",
+      "IsolatedAreaId": "d6e39be5-c2b2-44e8-aaa1-66131eaefd83",
+      "Parameters": [
+        {
+          "Name": "parameterInfo",
+          "ParameterType": "global::Starkov.ScheduledReports.Structures.Module.IReportParameterInfo",
+          "ParameterTypeFullName": "Starkov.ScheduledReports.Structures.Module.IReportParameterInfo, Sungero.Domain.Interfaces"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    }
+  ],
   "IsolatedNamespace": "Starkov.ScheduledReports.Isolated",
   "Jobs": [
     {
@@ -283,6 +319,25 @@
       "Placement": "Shared",
       "ReturnType": "global::Sungero.Docflow.IDocumentKind",
       "ReturnTypeFullName": "Sungero.Docflow.IDocumentKind, Sungero.Domain.Interfaces"
+    },
+    {
+      "Name": "GetEntitiesByGuid",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "entityGuid",
+          "ParameterType": "global::System.Guid",
+          "ParameterTypeFullName": "System.Guid"
+        },
+        {
+          "Name": "ids",
+          "ParameterType": "global::System.Collections.Generic.List<global::System.Int64>",
+          "ParameterTypeFullName": "System.Collections.Generic.List"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.Linq.IQueryable<global::Sungero.Domain.Shared.IEntity>",
+      "ReturnTypeFullName": "System.Linq.IQueryable"
     },
     {
       "Name": "GetEntitiesByGuid",
@@ -426,6 +481,57 @@
           "Name": "Name",
           "IsNullable": true,
           "TypeFullName": "global::System.String"
+        }
+      ],
+      "StructureNamespace": "Starkov.ScheduledReports.Structures.Module"
+    },
+    {
+      "Name": "ReportParameterInfo",
+      "IsIsolated": true,
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "ParameterName",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "DisplayName",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "DisplayValue",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "InternalDataTypeName",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "IsRelatedDate",
+          "TypeFullName": "global::System.Boolean"
+        },
+        {
+          "Name": "IsEntity",
+          "TypeFullName": "global::System.Boolean"
+        },
+        {
+          "Name": "EntityGuid",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "IsCollection",
+          "TypeFullName": "global::System.Boolean"
+        },
+        {
+          "Name": "EntityIds",
+          "IsList": true,
+          "IsNullable": true,
+          "TypeFullName": "global::System.Collections.Generic.List<global::System.Int64>"
         }
       ],
       "StructureNamespace": "Starkov.ScheduledReports.Structures.Module"

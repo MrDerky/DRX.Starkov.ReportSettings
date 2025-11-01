@@ -5,6 +5,17 @@
   "AccessRightsMode": "Both",
   "Actions": [
     {
+      "NameGuid": "5dd9ac1e-8d84-4003-ad06-c351dbc58d97",
+      "Name": "EditParameterValue",
+      "CollectionPropertyGuid": "e74d4457-994d-4e70-a8c2-c4061f490cd3",
+      "GenerateHandler": true,
+      "IsAncestorMetadata": true,
+      "Overridden": [
+        "GenerateHandler"
+      ],
+      "Versions": []
+    },
+    {
       "NameGuid": "a5eb6890-0502-47af-9af9-b06ff1ba0e1f",
       "Name": "SetReport",
       "ActionArea": "Card",

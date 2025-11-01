@@ -42,13 +42,20 @@ namespace Starkov.ScheduledReports.Shared
           continue;
         
         var reportParam = _obj.Parameters.AddNew();
-        reportParam.ParameterName = parameter.NameResourceKey;
-        reportParam.InternalDataTypeName = parameter.InternalDataTypeName;
+        
+        var info = Functions.SettingBase.GetReportParameterInfo(reportParam);
+        info.ParameterName = parameter.NameResourceKey;
+        info.InternalDataTypeName = parameter.InternalDataTypeName;
+        info.IsCollection = parameter.IsCollection;
+        
         if (parameter.EntityMetadata != null)
         {
           reportParam.DisplayName = Sungero.Domain.Shared.TypeExtension.GetTypeByGuid(parameter.EntityType).GetEntityMetadata().GetDisplayName();
-          reportParam.EntityGuid = parameter.EntityType.ToString();
+          info.IsEntity = true;
+          info.EntityGuid = parameter.EntityType.ToString();
         }
+        
+        Functions.SettingBase.WriteReportParameterInfo(reportParam, info);
       }
     }
     
@@ -61,17 +68,27 @@ namespace Starkov.ScheduledReports.Shared
       foreach (var parameter in report.Parameters)
       {
         var reportParam = _obj.Parameters.FirstOrDefault(p => p.ParameterName == parameter.Key);
-        if (reportParam != null)
+        if (reportParam == null)
+          continue;
+        
+        var paramInfo = Functions.SettingBase.GetReportParameterInfo(reportParam);
+        if (!paramInfo.IsCollection)
         {
           var entityParameter = parameter.Value as Sungero.Reporting.Shared.EntityParameter;
           if (entityParameter != null)
-          {
-            reportParam.EntityId = entityParameter.Entity.Id;
-            reportParam.ViewValue = entityParameter.Entity.DisplayValue;
-          }
+            WriteEntityToParameterInfo(paramInfo, entityParameter.Entity);
           else
-            reportParam.ViewValue = parameter.Value.ToString().Contains(reportParam.InternalDataTypeName) ? string.Empty : parameter.Value.ToString();
+            paramInfo.DisplayValue = parameter.Value.ToString().Contains(reportParam.InternalDataTypeName) ? string.Empty : parameter.Value.ToString();
         }
+        else
+        {
+          // Обработка коллекции
+          var entityParameter = parameter.Value as Sungero.Reporting.Shared.CollectionAdapter<Sungero.Domain.Shared.IEntity>;
+          if (entityParameter != null)
+            WriteEntityToParameterInfo(paramInfo, entityParameter.ToList());
+        }
+        
+        Functions.SettingBase.WriteReportParameterInfo(reportParam, paramInfo);
       }
     }
     
@@ -104,9 +121,15 @@ namespace Starkov.ScheduledReports.Shared
     {
       try
       {
+        var info = Functions.SettingBase.GetReportParameterInfo(reportParam);
         Guid typeGuid;
         if (Guid.TryParse(reportParam.EntityGuid, out typeGuid))
-          return PublicFunctions.Module.Remote.GetEntitiesByGuid(typeGuid, reportParam.EntityId);
+        {
+          if (!info.IsCollection)
+            return PublicFunctions.Module.Remote.GetEntitiesByGuid(typeGuid, info.EntityIds.FirstOrDefault());
+          else
+            return PublicFunctions.Module.Remote.GetEntitiesByGuid(typeGuid, info.EntityIds);
+        }
         
         if (reportParam.InternalDataTypeName == "System.DateTime")
           return GetDateFromReportParam(reportParam);
@@ -135,12 +158,71 @@ namespace Starkov.ScheduledReports.Shared
     {
       DateTime date = Calendar.Now;
       
-      if (reportParam.EntityId.HasValue && reportParam.EntityId.Value == 1)
+      var info = Functions.SettingBase.GetReportParameterInfo(reportParam);
+      
+      if (info.IsRelatedDate)
         date = PublicFunctions.RelativeDate.GetDateFromExpression(reportParam.ViewValue).GetValueOrDefault();
-      else if (!string.IsNullOrEmpty(reportParam.ViewValue))
-        Calendar.TryParseDateTime(reportParam.ViewValue, out date);
+      else if (!string.IsNullOrEmpty(info.DisplayValue))
+        Calendar.TryParseDateTime(info.DisplayValue, out date);
       
       return date;
+    }
+    
+    /// <summary>
+    /// Получить информацию о параметре отчета в виде структуры.
+    /// </summary>
+    [Public]
+    public static Structures.Module.IReportParameterInfo GetReportParameterInfo(ISettingBaseParameters parameter)
+    {
+      return IsolatedFunctions.JsonParser.GetReportParameterInfoStruct(parameter.ParameterInfo);
+    }
+    
+    /// <summary>
+    /// Записать информацию о параметре из струкуры.
+    /// </summary>
+    /// <param name="parameter">Параметр в коллекции.</param>
+    /// <param name="parameterInfo">Структура с данными.</param>
+    [Public]
+    public static void WriteReportParameterInfo(ISettingBaseParameters parameter, Structures.Module.IReportParameterInfo info)
+    {
+      if (parameter.ParameterName != info.ParameterName)
+        parameter.ParameterName = info.ParameterName;
+      
+      // DisplayName редактируется из интерфейса и обновляется в структуру
+      if (parameter.DisplayName != info.DisplayName)
+        info.DisplayName = parameter.DisplayName;
+      
+      if (parameter.ViewValue != info.DisplayValue)
+        parameter.ViewValue = info.DisplayValue;
+
+      var parameterInfo = IsolatedFunctions.JsonParser.GetReportParameterInfoText(info);
+      if (parameter.ParameterInfo != parameterInfo)
+        parameter.ParameterInfo = parameterInfo;
+    }
+    
+    public static void WriteEntityToParameterInfo(Structures.Module.IReportParameterInfo info, List<Sungero.Domain.Shared.IEntity> entities)
+    {
+      info.EntityIds = entities.Select(_ => _.Id).ToList();
+      info.DisplayValue = string.Join("; ", entities.Select(_ => _.DisplayValue).ToList());
+    }
+    
+    public static void WriteEntityToParameterInfo(Structures.Module.IReportParameterInfo info, Sungero.Domain.Shared.IEntity entity)
+    {
+      info.EntityIds = new List<long> { entity.Id };
+      info.DisplayValue = entity.DisplayValue;
+    }
+    
+    /// <summary>
+    /// Очистить значение параметра.
+    /// </summary>
+    /// <param name="parameter">Параметр.</param>
+    public static void ClearReportParameter(ISettingBaseParameters parameter)
+    {
+      var info = GetReportParameterInfo(parameter);
+      info.DisplayValue = string.Empty;
+      info.EntityIds.Clear();
+      
+      WriteReportParameterInfo(parameter, info);
     }
   }
 }

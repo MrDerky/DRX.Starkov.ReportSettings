@@ -15,6 +15,17 @@
   ],
   "Properties": [
     {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "0c745ec8-4e3c-438e-b71a-722a29b894e6",
+      "Name": "DisplayName",
+      "IsAncestorMetadata": true,
+      "IsEnabled": false,
+      "Overridden": [
+        "IsEnabled"
+      ],
+      "Versions": []
+    },
+    {
       "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
       "NameGuid": "df9aa9b4-bef7-499c-90ae-c8c71d231f1f",
       "Name": "SettingBase",

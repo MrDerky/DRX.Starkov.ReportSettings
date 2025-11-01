@@ -293,9 +293,11 @@
   ],
   "IconResourcesKeys": [],
   "IntegrationServiceName": "ScheduledReportsSettingSchedule",
+  "IsStatusEnabled": true,
   "OperationsClass": "",
   "Overridden": [
-    "IsVisible"
+    "IsVisible",
+    "IsStatusEnabled"
   ],
   "Properties": [
     {
