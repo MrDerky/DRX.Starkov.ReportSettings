@@ -195,7 +195,6 @@ namespace Starkov.ScheduledReports.Client
       // TODO Доработать Перечисления
       // TODO Доработать Простые типы
 
-
       var type = System.Type.GetType(parameterInfo.InternalDataTypeName);
       var dialog = Dialogs.CreateInputDialog("Введите значение");
 
@@ -267,14 +266,6 @@ namespace Starkov.ScheduledReports.Client
     
     #endregion
     
-    //    public Structures.Module.IReportParameterInfo GetReportParameterInfo(ISettingBaseParameters parameter)
-    //    {
-    //      var parameterInfo = PublicFunctions.SettingBase.GetReportParameterInfo(parameter)
-    //      var parameterInfo = Structures.Module.ReportParameterInfo.Create();
-    //      parameterInfo.EntityIds = new List<long>();
-//
-    //      return parameterInfo;
-    //    }
     
     #endregion
     

@@ -78,7 +78,7 @@ namespace Starkov.ScheduledReports.Shared
           if (entityParameter != null)
             WriteEntityToParameterInfo(paramInfo, entityParameter.Entity);
           else
-            paramInfo.DisplayValue = parameter.Value.ToString().Contains(reportParam.InternalDataTypeName) ? string.Empty : parameter.Value.ToString();
+            paramInfo.DisplayValue = parameter.Value.ToString().Contains(paramInfo.InternalDataTypeName) ? string.Empty : parameter.Value.ToString();
         }
         else
         {
@@ -119,11 +119,12 @@ namespace Starkov.ScheduledReports.Shared
     /// <returns>Объект.</returns>
     public static object GetObjectFromReportParam(Starkov.ScheduledReports.ISettingBaseParameters reportParam)
     {
+      var info = Functions.SettingBase.GetReportParameterInfo(reportParam);
+      
       try
       {
-        var info = Functions.SettingBase.GetReportParameterInfo(reportParam);
         Guid typeGuid;
-        if (Guid.TryParse(reportParam.EntityGuid, out typeGuid))
+        if (Guid.TryParse(info.EntityGuid, out typeGuid))
         {
           if (!info.IsCollection)
             return PublicFunctions.Module.Remote.GetEntitiesByGuid(typeGuid, info.EntityIds.FirstOrDefault());
@@ -131,17 +132,17 @@ namespace Starkov.ScheduledReports.Shared
             return PublicFunctions.Module.Remote.GetEntitiesByGuid(typeGuid, info.EntityIds);
         }
         
-        if (reportParam.InternalDataTypeName == "System.DateTime")
+        if (info.InternalDataTypeName == "System.DateTime")
           return GetDateFromReportParam(reportParam);
         
-        var type = System.Type.GetType(reportParam.InternalDataTypeName);
+        var type = System.Type.GetType(info.InternalDataTypeName);
         if (type != null)
           return System.Convert.ChangeType(reportParam.ViewValue, type);
       }
       catch (Exception ex)
       {
         Logger.ErrorFormat("GetObjectFromReportParam. Не удалось получить объект: Parameter={0}, InternalDataTypeName={1}, EntityGuid={2}, ViewValue={3}",
-                           ex, reportParam.ParameterName, reportParam.InternalDataTypeName, reportParam.EntityGuid, reportParam.ViewValue);
+                           ex, reportParam.ParameterName, info.InternalDataTypeName, info.EntityGuid, reportParam.ViewValue);
         
         throw ex;
       }

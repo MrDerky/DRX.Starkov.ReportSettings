@@ -48,32 +48,6 @@
         "IsShowedInList"
       ],
       "Versions": []
-    },
-    {
-      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
-      "NameGuid": "44055799-21f5-4e84-8560-659909ab0880",
-      "Name": "InternalDataTypeName",
-      "IsAncestorMetadata": true,
-      "IsShowedInList": false,
-      "IsVisibility": false,
-      "Overridden": [
-        "IsVisibility",
-        "IsShowedInList"
-      ],
-      "Versions": []
-    },
-    {
-      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
-      "NameGuid": "6cfccb73-e5c3-425a-8d3c-ef9415027b40",
-      "Name": "EntityGuid",
-      "IsAncestorMetadata": true,
-      "IsShowedInList": false,
-      "IsVisibility": false,
-      "Overridden": [
-        "IsVisibility",
-        "IsShowedInList"
-      ],
-      "Versions": []
     }
   ],
   "PublicStructures": [],

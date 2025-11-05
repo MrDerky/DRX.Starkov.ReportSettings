@@ -15,7 +15,7 @@ namespace Starkov.ScheduledReports
       base.Refresh(e);
       
       if (Functions.SettingBase.IsFillReportParamsAny(_obj))
-        e.AddInformation("Есть параметры с заполненными значениями. При создании настройки расписания они будут подтянуты."); //TODO возможно следует сделать это опциональным
+        e.AddInformation("Есть параметры с заполненными значениями. При создании настройки расписания они будут подтянуты как значения по-умолчанию.");
     }
 
   }
