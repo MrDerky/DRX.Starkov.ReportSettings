@@ -46,37 +46,6 @@
     },
     {
       "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
-      "NameGuid": "44055799-21f5-4e84-8560-659909ab0880",
-      "Name": "InternalDataTypeName",
-      "CanBeSearch": false,
-      "Code": "InternalDataTy",
-      "IsEnabled": false,
-      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
-      "PreviousPropertyGuid": "0c745ec8-4e3c-438e-b71a-722a29b894e6",
-      "Versions": []
-    },
-    {
-      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
-      "NameGuid": "6cfccb73-e5c3-425a-8d3c-ef9415027b40",
-      "Name": "EntityGuid",
-      "CanBeSearch": false,
-      "Code": "EntityGuid",
-      "IsEnabled": false,
-      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
-      "PreviousPropertyGuid": "44055799-21f5-4e84-8560-659909ab0880",
-      "Versions": []
-    },
-    {
-      "$type": "Sungero.Metadata.LongIntegerPropertyMetadata, Sungero.Metadata",
-      "NameGuid": "13ae1a4a-dc2d-4ea2-95bb-b7a6a0dd7200",
-      "Name": "EntityId",
-      "CanBeSearch": false,
-      "Code": "EntityId",
-      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.NumericEditorToIntAndDoubleBinder",
-      "PreviousPropertyGuid": "6cfccb73-e5c3-425a-8d3c-ef9415027b40"
-    },
-    {
-      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
       "NameGuid": "ab21c4a4-ce96-49e7-b763-fa39b66fa536",
       "Name": "ViewValue",
       "CanBeSearch": false,
@@ -85,6 +54,17 @@
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
       "PreviousPropertyGuid": "13ae1a4a-dc2d-4ea2-95bb-b7a6a0dd7200",
       "Versions": []
+    },
+    {
+      "$type": "Sungero.Metadata.TextPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "ef4890e0-36f3-42ee-843a-6f2683eae5d0",
+      "Name": "ParameterInfo",
+      "CanBeSearch": false,
+      "Code": "ParameterInfo",
+      "IsEnabled": false,
+      "IsShowedInList": false,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.MultilineStringEditorToTextBinder",
+      "PreviousPropertyGuid": "59860e88-555a-45a6-898f-0603ce5ba93a"
     }
   ],
   "PublicStructures": [],

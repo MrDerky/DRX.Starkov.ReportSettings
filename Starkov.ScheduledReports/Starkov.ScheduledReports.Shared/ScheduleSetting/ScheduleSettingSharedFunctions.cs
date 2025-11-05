@@ -37,10 +37,7 @@ namespace Starkov.ScheduledReports.Shared
         var reportParam = _obj.Parameters.AddNew();
         reportParam.ParameterName = parameter.ParameterName;
         reportParam.DisplayName = parameter.DisplayName;
-        reportParam.EntityGuid = parameter.EntityGuid;
-        reportParam.EntityId = parameter.EntityId;
-        reportParam.InternalDataTypeName = parameter.InternalDataTypeName;
-        reportParam.ViewValue = parameter.ViewValue;
+        reportParam.ParameterInfo = parameter.ParameterInfo;
       }
     }
   }

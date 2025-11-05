@@ -254,6 +254,19 @@
   ],
   "PublicFunctions": [
     {
+      "Name": "GetReportParameterInfo",
+      "Parameters": [
+        {
+          "Name": "parameter",
+          "ParameterType": "global::Starkov.ScheduledReports.ISettingBaseParameters",
+          "ParameterTypeFullName": "Starkov.ScheduledReports.ISettingBaseParameters, Sungero.Domain.Interfaces"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::Starkov.ScheduledReports.Structures.Module.IReportParameterInfo",
+      "ReturnTypeFullName": "Starkov.ScheduledReports.Structures.Module.IReportParameterInfo"
+    },
+    {
       "Name": "SaveReportParams",
       "Parameters": [
         {
@@ -277,6 +290,24 @@
         {
           "Name": "report",
           "ParameterType": "Sungero.Reporting.Shared.ReportBase"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "WriteReportParameterInfo",
+      "Parameters": [
+        {
+          "Name": "parameter",
+          "ParameterType": "global::Starkov.ScheduledReports.ISettingBaseParameters",
+          "ParameterTypeFullName": "Starkov.ScheduledReports.ISettingBaseParameters, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "info",
+          "ParameterType": "global::Starkov.ScheduledReports.Structures.Module.IReportParameterInfo",
+          "ParameterTypeFullName": "Starkov.ScheduledReports.Structures.Module.IReportParameterInfo"
         }
       ],
       "Placement": "Shared",

@@ -257,8 +257,8 @@ namespace Starkov.ScheduledReports.Server
     {
       var scheduleLog = ScheduleLogs.GetAll(s => s.Id == scheduleLogId).FirstOrDefault();
       if (scheduleLog == null)
-      return false;
-        
+        return false;
+      
       return ScheduleLogExecute(scheduleLog, logInfo);
     }
     
@@ -673,6 +673,18 @@ namespace Starkov.ScheduledReports.Server
         return Sungero.Docflow.DocumentKinds.Null;
       
       return Sungero.Docflow.DocumentKinds.GetAll().Where(x => x.Id == externalLink.EntityId).FirstOrDefault();
+    }
+    
+    /// <summary>
+    /// Получить список сущностей по Guid типа объекта и ИД.
+    /// </summary>
+    /// <param name="entityGuid">Guid сущности.</param>
+    /// <param name="ids">ИД объектов.</param>
+    /// <returns>Экземпляр сущности.</returns>
+    [Public, Remote]
+    public IQueryable<Sungero.Domain.Shared.IEntity> GetEntitiesByGuid(Guid entityGuid, List<long> ids)
+    {
+      return GetEntitiesByGuid(entityGuid)?.Where(e => ids.Contains(e.Id));
     }
     
     /// <summary>

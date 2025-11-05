@@ -64,16 +64,10 @@
   <data name="Property_DisplayName" xml:space="preserve">
     <value>Параметр</value>
   </data>
-  <data name="Property_EntityGuid" xml:space="preserve">
-    <value>Идентификатор типа</value>
-  </data>
-  <data name="Property_EntityId" xml:space="preserve">
-    <value>ИД / Признак</value>
-  </data>
   <data name="Property_ViewValue" xml:space="preserve">
     <value>Значение</value>
   </data>
-  <data name="Property_InternalDataTypeName" xml:space="preserve">
-    <value>Тип</value>
+  <data name="Property_ParameterInfo" xml:space="preserve">
+    <value>Данные параметра</value>
   </data>
 </root>

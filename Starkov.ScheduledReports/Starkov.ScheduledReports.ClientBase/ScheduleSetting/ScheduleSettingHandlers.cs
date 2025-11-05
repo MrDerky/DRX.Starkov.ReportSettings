@@ -70,8 +70,9 @@ namespace Starkov.ScheduledReports
       }
       
       //TODO Временный костыль, подумать на переход на e.Params
-      if (_obj.Status == Status.Active && !Functions.Module.Remote.GetScheduleLogs(_obj)
-          .Any(l => l.Status == ScheduleLog.Status.Waiting || l.Status == ScheduleLog.Status.Error))
+      var scheduleLogStatuses = Functions.Module.Remote.GetScheduleLogs(_obj).Select(l => l.Status).ToList();
+      if (!_obj.State.IsInserted && _obj.Status == Status.Active && scheduleLogStatuses.Any() && !scheduleLogStatuses
+          .Any(s => s == ScheduleLog.Status.Waiting || s == ScheduleLog.Status.Error))
       {
         _obj.Status = Status.Closed;
       }
