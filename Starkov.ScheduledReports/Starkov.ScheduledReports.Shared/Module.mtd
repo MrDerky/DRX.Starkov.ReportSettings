@@ -157,6 +157,24 @@
     "InitializingServer"
   ],
   "Importance": "Medium",
+  "InitializationFunctions": [
+    {
+      "Name": "CreateAndFillReportSetting",
+      "Parameters": [
+        {
+          "Name": "reportGuid",
+          "ParameterType": "global::System.Guid",
+          "ParameterTypeFullName": "System.Guid"
+        },
+        {
+          "Name": "parameters",
+          "ParameterType": "System.Collections.Generic.Dictionary<global::System.String, global::System.String>"
+        }
+      ],
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    }
+  ],
   "InterfaceAssemblyName": "Sungero.Domain.Interfaces",
   "InterfaceNamespace": "Starkov.ScheduledReports",
   "IsolatedAreas": [
