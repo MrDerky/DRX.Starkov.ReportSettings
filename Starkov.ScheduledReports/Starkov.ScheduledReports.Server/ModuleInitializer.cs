@@ -168,17 +168,19 @@ namespace Starkov.ScheduledReports.Server
     /// <param name="reportGuid">Идентификатор отчета.</param>
     /// <param name="parameters">Словарь с параметрами: ключ - имя параметра отчета, значение - отображаемое значение.</param>
     [Public]
-    public void CreateAndFillReportSetting(Guid reportGuid, System.Collections.Generic.Dictionary<string, string> parameters)
+    public IReportSetting CreateAndFillReportSetting(Guid reportGuid, System.Collections.Generic.Dictionary<string, string> parameters)
     {
       var reportSetting = CreateReportSetting(reportGuid);
       if (reportSetting == null)
-        return;
+        return ReportSettings.Null;
 
       foreach (var parameter in parameters)
         SetReportParameterDisplayName(reportSetting, parameter.Key, parameter.Value);
       
       if (reportSetting.State.IsChanged)
         reportSetting.Save();
+      
+      return reportSetting;
     }
     
     /// <summary>

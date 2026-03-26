@@ -110,6 +110,7 @@
   "IntegrationServiceName": "ScheduledReportsScheduleLog",
   "IsAutoCreated": true,
   "IsVisible": false,
+  "ListViewUuid": "b0e389fd-4bc0-4848-aace-b0304176fde5",
   "NeedWriteHistory": true,
   "OperationsClass": "",
   "Overridden": [

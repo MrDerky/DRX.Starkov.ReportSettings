@@ -154,6 +154,7 @@
   "IconResourcesKeys": [],
   "IntegrationServiceName": "ScheduledReportsRelativeDate",
   "IsCacheable": true,
+  "ListViewUuid": "97eb7c27-027d-4d74-8658-31cd76542c06",
   "OperationsClass": "",
   "Overridden": [
     "IsCacheable",

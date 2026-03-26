@@ -294,6 +294,7 @@
   "IconResourcesKeys": [],
   "IntegrationServiceName": "ScheduledReportsSettingSchedule",
   "IsStatusEnabled": true,
+  "ListViewUuid": "0dfd913a-d1fd-43a7-85c6-d4e50870acaa",
   "OperationsClass": "",
   "Overridden": [
     "IsVisible",

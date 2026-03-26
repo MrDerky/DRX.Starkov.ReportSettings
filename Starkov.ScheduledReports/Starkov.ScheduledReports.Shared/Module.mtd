@@ -171,8 +171,8 @@
           "ParameterType": "System.Collections.Generic.Dictionary<global::System.String, global::System.String>"
         }
       ],
-      "ReturnType": "void",
-      "ReturnTypeFullName": "System.Void"
+      "ReturnType": "global::Starkov.ScheduledReports.IReportSetting",
+      "ReturnTypeFullName": "Starkov.ScheduledReports.IReportSetting, Sungero.Domain.Interfaces"
     }
   ],
   "InterfaceAssemblyName": "Sungero.Domain.Interfaces",
