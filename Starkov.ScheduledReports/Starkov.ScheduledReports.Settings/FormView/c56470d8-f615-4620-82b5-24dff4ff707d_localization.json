@@ -1,0 +1,35 @@
+{
+  "ChangesCommands_Caption_f3b0ddcd9d1e4ca38780695ae25a9e8b": {
+    "en-US": "Edit",
+    "ru-RU": "Правка"
+  },
+  "Description": {},
+  "MainPage_Title_16115bc2acfd45c9b7edc72567216aa4": {
+    "en-US": "Properties",
+    "ru-RU": "Свойства"
+  },
+  "Name": {
+    "en-US": "ScheduleLog",
+    "ru-RU": "Журнал расписаний"
+  },
+  "PermanentContextGroup_Caption_e4a2b1c4bb05455f8e43a98645c85354": {
+    "en-US": "Main group",
+    "ru-RU": "Основная группа"
+  },
+  "PermanentContextGroup_Caption_eb7a7f5fc6c14b50ae1cb845b85414ab": {
+    "en-US": "Main group",
+    "ru-RU": "Основная группа"
+  },
+  "Preview_Title_4509df3d9afa4c9a869f43542f1185cf": {
+    "en-US": "Preview",
+    "ru-RU": "Просмотр журнала"
+  },
+  "Search_Caption_1f08362f6a1344cb95905a5b51c85c30": {
+    "en-US": "Search",
+    "ru-RU": "Поиск"
+  },
+  "Send_Caption_ce274de502514b0c8f8d0c61cedf5611": {
+    "en-US": "Send",
+    "ru-RU": "Отправка"
+  }
+}

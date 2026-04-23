@@ -1,0 +1,23 @@
+{
+  "Description": {},
+  "Name": {
+    "en-US": "Schedule Setting",
+    "ru-RU": "Настройка расписания"
+  },
+  "ReportParameters_Caption_9c2f313a10b648bf8fda5064381b18bd": {
+    "en-US": "Report parameters",
+    "ru-RU": "Параметры отчета"
+  },
+  "Schedule_Caption_450962b1e9cf457cb1429182322e69ea": {
+    "en-US": "Schedule",
+    "ru-RU": "Расписание"
+  },
+  "Schedule_Caption_532352e4edc24897b7c6d04633d75aea": {
+    "en-US": "Schedule",
+    "ru-RU": "Расписание"
+  },
+  "SheduleLog_Title_f9e6d71f5ca3415e8a6c03e842590747": {
+    "en-US": "Shedule log",
+    "ru-RU": "Журнал"
+  }
+}
