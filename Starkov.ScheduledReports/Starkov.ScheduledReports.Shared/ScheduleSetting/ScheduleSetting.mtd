@@ -421,7 +421,7 @@
       ],
       "Placement": "Shared",
       "ReturnType": "global::System.Nullable<global::System.DateTime>",
-      "ReturnTypeFullName": "System.Nullable"
+      "ReturnTypeFullName": "System.Nullable`1[[System.DateTime]]"
     },
     {
       "Name": "GetNextPeriod",
@@ -435,12 +435,12 @@
         {
           "Name": "baseDate",
           "ParameterType": "global::System.Nullable<global::System.DateTime>",
-          "ParameterTypeFullName": "System.Nullable"
+          "ParameterTypeFullName": "System.Nullable`1[[System.DateTime]]"
         }
       ],
       "Placement": "Shared",
       "ReturnType": "global::System.Nullable<global::System.DateTime>",
-      "ReturnTypeFullName": "System.Nullable"
+      "ReturnTypeFullName": "System.Nullable`1[[System.DateTime]]"
     },
     {
       "Name": "GetNextPeriod",
@@ -459,12 +459,12 @@
         {
           "Name": "baseDate",
           "ParameterType": "global::System.Nullable<global::System.DateTime>",
-          "ParameterTypeFullName": "System.Nullable"
+          "ParameterTypeFullName": "System.Nullable`1[[System.DateTime]]"
         }
       ],
       "Placement": "Shared",
       "ReturnType": "global::System.Nullable<global::System.DateTime>",
-      "ReturnTypeFullName": "System.Nullable"
+      "ReturnTypeFullName": "System.Nullable`1[[System.DateTime]]"
     },
     {
       "Name": "GetScheduleSetting",
@@ -473,7 +473,7 @@
         {
           "Name": "id",
           "ParameterType": "global::System.Nullable<global::System.Int64>",
-          "ParameterTypeFullName": "System.Nullable"
+          "ParameterTypeFullName": "System.Nullable`1[[System.Int64]]"
         }
       ],
       "Placement": "Shared",

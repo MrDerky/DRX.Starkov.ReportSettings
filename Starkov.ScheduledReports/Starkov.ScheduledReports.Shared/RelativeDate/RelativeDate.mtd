@@ -393,7 +393,7 @@
         {
           "Name": "date",
           "ParameterType": "global::System.Nullable<global::System.DateTime>",
-          "ParameterTypeFullName": "System.Nullable"
+          "ParameterTypeFullName": "System.Nullable`1[[System.DateTime]]"
         }
       ],
       "Placement": "Shared",
@@ -411,12 +411,12 @@
         {
           "Name": "date",
           "ParameterType": "global::System.Nullable<global::System.DateTime>",
-          "ParameterTypeFullName": "System.Nullable"
+          "ParameterTypeFullName": "System.Nullable`1[[System.DateTime]]"
         },
         {
           "Name": "number",
           "ParameterType": "global::System.Nullable<global::System.Int32>",
-          "ParameterTypeFullName": "System.Nullable"
+          "ParameterTypeFullName": "System.Nullable`1[[System.Int32]]"
         }
       ],
       "Placement": "Shared",
@@ -434,7 +434,7 @@
       ],
       "Placement": "Shared",
       "ReturnType": "global::System.Nullable<global::System.DateTime>",
-      "ReturnTypeFullName": "System.Nullable"
+      "ReturnTypeFullName": "System.Nullable`1[[System.DateTime]]"
     },
     {
       "Name": "GetDateFromUIExpression",
@@ -459,7 +459,7 @@
         {
           "Name": "baseDate",
           "ParameterType": "global::System.Nullable<global::System.DateTime>",
-          "ParameterTypeFullName": "System.Nullable"
+          "ParameterTypeFullName": "System.Nullable`1[[System.DateTime]]"
         }
       ],
       "Placement": "Shared",

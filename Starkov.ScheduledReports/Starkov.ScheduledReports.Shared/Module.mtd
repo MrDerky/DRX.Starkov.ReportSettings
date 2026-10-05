@@ -290,7 +290,7 @@
         {
           "Name": "baseDate",
           "ParameterType": "global::System.Nullable<global::System.DateTime>",
-          "ParameterTypeFullName": "System.Nullable"
+          "ParameterTypeFullName": "System.Nullable`1[[System.DateTime]]"
         }
       ],
       "ReturnType": "void",
@@ -350,12 +350,12 @@
         {
           "Name": "ids",
           "ParameterType": "global::System.Collections.Generic.List<global::System.Int64>",
-          "ParameterTypeFullName": "System.Collections.Generic.List"
+          "ParameterTypeFullName": "System.Collections.Generic.List`1[[System.Int64]]"
         }
       ],
       "Placement": "Shared",
       "ReturnType": "global::System.Linq.IQueryable<global::Sungero.Domain.Shared.IEntity>",
-      "ReturnTypeFullName": "System.Linq.IQueryable"
+      "ReturnTypeFullName": "System.Linq.IQueryable`1[[Sungero.Domain.Shared.IEntity, Sungero.Domain.Shared]]"
     },
     {
       "Name": "GetEntitiesByGuid",
@@ -369,7 +369,7 @@
         {
           "Name": "id",
           "ParameterType": "global::System.Nullable<global::System.Int64>",
-          "ParameterTypeFullName": "System.Nullable"
+          "ParameterTypeFullName": "System.Nullable`1[[System.Int64]]"
         }
       ],
       "Placement": "Shared",
@@ -388,7 +388,7 @@
       ],
       "Placement": "Shared",
       "ReturnType": "global::System.Linq.IQueryable<global::Sungero.Domain.Shared.IEntity>",
-      "ReturnTypeFullName": "System.Linq.IQueryable"
+      "ReturnTypeFullName": "System.Linq.IQueryable`1[[Sungero.Domain.Shared.IEntity, Sungero.Domain.Shared]]"
     },
     {
       "Name": "GetModuleReportByGuid",
@@ -416,7 +416,7 @@
         }
       ],
       "ReturnType": "global::System.Collections.Generic.List<global::Starkov.ScheduledReports.Structures.Module.IReportInfo>",
-      "ReturnTypeFullName": "System.Collections.Generic.List"
+      "ReturnTypeFullName": "System.Collections.Generic.List`1[[Starkov.ScheduledReports.Structures.Module.IReportInfo]]"
     },
     {
       "Name": "GetPreviewScheduleLog",
@@ -445,7 +445,7 @@
       "IsRemote": true,
       "Placement": "Shared",
       "ReturnType": "global::System.Linq.IQueryable<global::Starkov.ScheduledReports.IScheduleLog>",
-      "ReturnTypeFullName": "System.Linq.IQueryable"
+      "ReturnTypeFullName": "System.Linq.IQueryable`1[[Starkov.ScheduledReports.IScheduleLog, Sungero.Domain.Interfaces]]"
     },
     {
       "Name": "GetScheduleLogs",
@@ -459,7 +459,7 @@
       ],
       "Placement": "Shared",
       "ReturnType": "global::System.Linq.IQueryable<global::Starkov.ScheduledReports.IScheduleLog>",
-      "ReturnTypeFullName": "System.Linq.IQueryable"
+      "ReturnTypeFullName": "System.Linq.IQueryable`1[[Starkov.ScheduledReports.IScheduleLog, Sungero.Domain.Interfaces]]"
     },
     {
       "Name": "ScheduleLogInterationExecute",
